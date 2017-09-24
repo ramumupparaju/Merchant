@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "695705096084",
+    "firebase_url": "https://radartech-123456.firebaseio.com",
+    "project_id": "radartech-123456",
+    "storage_bucket": "radartech-123456.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:695705096084:android:9ef18a5a3ffd5178",
+        "android_client_info": {
+          "package_name": "com.incon.truecare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "695705096084-ucv4u1ns9qp2qnves805u20mf0kb7quu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAwpSQRi61IxjZrTR_TFVhpEk5ftk3eek"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
