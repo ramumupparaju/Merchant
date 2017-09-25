@@ -76,12 +76,12 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     @Override
     public void navigateToHomePage(LoginResponse loginResponse) {
-        if (loginResponse == null) {
+        /*if (loginResponse == null) {
             clearData();
             return;
         }
 
-        loginPresenter.saveLoginData(loginResponse);
+        loginPresenter.saveLoginData(loginResponse);*/
 
 /*
         PushPresenter pushPresenter = new PushPresenter();
