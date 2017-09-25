@@ -52,10 +52,10 @@
 
 
     <string-array
-        name="symptoms_tab">
-        <item>@string/symptoms</item>
-        <item>@string/tueo_score</item>
-        <item>@string/sensor_data</item>
+        name="history_tab">
+        <item>@string/tab_purchased</item>
+        <item>@string/tab_interest</item>
+        <item>@string/tab_return</item>
     </string-array>
 
     <!-- image capture options -->
