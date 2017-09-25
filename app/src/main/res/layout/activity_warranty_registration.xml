@@ -1,0 +1,197 @@
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <data>
+
+
+        <variable
+            name="warrantyregistration"
+            type="com.incon.connect.ui.warrantyregistration.WarrantyRegistration"/>
+
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            >
+            <TextView
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:id="@+id/tv_modelno"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/action_modelno" />
+
+            <EditText
+                android:layout_weight="1"
+                android:id="@+id/search_view"
+               style="@style/model_number"
+                android:drawableRight="@android:drawable/ic_search_category_default"
+                />
+
+
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+               style="@style/MatchWrap">
+
+                 <ListView
+                     android:id="@+id/list_data"
+                     style="@style/BothWrap" />
+        </LinearLayout>
+
+
+        <ImageView
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="#4f535d"
+            android:layout_width="match_parent"
+            android:layout_height="0.20005dp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/linear_price_details"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/layout_price"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:id="@+id/tv_price"
+                    style="@style/BothWrap"
+                    android:text="@string/action_price" />
+
+                <EditText
+                    android:layout_weight="1"
+                    android:id="@+id/et_price"
+                    style="@style/BothWrap"
+                    />
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#4f535d"
+                android:layout_width="match_parent"
+                android:layout_height="0.20005dp" />
+
+            <LinearLayout
+                android:id="@+id/layout_batchno"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                style="@style/MatchWrap"
+
+                >
+                <TextView
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:id="@+id/tv_batchno"
+
+                    style="@style/BothWrap"
+
+                    android:text="@string/action_batchno" />
+
+                <EditText
+                    android:layout_weight="1"
+                    android:id="@+id/et_batchno"
+                    style="@style/BothWrap"
+                    />
+
+
+
+            </LinearLayout>
+
+            <ImageView
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#4f535d"
+                android:layout_width="match_parent"
+                android:layout_height="0.20005dp" />
+
+            <LinearLayout
+                android:id="@+id/layout_serialno"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal"
+                style="@style/BothWrap"
+
+                >
+                <TextView
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:id="@+id/tv_serialno"
+                    style="@style/BothWrap"
+                    android:text="@string/action_serialno" />
+
+                <EditText
+                    android:layout_weight="1"
+                    android:id="@+id/et_serialno"
+                    style="@style/BothWrap"
+                    />
+
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+
+        <ImageView
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:background="#4f535d"
+            android:layout_width="match_parent"
+            android:layout_height="0.20005dp" />
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            style="@style/MatchWrap"
+            >
+            <Button
+                android:id="@+id/button_submit"
+                android:text="@string/action_submit"
+                android:layout_gravity="center"
+                style="@style/BothWrap"
+                />
+
+            <EditText
+                android:id="@+id/button_otp"
+                android:text="@string/action_otp"
+                android:layout_gravity="center"
+                style="@style/BothWrap" />
+
+
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
+
+    </LinearLayout>
+
+</layout>
+
+

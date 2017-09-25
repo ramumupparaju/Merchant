@@ -23,6 +23,20 @@
         <item name="android:windowExitAnimation">@anim/frag_exit</item>
     </style>
 
+
+    <!--model number-->
+
+
+    <style name="model_number" parent="BothWrap">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginTop">@dimen/margin_10</item>
+        <item name="android:paddingEnd">0dp</item>
+        <item name="android:paddingLeft">@dimen/margin_10</item>
+        <item name="android:paddingRight">0dp</item>
+        <item name="android:paddingStart">@dimen/margin_10</item>
+
+    </style>
+
     <!-- datepicker dialog theme -->
     <style name="DatePickerDialogTheme" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorAccent">@color/colorPrimary</item>

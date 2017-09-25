@@ -8,7 +8,7 @@ import android.text.TextUtils;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
-import com.incon.connect.MainActivity;
+/*import com.incon.connect.MainActivity;*/
 import com.incon.connect.R;
 import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.custom.view.AppAlertDialog;
@@ -18,6 +18,7 @@ import com.incon.connect.dto.login.User;
 import com.incon.connect.ui.BaseActivity;
 import com.incon.connect.ui.changepassword.ChangePasswordActivity;
 import com.incon.connect.ui.forgotpassword.ForgotPasswordActivity;
+import com.incon.connect.ui.home.HomeActivity;
 import com.incon.connect.utils.SharedPrefsUtils;
 
 import static com.incon.connect.AppConstants.ActivityResult.IS_REGISTRATION_SUCCESS;
@@ -88,7 +89,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         pushPresenter.pushRegisterApi();
 */
         loginPresenter.setLoginStatus(true);
-        Intent homeIntent = new Intent(this, MainActivity.class);
+        Intent homeIntent = new Intent(this, HomeActivity.class);
         homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(homeIntent);
         finish();

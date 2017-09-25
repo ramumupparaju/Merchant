@@ -136,4 +136,6 @@ dependencies {
     compile 'net.hockeyapp.android:HockeySDK:4.1.5'
     //rounded imageview
     compile 'de.hdodenhof:circleimageview:2.1.0'
+    //QR and Bar code scanner
+    compile 'me.dm7.barcodescanner:zxing:1.9'
 }

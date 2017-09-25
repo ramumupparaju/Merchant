@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.incon.connect">
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:name="com.incon.connect.ConnectApplication"
@@ -24,12 +25,26 @@
         <activity
             android:name="com.incon.connect.ui.login.LoginActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            />
 
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
+        <activity android:name=".ui.scaning.Qrandbarcodescanner"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+
+            />
+        <activity android:name=".ui.home.HomeActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.warrantyregistration.WarrantyRegistration"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"></activity>
+
+
     </application>
 
 </manifest>

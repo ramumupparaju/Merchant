@@ -9,6 +9,15 @@
     <string name="error_no_connectivity">Looks like you are offline, please check internet
         connectivity</string>
 
+    <!--warrantyregistration-->
+    <string name="action_modelno">Model No</string>
+    <string name="action_price">Price</string>
+    <string name="action_batchno">Batch No</string>
+    <string name="action_serialno">Serial No</string>
+    <string name="action_submit">Submit</string>
+    <string name="action_otp">OTP</string>
+
+
     <!-- actions -->
     <string name="action_changepassword">CHANGE PASSWORD</string>
     <string name="action_back">Back</string>
