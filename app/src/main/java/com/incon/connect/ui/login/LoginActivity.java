@@ -26,7 +26,7 @@ import static com.incon.connect.AppConstants.RequestCodes.REGISTRATION;
 
 public class LoginActivity extends BaseActivity implements LoginContract.View {
 
-    LoginPresenter loginPresenter;
+    private LoginPresenter loginPresenter;
     private ActivityLoginBinding binding;
 
     private static final String TAG = LoginActivity.class.getName();
@@ -52,7 +52,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         binding.setActivity(this);
 
 //        User user = new User();
-        User user = new User("7799879990", "123456");
+        User user = new User("7799879990", "test");
         String emailId = SharedPrefsUtils.loginProvider().
                 getStringPreference(LoginPrefs.EMAIL_ID);
         if (!TextUtils.isEmpty(emailId)) {

@@ -23,7 +23,7 @@ import retrofit2.http.Query;
 public interface AppServiceObservable {
 
 
-    @POST("user/login")
+    @POST("login")
     Observable<LoginResponse> login(@Body User user);
 
     @POST("account/register")

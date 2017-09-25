@@ -5,7 +5,6 @@
 
         <TextView
             android:id="@+id/tab_tv"
-            style="@style/style_tab_text"
-            fontPath="fonts/Raleway-Medium.ttf" />
+            style="@style/style_tab_text" />
     </RelativeLayout>
 </layout>

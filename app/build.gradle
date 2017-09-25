@@ -39,17 +39,17 @@ android {
     productFlavors {
 
         moonz_dev {
-            buildConfigField 'String', 'SERVICE_ENDPOINT', "\"http://ec2-52-11-96-200.us-west-2.compute.amazonaws.com:9999/tcservice/\""
+            buildConfigField 'String', 'SERVICE_ENDPOINT', "\"http://ec2-52-11-96-200.us-west-2.compute.amazonaws.com:9898/connect/\""
             buildConfigField 'boolean', 'LOG_VALUE', 'true'
             resValue "string", "app_name", "Connect dev"
         }
         client_staging {
-            buildConfigField 'String', 'SERVICE_ENDPOINT', "\"http://ec2-52-11-96-200.us-west-2.compute.amazonaws.com:9999/tcservice/\""
+            buildConfigField 'String', 'SERVICE_ENDPOINT', "\"http://ec2-52-11-96-200.us-west-2.compute.amazonaws.com:9898/connect/\""
             buildConfigField 'boolean', 'LOG_VALUE', 'false'
             resValue "string", "app_name", "Connect stage"
         }
         client_production {
-            buildConfigField 'String', 'SERVICE_ENDPOINT', "\"http://ec2-52-11-96-200.us-west-2.compute.amazonaws.com:9999/tcservice/\""
+            buildConfigField 'String', 'SERVICE_ENDPOINT', "\"http://ec2-52-11-96-200.us-west-2.compute.amazonaws.com:9898/connect/\""
             buildConfigField 'boolean', 'LOG_VALUE', 'false'
             resValue "string", "app_name", "Connect pro"
         }

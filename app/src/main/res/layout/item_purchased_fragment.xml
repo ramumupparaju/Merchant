@@ -28,7 +28,7 @@
         <TextView
             android:id="@+id/text_task_time"
             style="@style/BothWrap"
-            fontPath="fonts/Raleway-Bold.ttf"
+            fontPath="fonts/OpenSans-Bold.ttf"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/margin_10"
@@ -38,7 +38,6 @@
         <TextView
             android:id="@+id/text_task_title"
             style="@style/BothWrap"
-            fontPath="fonts/Raleway-Regular.ttf"
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/margin_10"
             android:layout_marginStart="@dimen/margin_10"
