@@ -23,9 +23,27 @@
         <item name="android:windowExitAnimation">@anim/frag_exit</item>
     </style>
 
+    <!--warrenty registation-->
+
+
+    <!--text_field-->
+    <style name="text_field" parent="zerowrap">
+        <item name="android:layout_marginLeft">@dimen/margin_10</item>
+        <item name="android:layout_weight">0.5</item>
+
+    </style>
+
+    <!-- edit_field-->
+    <style name="edit_field" parent="zerowrap">
+
+        <item name="android:maxLines">1</item>
+        <item name="android:background">@drawable/bg_change</item>
+        <item name="android:layout_marginRight">@dimen/margin_20</item>
+        <item name="android:layout_weight">0.5</item>
+
+    </style>
 
     <!--model number-->
-
 
     <style name="model_number" parent="BothWrap">
         <item name="android:layout_gravity">center</item>
@@ -40,6 +58,19 @@
     <!-- datepicker dialog theme -->
     <style name="DatePickerDialogTheme" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
+    <!--warpzero-->
+
+    <!--style wrap_zero-->
+    <style name="Wrapzero">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">0dp</item>
+    </style>
+    <!--style wrap_wrap-->
+    <style name="zerowrap">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 
     <!--style match_match-->
@@ -58,6 +89,11 @@
     <style name="MatchWrap">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+    </style>
+    <!--style view-->
+    <style name="view">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.20005dp</item>
     </style>
 
     <!--style wrap_match-->

@@ -4,13 +4,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <variable
+            name="scanning"
+            type="com.incon.connect.ui.homescan.HomeScanActivity"/>
+
 
         <variable
-            name="scaning"
-            type="com.incon.connect.ui.home.HomeActivity"/>
-        <variable
             name="mobilenumber"
-            type="com.incon.connect.ui.home.HomeActivity"/>
+            type="com.incon.connect.ui.homescan.HomeScanActivity"/>
 
     </data>
 
@@ -34,7 +35,7 @@
             android:text="Scan Customer UID" />
 
         <ImageView
-            android:onClick="@{() -> scaning.onScanningClick()}"
+            android:onClick="@{() -> scanning.onScanningClick()}"
             android:layout_gravity="center"
             android:id="@+id/im_scann"
             android:layout_width="150dp"

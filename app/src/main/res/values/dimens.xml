@@ -43,6 +43,7 @@
     <dimen name="margin_90">90dp</dimen>
     <dimen name="margin_100">100dp</dimen>
     <dimen name="margin_105">105dp</dimen>
+    <dimen name="margin_265">265dp</dimen>
 
     <dimen name="text_size_10">10sp</dimen>
     <dimen name="text_size_11">11sp</dimen>
