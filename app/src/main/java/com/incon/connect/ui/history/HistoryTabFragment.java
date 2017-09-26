@@ -1,5 +1,6 @@
-package com.incon.connect.ui.home.history;
+package com.incon.connect.ui.history;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -16,8 +17,9 @@ import com.incon.connect.databinding.FragmentHistoryTabBinding;
 import com.incon.connect.databinding.ToolBarBinding;
 import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.home.HomeActivity;
-import com.incon.connect.ui.home.history.adapter.HistoryTabPagerAdapter;
-import com.incon.connect.ui.home.history.fragments.PurchasedFragment;
+import com.incon.connect.ui.history.adapter.HistoryTabPagerAdapter;
+import com.incon.connect.ui.history.fragments.PurchasedFragment;
+import com.incon.connect.ui.settings.SettingsActivity;
 
 
 public class HistoryTabFragment extends BaseFragment {
@@ -54,8 +56,17 @@ public class HistoryTabFragment extends BaseFragment {
                 Fragment fragment = adapter.getItem(
                         binding.viewPager.getCurrentItem());
                 if (fragment instanceof PurchasedFragment) {
-
+                    Intent intent = new Intent(getActivity(), SettingsActivity.class);
+                    startActivity(intent);
                 }
+            }
+        });
+
+        toolBarBinding.toolbarRightIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), SettingsActivity.class);
+                startActivity(intent);
             }
         });
 

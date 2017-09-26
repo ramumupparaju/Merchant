@@ -1,11 +1,11 @@
-package com.incon.connect.ui.home.history.adapter;
+package com.incon.connect.ui.history.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.incon.connect.ui.home.fragment.DummyFragment;
-import com.incon.connect.ui.home.history.fragments.PurchasedFragment;
+import com.incon.connect.ui.history.fragments.PurchasedFragment;
 
 import java.util.HashMap;
 

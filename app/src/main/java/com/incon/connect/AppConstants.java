@@ -5,6 +5,7 @@ import java.util.Locale;
 public interface AppConstants {
 
 
+    String BUILD_FLAVOR = "moonz_dev";
     int VALIDATION_SUCCESS = 0;
     int VALIDATION_FAILURE = -1;
     int VALIDATION_ZIPCODE_LENGTH = 5;

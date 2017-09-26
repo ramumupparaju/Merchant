@@ -1,4 +1,4 @@
-package com.incon.connect.ui.home.history.fragments;
+package com.incon.connect.ui.history.fragments;
 
 import android.content.Context;
 import android.os.Bundle;

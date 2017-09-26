@@ -77,12 +77,12 @@
     <!-- Side MenuItems -->
     <string-array
         name="side_menu_items_list">
-        <item>Monitored Person Info</item>
-        <item>Physician Info</item>
+        <item>Profile</item>
+        <!--<item>Physician Info</item>
         <item>Sensor</item>
         <item>FAQ</item>
         <item>Support</item>
-        <item>Change Password</item>
+        <item>Change Password</item>-->
         <item>Logout</item>
     </string-array>
 

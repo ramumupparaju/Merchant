@@ -1,4 +1,4 @@
-package com.incon.connect.ui.home.history.fragments;
+package com.incon.connect.ui.history.fragments;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -16,7 +16,7 @@ import com.incon.connect.databinding.FragmentPurchasedBinding;
 import com.incon.connect.databinding.ToolBarBinding;
 import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.home.HomeActivity;
-import com.incon.connect.ui.home.history.adapter.PurchasedAdapter;
+import com.incon.connect.ui.history.adapter.PurchasedAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

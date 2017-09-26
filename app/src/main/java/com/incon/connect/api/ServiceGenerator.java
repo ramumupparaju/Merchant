@@ -15,6 +15,8 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+import static com.incon.connect.AppConstants.BUILD_FLAVOR;
+
 
 public class ServiceGenerator {
 
@@ -37,7 +39,7 @@ public class ServiceGenerator {
         okHttpBuilder.connectTimeout(TIMEOUT_CONNECT, TimeUnit.SECONDS);
         okHttpBuilder.readTimeout(TIMEOUT_READ, TimeUnit.SECONDS);
 
-        if (BuildConfig.FLAVOR.equals("moonz_dev")) {
+        if (BuildConfig.FLAVOR.equals(BUILD_FLAVOR)) {
             // used to print logs
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
             logging.setLevel(HttpLoggingInterceptor.Level.BODY);

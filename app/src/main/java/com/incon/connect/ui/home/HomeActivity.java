@@ -13,7 +13,7 @@ import com.incon.connect.R;
 import com.incon.connect.databinding.ActivityHomeBinding;
 import com.incon.connect.ui.BaseActivity;
 import com.incon.connect.ui.home.fragment.DummyFragment;
-import com.incon.connect.ui.home.history.HistoryTabFragment;
+import com.incon.connect.ui.history.HistoryTabFragment;
 import com.incon.connect.utils.DeviceUtils;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 

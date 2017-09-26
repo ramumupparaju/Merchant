@@ -1,4 +1,4 @@
-package com.incon.connect.ui.home.history.adapter;
+package com.incon.connect.ui.history.adapter;
 
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
