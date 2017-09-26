@@ -1,43 +1,40 @@
 package com.incon.connect.dto.registration;
 
 import android.databinding.BaseObservable;
-import android.databinding.Bindable;
 
 public class UserInfo extends BaseObservable {
 
-    private String firstName;
-    private String lastName;
-    private String phone;
+    private String name;
+    private String phoneNumber;
+    private String address;
     private String emailId;
     private String password;
+    private Address userAddress;
 
-    public String getFirstName() {
-        return firstName;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    @Bindable
-    public String getLastName() {
-        return lastName;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
-    @Bindable
-    public String getPhone() {
-        return phone;
+    public String getAddress() {
+        return address;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
-    @Bindable
     public String getEmailId() {
         return emailId;
     }
@@ -46,7 +43,6 @@ public class UserInfo extends BaseObservable {
         this.emailId = emailId;
     }
 
-    @Bindable
     public String getPassword() {
         return password;
     }

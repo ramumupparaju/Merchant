@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
+        <activityLAc
             android:name="com.incon.connect.ui.splash.SplashActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTop"
@@ -19,10 +19,15 @@
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-        </activity>
+        </activityLAc>
 
         <activity
             android:name="com.incon.connect.ui.login.LoginActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="com.incon.connect.ui.register.RegistrationActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
 
