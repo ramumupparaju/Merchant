@@ -73,10 +73,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
                 R.layout.tool_bar, null, false);
         setSupportActionBar(toolBarBinding.toolbar);
         toolBarBinding.toolbarTitleTv.setText(R.string.title_history);
-        toolBarBinding.toolbarLeftIv.setVisibility(View.VISIBLE);
-        toolBarBinding.toolbarRightIv.setVisibility(View.VISIBLE);
-        toolBarBinding.toolbarLeftIv.setImageResource(R.drawable.ic_menu_edit_svg);
-        toolBarBinding.toolbarRightIv.setImageResource(R.drawable.ic_right_menu_svg);
 
         toolBarBinding.toolbarLeftIv.setOnClickListener(new View.OnClickListener() {
             @Override
