@@ -191,107 +191,14 @@
     <string name="register_timezone_why_unicode">\u003F</string>
 
 
-    <!-- Dashboard -->
-    <string name="last_updated_value">Last updated %1$s</string>
-    <string name="score_value">Score: %1$d</string>
+    <!--History-->
+    <string name="tab_purchased">Purchased</string>
+    <string name="tab_interest">Interest</string>
+    <string name="tab_return">Return</string>
 
-
-    <!-- Alerts -->
-    <string name="action_prev">Prev</string>
-    <string name="info_wizard_title_0">Let’s Get Started</string>
-    <string name="info_wizard_text_0">This wiard will walk you through setting up your Tueo Health Asthma Sensor. The contents of your box should include an asthma sensor, power cord, bed strap and quick start guide.</string>
-    <string name="alert">Alert</string>
-    <string name="alerts_info_upload_asthma_title">Upload Asthma Action Plan</string>
-    <string name="alerts_info_upload_asthma_subtitle">Would you like to store an image of your Asthma Action Plan?\n\n If you have it handy we recommend you do so.</string>
-    <string name="alerts_info_uploaded_on">Updated on %$s</string>
-    <string name="alerts_info_typical_summary_notices">Notices asthma symptoms. Noticed coughing, hard breathing, and other note. Symptoms do not seem severe. Stopped medication on %$s.</string>
-    <string name="alerts_info_terminal_title">Thanks</string>
-    <string name="alerts_info_terminal_subtitle">We think it would be useful for you to speak with an asthma coach who can help address any issues with your medication.</string>
-    <string name="alerts_info_terminal_nextsteps">Next Steps</string>
-    <string name="alert_slider_stopped_completely">Stopped Completely</string>
-    <string name="no_alerts_found">No Alerts found</string>
-    <string name="no_graph_found">No Graph data found</string>
-
-    <!-- Module Learning -->
-    <string name="learning_title">Learning</string>
-    <string name="learning_tasks_completed_title">Topics Completed</string>
-    <string name="learning_topics_completed_subtitle">Wow! keep exploring to learn more about getting and maintaining control over asthma</string>
-    <string name="learning_recommeded_to_you">Recommended to you</string>
-    <string name="learning_no_recommendations_found">No Recommendations found</string>
-    <string name="learning_no_topics_found">No Topics found</string>
-    <string name="collapsed">collapsed: %s</string>
-    <string name="expanded">expanded: %s</string>
-    <string name="learning_topics_completed_outof">%1$d of %2$d</string>
-    <string name="learning_topics_read_count">%1$d/%2$d  Topics</string>
-    <string name="learning_topics_hit_back_first_time">Get credit for doing the module by reading
-        and clicking Done at the bottom</string>
-
-    <string name="save">SAVE</string>
-    <string name="today">TODAY</string>
-    <string name="cancel">Cancel</string>
-    <string name="done">Done</string>
-
-    <!-- Tools -->
-    <string name="tools_description">A set of handy tools you may along the way for asthma management</string>
-    <string name="take_new_survey">Take new survey</string>
-    <string name="past_survey">Past survey</string>
-    <string name="title_tools_summary_report">Summary Report</string>
-    <string name="tools_contact_asthma_coach">Contact Asthma Coach</string>
-    <string name="thanks">Thanks</string>
-    <string name="request_summary_report">Request Summary Report</string>
-    <string name="label_when">When?</string>
-    <string name="label_what_time">What time?</string>
-    <string name="weekday_mon_fri">Weekday\n(Mon-Fri)</string>
-    <string name="weekend_sat_sun">Weekend\n(Sat-Sun)</string>
-    <string name="morning_8_12">Morning\n(8am-12pm)</string>
-    <string name="afternoon_12_4">Afternoon\n(12pm-4pm)</string>
-    <string name="evening_4_8">Evening\n(4am-8pm)</string>
-    <string name="delete_tueo_summary">Are you sure you want to replace the existing Asthma Action Plan?</string>
-    <string name="delete_aca_survey">Are you sure you want to discard this asthma control assessment?</string>
-    <string name="score">Score</string>
-    <string name="type1_title">No survey done yet.</string>
-    <string name="type1_subtitle">This tool contains a survey used by many asthma doctors to
-        assess asthma control. You will answer a short series of questions about asthma symptom
-        over recent weeks. Taking the survey regularly may help you to better understand and
-        control asthma.</string>
-    <string name="tools_act1_title">Asthma Control Test™</string>
-    <string name="tools_act1">This survey was designed to help you describe your asthma and how your asthma affects how you
-        feel and what you are able to do.\nFor each of the following questions, please select the
-        one response that best describes your answer.</string>
-
-    <string name="tools_act1_title_child">Asthma Control Test Caregiver Report(ACT-CR™)</string>
-    <string name="tools_act1_child">This survey was designed to help you describe your child\'s asthma and how your child\'s asthma
-        affects how he or she feels and what they are able to do.For each of the following
-        questions, please select the one response that best describes how you would describe
-your child\'s asthma.</string>
-    <string name="tools_act2">Asthma Control Test™ © QualityMetric Incorporated 2002, 2004, 2011.
-        All rights reserved.\n\n
-Asthma Control Test™ is a trademark of QualityMetric Incorporated.\n\n
-United States (English) version</string>
-    <string name="tools_act2_child">Asthma Control Test Caregiver Report(ACT-CR™) ©
-        2013, 2017 QualityMetric Incorporated. All rights reserved.\n\n
-ACT-CR™ is a trademark of QualityMetric Incorporated.\n\n
-United States (English) version</string>
-
-
-    <!--calendar events screen-->
-    <string name="tueo_score">Tueo score</string>
-    <string name="sensor_data">Sensor Data</string>
-    <string name="write_additional_note_here">Write additional notes here</string>
-    <string name="more_than_two_symptoms">+%1$d</string>
-
-    <!--Log Symptoms screen-->
-    <string name="progress_symptoms_delete">Symptoms deleting...</string>
-    <string name="progress_symptoms">Symptoms...</string>
-    <string name="progress_log_symptoms">Log Symptoms...</string>
-    <string name="progress_log_symptoms_assessment">Log Symptoms Assessment...</string>
-    <string name="overall_symptoms">OVERALL SYMPTOMS</string>
-    <string name="symptoms">Symptoms</string>
-    <string name="label_notes">Notes</string>
-    <string name="label_symptom_description">Your child’s asthma symptoms on this day</string>
 
     <!-- screen titles -->
-    <string name="title_tracking">Tracking</string>
+    <string name="title_history">History</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_library">Library</string>
     <string name="title_learning">Learning</string>

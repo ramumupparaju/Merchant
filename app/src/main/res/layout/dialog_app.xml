@@ -39,7 +39,7 @@
         android:layout_marginLeft="@dimen/margin_30"
         android:layout_marginRight="@dimen/margin_30"
         android:layout_marginTop="@dimen/margin_3"
-        android:text="@string/cancel" />
+        android:text="@string/action_cancel" />
 
 </LinearLayout>
 

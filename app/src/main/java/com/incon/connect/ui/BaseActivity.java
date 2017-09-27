@@ -6,6 +6,9 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Pair;
 import android.view.ViewGroup;
@@ -34,7 +37,9 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     private AppAlertVerticalTwoButtonsDialog dialog;
 
     protected abstract int getLayoutId();
+
     protected abstract void initializePresenter();
+
     protected abstract void onCreateView(Bundle saveInstanceState);
 
     protected BasePresenter presenter;
@@ -88,13 +93,11 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     public void handleException(Pair<Integer, String> error) {
         if (error.first == 601) {
             updateAppDialog();
-        }
-        else if (error.first == 401 || error.first == 403) {
+        } else if (error.first == 401 || error.first == 403) {
             Logger.e("handleException", "onLogoutCalled() from BA ");
             onLogoutClick();
-        }
-        else {
-           showErrorMessage(error.second);
+        } else {
+            showErrorMessage(error.second);
         }
 
     }
@@ -160,6 +163,81 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
                     Uri.parse("https://play.google.com/store/apps/details?id="
                             + appPackageName)));
         }
+    }
+
+    public void replaceFragmentAndAddToStack(Class<? extends Fragment> claz,
+                                             Bundle bundle) {
+        replaceFragmentAndAddToStackWithTargetFragment(
+                claz, null, -1, bundle, 0, 0, TRANSACTION_TYPE_REPLACE);
+
+    }
+
+    public void replaceFragmentAndAddToStackWithTargetFragment(
+            Class<? extends Fragment> claz,
+            Fragment targetFragment,
+            int targetFragmentRequestCode, Bundle bundle,
+            int animIn, int animOut, int transactionType) {
+        // Code to replace the currently shown fragment with another one
+        replaceFragment(claz, targetFragment,
+                targetFragmentRequestCode, bundle, animIn, animOut, transactionType, true);
+
+    }
+
+    public Fragment replaceFragment(Class<? extends Fragment> claz,
+                                    Bundle bundle) {
+        return replaceFragment(claz, null, -1, bundle, 0, 0, TRANSACTION_TYPE_REPLACE, false);
+
+    }
+
+    @Nullable
+    private Fragment replaceFragment(Class<? extends Fragment> claz, Fragment targetFragment,
+                                     int targetFragmentRequestCode, Bundle bundle,
+                                     int animIn, int animOut, int transactionType, boolean
+                                                 backStack) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        //Fragment fragment = fragmentManager.findFragmentByTag(claz.getCanonicalName());
+        Fragment fragment = null;
+        try {
+            fragment = (Fragment) Class.forName(claz.getCanonicalName()).newInstance();
+        } catch (ClassNotFoundException | InstantiationException
+                | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        if (fragment == null) {
+            return fragment;
+        }
+
+        if (bundle != null) {
+            fragment.setArguments(bundle);
+        }
+
+        if (targetFragment != null && targetFragmentRequestCode != -1) {
+            fragment.setTargetFragment(targetFragment, targetFragmentRequestCode);
+        }
+
+        /*Fragment fragmentByTag = fragmentManager.findFragmentByTag(claz.getCanonicalName());
+        if (fragmentByTag != null) {
+            Logger.e("fragmentTransaction", "fragmentTransaction=removed=" + fragmentByTag);
+            fragmentTransaction.remove(fragmentByTag);
+        }*/
+
+        if (animIn != 0 && animOut != 0) {
+            fragmentTransaction.setCustomAnimations(animIn, animOut);
+        }
+
+        if (transactionType == TRANSACTION_TYPE_ADD) {
+            fragmentTransaction.add(R.id.container, fragment, claz.getCanonicalName());
+        } else if (transactionType == TRANSACTION_TYPE_REMOVE) {
+            fragmentTransaction.remove(fragment);
+        } else {
+            fragmentTransaction.replace(R.id.container, fragment, claz.getCanonicalName());
+        }
+
+        fragmentTransaction.commitAllowingStateLoss();
+
+        fragmentManager.executePendingTransactions();
+        return fragment;
     }
 
 

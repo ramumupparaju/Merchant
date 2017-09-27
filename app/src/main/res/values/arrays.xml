@@ -52,10 +52,10 @@
 
 
     <string-array
-        name="symptoms_tab">
-        <item>@string/symptoms</item>
-        <item>@string/tueo_score</item>
-        <item>@string/sensor_data</item>
+        name="history_tab">
+        <item>@string/tab_purchased</item>
+        <item>@string/tab_interest</item>
+        <item>@string/tab_return</item>
     </string-array>
 
     <!-- image capture options -->
@@ -77,12 +77,12 @@
     <!-- Side MenuItems -->
     <string-array
         name="side_menu_items_list">
-        <item>Monitored Person Info</item>
-        <item>Physician Info</item>
+        <item>Profile</item>
+        <!--<item>Physician Info</item>
         <item>Sensor</item>
         <item>FAQ</item>
         <item>Support</item>
-        <item>Change Password</item>
+        <item>Change Password</item>-->
         <item>Logout</item>
     </string-array>
 

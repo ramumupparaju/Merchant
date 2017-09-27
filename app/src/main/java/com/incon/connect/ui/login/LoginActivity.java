@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
-/*import com.incon.connect.MainActivity;*/
 import com.incon.connect.R;
 import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.custom.view.AppAlertDialog;
@@ -18,7 +17,7 @@ import com.incon.connect.dto.login.User;
 import com.incon.connect.ui.BaseActivity;
 import com.incon.connect.ui.changepassword.ChangePasswordActivity;
 import com.incon.connect.ui.forgotpassword.ForgotPasswordActivity;
-import com.incon.connect.ui.homescan.HomeScanActivity;
+import com.incon.connect.ui.home.HomeActivity;
 import com.incon.connect.utils.SharedPrefsUtils;
 
 import static com.incon.connect.AppConstants.ActivityResult.IS_REGISTRATION_SUCCESS;
@@ -27,7 +26,7 @@ import static com.incon.connect.AppConstants.RequestCodes.REGISTRATION;
 
 public class LoginActivity extends BaseActivity implements LoginContract.View {
 
-    LoginPresenter loginPresenter;
+    private LoginPresenter loginPresenter;
     private ActivityLoginBinding binding;
 
     private static final String TAG = LoginActivity.class.getName();
@@ -53,7 +52,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         binding.setActivity(this);
 
 //        User user = new User();
-        User user = new User("7799879990", "123456");
+        User user = new User("7799879990", "test");
         String emailId = SharedPrefsUtils.loginProvider().
                 getStringPreference(LoginPrefs.EMAIL_ID);
         if (!TextUtils.isEmpty(emailId)) {
@@ -89,7 +88,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         pushPresenter.pushRegisterApi();
 */
         loginPresenter.setLoginStatus(true);
-        Intent homeIntent = new Intent(this, HomeScanActivity.class);
+        Intent homeIntent = new Intent(this, HomeActivity.class);
         homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(homeIntent);
         finish();

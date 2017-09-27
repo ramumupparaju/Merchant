@@ -13,10 +13,11 @@ import com.incon.connect.ui.BaseActivity;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
-public class Qrandbarcodescanner extends BaseActivity implements ZXingScannerView.ResultHandler
-{
+public class Qrandbarcodescanner extends BaseActivity implements ZXingScannerView.ResultHandler,
+        QrandbarcodescannerContract.View {
     private ZXingScannerView mScannerView;
     private static final int PERMISSIONS_REQUEST_CAPTURE_IMAGE = 1;
+    QrandbarcodescannerPresenter qrandbarcodescannerPresenter;
 
 
     protected int getLayoutId() {

@@ -1,0 +1,33 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        style="@style/BothMatch"
+        android:background="@color/wild_sand">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="fill"
+            android:background="@color/colorPrimary"
+            android:fillViewport="true"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="@style/AppTheme"
+            app:tabIndicatorColor="@color/denim"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/white"
+            app:tabTextColor="@color/white"/>
+
+        <com.incon.connect.custom.view.CustomViewPager
+            android:id="@+id/view_pager"
+            style="@style/BothMatch"
+            android:layout_below="@id/tab_layout"
+            app:swipeable="false"
+            app:tabGravity="fill"
+            app:tabMode="fixed">
+
+        </com.incon.connect.custom.view.CustomViewPager>
+
+    </RelativeLayout>
+</layout>

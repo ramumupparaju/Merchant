@@ -1,20 +1,16 @@
 package com.incon.connect.ui.warrantyregistration;
 
-import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.PopupWindow;
+import android.widget.Toast;
 
 import com.incon.connect.R;
 import com.incon.connect.databinding.ActivityWarrantyRegistrationBinding;
@@ -24,9 +20,9 @@ import com.incon.connect.ui.BaseActivity;
  * Created by PC on 9/25/2017.
  */
 
-public class WarrantyRegistration extends BaseActivity {
+public class WarrantyRegistration extends BaseActivity implements WarrantRegistrationContract.View {
+    WarrantRegistrationPresenter warrantRegistrationPresenter;
     private ListView lv;
-    PopupWindow pw;
     ActivityWarrantyRegistrationBinding activityWarrantyRegistrationBinding;
     EditText inputSearch;
     LinearLayout productDetailsLayout;
@@ -42,28 +38,22 @@ public class WarrantyRegistration extends BaseActivity {
 
     }
     public void onFloatingClick() {
-
-       // showPopUp();
-
-    }
-
-    private void showPopUp() {
-        LayoutInflater inflater = (LayoutInflater) WarrantyRegistration.this
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View layout = inflater.inflate(R.layout.popup_floatingbutton,
-                (ViewGroup) findViewById(R.id.popup_float));
-        pw = new PopupWindow(layout, 200, 200, true);
-        // display the popup in the center
-        pw.showAtLocation(layout, Gravity.RIGHT, 0, 0);
+        Toast.makeText(getApplicationContext(), "Floating button click", Toast.LENGTH_LONG).show();
 
 
     }
+
+    public void onSubmitClick() {
+        Toast.makeText(getApplicationContext(), "submit button clicked", Toast.LENGTH_LONG).show();
+
+
+    }
+
 
     @Override
     protected void onCreateView(Bundle saveInstanceState) {
         activityWarrantyRegistrationBinding = DataBindingUtil.setContentView(this, getLayoutId());
         activityWarrantyRegistrationBinding.setWarrantyregistration(this);
-
         lv = (ListView) findViewById(R.id.list_data);
         inputSearch = (EditText) findViewById(R.id.search_view);
         productDetailsLayout = (LinearLayout) findViewById(R.id.linear_price_details);
