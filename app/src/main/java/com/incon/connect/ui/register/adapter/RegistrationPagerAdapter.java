@@ -27,7 +27,7 @@ public class RegistrationPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         if (fragmentHashMap.containsKey(position)) {
-            return (Fragment) fragmentHashMap.get(position);
+            return fragmentHashMap.get(position);
         }
         return null;
     }

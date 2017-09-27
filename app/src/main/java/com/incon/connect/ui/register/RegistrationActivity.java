@@ -2,6 +2,7 @@ package com.incon.connect.ui.register;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
@@ -10,10 +11,11 @@ import com.incon.connect.databinding.ActivityRegistrationBinding;
 import com.incon.connect.databinding.ViewRegistrationBottomButtonsBinding;
 import com.incon.connect.ui.BaseActivity;
 import com.incon.connect.ui.register.adapter.RegistrationPagerAdapter;
+import com.incon.connect.ui.register.fragment.RegistrationStoreFragment;
+import com.incon.connect.ui.register.fragment.RegistrationUserFragment;
 
 
-public class RegistrationActivity extends BaseActivity implements RegistrationContract.View,
-        ViewPageListener {
+public class RegistrationActivity extends BaseActivity implements RegistrationContract.View {
 
     private View rootView;
     public RegistrationPresenter registrationPresenter;
@@ -21,6 +23,28 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
     private ViewRegistrationBottomButtonsBinding buttonsBinding;
     private RegistrationPagerAdapter registrationPagerAdapter;
     private int currentPagePos;
+    private View.OnClickListener buttonClickListner = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.button_left:
+                    navigateToBack();
+                    break;
+                case R.id.button_right:
+                    Fragment currentRegistionFragment = registrationPagerAdapter.getItem(
+                            binding.viewpagerRegister.getCurrentItem());
+                    if (currentRegistionFragment instanceof RegistrationUserFragment) {
+                        ((RegistrationUserFragment) currentRegistionFragment).onClickNext();
+                    } else if (currentRegistionFragment instanceof RegistrationStoreFragment) {
+                        ((RegistrationStoreFragment) currentRegistionFragment).onClickNext();
+                    }
+                    break;
+                default:
+                    //do nothing
+                    break;
+            }
+        }
+    };
 
 
     @Override
@@ -42,6 +66,10 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
         buttonsBinding = binding.includeRegisterBottomButtons;
         rootView = binding.getRoot();
 
+        buttonsBinding.buttonLeft.setOnClickListener(buttonClickListner);
+        buttonsBinding.buttonLeft.setText(getString(R.string.action_back));
+        buttonsBinding.buttonRight.setOnClickListener(buttonClickListner);
+        buttonsBinding.buttonRight.setText(getString(R.string.action_next));
         initializePagerAdapter();
     }
 
@@ -70,16 +98,6 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
         } else {
             finish();
         }
-    }
-
-    @Override
-    public void onNext() {
-            navigateToNext();
-    }
-
-    @Override
-    public void onBack() {
-        navigateToBack();
     }
 
     @Override
