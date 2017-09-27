@@ -15,7 +15,6 @@ import com.incon.connect.callbacks.IClickCallback;
 import com.incon.connect.databinding.FragmentPurchasedBinding;
 import com.incon.connect.databinding.ToolBarBinding;
 import com.incon.connect.ui.BaseFragment;
-import com.incon.connect.ui.home.HomeActivity;
 import com.incon.connect.ui.history.adapter.PurchasedAdapter;
 
 import java.util.ArrayList;
@@ -42,9 +41,8 @@ public class PurchasedFragment extends BaseFragment implements PurchasedContract
         setBasePresenter(purchasedPresenter);
     }
 
-    @Override
     protected void initializeToolBar() {
-        LayoutInflater layoutInflater = getActivity().getLayoutInflater();
+        /*LayoutInflater layoutInflater = getActivity().getLayoutInflater();
         toolBarBinding = DataBindingUtil.inflate(layoutInflater, R.layout.tool_bar, null, false);
         ((HomeActivity) getActivity()).setSupportActionBar(toolBarBinding.toolbar);
         toolBarBinding.toolbarTitleTv.setText(R.string.title_history);
@@ -56,7 +54,7 @@ public class PurchasedFragment extends BaseFragment implements PurchasedContract
             }
         });
 
-        ((HomeActivity) getActivity()).replaceToolBar(toolBarBinding.toolbar);
+        ((HomeActivity) getActivity()).replaceToolBar(toolBarBinding.toolbar);*/
     }
 
     @Override

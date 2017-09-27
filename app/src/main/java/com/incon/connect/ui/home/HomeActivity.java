@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 
 import com.incon.connect.R;
 import com.incon.connect.databinding.ActivityHomeBinding;
+import com.incon.connect.databinding.ToolBarBinding;
 import com.incon.connect.ui.BaseActivity;
 import com.incon.connect.ui.home.fragment.DummyFragment;
 import com.incon.connect.ui.history.HistoryTabFragment;
@@ -62,7 +64,33 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
 
         //hockey app update checking
 //        UpdateManager.register(this);
+        initializeToolBar();
+    }
 
+    protected void initializeToolBar() {
+        LayoutInflater layoutInflater = getLayoutInflater();
+        ToolBarBinding toolBarBinding = DataBindingUtil.inflate(layoutInflater,
+                R.layout.tool_bar, null, false);
+        setSupportActionBar(toolBarBinding.toolbar);
+        toolBarBinding.toolbarTitleTv.setText(R.string.title_history);
+        toolBarBinding.toolbarLeftIv.setVisibility(View.VISIBLE);
+        toolBarBinding.toolbarRightIv.setVisibility(View.VISIBLE);
+        toolBarBinding.toolbarLeftIv.setImageResource(R.drawable.ic_menu_edit_svg);
+        toolBarBinding.toolbarRightIv.setImageResource(R.drawable.ic_right_menu_svg);
+
+        toolBarBinding.toolbarLeftIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showErrorMessage("left");
+            }
+        });
+        toolBarBinding.toolbarRightIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showErrorMessage("right");
+            }
+        });
+        replaceToolBar(toolBarBinding.toolbar);
     }
 
     public void replaceToolBar(View toolBarView) {

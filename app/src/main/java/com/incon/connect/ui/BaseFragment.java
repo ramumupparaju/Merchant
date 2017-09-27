@@ -16,7 +16,6 @@ public abstract class BaseFragment extends Fragment implements BaseView, AppCons
     private View v;
 
     protected abstract void initializePresenter();
-    protected abstract void initializeToolBar();
 
     public boolean doRefresh;
 
@@ -44,7 +43,6 @@ public abstract class BaseFragment extends Fragment implements BaseView, AppCons
     @Override
     public void onResume() {
         super.onResume();
-        initializeToolBar();
     }
 
     public void refreshData(){

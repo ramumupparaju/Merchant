@@ -1,11 +1,9 @@
 package com.incon.connect.ui.history;
 
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +14,7 @@ import com.incon.connect.databinding.CustomTabBinding;
 import com.incon.connect.databinding.FragmentHistoryTabBinding;
 import com.incon.connect.databinding.ToolBarBinding;
 import com.incon.connect.ui.BaseFragment;
-import com.incon.connect.ui.home.HomeActivity;
 import com.incon.connect.ui.history.adapter.HistoryTabPagerAdapter;
-import com.incon.connect.ui.history.fragments.PurchasedFragment;
-import com.incon.connect.ui.settings.SettingsActivity;
 
 
 public class HistoryTabFragment extends BaseFragment {
@@ -35,42 +30,6 @@ public class HistoryTabFragment extends BaseFragment {
 
     @Override
     protected void initializePresenter() {
-    }
-
-    @Override
-    protected void initializeToolBar() {
-        LayoutInflater layoutInflater = getActivity().getLayoutInflater();
-        toolBarBinding = DataBindingUtil.inflate(layoutInflater, R.layout.tool_bar, null, false);
-        ((HomeActivity) getActivity()).setSupportActionBar(toolBarBinding.toolbar);
-        toolBarBinding.toolbarTitleTv.setText(R.string.title_history);
-        toolBarBinding.toolbarLeftIv.setVisibility(View.VISIBLE);
-        toolBarBinding.toolbarRightIv.setVisibility(View.VISIBLE);
-        toolBarBinding.toolbarLeftIv.setImageResource(R.drawable.ic_menu_edit_svg);
-        toolBarBinding.toolbarRightIv.setImageResource(R.drawable.ic_right_menu_svg);
-
-        changeToolbar(binding.viewPager.getCurrentItem());
-
-        toolBarBinding.toolbarLeftIv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Fragment fragment = adapter.getItem(
-                        binding.viewPager.getCurrentItem());
-                if (fragment instanceof PurchasedFragment) {
-                    Intent intent = new Intent(getActivity(), SettingsActivity.class);
-                    startActivity(intent);
-                }
-            }
-        });
-
-        toolBarBinding.toolbarRightIv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), SettingsActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        ((HomeActivity) getActivity()).replaceToolBar(toolBarBinding.toolbar);
     }
 
     @Override
