@@ -1,4 +1,4 @@
-package com.incon.connect.ui.scan;
+package com.incon.connect.ui.qrcodescan;
 
 import android.content.pm.PackageManager;
 import android.os.Bundle;

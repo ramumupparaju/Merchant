@@ -57,7 +57,7 @@
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.scan.QrcodeBarcodeScanActivity"
+            android:name=".ui.qrcodescan.QrcodeBarcodeScanActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
 
