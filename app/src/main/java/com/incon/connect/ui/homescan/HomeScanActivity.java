@@ -3,25 +3,22 @@ package com.incon.connect.ui.homescan;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.incon.connect.R;
 import com.incon.connect.databinding.ActivityHomeScanBinding;
 import com.incon.connect.ui.BaseActivity;
-import com.incon.connect.ui.scaning.Qrandbarcodescanner;
-import com.incon.connect.ui.warrantyregistration.WarrantyRegistration;
+import com.incon.connect.ui.scaning.QrandbarcodescannerActivity;
+import com.incon.connect.ui.warrantyregistration.WarrantyRegistrationActivity;
 
 
 /**
  * Created by PC on 9/25/2017.
  */
 
-public class HomeScanActivity extends BaseActivity {
+public class HomeScanActivity extends BaseActivity implements HomeScanContract.View {
     ActivityHomeScanBinding activityHomeScanBinding;
-    Intent i;
-    TextView tMobilenumber;
-    ImageView imScan;
+    HomeScanPresenter homeScanPresenter;
+   static Intent intent;
 
     @Override
     protected int getLayoutId() {
@@ -35,12 +32,14 @@ public class HomeScanActivity extends BaseActivity {
 
 
     public void onScanningClick() {
-        startActivity(new Intent(HomeScanActivity.this , Qrandbarcodescanner.class));
+        intent = new Intent(HomeScanActivity.this , QrandbarcodescannerActivity.class);
+        startActivity(intent);
 
     }
 
-    public void onTextClick() {
-        startActivity(new Intent(HomeScanActivity.this , WarrantyRegistration.class));
+    public  void onTextClick() {
+        intent = new Intent(HomeScanActivity.this , WarrantyRegistrationActivity.class);
+        startActivity(intent);
 
 
     }
@@ -48,10 +47,7 @@ public class HomeScanActivity extends BaseActivity {
     @Override
     protected void onCreateView(Bundle saveInstanceState) {
         activityHomeScanBinding = DataBindingUtil.setContentView(this, getLayoutId());
-       activityHomeScanBinding.setMobilenumber(this);
-        activityHomeScanBinding.setScanning(this);
-       // imScan = (ImageView) findViewById(R.id.im_scann);
-       // tMobilenumber = (TextView) findViewById(R.id.text_mobilenumber);
+        activityHomeScanBinding.setHomescanactivity(this);
 
     }
 

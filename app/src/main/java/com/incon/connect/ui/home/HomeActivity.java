@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.RelativeLayout;
 
 import com.incon.connect.R;
 import com.incon.connect.databinding.ActivityHomeBinding;
@@ -30,6 +31,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     private View rootView;
     private HomePresenter homePresenter;
     private ActivityHomeBinding binding;
+    RelativeLayout relativeLayout, relaviescannactivity;
 
     private LinkedHashMap<Integer, Fragment> tabFragments = new LinkedHashMap<>();
 
@@ -49,6 +51,12 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     protected void onCreateView(Bundle saveInstanceState) {
         binding = DataBindingUtil.setContentView(this, getLayoutId());
         binding.setActivity(this);
+
+       // HomeScanActivity  homeScanActivity = new HomeScanActivity();
+       // homeScanActivity.onScanningClick();
+       // homeScanActivity.onTextClick();
+       // relativeLayout = (RelativeLayout) findViewById(R.id.relative_toolbarandcontainer);
+       // relaviescannactivity = (RelativeLayout) findViewById(R.id.relative_scanactivity);
 
         rootView = binding.getRoot();
         disableAllAnimation(binding.bottomNavigationView);
@@ -89,6 +97,8 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         switch (selectedItemId) {
             case R.id.action_history:
                 aClass = HistoryTabFragment.class;
+               // relativeLayout.setVisibility(View.GONE);
+               // relaviescannactivity.setVisibility(View.VISIBLE);
                 break;
             case R.id.action_buy_requests_favorites:
                 aClass = DummyFragment.class;

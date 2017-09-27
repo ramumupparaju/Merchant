@@ -17,6 +17,11 @@
     <string name="action_submit">Submit</string>
     <string name="action_otp">OTP</string>
 
+    <!--home_scanning activity-->
+    <string name="action_or">OR</string>
+    <string name="action_scanuid">Scan Customer UID</string>
+    <string name="action_entermobilenumber">Enter Mobile Number</string>
+
 
     <!-- actions -->
     <string name="action_changepassword">CHANGE PASSWORD</string>

@@ -1,208 +1,177 @@
 <layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    >
-
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
-
         <variable
             name="warrantyregistration"
-            type="com.incon.connect.ui.warrantyregistration.WarrantyRegistration"/>
-
+            type="com.incon.connect.ui.warrantyregistration.WarrantyRegistrationActivity"/>
     </data>
-
-
-
-<LinearLayout
-
-    style="@style/BothMatch"
-
-    >
-
     <LinearLayout
-        android:orientation="vertical"
         style="@style/BothMatch"
         >
-
         <LinearLayout
             android:orientation="vertical"
-            style="@style/MatchWrap"
-            >
+            style="@style/BothMatch">
+
             <LinearLayout
-                android:layout_weight="1"
                 android:layout_marginTop="@dimen/margin_10"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 style="@style/MatchWrap"
                 >
-                <TextView
-                    android:id="@+id/tv_modelno"
-                    style="@style/text_field"
-                    android:text="@string/action_modelno" />
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:orientation="horizontal"
+                    style="@style/MatchWrap"
+                    >
+                    <TextView
 
-                <EditText
-                    style="@style/edit_field"
-                    android:id="@+id/search_view"
-                    android:drawableRight="@android:drawable/ic_search_category_default"
-                    />
+                        android:id="@+id/tv_modelno"
+                        style="@style/text_field"
+                        android:text="@string/action_modelno" />
 
-            </LinearLayout>
-            <ImageView
-                android:layout_marginBottom="@dimen/margin_10"
-                android:layout_marginTop="@dimen/margin_10"
-                android:background="@color/edit_background"
-                style="@style/view"/>
-            <LinearLayout
-                android:layout_weight="1"
-                style="@style/MatchWrap">
-                <ListView
-                    android:id="@+id/list_data"
-                    style="@style/BothWrap" />
+                    <EditText
+                        style="@style/edit_field"
+                        android:id="@+id/search_view">
 
-            </LinearLayout>
-            
-        </LinearLayout>
+                    </EditText>
 
-        <LinearLayout
-            android:visibility="gone"
-            android:id="@+id/linear_price_details"
-            android:orientation="vertical"
-            style="@style/MatchWrap">
-            <LinearLayout
 
-                android:layout_weight="1"
-                android:layout_marginTop="@dimen/margin_10"
-                android:orientation="horizontal"
-                style="@style/MatchWrap"
-                >
-
+                </LinearLayout>
+                <View
+                    android:layout_marginBottom="@dimen/margin_10"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:background="@color/edit_background"
+                    style="@style/view"/>
                 <LinearLayout
                     android:layout_weight="1"
                     style="@style/MatchWrap">
+                    <ListView
+                        android:id="@+id/list_data"
+                        style="@style/BothWrap" />
 
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:visibility="gone"
+                android:id="@+id/linear_price_details"
+                android:orientation="vertical"
+                style="@style/MatchWrap">
+                <LinearLayout
+
+                    android:layout_weight="1"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:orientation="horizontal"
+                    style="@style/MatchWrap">
+
+                    <LinearLayout
+                        android:layout_weight="1"
+                        style="@style/MatchWrap">
+                        <TextView
+                            android:id="@+id/tv_price"
+                            style="@style/text_field"
+                            android:text="@string/action_price" />
+                        <EditText
+                            android:inputType="number"
+                            style="@style/edit_field"
+                            android:id="@+id/et_price"
+                            />
+                    </LinearLayout>
+
+                </LinearLayout>
+                <View
+                    android:layout_marginBottom="@dimen/margin_10"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:background="@color/edit_background"
+                    style="@style/view"/>
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:orientation="horizontal"
+                    style="@style/MatchWrap"
+                    >
                     <TextView
-
-                        android:id="@+id/tv_price"
+                        android:id="@+id/tv_batchno"
                         style="@style/text_field"
-                        android:text="@string/action_price" />
+                        android:text="@string/action_batchno" />
+                    <EditText
+                        style="@style/edit_field"
+                        android:id="@+id/et_batchno" />
+
+                </LinearLayout>
+                <View
+                    android:layout_marginBottom="@dimen/margin_10"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:background="@color/edit_background"
+                    style="@style/view"/>
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:orientation="horizontal"
+                    style="@style/MatchWrap">
+                    <TextView
+                        android:id="@+id/tv_serialno"
+                        style="@style/text_field"
+                        android:text="@string/action_serialno" />
+                    <EditText
+                        style="@style/edit_field"
+                        android:id="@+id/et_serialno" />
+
+                </LinearLayout>
+                <View
+                    android:layout_marginBottom="@dimen/margin_10"
+                    android:layout_marginTop="@dimen/margin_10"
+                    android:background="@color/edit_background"
+                    style="@style/view"/>
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_weight="1"
+                style="@style/MatchWrap"
+                >
+                <LinearLayout
+                    android:orientation="vertical"
+                    style="@style/BothMatch"
+                    >
+                    <Button
+                        android:onClick="@{() -> warrantyregistration.onSubmitClick()}"
+                        android:id="@+id/button_submit"
+                        style="@style/submit_button"
+                        />
 
                     <EditText
-                        android:inputType="number"
-                        style="@style/edit_field"
-                        android:id="@+id/et_price"
+                        android:id="@+id/button_otp"
+                        style="@style/otp_button"
                         />
 
                 </LinearLayout>
 
 
-
             </LinearLayout>
-            <ImageView
-                android:layout_marginBottom="@dimen/margin_10"
-                android:layout_marginTop="@dimen/margin_10"
-                android:background="@color/edit_background"
-                style="@style/view"/>
             <LinearLayout
                 android:layout_weight="1"
-                android:layout_marginTop="@dimen/margin_10"
-                android:orientation="horizontal"
                 style="@style/MatchWrap"
                 >
-                <TextView
-                    android:id="@+id/tv_batchno"
-                    style="@style/text_field"
-                    android:text="@string/action_batchno" />
+                <LinearLayout
+                    style="@style/BothMatch"
+                    >
 
-                <EditText
-                    style="@style/edit_field"
-                    android:id="@+id/et_batchno"
-                    />
+                    <android.support.design.widget.FloatingActionButton
+                        android:id="@+id/floating_button"
+                        android:layout_marginLeft="@dimen/margin_265"
+                        android:layout_marginTop="@dimen/margin_10"
+                        style="@style/BothWrap"
+                        android:onClick="@{() -> warrantyregistration.onFloatingClick()}"
+                        android:src="@android:drawable/ic_dialog_email" />
 
-            </LinearLayout>
-            <ImageView
-                android:layout_marginBottom="@dimen/margin_10"
-                android:layout_marginTop="@dimen/margin_10"
-                android:background="@color/edit_background"
-                style="@style/view"/>
-
-            <LinearLayout
-                android:layout_weight="1"
-                android:layout_marginTop="@dimen/margin_10"
-                android:orientation="horizontal"
-                style="@style/MatchWrap"
-                >
-                <TextView
-
-                    android:id="@+id/tv_serialno"
-                    style="@style/text_field"
-                    android:text="@string/action_serialno" />
-
-                <EditText
-                    style="@style/edit_field"
-                    android:id="@+id/et_serialno"
-                    />
-
-            </LinearLayout>
-            <ImageView
-                android:layout_marginBottom="@dimen/margin_10"
-                android:layout_marginTop="@dimen/margin_10"
-                android:background="@color/edit_background"
-                style="@style/view"/>
-
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_weight="1"
-            style="@style/MatchWrap"
-            >
-            <LinearLayout
-                android:orientation="vertical"
-                style="@style/BothMatch"
-                >
-                <Button
-                    android:background="@drawable/btn_login_register_roundedcorner"
-                    android:id="@+id/button_submit"
-                    android:text="@string/action_submit"
-                    android:layout_gravity="center"
-                 android:textColor="@color/colorPrimary"
-                    style="@style/BothWrap"
-                    />
-
-                <EditText
-                    android:layout_marginTop="@dimen/margin_20"
-                    android:maxLines="1"
-                    android:background="@drawable/bg_change"
-                    android:id="@+id/button_otp"
-                    android:text="@string/action_otp"
-                    android:layout_gravity="center"
-                    style="@style/BothWrap" />
+                </LinearLayout>
 
             </LinearLayout>
 
 
         </LinearLayout>
-        <LinearLayout
-            android:layout_weight="1"
-            style="@style/MatchWrap"
-           >
-            <LinearLayout
-                style="@style/BothMatch"
-                >
-
-                <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/floating_button"
-                    android:layout_marginLeft="@dimen/margin_265"
-                    android:layout_marginTop="@dimen/margin_10"
-                    style="@style/BothWrap"
-                    android:onClick="@{() -> warrantyregistration.onFloatingClick()}"
-                    android:src="@android:drawable/ic_dialog_email" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-
-    </LinearLayout>
     </LinearLayout>
 
 

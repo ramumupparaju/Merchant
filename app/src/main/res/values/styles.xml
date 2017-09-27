@@ -23,8 +23,64 @@
         <item name="android:windowExitAnimation">@anim/frag_exit</item>
     </style>
 
-    <!--warrenty registation-->
 
+
+    <!--homescanning activity-->
+
+    <!--text_or-->
+
+
+    <style name="text_or"   parent="BothWrap">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginTop">@dimen/margin_62</item>
+        <item name="android:text">@string/action_or</item>
+        <item name="android:layout_alignStart">@+id/text_scanuid</item>
+    </style>
+
+
+    <!--scan_uidtext-->
+
+
+    <style name="scan_uidtext"   parent="BothWrap">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginTop">@dimen/margin_60</item>
+        <item name="android:text">@string/action_scanuid</item>
+    </style>
+
+
+
+    <!--scan_image-->
+
+
+
+    <style name="scan_image">
+        <item name="android:layout_width">@dimen/margin_150</item>
+        <item name="android:layout_height">@dimen/margin_150</item>
+        <item name="android:layout_below">@+id/text_scanuid</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginTop">86dp</item>
+    </style>
+
+
+    <!--enter_mobilenumber-->
+    <style name="enter_mobilenumber">
+        <item name="android:background">@drawable/bg_change</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_alignStart">@+id/text_scanuid</item>
+        <item name="android:layout_marginTop">@dimen/margin_62</item>
+        <item name="android:textColor">#4f535d</item>
+        <item name="android:text">@string/action_entermobilenumber</item>
+        <item name="android:layout_width">@dimen/margin_250</item>
+        <item name="android:layout_height">@dimen/margin_70</item>
+
+    </style>
+
+    <!--warrenty registation-->
 
     <!--text_field-->
     <style name="text_field" parent="zerowrap">
@@ -71,6 +127,31 @@
     <style name="zerowrap">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!--style otp_button-->
+    <style name="otp_button">
+        <item name="android:layout_width">@dimen/margin_80</item>
+        <item name="android:layout_height">@dimen/margin_30</item>
+        <item name="android:layout_marginTop">@dimen/margin_20</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:background">@drawable/bg_change</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <!--style submit_buttonwh-->
+    <style name="submit_buttonwh">
+        <item name="android:layout_width">@dimen/margin_100</item>
+        <item name="android:layout_height">@dimen/margin_40</item>
+    </style>
+
+    <!--style submit_button-->
+    <style name="submit_button"  parent="submit_buttonwh">
+        <item name="android:background">@drawable/submit_button_bg</item>
+        <item name="android:layout_marginTop">@dimen/margin_35</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:text">@string/action_submit</item>
     </style>
 
     <!--style match_match-->

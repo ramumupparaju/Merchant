@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * Created by PC on 9/27/2017.
  */
 
-public class AddOffer  extends BaseActivity {
+public class AddOfferActivity extends BaseActivity {
     ActivityAddofferBinding addofferBinding;
     ListView listaddoffer;
     ArrayList<String> addanoffermodel = new ArrayList<>();

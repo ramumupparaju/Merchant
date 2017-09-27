@@ -1,6 +1,30 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <data>
+        <variable
+            name="addoffer"
+            type="com.incon.connect.ui.addoffer.AddOfferActivity"/>
 
-</LinearLayout>
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        style="@style/BothMatch">
+        <ListView
+            android:visibility="gone"
+            android:id="@+id/list_addoffer"
+            style="@style/MatchWrap"
+            >
+        </ListView>
+        <Button
+            android:layout_marginTop="350dp"
+            android:background="@drawable/bg_change"
+            android:onClick="@{() -> addoffer.onSelectedClick()}"
+            android:id="@+id/submit_addoffer"
+            android:layout_gravity="center"
+            style="@style/BothWrap"
+            />
+
+    </LinearLayout>
+</layout>

@@ -13,7 +13,7 @@ import com.incon.connect.ui.BaseActivity;
 
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
 
-public class Qrandbarcodescanner extends BaseActivity implements ZXingScannerView.ResultHandler,
+public class QrandbarcodescannerActivity extends BaseActivity implements ZXingScannerView.ResultHandler,
         QrandbarcodescannerContract.View {
     private ZXingScannerView mScannerView;
     private static final int PERMISSIONS_REQUEST_CAPTURE_IMAGE = 1;
@@ -34,7 +34,7 @@ public class Qrandbarcodescanner extends BaseActivity implements ZXingScannerVie
         mScannerView = new ZXingScannerView(this);
         setContentView(mScannerView);
 
-        if (ContextCompat.checkSelfPermission(Qrandbarcodescanner.this,
+        if (ContextCompat.checkSelfPermission(QrandbarcodescannerActivity.this,
                 Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,

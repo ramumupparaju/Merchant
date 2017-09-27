@@ -20,7 +20,7 @@ import com.incon.connect.ui.BaseActivity;
  * Created by PC on 9/25/2017.
  */
 
-public class WarrantyRegistration extends BaseActivity implements WarrantRegistrationContract.View {
+public class WarrantyRegistrationActivity extends BaseActivity implements WarrantRegistrationContract.View {
     WarrantRegistrationPresenter warrantRegistrationPresenter;
     private ListView lv;
     ActivityWarrantyRegistrationBinding activityWarrantyRegistrationBinding;
@@ -70,7 +70,7 @@ public class WarrantyRegistration extends BaseActivity implements WarrantRegistr
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                WarrantyRegistration.this.adapter.getFilter().filter(s);
+                WarrantyRegistrationActivity.this.adapter.getFilter().filter(s);
 
             }
 
