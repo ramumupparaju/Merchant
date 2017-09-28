@@ -15,9 +15,9 @@ import com.incon.connect.custom.view.AppAlertVerticalTwoButtonsDialog;
 import com.incon.connect.databinding.ActivityLoginBinding;
 import com.incon.connect.dto.login.User;
 import com.incon.connect.ui.BaseActivity;
-import com.incon.connect.ui.addoffer.AddOfferActivity;
 import com.incon.connect.ui.changepassword.ChangePasswordActivity;
 import com.incon.connect.ui.forgotpassword.ForgotPasswordActivity;
+import com.incon.connect.ui.home.HomeActivity;
 import com.incon.connect.ui.register.RegistrationActivity;
 import com.incon.connect.utils.SharedPrefsUtils;
 
@@ -89,7 +89,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         pushPresenter.pushRegisterApi();
 */
         loginPresenter.setLoginStatus(true);
-        Intent homeIntent = new Intent(this, AddOfferActivity.class);
+        Intent homeIntent = new Intent(this, HomeActivity.class);
         homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(homeIntent);
         finish();
