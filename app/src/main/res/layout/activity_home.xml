@@ -26,7 +26,7 @@
             android:layout_alignParentBottom="true"
             android:background="@color/white"
             app:itemIconTint="@color/nav_item_selector_color"
-            app:itemTextColor="@color/nav_item_selector_color"
+            app:itemTextColor="@color/text_forgotpassord_selector"
             app:menu="@menu/menu_bottom_navigation" />
 
         <!-- Content Container -->

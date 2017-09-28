@@ -3,26 +3,26 @@
 
     <item
         android:id="@+id/action_history"
-        android:icon="@drawable/ic_nav_dashboard"
-        android:title="" />
+        android:icon="@drawable/ic_tab_history"
+        android:title="@string/title_history" />
 
     <item
         android:id="@+id/action_buy_requests_favorites"
         android:checked="true"
-        android:icon="@drawable/ic_nav_alert"
-        android:title="" />
+        android:icon="@drawable/ic_tab_buy_requests"
+        android:title="@string/title_buy_requests" />
 
     <item
         android:id="@+id/action_scan"
-        android:icon="@drawable/ic_nav_symptoms"
-        android:title="" />
+        android:icon="@drawable/ic_tab_scan"
+        android:title="@string/title_scan" />
     <item
         android:id="@+id/action_offers_status"
-        android:icon="@drawable/ic_nav_message"
-        android:title="" />
+        android:icon="@drawable/ic_tab_offers"
+        android:title="@string/title_offers" />
     <item
         android:id="@+id/action_notifications"
-        android:icon="@drawable/ic_nav_profile"
-        android:title="" />
+        android:icon="@drawable/ic_tab_notifications"
+        android:title="@string/title_notifications" />
 
 </menu>
