@@ -54,6 +54,7 @@
     <string name="error_newpwd_req">New Password is required</string>
     <string name="error_confirmpwd_req">Confirm Password is required</string>
     <string name="error_pwd_notmatched">New and Confirm Password must match</string>
+    <string name="error_name_req">Name is required</string>
     <string name="error_firstname_req">First Name is required</string>
     <string name="error_lastname_req">Last Name is required</string>
     <string name="error_phone_req">Phone is required</string>

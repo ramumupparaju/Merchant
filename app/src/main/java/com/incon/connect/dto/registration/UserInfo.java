@@ -10,7 +10,16 @@ public class UserInfo extends BaseObservable {
     private String emailId;
     private String password;
     private String confirmPassword;
+    private String genderType;
     private Address userAddress;
+
+    public String getGenderType() {
+        return genderType;
+    }
+
+    public void setGenderType(String genderType) {
+        this.genderType = genderType;
+    }
 
     public String getConfirmPassword() {
         return confirmPassword;
