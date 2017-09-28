@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="scantabfragment"
+            type="com.incon.connect.ui.scan.ScanTabFragment" />
+    </data>
+
+    <LinearLayout
+        android:background="@color/wild_sand"
+        android:id="@+id/layout_homescan"
+        style="@style/BothMatch"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_scanuid"
+            style="@style/scan_uidtext" />
+
+        <ImageView
+            android:id="@+id/im_scann"
+            style="@style/scan_image"
+            android:onClick="@{() -> scantabfragment.onScanningClick()}"
+            app:srcCompat="@drawable/ic_connect_logo_svg" />
+
+        <TextView
+            android:id="@+id/text_or"
+            style="@style/text_or" />
+
+        <TextView
+            android:id="@+id/text_mobilenumber"
+            style="@style/enter_mobilenumber"
+            android:onClick="@{() -> scantabfragment.onTextClick()}" />
+
+
+    </LinearLayout>
+
+</layout>

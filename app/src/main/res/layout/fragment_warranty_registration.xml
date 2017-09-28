@@ -3,7 +3,7 @@
     <data>
         <variable
             name="warrantyregistration"
-            type="com.incon.connect.ui.warrantyregistration.WarrantyRegistrationActivity"/>
+            type="com.incon.connect.ui.warrantyregistration.fragment.WarrantyRegistrationFragment"/>
     </data>
     <LinearLayout
         style="@style/BothMatch"
@@ -34,6 +34,7 @@
 
                     </EditText>
 
+
                 </LinearLayout>
                 <View
                     android:layout_marginBottom="@dimen/margin_10"
@@ -45,9 +46,8 @@
                     style="@style/MatchWrap">
                     <ListView
                         android:visibility="gone"
-
                         android:id="@+id/list_data"
-                        style="@style/MatchWrap" />
+                        style="@style/BothWrap" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -56,7 +56,7 @@
                 android:orientation="vertical"
                 style="@style/MatchWrap">
                 <LinearLayout
-                    android:layout_marginBottom="5dp"
+
                     android:layout_weight="1"
                     android:layout_marginTop="@dimen/margin_10"
                     android:orientation="horizontal"
@@ -122,6 +122,8 @@
                     android:background="@color/edit_background"
                     style="@style/view"/>
 
+
+
             </LinearLayout>
 
             <LinearLayout
@@ -142,7 +144,10 @@
                         android:id="@+id/button_otp"
                         style="@style/otp_button"
                         />
+
                 </LinearLayout>
+
+
             </LinearLayout>
             <LinearLayout
                 android:layout_weight="1"
@@ -159,9 +164,12 @@
                         style="@style/BothWrap"
                         android:onClick="@{() -> warrantyregistration.onFloatingClick()}"
                         android:src="@android:drawable/ic_dialog_email" />
+
                 </LinearLayout>
 
             </LinearLayout>
+
+
         </LinearLayout>
     </LinearLayout>
 

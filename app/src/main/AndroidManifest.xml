@@ -29,6 +29,16 @@
             />
 
         <activity
+            android:name="com.incon.connect.ui.register.RegistrationActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name="com.incon.connect.ui.termsandcondition.TermsAndConditionActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"/>
+
+        <activity
             android:name="com.incon.connect.ui.home.HomeActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait">
@@ -44,30 +54,22 @@
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.scaning.QrandbarcodescannerActivity"
+        <activity
+            android:name=".ui.qrcodescan.QrcodeBarcodeScanActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"
+            android:screenOrientation="portrait"/>
 
-            />
         <activity android:name=".ui.warrantyregistration.WarrantyRegistrationActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait">
 
         </activity>
 
-        <activity android:name=".ui.homescan.HomeScanActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait">
-
-        </activity>
-
-
         <activity android:name=".ui.addoffer.AddOfferActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait">
 
         </activity>
-
     </application>
 
 </manifest>

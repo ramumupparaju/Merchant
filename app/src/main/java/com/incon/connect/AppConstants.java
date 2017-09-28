@@ -4,6 +4,7 @@ import java.util.Locale;
 
 public interface AppConstants {
 
+    String TERMS_CONDITIONS_URL = "https://www.google.co.in"; //TODO have to change
 
     String BUILD_FLAVOR = "moonz_dev";
     int VALIDATION_SUCCESS = 0;
@@ -159,6 +160,7 @@ public interface AppConstants {
         int ALERT_ACTIVITIES = 108;
         int REGISTRATION = 109;
         int CHANGE_EMAIL = 110;
+        int TERMS_AND_CONDITIONS = 111;
     }
 
     interface TimeConstants {

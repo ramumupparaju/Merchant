@@ -32,7 +32,7 @@
 
     <style name="text_or"   parent="BothWrap">
         <item name="android:layout_gravity">center</item>
-        <item name="android:layout_marginTop">@dimen/margin_62</item>
+        <item name="android:layout_marginTop">55dp</item>
         <item name="android:text">@string/action_or</item>
         <item name="android:layout_alignStart">@+id/text_scanuid</item>
     </style>
@@ -40,12 +40,11 @@
 
     <!--scan_uidtext-->
 
-
     <style name="scan_uidtext"   parent="BothWrap">
         <item name="android:layout_gravity">center</item>
         <item name="android:layout_alignParentTop">true</item>
         <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:layout_marginTop">@dimen/margin_60</item>
+        <item name="android:layout_marginTop">@dimen/margin_30</item>
         <item name="android:text">@string/action_scanuid</item>
     </style>
 
@@ -61,18 +60,18 @@
         <item name="android:layout_below">@+id/text_scanuid</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:layout_marginTop">86dp</item>
+        <item name="android:layout_marginTop">70dp</item>
     </style>
 
 
     <!--enter_mobilenumber-->
     <style name="enter_mobilenumber">
-        <item name="android:background">@drawable/bg_change</item>
+        <item name="android:background">@drawable/bg_edittext</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:gravity">center</item>
         <item name="android:textAlignment">center</item>
         <item name="android:layout_alignStart">@+id/text_scanuid</item>
-        <item name="android:layout_marginTop">@dimen/margin_62</item>
+        <item name="android:layout_marginTop">55dp</item>
         <item name="android:textColor">#4f535d</item>
         <item name="android:text">@string/action_entermobilenumber</item>
         <item name="android:layout_width">@dimen/margin_250</item>
@@ -93,7 +92,7 @@
     <style name="edit_field" parent="zerowrap">
 
         <item name="android:maxLines">1</item>
-        <item name="android:background">@drawable/bg_change</item>
+        <item name="android:background">@drawable/bg_edittext</item>
         <item name="android:layout_marginRight">@dimen/margin_20</item>
         <item name="android:layout_weight">0.5</item>
 
@@ -135,7 +134,7 @@
         <item name="android:layout_height">@dimen/margin_30</item>
         <item name="android:layout_marginTop">@dimen/margin_20</item>
         <item name="android:maxLines">1</item>
-        <item name="android:background">@drawable/bg_change</item>
+        <item name="android:background">@drawable/bg_edittext</item>
         <item name="android:layout_gravity">center</item>
     </style>
 

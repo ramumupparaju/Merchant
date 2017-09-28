@@ -5,56 +5,24 @@ import android.databinding.Bindable;
 
 public class Register extends BaseObservable {
 
-    private byte roleType;
-    private String verificationCode;
-    private String verifiedEmail = "";
+    private UserInfo userInfo;
+    private StoreInfo storeInfo;
 
-    private RegistrationBody  registrationBody;
+    @Bindable
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
 
-    public Register() {
-        registrationBody = new RegistrationBody();
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
     }
 
     @Bindable
-    public byte getRoleType() {
-        return roleType;
+    public StoreInfo getStoreInfo() {
+        return storeInfo;
     }
 
-    public void setRoleType(byte roleType) {
-        this.roleType = roleType;
+    public void setStoreInfo(StoreInfo storeInfo) {
+        this.storeInfo = storeInfo;
     }
-
-    @Bindable
-    public String getVerificationCode() {
-        return verificationCode;
-    }
-
-    public void setVerificationCode(String verificationCode) {
-        this.verificationCode = verificationCode;
-    }
-
-    @Bindable
-    public RegistrationBody getRegistrationBody() {
-        return registrationBody;
-    }
-
-    @Bindable
-    public Patient getPatient() {
-        return registrationBody.getPatient();
-    }
-
-    @Bindable
-    public boolean isParent() {
-        return roleType == 0;
-    }
-
-    public String getVerifiedEmail() {
-        return verifiedEmail;
-    }
-
-    public void setEmailVerified(String emailVerified) {
-        verifiedEmail = emailVerified;
-    }
-
-
 }

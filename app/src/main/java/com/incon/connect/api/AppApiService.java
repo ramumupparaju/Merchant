@@ -4,15 +4,12 @@ import com.incon.connect.AppConstants;
 import com.incon.connect.BuildConfig;
 import com.incon.connect.apimodel.components.changepassword.ChangePasswordResponse;
 import com.incon.connect.apimodel.components.login.LoginResponse;
-import com.incon.connect.apimodel.components.registration.RegistrationResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
 import com.incon.connect.apimodel.components.registration.ValidateEmailResponse;
 import com.incon.connect.apimodel.components.registration.ValidateOtpResponse;
 import com.incon.connect.custom.exception.NoConnectivityException;
 import com.incon.connect.dto.login.User;
-import com.incon.connect.dto.registration.RegistrationBody;
 import com.incon.connect.utils.NetworkUtil;
-
 
 import java.util.HashMap;
 
@@ -68,9 +65,9 @@ public class AppApiService implements AppConstants {
         return addNetworkCheck(serviceInstance.forgotPassword(email));
     }
 
-    public Observable<RegistrationResponse> register(RegistrationBody registrationBody) {
+    /*public Observable<RegistrationResponse> register(RegistrationBody registrationBody) {
         return addNetworkCheck(serviceInstance.register(registrationBody));
-    }
+    }*/
 
     public Observable<SendOtpResponse> sendOtp(HashMap<String, String> email) {
         return addNetworkCheck(serviceInstance.sendOtp(email));
