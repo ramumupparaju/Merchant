@@ -189,12 +189,6 @@ public class RegistrationUserFragment extends BaseFragment implements
             ((CustomTextInputLayout) view.getParent().getParent())
                     .setError(validationId == VALIDATION_SUCCESS ? null
                             : errorMap.get(validationId));
-
-           /* if (((CustomTextInputLayout)view.getParent().getParent()).getId()
-                    == R.id.input_layout_register_password) {
-                ((CustomTextInputLayout) view.getParent().getParent())
-                        .setError(errorMap.get(validationId));
-            }*/
         } else {
             ((MaterialBetterSpinner) view).setError(validationId == VALIDATION_SUCCESS ? null
                     : errorMap.get(validationId));
@@ -220,8 +214,7 @@ public class RegistrationUserFragment extends BaseFragment implements
             if (registrationTimezone.getName().equals(timeZoneText)) {
                 register.getRegistrationBody().setTimeZone(registrationTimezone.getId());
             }
-        }
-*/
+        }*/
         if (validateFields()) {
             navigateToRegistrationActivityNext();
         }

@@ -141,7 +141,7 @@ public class RegistrationUserFragmentPresenter extends
 
         int fieldId = AppConstants.VALIDATION_FAILURE;
         if (tag == null) {
-            for (int i = 0; i <= 6; i++) {
+            for (int i = 0; i <= 5; i++) {
                 fieldId = validateFields(i, true);
                 if (fieldId != AppConstants.VALIDATION_SUCCESS) {
                     tag = i + "";
