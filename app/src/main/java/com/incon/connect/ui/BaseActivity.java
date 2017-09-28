@@ -1,6 +1,7 @@
 package com.incon.connect.ui;
 
 import android.app.ProgressDialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -9,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.IntentCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Pair;
 import android.view.ViewGroup;
@@ -21,8 +23,6 @@ import com.incon.connect.callbacks.AlertDialogCallback;
 import com.incon.connect.custom.view.AppAlertVerticalTwoButtonsDialog;
 import com.incon.connect.utils.Logger;
 import com.incon.connect.utils.SharedPrefsUtils;
-
-import net.hockeyapp.android.LoginActivity;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -110,10 +110,12 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 
         sharedPrefsUtils.setStringPreference(EMAIL_ID, emailId);
 
-        Intent loginIntent = new Intent(this, LoginActivity.class);
-        loginIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK
-                | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(loginIntent);
+        Intent intent = new Intent(this, com.incon.connect.ui.login.LoginActivity.class);
+        // This is a convenient way to make the proper Intent to launch and
+        // reset an application's task.
+        ComponentName cn = intent.getComponent();
+        Intent mainIntent = IntentCompat.makeRestartActivityTask(cn);
+        startActivity(mainIntent);
         finish();
     }
 

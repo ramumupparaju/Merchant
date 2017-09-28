@@ -1,5 +1,6 @@
 package com.incon.connect.ui.settings;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -14,8 +15,9 @@ import com.incon.connect.custom.view.AppAlertVerticalTwoButtonsDialog;
 import com.incon.connect.databinding.ActivitySettingsBinding;
 import com.incon.connect.dto.settings.SettingsItem;
 import com.incon.connect.ui.BaseActivity;
+import com.incon.connect.ui.changepassword.ChangePasswordActivity;
+import com.incon.connect.ui.register.RegistrationActivity;
 import com.incon.connect.ui.settings.adapters.SettingsAdapter;
-import com.incon.connect.utils.SharedPrefsUtils;
 
 import java.util.ArrayList;
 
@@ -56,12 +58,6 @@ public class SettingsActivity extends BaseActivity implements SettingsContract.V
             }
         });
 
-        // development action
-        binding.buttonDevelopment.setVisibility(View.GONE);
-
-        if (BuildConfig.FLAVOR.equals(BUILD_FLAVOR)) {
-            binding.buttonDevelopment.setVisibility(View.VISIBLE);
-        }
         initViews();
         initializeAdapter();
         prepareMenuData();
@@ -95,8 +91,7 @@ public class SettingsActivity extends BaseActivity implements SettingsContract.V
         menuItems = new ArrayList<>();
         SettingsItem menuItemHeader = new SettingsItem();
         menuItemHeader.setRowType(SettingsAdapter.ROW_TYPE_HEADER);
-        menuItemHeader.setText(SharedPrefsUtils.loginProvider().getStringPreference(
-                LoginPrefs.FIRST_NAME));
+        menuItemHeader.setText("Test");
         menuItems.add(menuItemHeader);
         for (int menuPos = 0; menuPos < menuTitles.length; menuPos++) {
             SettingsItem menuItem = new SettingsItem();
@@ -112,21 +107,20 @@ public class SettingsActivity extends BaseActivity implements SettingsContract.V
         super.onResume();
         if (menuItems != null) {
             SettingsItem menuItemHeader = menuItems.get(0);
-            menuItemHeader.setText(SharedPrefsUtils.loginProvider().getStringPreference(
-                    LoginPrefs.FIRST_NAME));
+            menuItemHeader.setText("Test");
             menuAdapter.setData(menuItems);
         }
     }
 
     @Override
     public void onClickPosition(int position) {
-        /*switch (position) {
+        switch (position) {
             case MenuConstants.PROFILE:
-                Intent userProfileIntent = new Intent(this, UserProfileInfoActivity.class);
+                Intent userProfileIntent = new Intent(this, RegistrationActivity.class);
                 startActivity(userProfileIntent);
                 break;
             case MenuConstants.CHANGE_PWD:
-                Intent changePasswordIntent = new Intent(this, ChangeCurrentPwdActivity.class);
+                Intent changePasswordIntent = new Intent(this, ChangePasswordActivity.class);
                 startActivity(changePasswordIntent);
                 break;
             case MenuConstants.LOGOUT:
@@ -134,7 +128,7 @@ public class SettingsActivity extends BaseActivity implements SettingsContract.V
                 break;
             default:
                 break;
-        }*/
+        }
     }
 
 

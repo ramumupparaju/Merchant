@@ -240,7 +240,7 @@
 
 
     <!--Setup Wizard-->
-    <string name="action_settings">Action settings</string>
+    <string name="action_settings">Settings</string>
 
     <string name="welcome_text">Welcome to the Tueo Health configuration app</string>
     <string name="network_settings">Network settings</string>
