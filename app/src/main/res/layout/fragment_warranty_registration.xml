@@ -6,6 +6,7 @@
             type="com.incon.connect.ui.warrantyregistration.fragment.WarrantyRegistrationFragment"/>
     </data>
     <LinearLayout
+        android:background="@color/white"
         style="@style/BothMatch"
         >
         <LinearLayout
@@ -45,13 +46,13 @@
                     android:layout_weight="1"
                     style="@style/MatchWrap">
                     <ListView
-                        android:visibility="gone"
                         android:id="@+id/list_data"
                         style="@style/BothWrap" />
 
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/linear_price_details"
                 android:orientation="vertical"
                 style="@style/MatchWrap">

@@ -17,6 +17,7 @@ import com.incon.connect.databinding.ToolBarBinding;
 import com.incon.connect.ui.BaseActivity;
 import com.incon.connect.ui.home.fragment.DummyFragment;
 import com.incon.connect.ui.history.HistoryTabFragment;
+import com.incon.connect.ui.qrcodescan.QrcodeBarcodeScanActivity;
 import com.incon.connect.ui.scan.ScanTabFragment;
 import com.incon.connect.ui.settings.SettingsActivity;
 import com.incon.connect.utils.DeviceUtils;
@@ -85,7 +86,8 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         toolBarBinding.toolbarRightIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showErrorMessage("right");
+                Intent intent = new Intent(HomeActivity.this, QrcodeBarcodeScanActivity.class);
+                startActivity(intent);
             }
         });
         replaceToolBar(toolBarBinding.toolbar);

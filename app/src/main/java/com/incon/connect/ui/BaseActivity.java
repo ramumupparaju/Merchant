@@ -182,13 +182,11 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         // Code to replace the currently shown fragment with another one
         replaceFragment(claz, targetFragment,
                 targetFragmentRequestCode, bundle, animIn, animOut, transactionType, true);
-
     }
 
     public Fragment replaceFragment(Class<? extends Fragment> claz,
                                     Bundle bundle) {
         return replaceFragment(claz, null, -1, bundle, 0, 0, TRANSACTION_TYPE_REPLACE, false);
-
     }
 
     @Nullable
@@ -218,16 +216,9 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
             fragment.setTargetFragment(targetFragment, targetFragmentRequestCode);
         }
 
-        /*Fragment fragmentByTag = fragmentManager.findFragmentByTag(claz.getCanonicalName());
-        if (fragmentByTag != null) {
-            Logger.e("fragmentTransaction", "fragmentTransaction=removed=" + fragmentByTag);
-            fragmentTransaction.remove(fragmentByTag);
-        }*/
-
         if (animIn != 0 && animOut != 0) {
             fragmentTransaction.setCustomAnimations(animIn, animOut);
         }
-
         if (transactionType == TRANSACTION_TYPE_ADD) {
             fragmentTransaction.add(R.id.container, fragment, claz.getCanonicalName());
         } else if (transactionType == TRANSACTION_TYPE_REMOVE) {
@@ -235,12 +226,11 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         } else {
             fragmentTransaction.replace(R.id.container, fragment, claz.getCanonicalName());
         }
-
+        if (backStack) {
+            fragmentTransaction.addToBackStack(targetFragment.getClass().getName());
+        }
         fragmentTransaction.commitAllowingStateLoss();
-
         fragmentManager.executePendingTransactions();
         return fragment;
     }
-
-
 }
