@@ -31,7 +31,9 @@
         <activity
             android:name="com.incon.connect.ui.register.RegistrationActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize">
+        </activity>
 
         <activity
             android:name="com.incon.connect.ui.termsandcondition.TermsAndConditionActivity"

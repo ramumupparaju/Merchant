@@ -24,6 +24,7 @@ public interface AppConstants {
     }
 
     interface RegistrationValidation {
+        int NAME_REQ = 1;
         int FIRSTNAME_REQ = 1;
         int LASTNAME_REQ = 2;
         int PHONE_REQ = 3;

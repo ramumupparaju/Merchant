@@ -8,6 +8,11 @@ public class Register extends BaseObservable {
     private UserInfo userInfo;
     private StoreInfo storeInfo;
 
+    public Register() {
+        userInfo = new UserInfo();
+        storeInfo = new StoreInfo();
+    }
+
     @Bindable
     public UserInfo getUserInfo() {
         return userInfo;
