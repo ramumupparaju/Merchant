@@ -77,7 +77,7 @@
     <!-- Side MenuItems -->
     <string-array
         name="side_menu_items_list">
-        <item>Profile</item>
+        <item>@string/title_menu_change_password</item>
         <!--<item>Physician Info</item>
         <item>Sensor</item>
         <item>FAQ</item>

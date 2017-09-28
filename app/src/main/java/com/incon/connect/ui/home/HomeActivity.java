@@ -1,5 +1,6 @@
 package com.incon.connect.ui.home;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.widget.RelativeLayout;
 
 import com.incon.connect.R;
 import com.incon.connect.databinding.ActivityHomeBinding;
@@ -18,6 +18,7 @@ import com.incon.connect.ui.BaseActivity;
 import com.incon.connect.ui.home.fragment.DummyFragment;
 import com.incon.connect.ui.history.HistoryTabFragment;
 import com.incon.connect.ui.scan.ScanTabFragment;
+import com.incon.connect.ui.settings.SettingsActivity;
 import com.incon.connect.utils.DeviceUtils;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
@@ -34,7 +35,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     private View rootView;
     private HomePresenter homePresenter;
     private ActivityHomeBinding binding;
-    RelativeLayout relativeLayout, relaviescannactivity;
 
     private LinkedHashMap<Integer, Fragment> tabFragments = new LinkedHashMap<>();
 
@@ -55,19 +55,11 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         binding = DataBindingUtil.setContentView(this, getLayoutId());
         binding.setActivity(this);
 
-       // HomeScanActivity  homeScanActivity = new HomeScanActivity();
-       // homeScanActivity.onScanningClick();
-       // homeScanActivity.onTextClick();
-       // relativeLayout = (RelativeLayout) findViewById(R.id.relative_toolbarandcontainer);
-       // relaviescannactivity = (RelativeLayout) findViewById(R.id.relative_scanactivity);
-
         rootView = binding.getRoot();
         disableAllAnimation(binding.bottomNavigationView);
         binding.bottomNavigationView.setTextVisibility(false);
         setBottomNavigationViewListeners();
         handleBottomViewOnKeyBoardUp();
-
-        replaceFragment(DummyFragment.class, null);
 
         binding.bottomNavigationView.setCurrentItem(TAB_HISTORY);
 
@@ -86,7 +78,8 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         toolBarBinding.toolbarLeftIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showErrorMessage("left");
+                startActivity(new Intent(HomeActivity.this, SettingsActivity.class));
+
             }
         });
         toolBarBinding.toolbarRightIv.setOnClickListener(new View.OnClickListener() {
@@ -122,8 +115,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         switch (selectedItemId) {
             case R.id.action_history:
                 aClass = HistoryTabFragment.class;
-               // relativeLayout.setVisibility(View.GONE);
-               // relaviescannactivity.setVisibility(View.VISIBLE);
                 break;
             case R.id.action_buy_requests_favorites:
                 aClass = DummyFragment.class;

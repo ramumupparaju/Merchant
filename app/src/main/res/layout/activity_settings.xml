@@ -35,18 +35,7 @@
                     android:textColor="@color/white"
                     android:textSize="15.4sp"
                     fontPath="fonts/OpenSans-Bold.ttf"
-                    />
-                <Button
-                    android:id="@+id/button_development"
-                    style="@style/BothWrap"
-                    android:text="Development"
-                    android:textAllCaps="false"
-                    android:textSize="14sp"
-                    android:textColor="@color/black"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="15dp"
-                    fontPath="fonts/OpenSans-Regular.ttf"
+                    android:text="@string/action_settings"
                     />
 
             </RelativeLayout>
