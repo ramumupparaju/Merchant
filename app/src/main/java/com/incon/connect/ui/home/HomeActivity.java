@@ -17,6 +17,7 @@ import com.incon.connect.databinding.ToolBarBinding;
 import com.incon.connect.ui.BaseActivity;
 import com.incon.connect.ui.home.fragment.DummyFragment;
 import com.incon.connect.ui.history.HistoryTabFragment;
+import com.incon.connect.ui.scan.ScanTabFragment;
 import com.incon.connect.utils.DeviceUtils;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
@@ -128,7 +129,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
                 aClass = DummyFragment.class;
                 break;
             case R.id.action_scan:
-                aClass = DummyFragment.class;
+                aClass = ScanTabFragment.class;
                 break;
             case R.id.action_offers_status:
                 aClass = DummyFragment.class;

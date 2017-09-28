@@ -13,7 +13,6 @@ import com.incon.connect.R;
 import com.incon.connect.apimodel.components.history.purchased.PurchasedResponse;
 import com.incon.connect.callbacks.IClickCallback;
 import com.incon.connect.databinding.FragmentPurchasedBinding;
-import com.incon.connect.databinding.ToolBarBinding;
 import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.history.adapter.PurchasedAdapter;
 
@@ -30,7 +29,6 @@ public class PurchasedFragment extends BaseFragment implements PurchasedContract
     private View rootView;
     private PurchasedPresenter purchasedPresenter;
     private FragmentPurchasedBinding binding;
-    private ToolBarBinding toolBarBinding;
     private PurchasedAdapter purchasedAdapter;
     private List<PurchasedResponse> purchasedList;
 

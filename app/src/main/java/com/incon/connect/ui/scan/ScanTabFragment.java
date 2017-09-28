@@ -1,146 +1,67 @@
-package com.incon.connect.ui.history;
+package com.incon.connect.ui.scan;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.incon.connect.R;
-import com.incon.connect.custom.view.CustomViewPager;
-import com.incon.connect.databinding.CustomTabBinding;
-import com.incon.connect.databinding.FragmentHistoryTabBinding;
-import com.incon.connect.databinding.ToolBarBinding;
+import com.incon.connect.databinding.FragmentScanTabBinding;
 import com.incon.connect.ui.BaseFragment;
-import com.incon.connect.ui.history.adapter.HistoryTabPagerAdapter;
+import com.incon.connect.ui.home.HomeActivity;
+import com.incon.connect.ui.qrcodescan.QrcodeBarcodeScanActivity;
+import com.incon.connect.ui.warrantyregistration.fragment.WarrantyRegistrationFragment;
 
 
-public class HistoryTabFragment extends BaseFragment {
+public class ScanTabFragment extends BaseFragment {
 
-    private static final String TAG = HistoryTabFragment.class.getSimpleName();
-    private FragmentHistoryTabBinding binding;
-    private ToolBarBinding toolBarBinding;
+    private static final String TAG = ScanTabFragment.class.getSimpleName();
+    private FragmentScanTabBinding binding;
     private View rootView;
-    private Typeface defaultTypeFace;
-    private Typeface selectedTypeFace;
-    private String[] tabTitles;
-    private HistoryTabPagerAdapter adapter;
+    ImageView imageView;
+    TextView textView;
 
     @Override
     protected void initializePresenter() {
     }
-
     @Override
     protected View onPrepareView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
+
         if (rootView == null) {
             binding = DataBindingUtil.inflate(
-                    inflater, R.layout.fragment_history_tab, container, false);
+                    inflater, R.layout.fragment_scan_tab, container, false);
             rootView = binding.getRoot();
+            imageView = (ImageView) rootView.findViewById(R.id.im_scann);
+            textView = (TextView) rootView.findViewById(R.id.text_mobilenumber);
             initViews();
         }
+        System.out.println("Click oncreate called ");
 
         return rootView;
     }
-
-    private void initViews() {
-        initActionBar();
-        initViewPager();
-    }
-
-
-    private void initActionBar() {
-    }
-
-
-    private void initViewPager() {
-
-        defaultTypeFace = Typeface.createFromAsset(getActivity().getAssets(),
-                "fonts/OpenSans-Regular.ttf");
-
-        selectedTypeFace = Typeface.createFromAsset(getActivity().getAssets(),
-                "fonts/OpenSans-Bold.ttf");
-
-        tabTitles = getResources().getStringArray(R.array.history_tab);
-
-
-        final CustomViewPager customViewPager = binding.viewPager;
-        final TabLayout tabLayout = binding.tabLayout;
-
-        setTabIcons();
-        changeTitleFont(0);
-
-        //set up ViewPager
-        adapter = new HistoryTabPagerAdapter(
-                getFragmentManager(), tabLayout.getTabCount());
-        customViewPager.setAdapter(adapter);
-
-        customViewPager.addOnPageChangeListener(
-                new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-
-                int position = tab.getPosition();
-                customViewPager.setCurrentItem(position);
-                changeTitleFont(position);
-                changeToolbar(position);
-            }
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-            }
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
+    public void initViews(){
 
     }
 
-    private void changeToolbar(int position) {
-        if (toolBarBinding == null) {
-            return;
-        }
-        switch (position) {
-            case 0:
-                toolBarBinding.toolbarLeftIv.setVisibility(View.VISIBLE);
-                toolBarBinding.toolbarRightIv.setVisibility(View.VISIBLE);
-                break;
-            case 1:
-            case 2:
-                toolBarBinding.toolbarLeftIv.setVisibility(View.GONE);
-                toolBarBinding.toolbarRightIv.setVisibility(View.VISIBLE);
-                break;
-            default:
-                break;
-        }
+
+
+    public void onScanningClick() {
+        System.out.println("Click Event method should be called ");
+        Intent intent = new Intent(getActivity(), QrcodeBarcodeScanActivity.class);
+        startActivity(intent);
+
     }
 
-
-    private void changeTitleFont(int position) {
-        for (int i = 0; i < tabTitles.length; i++) {
-            View view = binding.tabLayout.getTabAt(i).getCustomView();
-            CustomTabBinding customTabView = DataBindingUtil.bind(view);
-            customTabView.tabTv.setTypeface(i == position
-                    ? selectedTypeFace
-                    : defaultTypeFace);
-        }
-    }
-
-    private void setTabIcons() {
-        TabLayout tabLayout = binding.tabLayout;
-        for (int i = 0; i < tabTitles.length; i++) {
-            CustomTabBinding customTabView = getCustomTabView();
-            customTabView.tabTv.setText(tabTitles[i]);
-            tabLayout.addTab(tabLayout.newTab().setCustomView(customTabView.getRoot()));
-        }
-    }
-
-
-    private CustomTabBinding getCustomTabView() {
-        return DataBindingUtil.inflate(
-                LayoutInflater.from(getActivity()), R.layout.custom_tab, null, false);
+    public void onTextClick() {
+        System.out.println("Click Edit Event method should be called ");
+        ((HomeActivity) getActivity()).replaceFragmentAndAddToStack(
+                WarrantyRegistrationFragment.class, null);
+       /* Intent intent = new Intent(getActivity(), WarrantyRegistrationActivity.class);
+        startActivity(intent);*/
     }
 }

@@ -20,11 +20,12 @@ import com.incon.connect.ui.BaseActivity;
  * Created by PC on 9/25/2017.
  */
 
-public class WarrantyRegistrationActivity extends BaseActivity implements WarrantRegistrationContract.View {
+public class WarrantyRegistrationActivity extends BaseActivity implements
+        WarrantRegistrationContract.View {
     WarrantRegistrationPresenter warrantRegistrationPresenter;
     private ListView lv;
     ActivityWarrantyRegistrationBinding activityWarrantyRegistrationBinding;
-    EditText inputSearch;
+    EditText inputSearch, priceEdit, batchEdit, serialnoEdit;
     LinearLayout productDetailsLayout;
     ArrayAdapter<String> adapter;
     String products[] = {"Samsung", "Redmi", "Moto"};
@@ -39,6 +40,7 @@ public class WarrantyRegistrationActivity extends BaseActivity implements Warran
     }
     public void onFloatingClick() {
         Toast.makeText(getApplicationContext(), "Floating button click", Toast.LENGTH_LONG).show();
+        inputSearch.setText("");
 
 
     }

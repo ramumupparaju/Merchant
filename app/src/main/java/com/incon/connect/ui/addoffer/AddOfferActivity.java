@@ -6,13 +6,17 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.incon.connect.R;
+import com.incon.connect.custom.view.AddOfferViewHolder;
 import com.incon.connect.databinding.ActivityAddofferBinding;
+import com.incon.connect.dto.addoffer.AddOffer;
 import com.incon.connect.ui.BaseActivity;
+import com.incon.connect.ui.addoffer.adapter.AddOfferAdapter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by PC on 9/27/2017.
@@ -21,9 +25,8 @@ import java.util.ArrayList;
 public class AddOfferActivity extends BaseActivity {
     ActivityAddofferBinding addofferBinding;
     ListView listaddoffer;
-    ArrayList<String> addanoffermodel = new ArrayList<>();
-    String[] selection = {"brand" , "division" , "model" , "date" , "Add an Offer on MRP" ,
-            "Offer ecpires on"};
+    private ArrayAdapter<AddOffer> addofferAdapter;
+    private AddOffer[] addOffers;
 
 
     @Override
@@ -35,15 +38,16 @@ public class AddOfferActivity extends BaseActivity {
     protected void initializePresenter() {
 
     }
+    public void onSelectedClick() {
 
-    public  void onSelectedClick() {
-        String selection = "";
-        for (String item : addanoffermodel) {
-            selection += " " + item + "\n";
+        for (int i = 0; i < addofferAdapter.getCount(); i++) {
+            AddOffer addOffer = addofferAdapter.getItem(i);
+            if (addOffer.isChecked()) {
+                Toast.makeText(getApplicationContext(),
+                        addOffer.getName() + " is Checked!!",
+                        Toast.LENGTH_SHORT).show();
+            }
         }
-        /*Toast.makeText(getApplicationContext(),"tou selected\n" +selection, Toast.LENGTH_LONG)
-                .show();*/
-
 
     }
 
@@ -53,26 +57,32 @@ public class AddOfferActivity extends BaseActivity {
         addofferBinding = DataBindingUtil.setContentView(this, getLayoutId());
         addofferBinding.setAddoffer(this);
         listaddoffer = (ListView) findViewById(R.id.list_addoffer);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.custom_checkbox ,
-                R.id.checkbox_click);
-        listaddoffer.setAdapter(adapter);
-        listaddoffer.setItemsCanFocus(false);
-        // we want multiple clicks
-        listaddoffer.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-
         listaddoffer.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String selectItem = ((TextView) view).getText().toString();
-                if (addanoffermodel.contains(selectItem)) {
 
-                    addanoffermodel.remove(selectItem);
-                }
-                else
-                    addanoffermodel.add(selectItem);
-
+                AddOffer planet = addofferAdapter.getItem(position);
+                planet.toggleChecked();
+                AddOfferViewHolder viewHolder = (AddOfferViewHolder) view
+                        .getTag();
+                viewHolder.getCheckBox().setChecked(planet.isChecked());
             }
         });
+        addOffers = (AddOffer[]) getLastNonConfigurationInstance();
+        if (addOffers == null) {
+            addOffers = new AddOffer[] {
+                    new AddOffer("Brand"), new AddOffer("Division"), new AddOffer("Model"),
+                            new AddOffer("Date"), new AddOffer("Add an Offer on MRP: %"),
+                            new AddOffer("Offer expires on")};
+        }
+        ArrayList<AddOffer> addOfferArrayList = new ArrayList<AddOffer>();
+        addOfferArrayList.addAll(Arrays.asList(addOffers));
+
+        addofferAdapter = new AddOfferAdapter(this, addOfferArrayList);
+        listaddoffer.setAdapter(addofferAdapter);
+
+
+
 
     }
 }

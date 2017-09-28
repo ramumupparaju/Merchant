@@ -7,7 +7,7 @@ import android.os.Bundle;
 import com.incon.connect.R;
 import com.incon.connect.databinding.ActivityHomeScanBinding;
 import com.incon.connect.ui.BaseActivity;
-import com.incon.connect.ui.scaning.QrandbarcodescannerActivity;
+import com.incon.connect.ui.qrcodescan.QrcodeBarcodeScanActivity;
 import com.incon.connect.ui.warrantyregistration.WarrantyRegistrationActivity;
 
 
@@ -32,7 +32,7 @@ public class HomeScanActivity extends BaseActivity implements HomeScanContract.V
 
 
     public void onScanningClick() {
-        intent = new Intent(HomeScanActivity.this , QrandbarcodescannerActivity.class);
+        intent = new Intent(HomeScanActivity.this , QrcodeBarcodeScanActivity.class);
         startActivity(intent);
 
     }
