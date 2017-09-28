@@ -170,7 +170,7 @@
         <item name="android:paddingLeft">10dp</item>
         <item name="android:paddingRight">10dp</item>
         <item name="android:minWidth">10dp</item>
-        <item name="fontPath">fonts/Raleway-Medium.ttf</item>
+        <item name="fontPath">fonts/OpenSans-Medium.ttf</item>
     </style>
 
     <style name="style_calendar_events_symptom_delete_buttons" parent="style_calendar_events_item_symptom_buttons">
@@ -205,7 +205,7 @@
         <item name="android:minWidth">10dp</item>
         <item name="android:minHeight">10dp</item>
         <item name="android:layout_margin">5dp</item>
-        <item name="fontPath">fonts/Raleway-Medium.ttf</item>
+        <item name="fontPath">fonts/OpenSans-Medium.ttf</item>
     </style>
 
     <style name="style_tueo_button" parent="MatchWrap">

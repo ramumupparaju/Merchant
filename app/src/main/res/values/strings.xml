@@ -150,9 +150,9 @@
     <string name="eula_title">End User License Agreement</string>
 
     <!-- Registration -->
-    <string name="register_type_title">Choose one of the following:</string>
     <string name="register_userinfo_title">User Information</string>
-    <string name="register_userinfo_subtitle">Please enter information for the person who will be\n using the app.</string>
+    <string name="register_userinfo_subtitle">Please enter information for the person who will be using the app.</string>
+    <string name="register_name_hint">Name</string>
     <string name="register_firstname_hint">First Name</string>
     <string name="register_lastname_hint">Last Name</string>
     <string name="register_phone_hint">Phone</string>

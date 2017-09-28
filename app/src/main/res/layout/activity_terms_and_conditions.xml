@@ -38,7 +38,7 @@
         <!-- register button -->
         <Button
             android:id="@+id/button_register"
-            fontPath="fonts/Raleway-Bold.ttf"
+            fontPath="fonts/OpenSans-Bold.ttf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
