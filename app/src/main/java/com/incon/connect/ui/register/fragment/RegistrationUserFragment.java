@@ -1,7 +1,6 @@
 package com.incon.connect.ui.register.fragment;
 
 import android.databinding.DataBindingUtil;
-import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.util.Pair;
@@ -27,7 +26,6 @@ import java.util.List;
 
 /**
  * Created on 13 Jun 2017 4:01 PM.
- *
  */
 public class RegistrationUserFragment extends BaseFragment implements
         RegistrationUserStoreFragmentContract.View {
@@ -196,11 +194,7 @@ public class RegistrationUserFragment extends BaseFragment implements
 
         if (validationId != VALIDATION_SUCCESS) {
             view.startAnimation(shakeAnim);
-
-            // View needs a focus
-            view.requestFocus();
-            final Rect rect = new Rect(0, 0, view.getWidth(), view.getHeight());
-            view.requestRectangleOnScreen(rect, false);
+            ((RegistrationActivity) getActivity()).focusOnView(binding.scrollviewUserInfo, view);
         }
     }
 

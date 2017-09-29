@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.ScrollView;
 
 import com.incon.connect.R;
 import com.incon.connect.databinding.ActivityRegistrationBinding;
@@ -148,6 +149,14 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
         }
     };
 
+    public void focusOnView(final ScrollView scrollView, final View editTextView) {
+        scrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                scrollView.smoothScrollTo(0, editTextView.getTop());
+            }
+        });
+    }
 
     @Override
     protected void onDestroy() {
