@@ -11,6 +11,7 @@
       android:background="@android:color/white">
         <android.support.v7.widget.CardView
             style="@style/BothMatch"
+            app:cardCornerRadius="@dimen/margin_10"
             android:layout_marginTop="@dimen/margin_180"
             android:layout_marginBottom="@dimen/margin_190"
             android:layout_marginRight="@dimen/margin_45"
