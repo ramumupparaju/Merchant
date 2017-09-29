@@ -9,22 +9,24 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.incon.connect.R;
 import com.incon.connect.apimodel.components.history.purchased.PurchasedResponse;
 import com.incon.connect.callbacks.IClickCallback;
 import com.incon.connect.databinding.BottomSheetPurchasedBinding;
+import com.incon.connect.databinding.CustomBottomViewBinding;
 import com.incon.connect.databinding.FragmentPurchasedBinding;
 import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.history.adapter.PurchasedAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 
 /**
  * Created on 13 Jun 2017 4:01 PM.
- *
  */
 public class PurchasedFragment extends BaseFragment implements PurchasedContract.View {
 
@@ -33,29 +35,15 @@ public class PurchasedFragment extends BaseFragment implements PurchasedContract
     private FragmentPurchasedBinding binding;
     private PurchasedAdapter purchasedAdapter;
     private List<PurchasedResponse> purchasedList;
+
     private BottomSheetDialog bottomSheetDialog;
+    private BottomSheetPurchasedBinding bottomSheetPurchasedBinding;
 
     @Override
     protected void initializePresenter() {
         purchasedPresenter = new PurchasedPresenter();
         purchasedPresenter.setView(this);
         setBasePresenter(purchasedPresenter);
-    }
-
-    protected void initializeToolBar() {
-        /*LayoutInflater layoutInflater = getActivity().getLayoutInflater();
-        toolBarBinding = DataBindingUtil.inflate(layoutInflater, R.layout.tool_bar, null, false);
-        ((HomeActivity) getActivity()).setSupportActionBar(toolBarBinding.toolbar);
-        toolBarBinding.toolbarTitleTv.setText(R.string.title_history);
-        toolBarBinding.toolbarLeftIv.setVisibility(View.GONE);
-        toolBarBinding.toolbarRightIv.setVisibility(View.VISIBLE);
-        toolBarBinding.toolbarLeftIv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
-        });
-
-        ((HomeActivity) getActivity()).replaceToolBar(toolBarBinding.toolbar);*/
     }
 
     @Override
@@ -75,18 +63,13 @@ public class PurchasedFragment extends BaseFragment implements PurchasedContract
     }
 
     private void loadBottomSheet() {
-        BottomSheetPurchasedBinding binding = DataBindingUtil.inflate(LayoutInflater.from(
+        bottomSheetPurchasedBinding = DataBindingUtil.inflate(LayoutInflater.from(
                 getActivity()), R.layout.bottom_sheet_purchased, null, false);
 
         bottomSheetDialog = new BottomSheetDialog(getActivity());
-        bottomSheetDialog.setContentView(binding.getRoot());
+        bottomSheetDialog.setContentView(bottomSheetPurchasedBinding.getRoot());
         /*dialog.setCanceledOnTouchOutside(false);
         dialog.setCancelable(false);*/
-
-        /*btn_cancel = (Button) modalbottomsheet.findViewById(R.id.btn_cancel);
-        linearLayout = (LinearLayout) modalbottomsheet.findViewById(R.id.top_row);
-        btn_cancel.setOnClickListener(this);
-*/
     }
 
     private void initViews() {
@@ -112,10 +95,58 @@ public class PurchasedFragment extends BaseFragment implements PurchasedContract
     private IClickCallback iClickCallback = new IClickCallback() {
         @Override
         public void onClickPosition(int position) {
-
+            createBottomSheetView(position);
             bottomSheetDialog.show();
         }
     };
+
+    private void createBottomSheetView(int position) {
+
+        bottomSheetPurchasedBinding.sheetTitle.setText("item : " + position);
+
+        bottomSheetPurchasedBinding.bottomRow.removeAllViews();
+//TODO have to create based on response
+        int noOfViews = new Random().nextInt(4);
+        for (int i = 0; i < noOfViews; i++) {
+            CustomBottomViewBinding customBottomView = getCustomBottomView();
+            customBottomView.viewTv.setText("position :" + i);
+            View bottomRootView = customBottomView.getRoot();
+            bottomRootView.setOnClickListener(bottomViewClickListener);
+            bottomSheetPurchasedBinding.bottomRow.addView(bottomRootView);
+        }
+    }
+
+    private View.OnClickListener bottomViewClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            bottomSheetPurchasedBinding.topRow.removeAllViews();
+            bottomSheetPurchasedBinding.topRow.setVisibility(View.VISIBLE);
+            TextView viewById = (TextView) view.findViewById(R.id.view_tv);
+            String bottomClickedText = viewById.getText().toString();
+            int noOfViews = new Random().nextInt(4);
+            for (int i = 0; i < noOfViews; i++) {
+                CustomBottomViewBinding customBottomView = getCustomBottomView();
+                customBottomView.viewTv.setText(bottomClickedText + i);
+                View topRootView = customBottomView.getRoot();
+                topRootView.setOnClickListener(topViewClickListener);
+                bottomSheetPurchasedBinding.topRow.addView(topRootView);
+            }
+        }
+    };
+
+    private View.OnClickListener topViewClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            TextView viewById = (TextView) view.findViewById(R.id.view_tv);
+            String topClickedText = viewById.getText().toString();
+            showErrorMessage(topClickedText);
+        }
+    };
+
+    private CustomBottomViewBinding getCustomBottomView() {
+        return DataBindingUtil.inflate(
+                LayoutInflater.from(getActivity()), R.layout.custom_bottom_view, null, false);
+    }
 
 
     private SwipeRefreshLayout.OnRefreshListener onRefreshListener =
