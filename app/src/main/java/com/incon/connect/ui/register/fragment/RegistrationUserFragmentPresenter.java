@@ -9,12 +9,18 @@ import com.incon.connect.AppConstants;
 import com.incon.connect.ConnectApplication;
 import com.incon.connect.dto.registration.UserInfo;
 import com.incon.connect.ui.BasePresenter;
+import com.incon.connect.utils.DateUtils;
 import com.incon.connect.utils.ValidationUtils;
 import com.incon.connect.utils.Validator;
 
+import java.util.Calendar;
+
+import static com.incon.connect.AppConstants.RegistrationValidation.DOB_FUTURE_DATE;
+import static com.incon.connect.AppConstants.RegistrationValidation.DOB_PERSON_LIMIT;
+import static com.incon.connect.AppConstants.VALIDATION_SUCCESS;
+
 /**
  * Created on 08 Jun 2017 8:31 PM.
- *
  */
 public class RegistrationUserFragmentPresenter extends
         BasePresenter<RegistrationUserStoreFragmentContract.View> implements
@@ -106,6 +112,7 @@ public class RegistrationUserFragmentPresenter extends
 
     /**
      * NOTHING TO DO WITH THIS METHOD
+     *
      * @param userInfo
      */
     @Override
@@ -141,19 +148,18 @@ public class RegistrationUserFragmentPresenter extends
 
         int fieldId = AppConstants.VALIDATION_FAILURE;
         if (tag == null) {
-            for (int i = 0; i <= 5; i++) {
+            for (int i = 0; i <= 6; i++) {
                 fieldId = validateFields(i, true);
-                if (fieldId != AppConstants.VALIDATION_SUCCESS) {
+                if (fieldId != VALIDATION_SUCCESS) {
                     tag = i + "";
                     break;
                 }
             }
-        }
-        else {
-            fieldId =  validateFields(Integer.parseInt(tag), false);
+        } else {
+            fieldId = validateFields(Integer.parseInt(tag), false);
         }
 
-        return  new Pair<>(tag, fieldId);
+        return new Pair<>(tag, fieldId);
     }
 
     private int validateFields(int id, boolean emptyValidation) {
@@ -168,40 +174,53 @@ public class RegistrationUserFragmentPresenter extends
                 boolean phoneEmpty = TextUtils.isEmpty(userInfo.getPhoneNumber());
                 if (emptyValidation && phoneEmpty) {
                     return AppConstants.RegistrationValidation.PHONE_REQ;
-                }
-                else if (!phoneEmpty && userInfo.getPhoneNumber().length() < 10) {
+                } else if (!phoneEmpty && userInfo.getPhoneNumber().length() < 10) {
                     return AppConstants.RegistrationValidation.PHONE_MIN_DIGITS;
                 }
                 break;
 
             case 2:
-                boolean emailEmpty = TextUtils.isEmpty(userInfo.getEmailId());
-                if (emptyValidation && emailEmpty) {
-                    return AppConstants.RegistrationValidation.EMAIL_REQ;
-                }
-                else if (!emailEmpty && !Validator.isValidEmail(userInfo.getEmailId())) {
-                    return AppConstants.RegistrationValidation.EMAIL_NOTVALID;
+                boolean genderTypeEmpty = TextUtils.isEmpty(userInfo
+                        .getGenderType());
+                if (emptyValidation && genderTypeEmpty) {
+                    return AppConstants.RegistrationValidation.GENDER_REQ;
                 }
                 break;
 
             case 3:
+                boolean dobEmpty = TextUtils.isEmpty(userInfo.getDob());
+                if (emptyValidation && dobEmpty) {
+                    return AppConstants.RegistrationValidation.DOB_REQ;
+                } else if (!dobEmpty) {
+                    return validateDob();
+                }
+                break;
+
+            case 4:
+                boolean emailEmpty = TextUtils.isEmpty(userInfo.getEmailId());
+                if (emptyValidation && emailEmpty) {
+                    return AppConstants.RegistrationValidation.EMAIL_REQ;
+                } else if (!emailEmpty && !Validator.isValidEmail(userInfo.getEmailId())) {
+                    return AppConstants.RegistrationValidation.EMAIL_NOTVALID;
+                }
+                break;
+
+            case 5:
                 boolean passwordEmpty = TextUtils.isEmpty(userInfo.getPassword());
                 if (emptyValidation && passwordEmpty) {
                     return AppConstants.RegistrationValidation.PASSWORD_REQ;
-                }
-                else if (!passwordEmpty && !ValidationUtils
+                } else if (!passwordEmpty && !ValidationUtils
                         .isPasswordValid(userInfo.getPassword())) {
                     return AppConstants.RegistrationValidation.PASSWORD_PATTERN_REQ;
                 }
                 break;
 
-            case 4:
+            case 6:
                 boolean reEnterPasswordEmpty = TextUtils.isEmpty(userInfo
                         .getConfirmPassword());
                 if (emptyValidation && reEnterPasswordEmpty) {
                     return AppConstants.RegistrationValidation.RE_ENTER_PASSWORD_REQ;
-                }
-                else if (!reEnterPasswordEmpty) {
+                } else if (!reEnterPasswordEmpty) {
                     boolean passwordEmpty1 = TextUtils.isEmpty(userInfo.getPassword());
                     if (passwordEmpty1 || (!userInfo.getPassword()
                             .equals(userInfo.getConfirmPassword()))) {
@@ -212,19 +231,26 @@ public class RegistrationUserFragmentPresenter extends
                 }
                 break;
 
-            case 5:
-                boolean genderTypeEmpty = TextUtils.isEmpty(userInfo
-                        .getGenderType());
-                if (emptyValidation && genderTypeEmpty) {
-                    return AppConstants.RegistrationValidation.GENDER_REQ;
-                }
-                break;
-
             default:
-                return AppConstants.VALIDATION_SUCCESS;
+                return VALIDATION_SUCCESS;
         }
-        return AppConstants.VALIDATION_SUCCESS;
+        return VALIDATION_SUCCESS;
     }
 
+    private int validateDob() {
+        Calendar dobDate = Calendar.getInstance();
+        long dobInMillis = DateUtils.convertStringFormatToMillis(
+                userInfo.getDob(), AppConstants.DateFormatterConstants.YYYY_MM_DD);
+        dobDate.setTimeInMillis(dobInMillis);
+        // future date check
+        if (ValidationUtils.isFutureDate(dobDate)) {
+            return DOB_FUTURE_DATE;
+        }
 
+        int returnedYear = ValidationUtils.calculateAge(dobDate);
+        if (returnedYear < AppConstants.AgeConstants.USER_DOB) {
+            return DOB_PERSON_LIMIT;
+        }
+        return VALIDATION_SUCCESS;
+    }
 }

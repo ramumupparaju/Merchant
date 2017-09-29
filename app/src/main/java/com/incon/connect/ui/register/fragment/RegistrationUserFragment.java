@@ -1,8 +1,11 @@
 package com.incon.connect.ui.register.fragment;
 
+import android.app.DatePickerDialog;
 import android.databinding.DataBindingUtil;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
+import android.text.TextUtils;
 import android.util.Pair;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -12,19 +15,26 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.TextView;
 
+import com.incon.connect.AppUtils;
 import com.incon.connect.R;
 import com.incon.connect.custom.view.CustomTextInputLayout;
 import com.incon.connect.databinding.FragmentRegistrationUserBinding;
 import com.incon.connect.dto.registration.Register;
 import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.register.RegistrationActivity;
+import com.incon.connect.utils.DateUtils;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
+
+import static com.incon.connect.AppConstants.DateFormatterConstants.MM_DD_YYYY;
 
 
 /**
@@ -56,22 +66,75 @@ public class RegistrationUserFragment extends BaseFragment implements
         View rootView = binding.getRoot();
         //here data must be an instance of the registration class
         register = ((RegistrationActivity) getActivity()).registrationPresenter.getRegister();
-
         registrationUserInfoFragPresenter.registerUserInfo(register.getUserInfo());
         binding.setRegister(register);
-
+        binding.setUserFragment(this);
         shakeAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.shake);
 
-        loadGenderSpinnerData();
-        loadValidationErrors();
-        setFocusListenersForEditText();
+        loadData();
         return rootView;
     }
 
+    private void loadData() {
+        loadGenderSpinnerData();
+        loadValidationErrors();
+        setFocusListenersForEditText();
+    }
+
+    public void onDobClick() {
+        showDatePicker();
+    }
+
+    private void showDatePicker() {
+        AppUtils.hideSoftKeyboard(getActivity(), getView());
+        Calendar cal = Calendar.getInstance(TimeZone.getDefault());
+
+
+        String dateOfBirth = register.getUserInfo().getDateOfBirthToShow();
+        if (!TextUtils.isEmpty(dateOfBirth)) {
+            cal.setTimeInMillis(DateUtils.convertStringFormatToMillis(
+                    dateOfBirth, DateFormatterConstants.MM_DD_YYYY));
+        }
+
+        int customStyle = android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
+                ? R.style.DatePickerDialogTheme : android.R.style.Theme_DeviceDefault_Light_Dialog;
+        DatePickerDialog datePicker = new DatePickerDialog(getActivity(),
+                customStyle,
+                datePickerListener,
+                cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH));
+        datePicker.setCancelable(false);
+        datePicker.show();
+    }
+
+    // Date Listener
+    private DatePickerDialog.OnDateSetListener datePickerListener =
+            new DatePickerDialog.OnDateSetListener() {
+                // when dialog box is closed, below method will be called.
+                public void onDateSet(DatePicker view, int selectedYear,
+                                      int selectedMonth, int selectedDay) {
+                    Calendar selectedDateTime = Calendar.getInstance();
+                    selectedDateTime.set(selectedYear, selectedMonth, selectedDay);
+
+                    SimpleDateFormat simpleDate = new SimpleDateFormat(MM_DD_YYYY,
+                            Locale.getDefault());
+                    String strDt = simpleDate.format(selectedDateTime.getTime());
+                    binding.edittextRegisterDob.setText(strDt);
+                    String dobInYYYYMMDD = DateUtils.convertDateToOtherFormat(
+                            selectedDateTime.getTime(), DateFormatterConstants.YYYY_MM_DD);
+                    register.getUserInfo().setDob(dobInYYYYMMDD);
+                    register.getUserInfo().setDateOfBirthToShow(strDt);
+
+                    Pair<String, Integer> validate = registrationUserInfoFragPresenter
+                            .validateUserInfo((String) binding.edittextRegisterDob.getTag());
+                    updateUiAfterValidation(validate.first, validate.second);
+                }
+            };
+
     void loadGenderSpinnerData() {
-        final List<String> genderTypeList = new ArrayList<>();
-        genderTypeList.add("Male");
-        genderTypeList.add("Female");
+        String[] genderTypeList = getResources().getStringArray(R.array.gender_options_list);
+
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),
                 R.layout.view_spinner, genderTypeList);
         arrayAdapter.setDropDownViewResource(R.layout.view_spinner);
@@ -92,6 +155,18 @@ public class RegistrationUserFragment extends BaseFragment implements
         errorMap.put(RegistrationValidation.PHONE_MIN_DIGITS,
                 getString(R.string.error_phone_min_digits));
 
+        errorMap.put(RegistrationValidation.GENDER_REQ,
+                getString(R.string.error_gender_req));
+
+        errorMap.put(RegistrationValidation.DOB_REQ,
+                getString(R.string.error_dob_req));
+
+        errorMap.put(RegistrationValidation.DOB_FUTURE_DATE,
+                getString(R.string.error_dob_futuredate));
+
+        errorMap.put(RegistrationValidation.DOB_PERSON_LIMIT,
+                getString(R.string.error_dob_patient_is_user));
+
         errorMap.put(RegistrationValidation.EMAIL_REQ,
                 getString(R.string.error_email_req));
 
@@ -110,9 +185,6 @@ public class RegistrationUserFragment extends BaseFragment implements
         errorMap.put(RegistrationValidation.RE_ENTER_PASSWORD_DOES_NOT_MATCH,
                 getString(R.string.error_re_enter_password_does_not_match));
 
-        errorMap.put(RegistrationValidation.GENDER_REQ,
-                getString(R.string.error_gender_req));
-
     }
 
     private void setFocusListenersForEditText() {
@@ -123,7 +195,7 @@ public class RegistrationUserFragment extends BaseFragment implements
                     public boolean onEditorAction(TextView textView, int actionId, KeyEvent event) {
                         if (actionId == EditorInfo.IME_ACTION_NEXT) {
                             switch (textView.getId()) {
-                                case R.id.edittext_register_reenter_password:
+                                case R.id.edittext_register_phone:
                                     binding.spinnerGender.requestFocus();
                                     binding.spinnerGender.showDropDown();
                                     break;
@@ -135,7 +207,7 @@ public class RegistrationUserFragment extends BaseFragment implements
                     }
                 };
 
-        binding.edittextRegisterReenterPassword.setOnEditorActionListener(onEditorActionListener);
+        binding.edittextRegisterPhone.setOnEditorActionListener(onEditorActionListener);
 
         binding.edittextRegisterUserName.setOnFocusChangeListener(onFocusChangeListener);
         binding.edittextRegisterPhone.setOnFocusChangeListener(onFocusChangeListener);
@@ -212,7 +284,7 @@ public class RegistrationUserFragment extends BaseFragment implements
         binding.inputLayoutRegisterPhone.setError(null);
         binding.inputLayoutRegisterEmailid.setError(null);
         binding.inputLayoutRegisterPassword.setError(null);
-        binding.inputLayoutRegisterReenterPassword.setError(null);
+        binding.inputLayoutRegisterConfirmPassword.setError(null);
         binding.spinnerGender.setError(null);
 
         Pair<String, Integer> validation = registrationUserInfoFragPresenter.validateUserInfo(null);

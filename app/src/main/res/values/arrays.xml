@@ -51,11 +51,19 @@
     </string-array>
 
 
+    <!-- Tabs when user select history in home screen -->
     <string-array
         name="history_tab">
         <item>@string/tab_purchased</item>
         <item>@string/tab_interest</item>
         <item>@string/tab_return</item>
+    </string-array>
+
+    <!-- Gender dropdown options -->
+    <string-array
+        name="gender_options_list">
+        <item>Male</item>
+        <item>Female</item>
     </string-array>
 
     <!-- image capture options -->

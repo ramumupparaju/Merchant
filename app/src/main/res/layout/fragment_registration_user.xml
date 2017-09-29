@@ -8,6 +8,10 @@
             name="register"
             type="com.incon.connect.dto.registration.Register"/>
 
+        <variable
+            name="userFragment"
+            type="com.incon.connect.ui.register.fragment.RegistrationUserFragment"/>
+
     </data>
 
     <ScrollView
@@ -20,7 +24,7 @@
 
         <RelativeLayout style="@style/BothMatch">
 
-            <!-- Tueo logo -->
+            <!-- User profile image -->
             <ImageView
                 android:id="@+id/icon_connect"
                 style="@style/BothWrap"
@@ -80,7 +84,6 @@
                         android:text="@={register.userInfo.name}"/>
                 </com.incon.connect.custom.view.CustomTextInputLayout>
 
-
                 <!-- Phone -->
                 <com.incon.connect.custom.view.CustomTextInputLayout
                     android:id="@+id/input_layout_register_phone"
@@ -103,12 +106,46 @@
                         android:text="@={register.userInfo.phoneNumber}"/>
                 </com.incon.connect.custom.view.CustomTextInputLayout>
 
+                <!-- Gender -->
+                <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                    android:id="@+id/spinner_gender"
+                    style="@style/spinnerItemStyle"
+                    android:layout_below="@id/input_layout_register_phone"
+                    android:layout_marginBottom="@dimen/margin_24"
+                    android:focusable="true"
+                    android:hint="@string/register_gender_hint"
+                    android:tag="2"
+                    android:text="@={register.userInfo.genderType}"
+                    app:errorEnabled="true"
+                    app:met_floatingLabel="highlight"
+                    app:met_textColor="@color/colorForgotPasswordHintText"
+                    app:met_textColorHint="@color/colorForgotPasswordHintText"/>
+
+                <!-- Date of Birth -->
+                <com.incon.connect.custom.view.CustomTextInputLayout
+                    android:id="@+id/input_layout_register_dob"
+                    style="@style/Register_TextInputLayout"
+                    android:layout_below="@id/spinner_gender"
+                    android:hint="@string/register_dateofbirth_hint"
+                    app:errorEnabled="true"
+                    app:fontName="fonts/OpenSans-Regular.ttf"
+                    app:hintTextAppearance="@style/TextInputLayout_FloatingTextColor">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/edittext_register_dob"
+                        style="@style/Register_TextInputEditText"
+                        fontPath="fonts/Raleway-Regular.ttf"
+                        android:enabled="false"
+                        android:onClick="@{() -> userFragment.onDobClick()}"
+                        android:tag="3"
+                        android:text="@={register.userInfo.dateOfBirthToShow}"/>
+                </com.incon.connect.custom.view.CustomTextInputLayout>
 
                 <!-- Email ID -->
                 <com.incon.connect.custom.view.CustomTextInputLayout
                     android:id="@+id/input_layout_register_emailid"
                     style="@style/Register_TextInputLayout"
-                    android:layout_below="@id/input_layout_register_phone"
+                    android:layout_below="@id/input_layout_register_dob"
                     android:hint="@string/register_emailid_hint"
                     app:errorEnabled="true"
                     app:fontName="fonts/OpenSans-Regular.ttf"
@@ -122,7 +159,7 @@
                         android:inputType="textEmailAddress"
                         android:maxLength="@integer/character_limit_200"
                         android:maxLines="1"
-                        android:tag="2"
+                        android:tag="4"
                         android:text="@={register.userInfo.emailId}"/>
                 </com.incon.connect.custom.view.CustomTextInputLayout>
 
@@ -145,13 +182,13 @@
                         android:inputType="textPassword"
                         android:maxLength="@integer/character_limit_200"
                         android:maxLines="1"
-                        android:tag="3"
+                        android:tag="5"
                         android:text="@={register.userInfo.password}"/>
                 </com.incon.connect.custom.view.CustomTextInputLayout>
 
-                <!-- re-enter Password -->
+                <!-- confirm Password -->
                 <com.incon.connect.custom.view.CustomTextInputLayout
-                    android:id="@+id/input_layout_register_reenter_password"
+                    android:id="@+id/input_layout_register_confirm_password"
                     style="@style/Register_TextInputLayout"
                     android:layout_below="@id/input_layout_register_password"
                     android:hint="@string/register_reenter_password_hint"
@@ -164,26 +201,13 @@
                         android:id="@+id/edittext_register_reenter_password"
                         style="@style/Register_TextInputEditText"
                         android:focusable="true"
-                        android:imeOptions="actionNext"
+                        android:imeOptions="actionDone"
                         android:inputType="textPassword"
                         android:maxLength="@integer/character_limit_200"
                         android:maxLines="1"
-                        android:tag="4"
+                        android:tag="6"
                         android:text="@={register.userInfo.confirmPassword}"/>
                 </com.incon.connect.custom.view.CustomTextInputLayout>
-
-                <!-- TimeZone -->
-                <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
-                    android:id="@+id/spinner_gender"
-                    style="@style/spinnerItemStyle"
-                    android:layout_below="@id/input_layout_register_reenter_password"
-                    android:focusable="true"
-                    android:hint="@string/register_gender_hint"
-                    android:tag="5"
-                    app:errorEnabled="true"
-                    app:met_floatingLabel="highlight"
-                    app:met_textColor="@color/colorForgotPasswordHintText"
-                    app:met_textColorHint="@color/colorForgotPasswordHintText"/>
 
             </RelativeLayout>
 
