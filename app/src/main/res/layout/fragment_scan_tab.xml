@@ -1,40 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <data>
-
         <variable
             name="scantabfragment"
             type="com.incon.connect.ui.scan.ScanTabFragment"/>
     </data>
-
-    <LinearLayout
-        android:id="@+id/layout_homescan"
+    <RelativeLayout
         style="@style/BothMatch"
-        android:background="@color/white"
-        android:orientation="vertical">
+      android:background="@android:color/white">
+        <android.support.v7.widget.CardView
+            style="@style/BothMatch"
+            android:layout_marginTop="@dimen/margin_180"
+            android:layout_marginBottom="@dimen/margin_190"
+            android:layout_marginRight="@dimen/margin_45"
+            android:layout_marginLeft="@dimen/margin_50"
+            >
+            <LinearLayout
+                android:orientation="vertical"
+                style="@style/BothMatch">
+                <LinearLayout
+                    android:onClick="@{() -> scantabfragment.onScanClick()}"
+                    android:id="@+id/layout_qrcode"
+                    android:orientation="horizontal"
+                    android:layout_weight="1"
+                    style="@style/MatchWrap">
+                    <TextView
+                        android:gravity="center"
+                        android:textSize="@dimen/text_size_20"
+                        android:textStyle="bold"
+                        android:textColor="@color/tueo_theme"
+                        android:layout_gravity="center"
+                        android:layout_weight="1.5"
+                        style="@style/BothWrap"
+                        android:text="@string/action_qr_code" />
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"
+                        app:srcCompat="@drawable/ic_im_qrcode"
+                        style="@style/m35w35"/>
 
-        <TextView
-            android:id="@+id/text_scanuid"
-            style="@style/scan_uidtext"/>
+                </LinearLayout>
+                <View
+                    android:background="@color/colorAccent"
+                    style="@style/view"/>
+                <LinearLayout
+                    android:onClick="@{() -> scantabfragment.onManualClick()}"
+                    android:id="@+id/layout_manualentry"
+                    android:orientation="horizontal"
+                    android:layout_weight="1"
+                    style="@style/MatchWrap"
+                    >
+                    <TextView
+                        android:gravity="center"
+                        android:textSize="@dimen/text_size_20"
+                        android:textStyle="bold"
+                        android:textColor="@color/tueo_theme"
+                        android:layout_gravity="center"
+                        android:layout_weight="1.5"
+                        style="@style/BothWrap"
+                        android:text="@string/action_manual_entry" />
+                    <ImageView
+                        android:layout_gravity="center"
+                        android:layout_weight="0.5"
+                        app:srcCompat="@drawable/ic_im_manual_enter"
+                        style="@style/m35w35"/>
 
-        <ImageView
-            android:id="@+id/im_scann"
-            style="@style/scan_image"
-            android:onClick="@{() -> scantabfragment.onScanningClick()}"
-            app:srcCompat="@drawable/ic_connect_logo_svg"/>
-
-        <TextView
-            android:id="@+id/text_or"
-            style="@style/text_or"/>
-
-        <TextView
-            android:id="@+id/text_mobilenumber"
-            style="@style/enter_mobilenumber"
-            android:onClick="@{() -> scantabfragment.onTextClick()}"/>
-
-
-    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+    </RelativeLayout>
 
 </layout>

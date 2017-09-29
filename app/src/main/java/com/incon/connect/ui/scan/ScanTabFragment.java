@@ -42,12 +42,12 @@ public class ScanTabFragment extends BaseFragment {
 
     }
 
-    public void onScanningClick() {
+    public void onScanClick() {
         Intent intent = new Intent(getActivity(), QrcodeBarcodeScanActivity.class);
         startActivity(intent);
     }
 
-    public void onTextClick() {
+    public void onManualClick() {
         ((HomeActivity) getActivity()).replaceFragmentAndAddToStack(
                 WarrantyRegistrationFragment.class, null);
        /* Intent intent = new Intent(getActivity(), WarrantyRegistrationActivity.class);

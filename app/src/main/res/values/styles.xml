@@ -81,6 +81,24 @@
 
     <!--warrenty registation-->
 
+    <!-- cardview_warrenty-->
+
+
+
+    <style name="qrcode_warrenty" parent="BothWrap">
+
+    </style>
+
+
+    <style name="cardview_warrenty" parent="BothMatch">
+        <item name="cardBackgroundColor">@color/white</item>
+        <item name="cardCornerRadius">@dimen/margin_3</item>
+        <item name="cardElevation">@dimen/margin_3</item>
+        <item name="cardPreventCornerOverlap">false</item>
+        <item name="cardUseCompatPadding">true</item>
+        <item name="contentPadding">@dimen/margin_10</item>
+    </style>
+
     <!--text_field-->
     <style name="text_field" parent="zerowrap">
         <item name="android:layout_marginLeft">@dimen/margin_10</item>
@@ -163,6 +181,11 @@
     <style name="BothWrap">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
+    </style>
+    <!--style 35- 35-->
+    <style name="m35w35">
+        <item name="android:layout_width">@dimen/margin_35</item>
+        <item name="android:layout_height">@dimen/margin_35</item>
     </style>
 
     <!--style match_wrap-->

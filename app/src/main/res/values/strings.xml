@@ -16,6 +16,8 @@
     <string name="action_serialno">Serial No :</string>
     <string name="action_submit">Submit</string>
     <string name="action_otp">OTP</string>
+    <string name="action_qr_code">QR Code Scan</string>
+    <string name="action_manual_entry">Manual Enter</string>
 
     <!--home_scanning activity-->
     <string name="action_or">OR</string>
