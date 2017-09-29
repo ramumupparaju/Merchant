@@ -4,16 +4,13 @@ import android.content.Context;
 import android.os.Bundle;
 
 import com.incon.connect.ConnectApplication;
-import com.incon.connect.R;
 import com.incon.connect.api.AppApiService;
 import com.incon.connect.apimodel.components.registration.ValidateOtpResponse;
 import com.incon.connect.ui.BasePresenter;
-import com.incon.connect.utils.ErrorMsgUtil;
 
 import java.util.HashMap;
 
 import io.reactivex.Observable;
-import io.reactivex.observers.DisposableObserver;
 
 public class ForgotPasswordPresenter extends BasePresenter<ForgotPasswordContract.View> implements
         ForgotPasswordContract.Presenter {
@@ -29,7 +26,7 @@ public class ForgotPasswordPresenter extends BasePresenter<ForgotPasswordContrac
 
     @Override
     public void forgotPassword(HashMap<String, String> email) {
-        getView().showProgress(appContext.getString(R.string.progress_forgotpassword));
+        /*getView().showProgress(appContext.getString(R.string.progress_forgotpassword));
         Observable<ValidateOtpResponse> forgotPasswordObserver = getForgotPasswordObserver(email);
         DisposableObserver<Object> observer = new DisposableObserver<Object>() {
             @Override
@@ -47,7 +44,8 @@ public class ForgotPasswordPresenter extends BasePresenter<ForgotPasswordContrac
             }
         };
         forgotPasswordObserver.subscribe(observer);
-        addDisposable(observer);
+        addDisposable(observer);*/
+        getView().navigateToResetPromtPage();
     }
 
     public Observable<ValidateOtpResponse> getForgotPasswordObserver(

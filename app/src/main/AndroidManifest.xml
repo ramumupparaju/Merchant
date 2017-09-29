@@ -29,6 +29,19 @@
             />
 
         <activity
+            android:name="com.incon.connect.ui.forgotpassword.ForgotPasswordActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
+
+        <activity
+            android:name="com.incon.connect.ui.resetpassword.ResetPasswordPromptActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize">
+        </activity>
+
+        <activity
             android:name="com.incon.connect.ui.register.RegistrationActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
