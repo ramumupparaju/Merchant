@@ -63,19 +63,19 @@ public class RegistrationUserFragment extends BaseFragment implements
                                  Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_registration_user, container, false);
-        View rootView = binding.getRoot();
+        binding.setUserFragment(this);
         //here data must be an instance of the registration class
         register = ((RegistrationActivity) getActivity()).registrationPresenter.getRegister();
         registrationUserInfoFragPresenter.registerUserInfo(register.getUserInfo());
         binding.setRegister(register);
-        binding.setUserFragment(this);
-        shakeAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.shake);
+        View rootView = binding.getRoot();
 
         loadData();
         return rootView;
     }
 
     private void loadData() {
+        shakeAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.shake);
         loadGenderSpinnerData();
         loadValidationErrors();
         setFocusListenersForEditText();
