@@ -59,7 +59,7 @@ public class WarrantyRegistrationActivity extends BaseActivity implements
         lv = (ListView) findViewById(R.id.list_data);
         inputSearch = (EditText) findViewById(R.id.search_view);
         productDetailsLayout = (LinearLayout) findViewById(R.id.linear_price_details);
-        adapter = new ArrayAdapter<String>(this, R.layout.activity_text,
+        adapter = new ArrayAdapter<String>(this, R.layout.custom_warranty,
                 R.id.product_name, products);
         lv.setAdapter(adapter);
 

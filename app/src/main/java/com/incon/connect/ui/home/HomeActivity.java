@@ -58,7 +58,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
 
         rootView = binding.getRoot();
         disableAllAnimation(binding.bottomNavigationView);
-        binding.bottomNavigationView.setTextVisibility(false);
+        binding.bottomNavigationView.setTextVisibility(true);
         setBottomNavigationViewListeners();
         handleBottomViewOnKeyBoardUp();
 
