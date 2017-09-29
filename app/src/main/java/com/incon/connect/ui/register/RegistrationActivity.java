@@ -5,14 +5,17 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.ViewTreeObserver;
 
 import com.incon.connect.R;
 import com.incon.connect.databinding.ActivityRegistrationBinding;
 import com.incon.connect.databinding.ViewRegistrationBottomButtonsBinding;
+import com.incon.connect.dto.registration.Register;
 import com.incon.connect.ui.BaseActivity;
 import com.incon.connect.ui.register.adapter.RegistrationPagerAdapter;
 import com.incon.connect.ui.register.fragment.RegistrationStoreFragment;
 import com.incon.connect.ui.register.fragment.RegistrationUserFragment;
+import com.incon.connect.utils.DeviceUtils;
 
 
 public class RegistrationActivity extends BaseActivity implements RegistrationContract.View {
@@ -54,7 +57,8 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
 
     @Override
     protected void initializePresenter() {
-        registrationPresenter = new RegistrationPresenter();
+        Register register = new Register();
+        registrationPresenter = new RegistrationPresenter(register);
         registrationPresenter.setView(this);
         setBasePresenter(registrationPresenter);
     }
@@ -71,8 +75,24 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
         buttonsBinding.buttonRight.setOnClickListener(buttonClickListner);
         buttonsBinding.buttonRight.setText(getString(R.string.action_next));
         initializePagerAdapter();
+        handleBottomViewOnKeyBoardUp();
+
     }
 
+    private void handleBottomViewOnKeyBoardUp() {
+        rootView.getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        int heightDiff = rootView.getRootView().getHeight() - rootView.getHeight();
+                        binding.includeRegisterBottomButtons.getRoot().setVisibility(View.VISIBLE);
+                        if (heightDiff > DeviceUtils.dpToPx(RegistrationActivity.this, 200)) {
+                            // if more than 200 dp, it's probably a keyboard...
+                            binding.includeRegisterBottomButtons.getRoot().setVisibility(View.GONE);
+                        }
+                    }
+                });
+    }
     // Instantiate a PagerAdapter and sets to viewpager.
     private void initializePagerAdapter() {
         registrationPagerAdapter = new RegistrationPagerAdapter(getSupportFragmentManager());
@@ -82,6 +102,9 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
     }
 
 
+    /**
+     * these method is called from Registrationuser and store screen when user fills valid data
+     */
     @Override
     public void navigateToNext() {
         currentPagePos = binding.viewpagerRegister.getCurrentItem();

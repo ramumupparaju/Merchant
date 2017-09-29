@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="homescanactivity"
+            type="com.incon.connect.ui.homescan.HomeScanActivity"/>
+
+    </data>
+
+<LinearLayout
+android:id="@+id/layout_homescan"
+    style="@style/BothMatch">
+
+    <LinearLayout
+        android:orientation="vertical"
+        style="@style/BothMatch"
+
+        >
+        <TextView
+            android:id="@+id/text_scanuid"
+            style="@style/scan_uidtext" />
+
+        <ImageView
+            android:onClick="@{() -> homescanactivity.onScanningClick()}"
+            android:id="@+id/im_scann"
+            style="@style/scan_image"
+            app:srcCompat="@drawable/ic_connect_logo_svg"
+            />
+
+        <TextView
+            android:id="@+id/text_or"
+            style="@style/text_or"
+            />
+
+
+        <TextView
+            style="@style/enter_mobilenumber"
+            android:onClick="@{() -> homescanactivity.onTextClick()}"
+            android:id="@+id/text_mobilenumber"
+            />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
+
+</layout>

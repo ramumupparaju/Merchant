@@ -35,6 +35,7 @@ public class HistoryTabFragment extends BaseFragment {
     @Override
     protected View onPrepareView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
+
         if (rootView == null) {
             binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_history_tab, container, false);

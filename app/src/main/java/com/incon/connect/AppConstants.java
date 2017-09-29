@@ -24,6 +24,7 @@ public interface AppConstants {
     }
 
     interface RegistrationValidation {
+        int NAME_REQ = 1;
         int FIRSTNAME_REQ = 1;
         int LASTNAME_REQ = 2;
         int PHONE_REQ = 3;
@@ -214,8 +215,8 @@ public interface AppConstants {
         int SENSOR = 3;
         int FAQ = 4;
         int SUPPORT = 5;
-        int CHANGE_PWD = 6;
-        int LOGOUT = 7;
+        int CHANGE_PWD = 1;
+        int LOGOUT = 2;
     }
 
     interface ActivityResult {

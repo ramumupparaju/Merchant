@@ -16,7 +16,7 @@
             <Button
                 android:id="@+id/button_left"
                 style="@style/BothMatch"
-                fontPath="fonts/Raleway-Bold.ttf"
+                fontPath="fonts/OpenSans-Bold.ttf"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:background="@drawable/btn_ripple_effect"
@@ -37,7 +37,7 @@
             <Button
                 android:id="@+id/button_right"
                 style="@style/BothMatch"
-                fontPath="fonts/Raleway-Bold.ttf"
+                fontPath="fonts/OpenSans-Bold.ttf"
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:background="@drawable/btn_ripple_effect"

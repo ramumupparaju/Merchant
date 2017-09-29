@@ -1,0 +1,40 @@
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <data>
+        <variable
+            name="addoffer"
+            type="com.incon.connect.ui.addoffer.AddOfferActivity"/>
+
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        style="@style/BothMatch">
+        <ListView
+            android:divider="#c2c2c2"
+            android:dividerHeight="2sp"
+            android:id="@+id/list_addoffer"
+            style="@style/MatchWrap"
+            >
+        </ListView>
+        <View
+            android:layout_height="2sp"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="@dimen/margin_10"
+            android:layout_marginTop="@dimen/margin_10"
+            android:background="#c2c2c2"
+            />
+        <Button
+            android:text="sumbit"
+            android:textColor="#ffffff"
+            android:layout_below="@+id/list_addoffer"
+            android:background="@drawable/submit_button_bg"
+            android:onClick="@{() -> addoffer.onSelectedClick()}"
+            android:id="@+id/submit_addoffer"
+            android:layout_gravity="center"
+            style="@style/submit_buttonwh"
+            />
+
+    </LinearLayout>
+</layout>

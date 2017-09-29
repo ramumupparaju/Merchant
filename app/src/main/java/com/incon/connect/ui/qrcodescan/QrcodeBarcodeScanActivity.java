@@ -13,12 +13,11 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
 /**
  * Created by PC on 9/27/2017.
  */
-
-public class QrcodeBarcodeScanActivity extends BaseActivity implements
-        ZXingScannerView.ResultHandler {
-
+public class QrcodeBarcodeScanActivity extends BaseActivity implements ZXingScannerView.
+        ResultHandler {
     private ZXingScannerView mScannerView;
     private static final int PERMISSIONS_REQUEST_CAPTURE_IMAGE = 1;
+
     @Override
     protected int getLayoutId() {
         return 0;
@@ -34,26 +33,26 @@ public class QrcodeBarcodeScanActivity extends BaseActivity implements
         setContentView(mScannerView);
     }
 
-    public void onRequestPermissionsResult(int requestCode, String[]permissions, int[]grantResults)
-    {
+    public void onRequestPermissionsResult(int requestCode,
+                                           String[] permissions, int[] grantResults) {
         switch
-                (requestCode) { case
-                PERMISSIONS_REQUEST_CAPTURE_IMAGE:
-        {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                (requestCode) {
+            case PERMISSIONS_REQUEST_CAPTURE_IMAGE: {
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                Log.d("", "permission granted success");
+                    Log.d("", "permission granted success");
 
-            } else {
-                Log.d("", "permission denied");
+                } else {
+                    Log.d("", "permission denied");
+                }
+                return;
             }
-            return;
-        }
 
             default:
         }
 
     }
+
     @Override
     public void onResume() {
         super.onResume();

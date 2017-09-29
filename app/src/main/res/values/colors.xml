@@ -10,6 +10,8 @@
 
     <!-- list selector for prelollipop-->
     <color name="list_selector">#6042acf0</color>
+    <!-- warrantyregistration activity-->
+    <color name="edit_background">#4f535d</color>
 
     <!-- forgot password screen colors -->
     <color name="colorForgotPasswordText">#4b5154</color>

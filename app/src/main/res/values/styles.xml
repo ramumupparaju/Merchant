@@ -23,9 +23,134 @@
         <item name="android:windowExitAnimation">@anim/frag_exit</item>
     </style>
 
+
+
+    <!--homescanning activity-->
+
+    <!--text_or-->
+
+
+    <style name="text_or"   parent="BothWrap">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginTop">55dp</item>
+        <item name="android:text">@string/action_or</item>
+        <item name="android:layout_alignStart">@+id/text_scanuid</item>
+    </style>
+
+
+    <!--scan_uidtext-->
+
+    <style name="scan_uidtext"   parent="BothWrap">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginTop">@dimen/margin_30</item>
+        <item name="android:text">@string/action_scanuid</item>
+    </style>
+
+
+
+    <!--scan_image-->
+
+
+
+    <style name="scan_image">
+        <item name="android:layout_width">@dimen/margin_150</item>
+        <item name="android:layout_height">@dimen/margin_150</item>
+        <item name="android:layout_below">@+id/text_scanuid</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginTop">70dp</item>
+    </style>
+
+
+    <!--enter_mobilenumber-->
+    <style name="enter_mobilenumber">
+        <item name="android:background">@drawable/bg_edittext</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_alignStart">@+id/text_scanuid</item>
+        <item name="android:layout_marginTop">55dp</item>
+        <item name="android:textColor">#4f535d</item>
+        <item name="android:text">@string/action_entermobilenumber</item>
+        <item name="android:layout_width">@dimen/margin_250</item>
+        <item name="android:layout_height">@dimen/margin_70</item>
+
+    </style>
+
+    <!--warrenty registation-->
+
+    <!--text_field-->
+    <style name="text_field" parent="zerowrap">
+        <item name="android:layout_marginLeft">@dimen/margin_10</item>
+        <item name="android:layout_weight">0.5</item>
+
+    </style>
+
+    <!-- edit_field-->
+    <style name="edit_field" parent="zerowrap">
+
+        <item name="android:maxLines">1</item>
+        <item name="android:background">@drawable/bg_edittext</item>
+        <item name="android:layout_marginRight">@dimen/margin_20</item>
+        <item name="android:layout_weight">0.5</item>
+
+    </style>
+
+    <!--model number-->
+
+    <style name="model_number" parent="BothWrap">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginTop">@dimen/margin_10</item>
+        <item name="android:paddingEnd">0dp</item>
+        <item name="android:paddingLeft">@dimen/margin_10</item>
+        <item name="android:paddingRight">0dp</item>
+        <item name="android:paddingStart">@dimen/margin_10</item>
+
+    </style>
+
     <!-- datepicker dialog theme -->
     <style name="DatePickerDialogTheme" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
+    <!--warpzero-->
+
+    <!--style wrap_zero-->
+    <style name="Wrapzero">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">0dp</item>
+    </style>
+    <!--style wrap_wrap-->
+    <style name="zerowrap">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!--style otp_button-->
+    <style name="otp_button">
+        <item name="android:layout_width">@dimen/margin_80</item>
+        <item name="android:layout_height">@dimen/margin_30</item>
+        <item name="android:layout_marginTop">@dimen/margin_20</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:background">@drawable/bg_edittext</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
+
+    <!--style submit_buttonwh-->
+    <style name="submit_buttonwh">
+        <item name="android:layout_width">@dimen/margin_100</item>
+        <item name="android:layout_height">@dimen/margin_40</item>
+    </style>
+
+    <!--style submit_button-->
+    <style name="submit_button"  parent="submit_buttonwh">
+        <item name="android:background">@drawable/submit_button_bg</item>
+        <item name="android:layout_marginTop">@dimen/margin_35</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:text">@string/action_submit</item>
     </style>
 
     <!--style match_match-->
@@ -44,6 +169,11 @@
     <style name="MatchWrap">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+    </style>
+    <!--style view-->
+    <style name="view">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.20005dp</item>
     </style>
 
     <!--style wrap_match-->
@@ -170,7 +300,7 @@
         <item name="android:paddingLeft">10dp</item>
         <item name="android:paddingRight">10dp</item>
         <item name="android:minWidth">10dp</item>
-        <item name="fontPath">fonts/Raleway-Medium.ttf</item>
+        <item name="fontPath">fonts/OpenSans-Medium.ttf</item>
     </style>
 
     <style name="style_calendar_events_symptom_delete_buttons" parent="style_calendar_events_item_symptom_buttons">
@@ -205,7 +335,7 @@
         <item name="android:minWidth">10dp</item>
         <item name="android:minHeight">10dp</item>
         <item name="android:layout_margin">5dp</item>
-        <item name="fontPath">fonts/Raleway-Medium.ttf</item>
+        <item name="fontPath">fonts/OpenSans-Medium.ttf</item>
     </style>
 
     <style name="style_tueo_button" parent="MatchWrap">

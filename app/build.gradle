@@ -122,7 +122,7 @@ dependencies {
     compile "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}"
     //Glide
     compile 'com.github.bumptech.glide:glide:4.0.0'
-    // qr code and bar code
+    //QR and Bar code scanner
     compile 'me.dm7.barcodescanner:zxing:1.9'
 
     // Firebase

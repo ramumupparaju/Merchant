@@ -1,5 +1,6 @@
 package com.incon.connect.ui.home;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,6 +17,9 @@ import com.incon.connect.databinding.ToolBarBinding;
 import com.incon.connect.ui.BaseActivity;
 import com.incon.connect.ui.home.fragment.DummyFragment;
 import com.incon.connect.ui.history.HistoryTabFragment;
+import com.incon.connect.ui.qrcodescan.QrcodeBarcodeScanActivity;
+import com.incon.connect.ui.scan.ScanTabFragment;
+import com.incon.connect.ui.settings.SettingsActivity;
 import com.incon.connect.utils.DeviceUtils;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
@@ -58,8 +62,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         setBottomNavigationViewListeners();
         handleBottomViewOnKeyBoardUp();
 
-        replaceFragment(DummyFragment.class, null);
-
         binding.bottomNavigationView.setCurrentItem(TAB_HISTORY);
 
         //hockey app update checking
@@ -77,13 +79,15 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         toolBarBinding.toolbarLeftIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showErrorMessage("left");
+                startActivity(new Intent(HomeActivity.this, SettingsActivity.class));
+
             }
         });
         toolBarBinding.toolbarRightIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showErrorMessage("right");
+                Intent intent = new Intent(HomeActivity.this, QrcodeBarcodeScanActivity.class);
+                startActivity(intent);
             }
         });
         replaceToolBar(toolBarBinding.toolbar);
@@ -118,7 +122,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
                 aClass = DummyFragment.class;
                 break;
             case R.id.action_scan:
-                aClass = DummyFragment.class;
+                aClass = ScanTabFragment.class;
                 break;
             case R.id.action_offers_status:
                 aClass = DummyFragment.class;
