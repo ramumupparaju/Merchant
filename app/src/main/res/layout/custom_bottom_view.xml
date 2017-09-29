@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        style="@style/zerowrap"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/view_logo"
+            style="@style/BothWrap"
+            app:srcCompat="@drawable/ic_tab_notifications"/>
+
+        <TextView
+            android:id="@+id/view_tv"
+            style="@style/BothWrap"
+            />
+    </LinearLayout>
+</layout>

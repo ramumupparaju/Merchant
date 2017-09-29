@@ -1,69 +1,29 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
-    <data>
-
-    </data>
-
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/MatchWrap"
         android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/sheet_title"
+            style="@style/MatchWrap"
+            android:text="12"/>
 
         <LinearLayout
             android:id="@+id/top_row"
             style="@style/MatchWrap"
+            android:orientation="horizontal"
             android:visibility="gone">
 
-            <Button
-                android:id="@+id/btn_gallery1"
-                style="@style/BothWrap"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:text="gallery1"/>
-
-            <Button
-                android:id="@+id/btn_camera1"
-                style="@style/BothWrap"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:text="camera1"
-
-                android:textAllCaps="false"/>
-
-            <Button
-                android:id="@+id/btn_cancel1"
-                style="@style/BothWrap"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:text="cancel1"
-                android:textColor="#D04D5B"/>
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/bottom_row"
-            style="@style/MatchWrap">
+            style="@style/MatchWrap"
+            android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btn_gallery"
-                style="@style/BothWrap"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:text="gallery1"/>
-
-            <Button
-                android:id="@+id/btn_camera"
-                style="@style/BothWrap"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:text="camera1"
-                android:textAllCaps="false"/>
-
-            <Button
-                android:id="@+id/btn_cancel"
-                style="@style/BothWrap"
-                android:layout_marginBottom="8dp"
-                android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:text="cancel1"
-                android:textColor="#D04D5B"/>
         </LinearLayout>
 
     </LinearLayout>
