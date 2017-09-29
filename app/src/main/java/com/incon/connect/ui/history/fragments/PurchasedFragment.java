@@ -2,6 +2,7 @@ package com.incon.connect.ui.history.fragments;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import com.incon.connect.R;
 import com.incon.connect.apimodel.components.history.purchased.PurchasedResponse;
 import com.incon.connect.callbacks.IClickCallback;
+import com.incon.connect.databinding.BottomSheetPurchasedBinding;
 import com.incon.connect.databinding.FragmentPurchasedBinding;
 import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.history.adapter.PurchasedAdapter;
@@ -31,6 +33,7 @@ public class PurchasedFragment extends BaseFragment implements PurchasedContract
     private FragmentPurchasedBinding binding;
     private PurchasedAdapter purchasedAdapter;
     private List<PurchasedResponse> purchasedList;
+    private BottomSheetDialog bottomSheetDialog;
 
     @Override
     protected void initializePresenter() {
@@ -63,10 +66,27 @@ public class PurchasedFragment extends BaseFragment implements PurchasedContract
             binding = DataBindingUtil.inflate(inflater, R.layout.fragment_purchased,
                     container, false);
 
+
+            loadBottomSheet();
             initViews();
             rootView = binding.getRoot();
         }
         return rootView;
+    }
+
+    private void loadBottomSheet() {
+        BottomSheetPurchasedBinding binding = DataBindingUtil.inflate(LayoutInflater.from(
+                getActivity()), R.layout.bottom_sheet_purchased, null, false);
+
+        bottomSheetDialog = new BottomSheetDialog(getActivity());
+        bottomSheetDialog.setContentView(binding.getRoot());
+        /*dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(false);*/
+
+        /*btn_cancel = (Button) modalbottomsheet.findViewById(R.id.btn_cancel);
+        linearLayout = (LinearLayout) modalbottomsheet.findViewById(R.id.top_row);
+        btn_cancel.setOnClickListener(this);
+*/
     }
 
     private void initViews() {
@@ -93,7 +113,7 @@ public class PurchasedFragment extends BaseFragment implements PurchasedContract
         @Override
         public void onClickPosition(int position) {
 
-            showErrorMessage("Clicked :" + position);
+            bottomSheetDialog.show();
         }
     };
 

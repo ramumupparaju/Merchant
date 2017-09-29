@@ -23,27 +23,29 @@ public interface AppConstants {
         int PASSWORD_REQ = 3;
     }
 
+    interface AgeConstants {
+        int USER_DOB = 16;
+
+    }
+
     interface RegistrationValidation {
         int NAME_REQ = 1;
-        int FIRSTNAME_REQ = 1;
-        int LASTNAME_REQ = 2;
         int PHONE_REQ = 3;
-        int PHONE_TYPE_REQ = 4;
+        int PHONE_MIN_DIGITS = 10;
+        int GENDER_REQ = 17;
+        int DOB_REQ = 13;
         int EMAIL_REQ = 5;
         int EMAIL_NOTVALID = 6;
         int PASSWORD_REQ = 7;
-        int TIMEZONE_REQ = 8;
-        int ZIPCODE_REQ = 9;
-        int PHONE_MIN_DIGITS = 10;
         int PASSWORD_PATTERN_REQ = 11;
-        int ZIPCODE_INVALID = 12;
-        int DOB_REQ = 13;
-        int DOB_FUTURE_DATE = 14;
-        int DOB_PERSON_LIMIT = 15;
-        int DOB_CHILD_LIMIT = 16;
-        int GENDER_REQ = 17;
         int RE_ENTER_PASSWORD_REQ = 18;
         int RE_ENTER_PASSWORD_DOES_NOT_MATCH = 19;
+        int DOB_FUTURE_DATE = 14;
+        int DOB_PERSON_LIMIT = 15;
+
+        int ZIPCODE_REQ = 9;
+        int ZIPCODE_INVALID = 12;
+        int TIMEZONE_REQ = 8;
     }
 
 

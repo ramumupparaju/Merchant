@@ -82,9 +82,8 @@
     <string name="error_dob_req">Date of Birth is required</string>
     <string name="error_gender_req">Gender is required</string>
     <string name="error_verificationcode_req">Verification Code is required</string>
-    <!--<string name="error_dob_patient_is_child">The Person must be at least 5 years old</string>-->
-    <string name="error_dob_patient_is_child">The person being monitored must be at least 5 years old.</string>
-    <string name="error_dob_patient_is_user">You must be at least 16 years old to use the Tueo service for managing your own asthma</string>
+    <string name="error_dob_patient_is_user">You must be at least 16 years old to use the
+        Connect application</string>
     <string name="error_dob_futuredate">You cannot select a future date</string>
     <string name="error_email_inuse">Email address already in use</string>
     <string name="error_zipcode_notvalid">Zipcode must be 5 or 9 digits</string>

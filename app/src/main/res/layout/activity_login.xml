@@ -81,6 +81,7 @@
                             android:textSize="14sp"/>
                     </com.incon.connect.custom.view.CustomTextInputLayout>
 
+                    <!-- Password -->
                     <com.incon.connect.custom.view.CustomTextInputLayout
                         android:id="@+id/input_layout_password"
                         style="@style/MatchWrap"
@@ -105,12 +106,14 @@
                     </com.incon.connect.custom.view.CustomTextInputLayout>
 
 
+                    <!-- Forgot Password -->
                     <TextView
                         android:id="@+id/text_forgot_password"
                         style="@style/BothWrap"
                         fontPath="fonts/OpenSans-Regular.ttf"
                         android:layout_below="@id/input_layout_password"
                         android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="20dp"
                         android:layout_marginTop="20dp"
                         android:clickable="true"
                         android:onClick="@{() -> activity.onForgotPasswordClick()}"
@@ -122,6 +125,7 @@
                         />
 
 
+                    <!-- Login button -->
                     <Button
                         android:id="@+id/button_login"
                         style="@style/MatchWrap"
@@ -136,6 +140,7 @@
                         android:textColor="@color/tueo_theme"
                         android:textSize="@dimen/text_size_13"/>
 
+                    <!-- Register button -->
                     <Button
                         android:id="@+id/button_registration"
                         style="@style/MatchWrap"
