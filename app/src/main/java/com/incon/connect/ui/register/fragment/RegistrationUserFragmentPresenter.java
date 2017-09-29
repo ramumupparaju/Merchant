@@ -214,7 +214,7 @@ public class RegistrationUserFragmentPresenter extends
 
             case 5:
                 boolean genderTypeEmpty = TextUtils.isEmpty(userInfo
-                        .getConfirmPassword());
+                        .getGenderType());
                 if (emptyValidation && genderTypeEmpty) {
                     return AppConstants.RegistrationValidation.GENDER_REQ;
                 }

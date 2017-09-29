@@ -4,12 +4,15 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.util.Pair;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
 import com.incon.connect.R;
 import com.incon.connect.custom.view.CustomTextInputLayout;
@@ -114,24 +117,15 @@ public class RegistrationUserFragment extends BaseFragment implements
 
     private void setFocusListenersForEditText() {
 
-        /*TextView.OnEditorActionListener onEditorActionListener =
+        TextView.OnEditorActionListener onEditorActionListener =
                 new TextView.OnEditorActionListener() {
                     @Override
                     public boolean onEditorAction(TextView textView, int actionId, KeyEvent event) {
                         if (actionId == EditorInfo.IME_ACTION_NEXT) {
                             switch (textView.getId()) {
-                                case R.id.edittext_register_name:
-                                    binding.edittextRegisterPhone.requestFocus();
-                                    break;
-
-                                case R.id.edittext_register_phone:
-                                    binding.spinnerPhoneType.requestFocus();
-                                    binding.spinnerPhoneType.showDropDown();
-                                    break;
-
                                 case R.id.edittext_register_reenter_password:
-                                    binding.spinnerTimezone.requestFocus();
-                                    binding.spinnerTimezone.showDropDown();
+                                    binding.spinnerGender.requestFocus();
+                                    binding.spinnerGender.showDropDown();
                                     break;
 
                                 default:
@@ -141,8 +135,7 @@ public class RegistrationUserFragment extends BaseFragment implements
                     }
                 };
 
-        binding.edittextRegisterPhone.setOnEditorActionListener(onEditorActionListener);
-        binding.edittextRegisterReenterPassword.setOnEditorActionListener(onEditorActionListener);*/
+        binding.edittextRegisterReenterPassword.setOnEditorActionListener(onEditorActionListener);
 
         binding.edittextRegisterUserName.setOnFocusChangeListener(onFocusChangeListener);
         binding.edittextRegisterPhone.setOnFocusChangeListener(onFocusChangeListener);

@@ -153,7 +153,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
         scrollView.post(new Runnable() {
             @Override
             public void run() {
-                scrollView.smoothScrollTo(0, editTextView.getTop());
+                scrollView.smoothScrollTo(0, editTextView.getBottom());
             }
         });
     }
