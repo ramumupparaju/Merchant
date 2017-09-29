@@ -6,15 +6,104 @@ import com.incon.connect.apimodel.base.ApiBaseResponse;
 
 public class LoginResponse extends ApiBaseResponse {
 
-    @SerializedName("data")
+    @SerializedName("id")
     @Expose
-    private UserData data;
+    private Integer id;
+    @SerializedName("name")
+    @Expose
+    private String name;
+    @SerializedName("email")
+    @Expose
+    private String email;
+    @SerializedName("location")
+    @Expose
+    private String location;
+    @SerializedName("msisdn")
+    @Expose
+    private String msisdn;
+    @SerializedName("usertype")
+    @Expose
+    private Integer usertype;
+    @SerializedName("store")
+    @Expose
+    private StoreResponse store;
+    @SerializedName("uuid")
+    @Expose
+    private String uuid;
+    @SerializedName("country")
+    @Expose
+    private String country;
 
-    public UserData getData() {
-        return data;
+    public Integer getId() {
+        return id;
     }
 
-    public void setData(UserData data) {
-        this.data = data;
+    public void setId(Integer id) {
+        this.id = id;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getMsisdn() {
+        return msisdn;
+    }
+
+    public void setMsisdn(String msisdn) {
+        this.msisdn = msisdn;
+    }
+
+    public Integer getUsertype() {
+        return usertype;
+    }
+
+    public void setUsertype(Integer usertype) {
+        this.usertype = usertype;
+    }
+
+    public StoreResponse getStore() {
+        return store;
+    }
+
+    public void setStore(StoreResponse store) {
+        this.store = store;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
 }

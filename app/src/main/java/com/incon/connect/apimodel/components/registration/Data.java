@@ -3,10 +3,6 @@ package com.incon.connect.apimodel.components.registration;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.incon.connect.apimodel.components.login.ContactNumber;
-import com.incon.connect.apimodel.components.login.Patient;
-
-import java.util.List;
 
 
 public class Data {
@@ -59,12 +55,6 @@ public class Data {
     @SerializedName("master_account_id")
     @Expose
     private Object masterAccountId;
-    @SerializedName("patients")
-    @Expose
-    private List<Patient> patients = null;
-    @SerializedName("contact_numbers")
-    @Expose
-    private List<ContactNumber> contactNumbers = null;
     @SerializedName("address")
     @Expose
     private Address address;
@@ -199,22 +189,6 @@ public class Data {
 
     public void setMasterAccountId(Object masterAccountId) {
         this.masterAccountId = masterAccountId;
-    }
-
-    public List<Patient> getPatients() {
-        return patients;
-    }
-
-    public void setPatients(List<Patient> patients) {
-        this.patients = patients;
-    }
-
-    public List<ContactNumber> getContactNumbers() {
-        return contactNumbers;
-    }
-
-    public void setContactNumbers(List<ContactNumber> contactNumbers) {
-        this.contactNumbers = contactNumbers;
     }
 
     public Address getAddress() {

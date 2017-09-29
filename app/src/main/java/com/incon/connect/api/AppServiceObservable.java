@@ -7,7 +7,7 @@ import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
 import com.incon.connect.apimodel.components.registration.ValidateEmailResponse;
 import com.incon.connect.apimodel.components.registration.ValidateOtpResponse;
-import com.incon.connect.dto.login.User;
+import com.incon.connect.dto.login.LoginUserData;
 
 import java.util.HashMap;
 
@@ -22,7 +22,7 @@ public interface AppServiceObservable {
 
 
     @POST("login")
-    Observable<LoginResponse> login(@Body User user);
+    Observable<LoginResponse> login(@Body LoginUserData loginUserData);
 /*
     @POST("account/register")
     Observable<RegistrationResponse> register(@Body RegistrationBody registrationBody);*/

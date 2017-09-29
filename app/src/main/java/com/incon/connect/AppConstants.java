@@ -18,8 +18,8 @@ public interface AppConstants {
         int STATE_COMPLETED = 1;
     }
     interface LoginValidation {
-        int EMAIL_REQ = 1;
-        int EMAIL_NOTVALID = 2;
+        int PHONE_NUMBER_REQ = 1;
+        int PHONE_NUMBER_NOTVALID = 2;
         int PASSWORD_REQ = 3;
     }
 

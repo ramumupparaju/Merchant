@@ -13,7 +13,7 @@ import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.custom.view.AppAlertDialog;
 import com.incon.connect.custom.view.AppAlertVerticalTwoButtonsDialog;
 import com.incon.connect.databinding.ActivityLoginBinding;
-import com.incon.connect.dto.login.User;
+import com.incon.connect.dto.login.LoginUserData;
 import com.incon.connect.ui.BaseActivity;
 import com.incon.connect.ui.changepassword.ChangePasswordActivity;
 import com.incon.connect.ui.forgotpassword.ForgotPasswordActivity;
@@ -53,14 +53,14 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         binding.setActivity(this);
 
 //        User user = new User();
-        User user = new User("7799879990", "test");
+        LoginUserData loginUserData = new LoginUserData("7799879990", "test");
         String emailId = SharedPrefsUtils.loginProvider().
                 getStringPreference(LoginPrefs.EMAIL_ID);
         if (!TextUtils.isEmpty(emailId)) {
-            user.setEmail(emailId);
+            loginUserData.setPhoneNumber(emailId);
             binding.edittextPassword.requestFocus();
         }
-        binding.setUser(user);
+        binding.setUser(loginUserData);
 
     }
 
@@ -77,18 +77,16 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     @Override
     public void navigateToHomePage(LoginResponse loginResponse) {
-        /*if (loginResponse == null) {
+        if (loginResponse == null) {
             clearData();
             return;
         }
 
-        loginPresenter.saveLoginData(loginResponse);*/
-
+        loginPresenter.saveLoginData(loginResponse);
 /*
         PushPresenter pushPresenter = new PushPresenter();
         pushPresenter.pushRegisterApi();
-*/
-        loginPresenter.setLoginStatus(true);
+        */loginPresenter.setLoginStatus(true);
         Intent homeIntent = new Intent(this, HomeActivity.class);
         homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(homeIntent);
@@ -105,25 +103,25 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     public void onLoginClick() {
 
-        User user = binding.getUser();
-        int validationRes = user.validateLogin();
+        LoginUserData loginUserData = binding.getUser();
+        int validationRes = loginUserData.validateLogin();
 
         binding.inputLayoutUsername.setError(null);
         binding.inputLayoutPassword.setError(null);
         Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
         switch (validationRes) {
-            /*case LoginValidation.EMAIL_REQ:
-                binding.inputLayoutUsername.setError(getString(R.string.error_email_req));
+            case LoginValidation.PHONE_NUMBER_REQ:
+                binding.inputLayoutUsername.setError(getString(R.string.error_phone_req));
                 binding.inputLayoutUsername.startAnimation(shake);
                 break;
-            case LoginValidation.EMAIL_NOTVALID:
-                binding.inputLayoutUsername.setError(getString(R.string.error_email_notvalid));
+            case LoginValidation.PHONE_NUMBER_NOTVALID:
+                binding.inputLayoutUsername.setError(getString(R.string.error_phone_min_digits));
                 binding.inputLayoutUsername.startAnimation(shake);
                 break;
             case LoginValidation.PASSWORD_REQ:
                 binding.inputLayoutPassword.setError(getString(R.string.error_password_req));
                 binding.inputLayoutPassword.startAnimation(shake);
-                break;*/
+                break;
             default:
                 loginPresenter.doLogin(binding.getUser());
                 break;
@@ -165,7 +163,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
                             String email = SharedPrefsUtils.loginProvider().
                                     getStringPreference(LoginPrefs.EMAIL_ID);
-                            binding.getUser().setEmail(email);
+                            binding.getUser().setPhoneNumber(email);
                             binding.edittextUsername.setText(email);
                         }
                     }

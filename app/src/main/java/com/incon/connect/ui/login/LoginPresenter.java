@@ -9,7 +9,7 @@ import com.incon.connect.R;
 import com.incon.connect.api.AppApiService;
 import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.data.login.LoginDataManagerImpl;
-import com.incon.connect.dto.login.User;
+import com.incon.connect.dto.login.LoginUserData;
 import com.incon.connect.ui.BasePresenter;
 import com.incon.connect.utils.ErrorMsgUtil;
 
@@ -31,9 +31,9 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
     }
 
     @Override
-    public void doLogin(User user) {
+    public void doLogin(LoginUserData loginUserData) {
         getView().showProgress(appContext.getString(R.string.progress_login));
-        Observable<LoginResponse> loginObserver = getLoginObserver(user);
+        Observable<LoginResponse> loginObserver = getLoginObserver(loginUserData);
         DisposableObserver<LoginResponse> observer = new DisposableObserver<LoginResponse>() {
             @Override
             public void onNext(LoginResponse loginResponse) {
@@ -68,8 +68,8 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
     }
 
 
-    public Observable<LoginResponse> getLoginObserver(User user) {
-        return AppApiService.getInstance().login(user);
+    public Observable<LoginResponse> getLoginObserver(LoginUserData loginUserData) {
+        return AppApiService.getInstance().login(loginUserData);
     }
 
 }

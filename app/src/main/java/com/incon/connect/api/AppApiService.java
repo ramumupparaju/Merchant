@@ -8,7 +8,7 @@ import com.incon.connect.apimodel.components.registration.SendOtpResponse;
 import com.incon.connect.apimodel.components.registration.ValidateEmailResponse;
 import com.incon.connect.apimodel.components.registration.ValidateOtpResponse;
 import com.incon.connect.custom.exception.NoConnectivityException;
-import com.incon.connect.dto.login.User;
+import com.incon.connect.dto.login.LoginUserData;
 import com.incon.connect.utils.NetworkUtil;
 
 import java.util.HashMap;
@@ -52,9 +52,9 @@ public class AppApiService implements AppConstants {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<LoginResponse> login(User user) {
+    public Observable<LoginResponse> login(LoginUserData loginUserData) {
         return addNetworkCheck(serviceInstance
-                .login(user));
+                .login(loginUserData));
     }
 
     public Observable<ChangePasswordResponse> resetPassword(HashMap<String, String> password) {

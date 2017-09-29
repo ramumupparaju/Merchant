@@ -7,32 +7,30 @@ import android.text.TextUtils;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.incon.connect.AppConstants;
-import com.incon.connect.utils.Validator;
 
-public class User extends BaseObservable implements AppConstants {
+public class LoginUserData extends BaseObservable implements AppConstants {
 
 
     @SerializedName("userid")
     @Expose
-    private String email;
+    private String phoneNumber;
     private String password;
 
-    public User(String email, String password) {
-        this.email = email;
+    public LoginUserData(String email, String password) {
+        this.phoneNumber = email;
         this.password = password;
     }
 
-    public User() {
+    public LoginUserData() {
     }
 
     @Bindable
-    public String getEmail() {
-        return email;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-//        notifyPropertyChanged(com.tueohealth.databinding.);
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     @Bindable
@@ -42,15 +40,14 @@ public class User extends BaseObservable implements AppConstants {
 
     public void setPassword(String password) {
         this.password = password;
-//        notifyPropertyChanged(com.tueohealth.databinding.password);
     }
 
     public int validateLogin() {
         int isValid = AppConstants.VALIDATION_SUCCESS;
-        if (TextUtils.isEmpty(email)) {
-            isValid = LoginValidation.EMAIL_REQ;
-        } else if (!Validator.isValidEmail(email)) {
-            isValid = LoginValidation.EMAIL_NOTVALID;
+        if (TextUtils.isEmpty(phoneNumber)) {
+            isValid = LoginValidation.PHONE_NUMBER_REQ;
+        } else if (phoneNumber.length() < 10) {
+            isValid = LoginValidation.PHONE_NUMBER_NOTVALID;
         } else if (TextUtils.isEmpty(password)) {
             isValid = LoginValidation.PASSWORD_REQ;
         }

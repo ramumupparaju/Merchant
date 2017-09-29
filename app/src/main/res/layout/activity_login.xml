@@ -6,7 +6,7 @@
 
         <variable
             name="user"
-            type="com.incon.connect.dto.login.User"/>
+            type="com.incon.connect.dto.login.LoginUserData"/>
 
         <variable
             name="activity"
@@ -76,7 +76,7 @@
                             android:imeOptions="actionNext"
                             android:inputType="textEmailAddress"
                             android:maxLines="1"
-                            android:text="@={user.email}"
+                            android:text="@={user.phoneNumber}"
                             android:textColor="@color/colorForgotPasswordHintText"
                             android:textSize="14sp"/>
                     </com.incon.connect.custom.view.CustomTextInputLayout>

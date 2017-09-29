@@ -60,7 +60,7 @@
 
     <!-- input error messages -->
     <string name="error_email_req">Email Address is required</string>
-    <string name="error_email_notvalid">Please enter valid email address</string>
+    <string name="error_email_notvalid">Please enter valid phoneNumber address</string>
     <string name="error_password_req">Password is required</string>
     <string name="error_re_enter_password_req">Password is required</string>
     <string name="error_re_enter_password_does_not_match">Re-entered Password does not match</string>
@@ -107,7 +107,7 @@
     <string name="progress_login">Logging in...</string>
     <string name="progress_sendotp">Sending otp...</string>
     <string name="progress_verifycode">Verifying code...</string>
-    <string name="progress_verifyemail">Verifying email...</string>
+    <string name="progress_verifyemail">Verifying phoneNumber...</string>
     <string name="progress_defaults_registering">Defaults Registering...</string>
     <string name="progress_registering">Registering...</string>
     <string name="progress_changepassword">Changing Password...</string>
@@ -152,8 +152,8 @@
     <string name="login_username_hint">Email address</string>
     <string name="login_password_hint">Password</string>
     <string name="login_forgotpassword_title">Forgot Password?</string>
-    <string name="login_password_confirm_msg">You will receive an email with a temporary password.</string>
-    <string name="login_forgotpassword_enter_emailid">Enter your email address and we will send you a one-time password to use in resetting it.</string>
+    <string name="login_password_confirm_msg">You will receive an phoneNumber with a temporary password.</string>
+    <string name="login_forgotpassword_enter_emailid">Enter your phoneNumber address and we will send you a one-time password to use in resetting it.</string>
     <string name="forgot_password_emailid_hint">Email address</string>
 
     <!-- change password -->
@@ -249,7 +249,7 @@
     <string name="action_got_it">got it!</string>
     <string name="tools_aap_updated_at">Updated on %s</string>
     <string name="tools_summary_report_confirmation">You should receive the summary report via
-        email shortly.</string>
+        phoneNumber shortly.</string>
 
 
     <!--Setup Wizard-->
@@ -290,11 +290,11 @@
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_email">This phoneNumber address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
+    <string name="permission_rationale">"Contacts permissions are needed for providing phoneNumber
         completions."
     </string>
 
@@ -369,7 +369,7 @@
     <string name="menu_setup_recalibrate_sensor">Recalibrate sensor</string>
     <string name="menu_hospital_or_practice_hint">Hospital/Practice</string>
 
-    <!-- Change email -->
+    <!-- Change phoneNumber -->
     <string name="current_password_hint">Current Password</string>
     <string name="new_emailid_hint">New Email ID</string>
 
