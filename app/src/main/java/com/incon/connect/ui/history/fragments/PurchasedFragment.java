@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.incon.connect.R;
 import com.incon.connect.apimodel.components.history.purchased.PurchasedResponse;
@@ -21,6 +22,7 @@ import com.incon.connect.ui.history.adapter.PurchasedAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 
 /**
@@ -65,7 +67,7 @@ public class PurchasedFragment extends BaseFragment implements PurchasedContract
                 getActivity()), R.layout.bottom_sheet_purchased, null, false);
 
         bottomSheetDialog = new BottomSheetDialog(getActivity());
-        bottomSheetDialog.setContentView(binding.getRoot());
+        bottomSheetDialog.setContentView(bottomSheetPurchasedBinding.getRoot());
         /*dialog.setCanceledOnTouchOutside(false);
         dialog.setCancelable(false);*/
     }
@@ -100,17 +102,46 @@ public class PurchasedFragment extends BaseFragment implements PurchasedContract
 
     private void createBottomSheetView(int position) {
 
-//        bottomSheetPurchasedBinding.sheetTitle.setText("item : " + position);
+        bottomSheetPurchasedBinding.sheetTitle.setText("item : " + position);
 
+        bottomSheetPurchasedBinding.bottomRow.removeAllViews();
 //TODO have to create based on response
-       /* int noOfViews = new Random().nextInt(4);
+        int noOfViews = new Random().nextInt(4);
         for (int i = 0; i < noOfViews; i++) {
             CustomBottomViewBinding customBottomView = getCustomBottomView();
             customBottomView.viewTv.setText("position :" + i);
-            bottomSheetPurchasedBinding.topRow.addView(customBottomView.getRoot());
-        }*/
-
+            View bottomRootView = customBottomView.getRoot();
+            bottomRootView.setOnClickListener(bottomViewClickListener);
+            bottomSheetPurchasedBinding.bottomRow.addView(bottomRootView);
+        }
     }
+
+    private View.OnClickListener bottomViewClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            bottomSheetPurchasedBinding.topRow.removeAllViews();
+            bottomSheetPurchasedBinding.topRow.setVisibility(View.VISIBLE);
+            TextView viewById = (TextView) view.findViewById(R.id.view_tv);
+            String bottomClickedText = viewById.getText().toString();
+            int noOfViews = new Random().nextInt(4);
+            for (int i = 0; i < noOfViews; i++) {
+                CustomBottomViewBinding customBottomView = getCustomBottomView();
+                customBottomView.viewTv.setText(bottomClickedText + i);
+                View topRootView = customBottomView.getRoot();
+                topRootView.setOnClickListener(topViewClickListener);
+                bottomSheetPurchasedBinding.topRow.addView(topRootView);
+            }
+        }
+    };
+
+    private View.OnClickListener topViewClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            TextView viewById = (TextView) view.findViewById(R.id.view_tv);
+            String topClickedText = viewById.getText().toString();
+            showErrorMessage(topClickedText);
+        }
+    };
 
     private CustomBottomViewBinding getCustomBottomView() {
         return DataBindingUtil.inflate(

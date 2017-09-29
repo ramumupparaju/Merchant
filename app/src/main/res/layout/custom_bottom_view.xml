@@ -8,12 +8,14 @@
 
         <ImageView
             android:id="@+id/view_logo"
-            style="@style/BothWrap"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             app:srcCompat="@drawable/ic_tab_notifications"/>
 
         <TextView
             android:id="@+id/view_tv"
             style="@style/BothWrap"
+            android:padding="@dimen/margin_20"
             />
     </LinearLayout>
 </layout>
