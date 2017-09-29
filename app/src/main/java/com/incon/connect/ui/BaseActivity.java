@@ -26,6 +26,7 @@ import com.incon.connect.utils.SharedPrefsUtils;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
+import static com.incon.connect.AppConstants.HttpErrorCodeConstants.ERROR_UNAUTHORIZED;
 import static com.incon.connect.AppConstants.LoginPrefs.EMAIL_ID;
 
 public abstract class BaseActivity extends AppCompatActivity implements BaseView,
@@ -93,8 +94,8 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     public void handleException(Pair<Integer, String> error) {
         if (error.first == 601) {
             updateAppDialog();
-        } else if (error.first == 401 || error.first == 403) {
-            Logger.e("handleException", "onLogoutCalled() from BA ");
+        } else if (error.first == ERROR_UNAUTHORIZED) {
+            Logger.e("handleException", "onLogoutCalled() from BE ");
             onLogoutClick();
         } else {
             showErrorMessage(error.second);

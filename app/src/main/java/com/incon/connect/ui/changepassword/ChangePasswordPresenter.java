@@ -45,8 +45,8 @@ public class ChangePasswordPresenter extends BasePresenter<ChangePasswordContrac
             }
             @Override
             public void onError(Throwable e) {
-                getView().hideProgress();
-                getView().showErrorMessage(ErrorMsgUtil.getErrorMsg(e));
+                Pair<Integer, String> errorDetails = ErrorMsgUtil.getErrorDetails(e);
+                getView().handleException(errorDetails);
             }
             @Override
             public void onComplete() {

@@ -54,10 +54,10 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
 //        User user = new User();
         LoginUserData loginUserData = new LoginUserData("7799879990", "test");
-        String emailId = SharedPrefsUtils.loginProvider().
-                getStringPreference(LoginPrefs.EMAIL_ID);
-        if (!TextUtils.isEmpty(emailId)) {
-            loginUserData.setPhoneNumber(emailId);
+        String phoneNumberPreference = SharedPrefsUtils.loginProvider().
+                getStringPreference(LoginPrefs.PHONE_NUMBER);
+        if (!TextUtils.isEmpty(phoneNumberPreference)) {
+            loginUserData.setPhoneNumber(phoneNumberPreference);
             binding.edittextPassword.requestFocus();
         }
         binding.setUser(loginUserData);

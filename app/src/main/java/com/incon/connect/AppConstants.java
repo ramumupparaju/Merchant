@@ -17,6 +17,11 @@ public interface AppConstants {
         int STATE_INCOMPLETE = 0;
         int STATE_COMPLETED = 1;
     }
+    interface HttpErrorCodeConstants {
+        int ERROR_UNAUTHORIZED = 401;
+        int ERROR_FORBIDDEN = 403; // pay load error
+    }
+
     interface LoginValidation {
         int PHONE_NUMBER_REQ = 1;
         int PHONE_NUMBER_NOTVALID = 2;
@@ -25,7 +30,6 @@ public interface AppConstants {
 
     interface AgeConstants {
         int USER_DOB = 16;
-
     }
 
     interface RegistrationValidation {
