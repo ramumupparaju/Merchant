@@ -39,7 +39,7 @@ public class WarrantyRegistrationFragment extends BaseFragment {
                     inflater, R.layout.fragment_warranty_registration, container, false);
             rootView = binding.getRoot();
         }
-       /* adapter = new ArrayAdapter<String>(getActivity(), R.layout.activity_text,
+       /* adapter = new ArrayAdapter<String>(getActivity(), R.layout.custom_warranty,
                 R.id.product_name, products);
         binding.listData.setAdapter(adapter);
         binding.listData.setOnItemClickListener(new AdapterView.OnItemClickListener() {
