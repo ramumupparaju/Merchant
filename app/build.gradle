@@ -115,6 +115,10 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
     // To handle events from our View/UI layer
     compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+    /*google maps*/
+    compile 'com.google.android.gms:play-services-places:10.0.1'
+    compile 'com.google.android.gms:play-services-maps:10.0.1'
+    compile 'com.google.android.gms:play-services-location:10.0.1'
     //Dagger
     compile "com.google.dagger:dagger:${daggerVersion}"
     annotationProcessor "com.google.dagger:dagger-compiler:${daggerVersion}"
@@ -127,7 +131,7 @@ dependencies {
 
     // Firebase
     compile 'com.firebase:firebase-jobdispatcher:0.7.0'
-    compile 'com.google.firebase:firebase-messaging:9.6.0'
+    compile 'com.google.firebase:firebase-messaging:10.0.1'
     //Hockey analytics
     compile 'net.hockeyapp.android:HockeySDK:4.1.5'
     // Bottom navigation view

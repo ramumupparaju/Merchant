@@ -7,7 +7,7 @@ import android.os.Handler;
 import com.incon.connect.MainActivity;
 import com.incon.connect.R;
 import com.incon.connect.ui.BaseActivity;
-import com.incon.connect.ui.login.LoginActivity;
+import com.incon.connect.ui.RegistrationmapActivity;
 import com.incon.connect.utils.SharedPrefsUtils;
 
 import static com.incon.connect.AppConstants.LoginPrefs.LOGGED_IN;
@@ -58,7 +58,7 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
                 if (isLoggedIn) {
                     intent = new Intent(SplashActivity.this, MainActivity.class);
                 } else {
-                    intent = new Intent(SplashActivity.this, LoginActivity.class);
+                    intent = new Intent(SplashActivity.this, RegistrationmapActivity.class);
                 }
 
                 startActivity(intent);
