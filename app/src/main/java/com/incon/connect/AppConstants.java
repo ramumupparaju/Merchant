@@ -47,6 +47,12 @@ public interface AppConstants {
         int DOB_FUTURE_DATE = 14;
         int DOB_PERSON_LIMIT = 15;
 
+
+        int CATEGORY_REQ = 21;
+        int ADDRESS_REQ = 22;
+        int GSTN_REQ = 23;
+        int STORE_LOGO = 24;
+
         int ZIPCODE_REQ = 9;
         int ZIPCODE_INVALID = 12;
         int TIMEZONE_REQ = 8;

@@ -20,6 +20,7 @@ public class Register extends BaseObservable {
 
     public void setUserInfo(UserInfo userInfo) {
         this.userInfo = userInfo;
+        notifyChange();
     }
 
     @Bindable
@@ -29,5 +30,6 @@ public class Register extends BaseObservable {
 
     public void setStoreInfo(StoreInfo storeInfo) {
         this.storeInfo = storeInfo;
+        notifyChange();
     }
 }

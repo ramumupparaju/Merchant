@@ -41,7 +41,7 @@ import static com.incon.connect.AppConstants.DateFormatterConstants.MM_DD_YYYY;
  * Created on 13 Jun 2017 4:01 PM.
  */
 public class RegistrationUserFragment extends BaseFragment implements
-        RegistrationUserStoreFragmentContract.View {
+        RegistrationUserFragmentContract.View {
 
     private RegistrationUserFragmentPresenter registrationUserInfoFragPresenter;
     private FragmentRegistrationUserBinding binding;
@@ -66,7 +66,6 @@ public class RegistrationUserFragment extends BaseFragment implements
         binding.setUserFragment(this);
         //here data must be an instance of the registration class
         register = ((RegistrationActivity) getActivity()).registrationPresenter.getRegister();
-        registrationUserInfoFragPresenter.registerUserInfo(register.getUserInfo());
         binding.setRegister(register);
         View rootView = binding.getRoot();
 
@@ -126,7 +125,7 @@ public class RegistrationUserFragment extends BaseFragment implements
                     register.getUserInfo().setDob(dobInYYYYMMDD);
                     register.getUserInfo().setDateOfBirthToShow(strDt);
 
-                    Pair<String, Integer> validate = registrationUserInfoFragPresenter
+                    Pair<String, Integer> validate = binding.getRegister().getUserInfo()
                             .validateUserInfo((String) binding.edittextRegisterDob.getTag());
                     updateUiAfterValidation(validate.first, validate.second);
                 }
@@ -222,7 +221,7 @@ public class RegistrationUserFragment extends BaseFragment implements
 
             Object fieldId = view.getTag();
             if (fieldId != null) {
-                Pair<String, Integer> validation = registrationUserInfoFragPresenter
+                Pair<String, Integer> validation = binding.getRegister().getUserInfo()
                         .validateUserInfo((String) fieldId);
                 if (!hasFocus) {
                     if (view instanceof TextInputEditText) {
@@ -268,15 +267,11 @@ public class RegistrationUserFragment extends BaseFragment implements
      * validate user , if all fields ok then call next screen
      */
     public void onClickNext() {
-        String genderText = genderSpinner.getText().toString();
-        /*for (RegistrationTimezone registrationTimezone : timezone) {
-            if (registrationTimezone.getName().equals(timeZoneText)) {
-                register.getRegistrationBody().setTimeZone(registrationTimezone.getId());
-            }
-        }*/
         if (validateFields()) {
             navigateToRegistrationActivityNext();
-        }
+        }/* else {
+            navigateToRegistrationActivityNext(); // TODO have to comment
+        }*/
     }
 
     private boolean validateFields() {
@@ -287,7 +282,8 @@ public class RegistrationUserFragment extends BaseFragment implements
         binding.inputLayoutRegisterConfirmPassword.setError(null);
         binding.spinnerGender.setError(null);
 
-        Pair<String, Integer> validation = registrationUserInfoFragPresenter.validateUserInfo(null);
+        Pair<String, Integer> validation = binding.getRegister().getUserInfo()
+                .validateUserInfo(null);
         updateUiAfterValidation(validation.first, validation.second);
 
         return validation.second == VALIDATION_SUCCESS;
