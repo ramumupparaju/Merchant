@@ -11,7 +11,6 @@ import com.incon.connect.dto.registration.UserInfo;
 import com.incon.connect.ui.BasePresenter;
 import com.incon.connect.utils.DateUtils;
 import com.incon.connect.utils.ValidationUtils;
-import com.incon.connect.utils.Validator;
 
 import java.util.Calendar;
 
@@ -174,7 +173,7 @@ public class RegistrationUserFragmentPresenter extends
                 boolean phoneEmpty = TextUtils.isEmpty(userInfo.getPhoneNumber());
                 if (emptyValidation && phoneEmpty) {
                     return AppConstants.RegistrationValidation.PHONE_REQ;
-                } else if (!phoneEmpty && userInfo.getPhoneNumber().length() < 10) {
+                } else if (!ValidationUtils.isPhoneNumberValid(userInfo.getPhoneNumber())) {
                     return AppConstants.RegistrationValidation.PHONE_MIN_DIGITS;
                 }
                 break;
@@ -200,7 +199,7 @@ public class RegistrationUserFragmentPresenter extends
                 boolean emailEmpty = TextUtils.isEmpty(userInfo.getEmailId());
                 if (emptyValidation && emailEmpty) {
                     return AppConstants.RegistrationValidation.EMAIL_REQ;
-                } else if (!emailEmpty && !Validator.isValidEmail(userInfo.getEmailId())) {
+                } else if (!ValidationUtils.isValidEmail(userInfo.getEmailId())) {
                     return AppConstants.RegistrationValidation.EMAIL_NOTVALID;
                 }
                 break;
@@ -209,7 +208,7 @@ public class RegistrationUserFragmentPresenter extends
                 boolean passwordEmpty = TextUtils.isEmpty(userInfo.getPassword());
                 if (emptyValidation && passwordEmpty) {
                     return AppConstants.RegistrationValidation.PASSWORD_REQ;
-                } else if (!passwordEmpty && !ValidationUtils
+                } else if (!ValidationUtils
                         .isPasswordValid(userInfo.getPassword())) {
                     return AppConstants.RegistrationValidation.PASSWORD_PATTERN_REQ;
                 }

@@ -2,21 +2,23 @@ package com.incon.connect.ui.forgotpassword;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Pair;
 
 import com.incon.connect.ConnectApplication;
+import com.incon.connect.R;
 import com.incon.connect.api.AppApiService;
-import com.incon.connect.apimodel.components.registration.ValidateOtpResponse;
 import com.incon.connect.ui.BasePresenter;
+import com.incon.connect.utils.ErrorMsgUtil;
 
 import java.util.HashMap;
 
-import io.reactivex.Observable;
+import io.reactivex.observers.DisposableObserver;
 
 public class ForgotPasswordPresenter extends BasePresenter<ForgotPasswordContract.View> implements
         ForgotPasswordContract.Presenter {
 
-    private Context appContext;
     private static final String TAG = ForgotPasswordPresenter.class.getName();
+    private Context appContext;
 
     @Override
     public void initialize(Bundle extras) {
@@ -25,9 +27,8 @@ public class ForgotPasswordPresenter extends BasePresenter<ForgotPasswordContrac
     }
 
     @Override
-    public void forgotPassword(HashMap<String, String> email) {
-        /*getView().showProgress(appContext.getString(R.string.progress_forgotpassword));
-        Observable<ValidateOtpResponse> forgotPasswordObserver = getForgotPasswordObserver(email);
+    public void forgotPassword(HashMap<String, String> phoneNumber) {
+        getView().showProgress(appContext.getString(R.string.progress_forgotpassword));
         DisposableObserver<Object> observer = new DisposableObserver<Object>() {
             @Override
             public void onNext(Object o) {
@@ -36,21 +37,15 @@ public class ForgotPasswordPresenter extends BasePresenter<ForgotPasswordContrac
             @Override
             public void onError(Throwable e) {
                 getView().hideProgress();
-                getView().showErrorMessage(ErrorMsgUtil.getErrorMsg(e));
+                Pair<Integer, String> errorDetails = ErrorMsgUtil.getErrorDetails(e);
+                getView().handleException(errorDetails);
             }
             @Override
             public void onComplete() {
                 getView().hideProgress();
             }
         };
-        forgotPasswordObserver.subscribe(observer);
-        addDisposable(observer);*/
-        getView().navigateToResetPromtPage();
+        AppApiService.getInstance().forgotPassword(phoneNumber).subscribe(observer);
+        addDisposable(observer);
     }
-
-    public Observable<ValidateOtpResponse> getForgotPasswordObserver(
-            HashMap<String, String> email) {
-        return AppApiService.getInstance().forgotPassword(email);
-    }
-
 }

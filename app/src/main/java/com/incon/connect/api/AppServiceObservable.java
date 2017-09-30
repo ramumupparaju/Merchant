@@ -48,8 +48,8 @@ public interface AppServiceObservable {
                                                                    HEADER_AUTHORIZATION)
                                                                    String authorization);
 
-    @POST("account/forgot")
-    Observable<ValidateOtpResponse> forgotPassword(@Body HashMap<String, String> email);
+    @POST("merchant/forgotpassword")
+    Observable<ApiBaseResponse> forgotPassword(@Body HashMap<String, String> phoneNumber);
 
     @POST("account/resetPassword")
     Observable<ChangePasswordResponse> resetPassword(@Body HashMap<String, String> password);

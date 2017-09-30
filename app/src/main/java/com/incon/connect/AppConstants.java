@@ -123,8 +123,8 @@ public interface AppConstants {
     }
 
     interface ApiRequestKeyConstants {
-        String BODY_FIRST_NAME = "firstName";
         String BODY_EMAIL = "email";
+        String BODY_USER_ID = "userid";
         String BODY_PASSWORD = "password";
         String BODY_OTP = "otp";
         String BODY_MODULE_ID = "moduleId";

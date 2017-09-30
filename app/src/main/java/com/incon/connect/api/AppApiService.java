@@ -2,6 +2,7 @@ package com.incon.connect.api;
 
 import com.incon.connect.AppConstants;
 import com.incon.connect.BuildConfig;
+import com.incon.connect.apimodel.base.ApiBaseResponse;
 import com.incon.connect.apimodel.components.changepassword.ChangePasswordResponse;
 import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
@@ -61,7 +62,7 @@ public class AppApiService implements AppConstants {
         return addNetworkCheck(serviceInstance.resetPassword(password));
     }
 
-    public Observable<ValidateOtpResponse> forgotPassword(HashMap<String, String> email) {
+    public Observable<ApiBaseResponse> forgotPassword(HashMap<String, String> email) {
         return addNetworkCheck(serviceInstance.forgotPassword(email));
     }
 

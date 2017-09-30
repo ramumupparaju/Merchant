@@ -74,7 +74,7 @@
                             style="@style/MatchWrap"
                             fontPath="fonts/OpenSans-Regular.ttf"
                             android:imeOptions="actionNext"
-                            android:inputType="textEmailAddress"
+                            android:inputType="number"
                             android:maxLines="1"
                             android:text="@={user.phoneNumber}"
                             android:textColor="@color/colorForgotPasswordHintText"
