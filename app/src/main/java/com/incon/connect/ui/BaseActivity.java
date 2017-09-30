@@ -27,7 +27,6 @@ import com.incon.connect.utils.SharedPrefsUtils;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.incon.connect.AppConstants.HttpErrorCodeConstants.ERROR_UNAUTHORIZED;
-import static com.incon.connect.AppConstants.LoginPrefs.EMAIL_ID;
 
 public abstract class BaseActivity extends AppCompatActivity implements BaseView,
         AppConstants {
@@ -105,12 +104,10 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 
     public void onLogoutClick() {
         SharedPrefsUtils sharedPrefsUtils = SharedPrefsUtils.loginProvider();
-        String emailId = sharedPrefsUtils.getStringPreference(EMAIL_ID);
+        String phoneNumber = sharedPrefsUtils.getStringPreference(LoginPrefs.USER_PHONE_NUMBER);
 
         clearData();
-
-        sharedPrefsUtils.setStringPreference(EMAIL_ID, emailId);
-
+        sharedPrefsUtils.setStringPreference(LoginPrefs.USER_PHONE_NUMBER, phoneNumber);
         Intent intent = new Intent(this, com.incon.connect.ui.login.LoginActivity.class);
         // This is a convenient way to make the proper Intent to launch and
         // reset an application's task.

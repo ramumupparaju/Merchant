@@ -52,11 +52,6 @@ public interface AppConstants {
         int TIMEZONE_REQ = 8;
     }
 
-
-    interface RoleConstants {
-        int ROLE_INDIVIDUAL = 0;
-        int ROLE_PARENT = 1;
-    }
     interface PasswordValidation {
         int NEWPWD_REQ = 1;
         int NEWPWD_PATTERN_REQ = 11;
@@ -81,65 +76,50 @@ public interface AppConstants {
     }
 
     interface IntentConstants {
-        String EMAIL_ADDRESS = "emailAddress";
-        String ALERT_ID_KEY = "alertId";
-        String RESPOND_TO_ALERT_RESPONSE = "respondToAlertResponse";
-        String WRITE_REASON_RESULT = "writeReasonResult";
-        String ALERT_MESSAGE_RESPONSE = "alertMessageResponse";
-        String APPOINTMENT_ID = "appointmentId";
-        String APPOINTMENT_CREATED_DATE = "appointmentCreatedDate";
-        String APPOINTMENT_LAUNCHED_SCREEN = "appointmentLaunchedScreen";
-        String APPOINTMENT_CANCELLED = "appointmentCancelled";
-        String TOPIC_NAME = "topicName";
-        String TOPIC_EXTERNAL_ID = "topicExternalId";
-        String TOPIC_REVISION = "topicRevision";
-        String TOPIC_LANGUAGE = "topicLanguage";
-        String TOPIC_LIBRARY_ID = "topicLibraryId";
-        String TOPIC_READ = "topicRead";
-        String SURVEYS_OF_PATIENT_RESPONSE = "surveysOfPatientResponse";
-        String TAKE_NEW_SURVEY_RESPONSE = "newSurveyOfPatientResponse";
-        String CALCULATE_SCORE_RESPONSE = "calculateScoreResponse";
-        String PAST_SCORE_RESPONSE = "pastScoreResponse";
-        String POST_SURVEY_REQUEST_BODY = "postSurveyRequestBody";
-        String TAKE_NEW_SURVEY_LAUNCHED_FROM = "newSurveyLaunchedFrom";
-        String AAP_IMAGE_URI = "aapImageUri";
+        String USER_PHONE_NUMBER = "userPhoneNumber";
         String PUSH_MESSAGE = "pushMessage";
         String PUSH_TYPE = "pushType";
-        String PUSH_ALERT_ID = "pushAlertId";
     }
 
     interface BundleConstants {
         String SELECTED_DATE = "selectedDate";
-        String SYMPTOM_DATA = "symptomDate";
-        String ALERT_CAMERA_IMAGE_PATH = "alertCameraImagePath";
     }
 
     interface CachePrefs {
-        String LEARNING_FIRST_TIME_HIT_BACK = "learningFirstTimeHitBack";
         String IS_ACCESS_CODE_VERIFIED = "isAccessCodeVerified";
         String IS_AAP_OFFLINE_IMAGE = "isAapOfflineImage";
         String EXTRACT_ZIP = "extractZip";
     }
 
     interface LoginPrefs {
-        String EMAIL_ID = "email_id";
+        //User details
+        String USER_ID = "userId";
+        String USER_NAME = "userName";
+        String USER_EMAIL_ID = "userEmailId";
+        String USER_PHONE_NUMBER = "userPhoneNumber";
+        String USER_DOB = "userDob";
+        String USER_GENDER = "userGender";
+        String USER_ADDRESS = "userAddress";
+        String USER_CITY = "userCity";
+        String USER_STATE = "userState";
+        String USER_POSTAL_CODE = "userPostalCode";
+
+        //store details
+        String STORE_ID = "storeId";
+        String STORE_NAME = "storeName";
+        String STORE_EMAIL_ID = "storeEmailId";
+        String STORE_PHONE_NUMBER = "storePhoneNumber";
+        String STORE_LOGO = "storeLogo";
+        String STORE_GSTN = "storeGstn";
+        String STORE_ADDRESS = "storeAddress";
+        String STORE_CITY = "storeCity";
+        String STORE_STATE = "storeState";
+        String STORE_POSTAL_CODE = "storePostalCode";
+
+
+        String LOGGED_IN = "isLoggedIn";
         String PUSH_TOKEN_STATUS = "pushTokenStatus";
         String ACCESS_TOKEN = "accesstoken";
-        String S_THREE_SECRET_KEY = "s3SecretKey";
-        String S_THREE_ACCESS_KEY = "s3AccessKey";
-        String PATIENT_ID = "patientId";
-        String PATIENT_DOB = "patientDob";
-        String ACCOUNT_ID = "id";
-        String FIRST_NAME = "firstName";
-        String LAST_NAME = "lastName";
-        String PHONE_NUMBER = "phoneNumber";
-        String ADDRESS = "address";
-        String CITY = "city";
-        String STATE = "state";
-        String POSTAL_CODE = "postalCode";
-        String TIMEZONE_ID = "timezone_id";
-        String LOGGED_IN = "isLoggedIn";
-        String IS_REGISTERED = "isRegistered";
     }
 
     interface ApiRequestKeyConstants {
@@ -159,13 +139,7 @@ public interface AppConstants {
     interface RequestCodes {
         int TAKE_PHOTO = 100;
         int PICK_FROM_GALLERY = 101;
-        int ALERT_WRITE_REASON = 102;
-        int TOPIC_READ = 103;
         int FORGOT_PASSWORD = 104;
-        int FRAGMENT_LOGSYMPTOMS = 105;
-        int LEARNING_TOPIC = 107;
-        int ALERT_ACTIVITIES = 108;
-        int REGISTRATION = 109;
         int CHANGE_EMAIL = 110;
         int TERMS_AND_CONDITIONS = 111;
     }

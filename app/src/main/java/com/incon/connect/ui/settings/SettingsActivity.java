@@ -18,6 +18,7 @@ import com.incon.connect.ui.BaseActivity;
 import com.incon.connect.ui.changepassword.ChangePasswordActivity;
 import com.incon.connect.ui.register.RegistrationActivity;
 import com.incon.connect.ui.settings.adapters.SettingsAdapter;
+import com.incon.connect.utils.SharedPrefsUtils;
 
 import java.util.ArrayList;
 
@@ -91,7 +92,8 @@ public class SettingsActivity extends BaseActivity implements SettingsContract.V
         menuItems = new ArrayList<>();
         SettingsItem menuItemHeader = new SettingsItem();
         menuItemHeader.setRowType(SettingsAdapter.ROW_TYPE_HEADER);
-        menuItemHeader.setText("Test");
+        menuItemHeader.setText(SharedPrefsUtils.loginProvider().
+                getStringPreference(LoginPrefs.USER_NAME));
         menuItems.add(menuItemHeader);
         for (int menuPos = 0; menuPos < menuTitles.length; menuPos++) {
             SettingsItem menuItem = new SettingsItem();
@@ -107,7 +109,8 @@ public class SettingsActivity extends BaseActivity implements SettingsContract.V
         super.onResume();
         if (menuItems != null) {
             SettingsItem menuItemHeader = menuItems.get(0);
-            menuItemHeader.setText("Test");
+            menuItemHeader.setText(SharedPrefsUtils.loginProvider().
+                    getStringPreference(LoginPrefs.USER_NAME));
             menuAdapter.setData(menuItems);
         }
     }

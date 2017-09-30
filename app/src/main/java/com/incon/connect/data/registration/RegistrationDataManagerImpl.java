@@ -13,7 +13,7 @@ public class RegistrationDataManagerImpl implements
         SharedPrefsUtils sharedPrefsUtils = SharedPrefsUtils.loginProvider();
         sharedPrefsUtils.setStringPreference(ACCESS_TOKEN,
                 registrationResponse.getData().getToken());
-        sharedPrefsUtils.setIntegerPreference(ACCOUNT_ID,
+        sharedPrefsUtils.setIntegerPreference(USER_ID,
                 registrationResponse.getData().getId());
     }
 

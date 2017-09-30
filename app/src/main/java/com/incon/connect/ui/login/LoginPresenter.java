@@ -13,15 +13,14 @@ import com.incon.connect.dto.login.LoginUserData;
 import com.incon.connect.ui.BasePresenter;
 import com.incon.connect.utils.ErrorMsgUtil;
 
-import io.reactivex.Observable;
 import io.reactivex.observers.DisposableObserver;
 
 public class LoginPresenter extends BasePresenter<LoginContract.View> implements
         LoginContract.Presenter {
 
+    private static final String TAG = LoginPresenter.class.getName();
     private Context appContext;
     private LoginDataManagerImpl loginDataManagerImpl;
-    private static final String TAG = LoginPresenter.class.getName();
 
     @Override
     public void initialize(Bundle extras) {
@@ -33,10 +32,10 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
     @Override
     public void doLogin(LoginUserData loginUserData) {
         getView().showProgress(appContext.getString(R.string.progress_login));
-        Observable<LoginResponse> loginObserver = getLoginObserver(loginUserData);
         DisposableObserver<LoginResponse> observer = new DisposableObserver<LoginResponse>() {
             @Override
             public void onNext(LoginResponse loginResponse) {
+                saveLoginData(loginResponse);
                 getView().navigateToHomePage(loginResponse);
             }
 
@@ -53,23 +52,12 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
                 getView().hideProgress();
             }
         };
-        loginObserver.subscribe(observer);
+        AppApiService.getInstance().login(loginUserData).subscribe(observer);
         addDisposable(observer);
     }
-
 
     public void saveLoginData(LoginResponse loginResponse) {
         // save login response to shared preferences
         loginDataManagerImpl.saveLoginDataToPrefs(loginResponse);
     }
-
-    public void setLoginStatus(boolean isLoggedIn) {
-//        loginDataManagerImpl.setLoginStatus(isLoggedIn);
-    }
-
-
-    public Observable<LoginResponse> getLoginObserver(LoginUserData loginUserData) {
-        return AppApiService.getInstance().login(loginUserData);
-    }
-
 }

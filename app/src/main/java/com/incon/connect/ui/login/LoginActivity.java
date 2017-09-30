@@ -10,8 +10,6 @@ import android.view.animation.AnimationUtils;
 
 import com.incon.connect.R;
 import com.incon.connect.apimodel.components.login.LoginResponse;
-import com.incon.connect.custom.view.AppAlertDialog;
-import com.incon.connect.custom.view.AppAlertVerticalTwoButtonsDialog;
 import com.incon.connect.databinding.ActivityLoginBinding;
 import com.incon.connect.dto.login.LoginUserData;
 import com.incon.connect.ui.BaseActivity;
@@ -21,18 +19,13 @@ import com.incon.connect.ui.home.HomeActivity;
 import com.incon.connect.ui.register.RegistrationActivity;
 import com.incon.connect.utils.SharedPrefsUtils;
 
-import static com.incon.connect.AppConstants.ActivityResult.IS_REGISTRATION_SUCCESS;
-import static com.incon.connect.AppConstants.RequestCodes.REGISTRATION;
-
 
 public class LoginActivity extends BaseActivity implements LoginContract.View {
 
-    private LoginPresenter loginPresenter;
-    private ActivityLoginBinding binding;
-
     private static final String TAG = LoginActivity.class.getName();
-    private AppAlertVerticalTwoButtonsDialog dialog;
-    private AppAlertDialog singleButtondialog;
+
+    private ActivityLoginBinding binding;
+    private LoginPresenter loginPresenter;
 
     @Override
     protected int getLayoutId() {
@@ -52,10 +45,10 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         binding = DataBindingUtil.setContentView(this, getLayoutId());
         binding.setActivity(this);
 
-//        User user = new User();
-        LoginUserData loginUserData = new LoginUserData("7799879990", "test");
+//        LoginUserData loginUserData = new LoginUserData();
+        LoginUserData loginUserData = new LoginUserData("7799879990", "password");
         String phoneNumberPreference = SharedPrefsUtils.loginProvider().
-                getStringPreference(LoginPrefs.PHONE_NUMBER);
+                getStringPreference(LoginPrefs.USER_PHONE_NUMBER);
         if (!TextUtils.isEmpty(phoneNumberPreference)) {
             loginUserData.setPhoneNumber(phoneNumberPreference);
             binding.edittextPassword.requestFocus();
@@ -81,12 +74,6 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
             clearData();
             return;
         }
-
-        loginPresenter.saveLoginData(loginResponse);
-/*
-        PushPresenter pushPresenter = new PushPresenter();
-        pushPresenter.pushRegisterApi();
-        */loginPresenter.setLoginStatus(true);
         Intent homeIntent = new Intent(this, HomeActivity.class);
         homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(homeIntent);
@@ -130,20 +117,24 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     public void onRegisterClick() {
         Intent registrationIntent = new Intent(this, RegistrationActivity.class);
-        String emailAddress = binding.edittextUsername.getText().toString();
-        if (!TextUtils.isEmpty(emailAddress)) {
-            registrationIntent.putExtra(IntentConstants.EMAIL_ADDRESS, emailAddress);
+        String phoneNumber = binding.edittextUsername.getText().toString();
+        if (!TextUtils.isEmpty(phoneNumber)) {
+            registrationIntent.putExtra(IntentConstants.USER_PHONE_NUMBER, phoneNumber);
         }
-        startActivityForResult(registrationIntent, REGISTRATION);
+        startActivity(registrationIntent);
         // donot finish current activity, since user may come back to login screen from registration
         // screens
     }
 
     public void onForgotPasswordClick() {
         Intent forgotPasswordIntent = new Intent(this, ForgotPasswordActivity.class);
-        forgotPasswordIntent.putExtra("emailId",
-                binding.edittextUsername.getEditableText().toString());
+        String phoneNumber = binding.edittextUsername.getText().toString();
+        if (!TextUtils.isEmpty(phoneNumber)) {
+            forgotPasswordIntent.putExtra(IntentConstants.USER_PHONE_NUMBER, phoneNumber);
+        }
         startActivityForResult(forgotPasswordIntent, RequestCodes.FORGOT_PASSWORD);
+        // donot finish current activity, since user may come back to login screen from registration
+        // screens
     }
 
     @Override
@@ -154,24 +145,6 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
                 case RequestCodes.FORGOT_PASSWORD:
                     binding.edittextPassword.setText("");
                     break;
-                case REGISTRATION:
-
-                    if (data != null) {
-                        boolean isRegistrationSuccess =
-                                data.getBooleanExtra(IS_REGISTRATION_SUCCESS, false);
-                        if (isRegistrationSuccess) {
-
-                            String email = SharedPrefsUtils.loginProvider().
-                                    getStringPreference(LoginPrefs.EMAIL_ID);
-                            binding.getUser().setPhoneNumber(email);
-                            binding.edittextUsername.setText(email);
-                        }
-                    }
-                    else {
-                        showErrorMessage(getString(R.string.error_no_connectivity));
-                    }
-                    break;
-
                 default:
                     break;
             }

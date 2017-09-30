@@ -33,6 +33,12 @@ public class LoginResponse extends ApiBaseResponse {
     @SerializedName("country")
     @Expose
     private String country;
+    @SerializedName("dob")
+    @Expose
+    private long dobInMillis;
+    @SerializedName("gender")
+    @Expose
+    private String gender;
 
     public Integer getId() {
         return id;
@@ -106,4 +112,19 @@ public class LoginResponse extends ApiBaseResponse {
         this.country = country;
     }
 
+    public long getDobInMillis() {
+        return dobInMillis;
+    }
+
+    public void setDobInMillis(long dobInMillis) {
+        this.dobInMillis = dobInMillis;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 }
