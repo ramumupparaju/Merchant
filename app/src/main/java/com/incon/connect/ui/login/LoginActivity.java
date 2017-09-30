@@ -53,7 +53,7 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         binding.setActivity(this);
 
 //        User user = new User();
-        LoginUserData loginUserData = new LoginUserData("7799879990", "test");
+        LoginUserData loginUserData = new LoginUserData("7799879990", "password");
         String emailId = SharedPrefsUtils.loginProvider().
                 getStringPreference(LoginPrefs.EMAIL_ID);
         if (!TextUtils.isEmpty(emailId)) {

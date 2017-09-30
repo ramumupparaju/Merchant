@@ -15,6 +15,7 @@ import com.incon.connect.R;
 import com.incon.connect.databinding.ActivityHomeBinding;
 import com.incon.connect.databinding.ToolBarBinding;
 import com.incon.connect.ui.BaseActivity;
+import com.incon.connect.ui.buyrequets.BuyRequestFragment;
 import com.incon.connect.ui.home.fragment.DummyFragment;
 import com.incon.connect.ui.history.HistoryTabFragment;
 import com.incon.connect.ui.qrcodescan.QrcodeBarcodeScanActivity;
@@ -119,7 +120,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
                 aClass = HistoryTabFragment.class;
                 break;
             case R.id.action_buy_requests_favorites:
-                aClass = DummyFragment.class;
+                aClass = BuyRequestFragment.class;
                 break;
             case R.id.action_scan:
                 aClass = ScanTabFragment.class;

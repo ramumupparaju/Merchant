@@ -202,6 +202,12 @@
     <string name="tab_return">Return</string>
 
 
+    <!--Buy Request Screen-->
+    <string name="buy_request_brand">Brand</string>
+    <string name="buy_request_product_image">Product Image</string>
+    <string name="buy_request_product_info">Product Info</string>
+
+
     <!-- screen titles -->
     <string name="title_history">History</string>
     <string name="title_buy_requests">Buy offers</string>
