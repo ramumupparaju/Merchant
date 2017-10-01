@@ -99,6 +99,7 @@
     <string name="error_new_emailid_req">New EmailId is required</string>
     <string name="error_address_req">Address is required</string>
     <string name="error_image_path_req">Select image to view</string>
+    <string name="error_image_path_upload">Select image to upload</string>
     <string name="error_gstn_req">GSTN is required</string>
     <string name="error_new_confirm_pwd_not_matched">Password mismatch</string>
     <string name="error_city_req">City is required</string>

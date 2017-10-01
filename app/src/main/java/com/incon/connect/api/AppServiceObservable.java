@@ -14,10 +14,12 @@ import com.incon.connect.dto.registration.Registration;
 import java.util.HashMap;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.Url;
 
@@ -29,6 +31,10 @@ public interface AppServiceObservable {
 
     @POST("merchant/register")
     Observable<LoginResponse> register(@Body Registration registrationBody);
+
+    @POST("merchant/logoupdate/{storeId}")
+    Observable<ApiBaseResponse> uploadStoreLogo(@Path("storeId") int storeId,
+                                                MultipartBody.Part storeLogo);
 
     @POST("account/sendOtp")
     Observable<SendOtpResponse> sendOtp(@Body HashMap<String, String> email);

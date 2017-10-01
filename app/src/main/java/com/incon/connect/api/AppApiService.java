@@ -19,6 +19,7 @@ import java.util.HashMap;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MultipartBody;
 
 public class AppApiService implements AppConstants {
 
@@ -75,6 +76,10 @@ public class AppApiService implements AppConstants {
 
     public Observable<LoginResponse> register(Registration registrationBody) {
         return addNetworkCheck(serviceInstance.register(registrationBody));
+    }
+
+    public Observable<ApiBaseResponse> uploadStoreLogo(int storeId, MultipartBody.Part storeLogo) {
+        return addNetworkCheck(serviceInstance.uploadStoreLogo(storeId, storeLogo));
     }
 
     public Observable<SendOtpResponse> sendOtp(HashMap<String, String> email) {

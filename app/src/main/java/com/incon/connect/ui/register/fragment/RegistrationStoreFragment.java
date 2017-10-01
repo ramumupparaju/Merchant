@@ -35,9 +35,17 @@ import com.incon.connect.ui.termsandcondition.TermsAndConditionActivity;
 import com.incon.connect.custom.view.PickImageDialog;
 import com.incon.connect.utils.Logger;
 import com.incon.connect.utils.PermissionUtils;
+import com.incon.connect.utils.SharedPrefsUtils;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
+import java.io.File;
 import java.util.HashMap;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+
+import static com.incon.connect.AppConstants.ApiRequestKeyConstants.STORE_LOGO;
 
 
 /**
@@ -54,6 +62,7 @@ public class RegistrationStoreFragment extends BaseFragment implements
     private HashMap<Integer, String> errorMap;
     private PickImageDialog pickImageDialog;
     private String selectedFilePath = "";
+
     @Override
     protected void initializePresenter() {
         registrationStoreFragmentPresenter = new RegistrationStoreFragmentPresenter();
@@ -265,6 +274,10 @@ public class RegistrationStoreFragment extends BaseFragment implements
      */
     public void onClickNext() {
         if (validateFields()) {
+            if (TextUtils.isEmpty(selectedFilePath)) {
+                showErrorMessage(getString(R.string.error_image_path_upload));
+                return;
+            }
             navigateToRegistrationActivityNext();
         }
     }
@@ -315,6 +328,26 @@ public class RegistrationStoreFragment extends BaseFragment implements
         ComponentName cn = intent.getComponent();
         Intent mainIntent = IntentCompat.makeRestartActivityTask(cn);
         startActivity(mainIntent);
+    }
+
+    @Override
+    public void uploadStoreLogo() {
+        File fileToUpload = new File(selectedFilePath == null ? "" : selectedFilePath);
+
+        // create RequestBody instance from file
+        MultipartBody.Part imagenPerfil = null;
+        if (fileToUpload.exists()) {
+            RequestBody requestFile =
+                    RequestBody.create(MediaType.parse(MULTIPART_FORM_DATA), fileToUpload);
+            // MultipartBody.Part is used to send also the actual file name
+            imagenPerfil = MultipartBody.Part.createFormData(STORE_LOGO,
+                    fileToUpload.getName(), requestFile);
+        } else {
+            showErrorMessage(getString(R.string.error_image_path_upload));
+            return;
+        }
+        registrationStoreFragmentPresenter.uploadStoreLogo(SharedPrefsUtils.loginProvider()
+                .getIntegerPreference(LoginPrefs.STORE_ID, 0), imagenPerfil);
     }
 
 }

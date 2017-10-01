@@ -37,11 +37,17 @@ public class LoginDataManagerImpl implements LoginDataManager, AppConstants.Logi
                 storeDetails.getStoreEmail());
         sharedPrefsUtils.setStringPreference(STORE_PHONE_NUMBER,
                 storeDetails.getContactNumber());
-        sharedPrefsUtils.setStringPreference(STORE_LOGO,
-                storeDetails.getLogo());
+        saveStoreLogo(storeDetails.getLogo());
         sharedPrefsUtils.setStringPreference(STORE_GSTN,
                 storeDetails.getGstn());
         sharedPrefsUtils.setStringPreference(STORE_ADDRESS,
                 storeDetails.getAddress());
+
+        saveStoreLogo(storeDetails.getLogo());
+    }
+
+    public void saveStoreLogo(String storeDetailsLogo) {
+        SharedPrefsUtils.loginProvider().setStringPreference(STORE_LOGO,
+                storeDetailsLogo);
     }
 }
