@@ -9,6 +9,7 @@ import com.incon.connect.apimodel.components.registration.SendOtpResponse;
 import com.incon.connect.apimodel.components.registration.ValidateEmailResponse;
 import com.incon.connect.apimodel.components.registration.ValidateOtpResponse;
 import com.incon.connect.custom.exception.NoConnectivityException;
+import com.incon.connect.dto.Location.LocationPostData;
 import com.incon.connect.dto.login.LoginUserData;
 import com.incon.connect.dto.registration.Register;
 import com.incon.connect.utils.NetworkUtil;
@@ -57,6 +58,11 @@ public class AppApiService implements AppConstants {
     public Observable<LoginResponse> login(LoginUserData loginUserData) {
         return addNetworkCheck(serviceInstance
                 .login(loginUserData));
+    }
+
+    public Observable<LocationPostData> login(String loginUserData) {
+        return addNetworkCheck(serviceInstance
+                .doGetLocationPinCode(loginUserData));
     }
 
     public Observable<ChangePasswordResponse> resetPassword(HashMap<String, String> password) {

@@ -7,6 +7,7 @@ import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
 import com.incon.connect.apimodel.components.registration.ValidateEmailResponse;
 import com.incon.connect.apimodel.components.registration.ValidateOtpResponse;
+import com.incon.connect.dto.Location.LocationPostData;
 import com.incon.connect.dto.login.LoginUserData;
 import com.incon.connect.dto.registration.Register;
 
@@ -18,9 +19,10 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
+import retrofit2.http.Url;
 
 public interface AppServiceObservable {
-
+//http://maps.googleapis.com/maps/api/geocode/json?address=505211&region=us
 
     @POST("login")
     Observable<LoginResponse> login(@Body LoginUserData loginUserData);
@@ -37,6 +39,9 @@ public interface AppServiceObservable {
     @GET("account/validateEmail")
     Observable<ValidateEmailResponse> validateEmail(@Query(
             AppConstants.ApiRequestKeyConstants.QUERY_EMAIL) String email);
+
+    @GET("")
+    Observable<LocationPostData> doGetLocationPinCode(@Url String url);
 
     @POST("account/validateChangeEmailOTP")
     Observable<ValidateOtpResponse> validateChangeEmailOtp(@Body HashMap<String, String> verify,

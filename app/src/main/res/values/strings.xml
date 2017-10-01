@@ -191,6 +191,7 @@
     <string name="register_address1_hint">Address1</string>
     <string name="register_address2_hint">Address2</string>
     <string name="register_street_hint">Street</string>
+    <string name="register_state_hint">State</string>
     <string name="register_city_hint">City</string>
     <string name="register_postalcode_hint">Postal Code</string>
     <string name="register_verify_email_hint">Verification Code</string>
@@ -202,11 +203,18 @@
     <string name="register_password_hint_unicode">&#9432;</string>
     <string name="register_timezone_why_unicode">\u003F</string>
 
+    <string name="google_map_key">AIzaSyBmlNQQda3yG66CV1j7vTY7lz2nZXtyDHY</string>
 
     <!--History-->
     <string name="tab_purchased">Purchased</string>
     <string name="tab_interest">Interest</string>
     <string name="tab_return">Return</string>
+
+
+    <!--Buy Request Screen-->
+    <string name="buy_request_brand">Brand</string>
+    <string name="buy_request_product_image">Product Image</string>
+    <string name="buy_request_product_info">Product Info</string>
 
 
     <!-- screen titles -->
