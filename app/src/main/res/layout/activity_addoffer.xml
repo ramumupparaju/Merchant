@@ -11,13 +11,6 @@
     <LinearLayout
         android:orientation="vertical"
         style="@style/BothMatch">
-        <ListView
-            android:divider="#c2c2c2"
-            android:dividerHeight="2sp"
-            android:id="@+id/list_addoffer"
-            style="@style/MatchWrap"
-            >
-        </ListView>
         <View
             android:layout_height="2sp"
             android:layout_width="match_parent"

@@ -4,6 +4,7 @@ import com.incon.connect.AppConstants;
 import com.incon.connect.BuildConfig;
 import com.incon.connect.apimodel.components.changepassword.ChangePasswordResponse;
 import com.incon.connect.apimodel.components.login.LoginResponse;
+import com.incon.connect.apimodel.components.qrcodebaruser.UserInfoResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
 import com.incon.connect.apimodel.components.registration.ValidateEmailResponse;
 import com.incon.connect.apimodel.components.registration.ValidateOtpResponse;
@@ -62,7 +63,10 @@ public class AppApiService implements AppConstants {
         return addNetworkCheck(serviceInstance
                 .doGetLocationPinCode(loginUserData));
     }
-
+    public Observable<UserInfoResponse> userInfoData(String uudi) {
+        return addNetworkCheck(serviceInstance
+                .userInfoData(uudi));
+    }
     public Observable<ChangePasswordResponse> resetPassword(HashMap<String, String> password) {
         return addNetworkCheck(serviceInstance.resetPassword(password));
     }
