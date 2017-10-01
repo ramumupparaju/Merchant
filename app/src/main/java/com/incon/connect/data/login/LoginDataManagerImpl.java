@@ -12,6 +12,7 @@ public class LoginDataManagerImpl implements LoginDataManager, AppConstants.Logi
     public void saveLoginDataToPrefs(LoginResponse loginResponse) {
         SharedPrefsUtils sharedPrefsUtils = SharedPrefsUtils.loginProvider();
 
+        sharedPrefsUtils.setBooleanPreference(LOGGED_IN, true);
         //Adding user details to preferences
         sharedPrefsUtils.setIntegerPreference(USER_ID,
                 loginResponse.getId());

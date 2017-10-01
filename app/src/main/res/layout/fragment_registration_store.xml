@@ -5,7 +5,7 @@
     <data>
         <variable
             name="register"
-            type="com.incon.connect.dto.registration.Register"/>
+            type="com.incon.connect.dto.registration.Registration"/>
 
         <variable
             name="storeFragment"
@@ -79,7 +79,7 @@
                         android:maxLength="@integer/character_limit_200"
                         android:maxLines="1"
                         android:tag="0"
-                        android:text="@={register.storeInfo.storeName}"/>
+                        android:text="@={register.storeName}"/>
                 </com.incon.connect.custom.view.CustomTextInputLayout>
 
                 <!-- Phone -->
@@ -101,7 +101,7 @@
                         android:maxLength="@integer/character_limit_45"
                         android:maxLines="1"
                         android:tag="1"
-                        android:text="@={register.storeInfo.storePhoneNumber}"/>
+                        android:text="@={register.storePhoneNumber}"/>
                 </com.incon.connect.custom.view.CustomTextInputLayout>
 
                 <!-- Category -->
@@ -113,7 +113,7 @@
                     android:focusable="true"
                     android:hint="@string/register_category_hint"
                     android:tag="2"
-                    android:text="@={register.storeInfo.storeCategory}"
+                    android:text="@={register.storeCategory}"
                     app:errorEnabled="true"
                     app:met_floatingLabel="highlight"
                     app:met_textColor="@color/colorForgotPasswordHintText"
@@ -134,7 +134,7 @@
                         style="@style/Register_TextInputEditText"
                         android:enabled="false"
                         android:tag="3"
-                        android:text="@={register.storeInfo.storeAddress}"/>
+                        android:text="@={register.storeAddress}"/>
                 </com.incon.connect.custom.view.CustomTextInputLayout>
 
                 <!--Dummy view used for click action-->
@@ -168,7 +168,7 @@
                         android:maxLength="@integer/character_limit_200"
                         android:maxLines="1"
                         android:tag="4"
-                        android:text="@={register.storeInfo.storeEmail}"/>
+                        android:text="@={register.storeEmail}"/>
                 </com.incon.connect.custom.view.CustomTextInputLayout>
 
                 <!-- GSTN -->
@@ -190,7 +190,7 @@
                         android:maxLength="@integer/character_limit_200"
                         android:maxLines="1"
                         android:tag="5"
-                        android:text="@={register.storeInfo.storeGSTN}"/>
+                        android:text="@={register.storeGSTN}"/>
                 </com.incon.connect.custom.view.CustomTextInputLayout>
 
 

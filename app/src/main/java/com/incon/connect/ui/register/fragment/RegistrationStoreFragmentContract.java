@@ -1,7 +1,7 @@
 package com.incon.connect.ui.register.fragment;
 
 
-import com.incon.connect.dto.registration.Register;
+import com.incon.connect.dto.registration.Registration;
 import com.incon.connect.ui.BaseView;
 
 /**
@@ -16,7 +16,7 @@ public class RegistrationStoreFragmentContract {
     }
 
     interface Presenter {
-        void register(Register registrationBody);
+        void register(Registration registrationBody);
 
        /* void sendOtp(HashMap<String, String> emailMap);
         void verifyOtp(HashMap<String, String> verifyOtpMap);

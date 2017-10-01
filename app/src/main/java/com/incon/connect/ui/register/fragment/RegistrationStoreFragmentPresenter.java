@@ -9,7 +9,7 @@ import com.incon.connect.R;
 import com.incon.connect.api.AppApiService;
 import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.data.login.LoginDataManagerImpl;
-import com.incon.connect.dto.registration.Register;
+import com.incon.connect.dto.registration.Registration;
 import com.incon.connect.ui.BasePresenter;
 import com.incon.connect.utils.ErrorMsgUtil;
 
@@ -39,7 +39,7 @@ public class RegistrationStoreFragmentPresenter extends
      * @param registrationBody
      */
     @Override
-    public void register(Register registrationBody) {
+    public void register(Registration registrationBody) {
         getView().showProgress(appContext.getString(R.string.progress_registering));
         DisposableObserver<LoginResponse> observer = new DisposableObserver<LoginResponse>() {
             @Override

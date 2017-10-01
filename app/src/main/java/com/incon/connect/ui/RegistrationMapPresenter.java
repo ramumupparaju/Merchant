@@ -31,8 +31,8 @@ public class RegistrationMapPresenter extends BasePresenter<RegistrationMapContr
 
 
 
-    public Observable<LocationPostData> getLoginObserver(String loginUserData) {
-        return AppApiService.getInstance().login(loginUserData);
+    public Observable<LocationPostData> getLoginObserver(String pincode) {
+        return AppApiService.getInstance().locationPinCode(pincode);
     }
 
     @Override

@@ -34,7 +34,7 @@ import java.util.List;
  * Created by LENOVO on 9/30/2017.
  */
 
-public class RegistrationmapActivity extends BaseActivity implements OnMapReadyCallback
+public class RegistrationMapActivity extends BaseActivity implements OnMapReadyCallback
         , LocationListener , RegistrationMapContract.View {
     private DialogRegistrationGooglemapBinding binding;
     public GoogleMap mGoogleMap;
@@ -94,7 +94,7 @@ public class RegistrationmapActivity extends BaseActivity implements OnMapReadyC
                 @Override
                 public void onMapLongClick(LatLng latLng) {
                     Geocoder geocoder =
-                            new Geocoder(RegistrationmapActivity.this);
+                            new Geocoder(RegistrationMapActivity.this);
                     List<Address> list;
                     try {
                         list = geocoder.getFromLocation(latLng.latitude,

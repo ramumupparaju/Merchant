@@ -22,8 +22,9 @@ import com.incon.connect.AppConstants;
 import com.incon.connect.R;
 import com.incon.connect.custom.view.CustomTextInputLayout;
 import com.incon.connect.databinding.FragmentRegistrationStoreBinding;
-import com.incon.connect.dto.registration.Register;
+import com.incon.connect.dto.registration.Registration;
 import com.incon.connect.ui.BaseFragment;
+import com.incon.connect.ui.RegistrationMapActivity;
 import com.incon.connect.ui.home.HomeActivity;
 import com.incon.connect.ui.register.RegistrationActivity;
 import com.incon.connect.ui.termsandcondition.TermsAndConditionActivity;
@@ -40,7 +41,7 @@ public class RegistrationStoreFragment extends BaseFragment implements
 
     private RegistrationStoreFragmentPresenter registrationStoreFragmentPresenter;
     private FragmentRegistrationStoreBinding binding;
-    private Register register; // initialized from registration acticity
+    private Registration register; // initialized from registration acticity
     private Animation shakeAnim;
     private HashMap<Integer, String> errorMap;
 
@@ -58,7 +59,7 @@ public class RegistrationStoreFragment extends BaseFragment implements
                 inflater, R.layout.fragment_registration_store, container, false);
         binding.setStoreFragment(this);
         //here data must be an instance of the registration class
-        register = ((RegistrationActivity) getActivity()).registrationPresenter.getRegister();
+        register = ((RegistrationActivity) getActivity()).getRegistration();
         binding.setRegister(register);
         View rootView = binding.getRoot();
 
@@ -145,8 +146,7 @@ public class RegistrationStoreFragment extends BaseFragment implements
 
             Object fieldId = view.getTag();
             if (fieldId != null) {
-                Pair<String, Integer> validation = register.getStoreInfo()
-                        .validateStoreInfo((String) fieldId);
+                Pair<String, Integer> validation = register.validateStoreInfo((String) fieldId);
                 if (!hasFocus) {
                     if (view instanceof TextInputEditText) {
                         TextInputEditText textInputEditText = (TextInputEditText) view;
@@ -187,8 +187,9 @@ public class RegistrationStoreFragment extends BaseFragment implements
     }
 
     public void onAddressClick() {
+        Intent addressIntent = new Intent(getActivity(), RegistrationMapActivity.class);
+        startActivity(addressIntent);
         binding.edittextRegisterAddress.setText("addrees");
-        showErrorMessage("onAddressClick");
     }
 
     /**
@@ -207,7 +208,7 @@ public class RegistrationStoreFragment extends BaseFragment implements
         binding.inputLayoutRegisterEmailid.setError(null);
         binding.spinnerCategory.setError(null);
 
-        Pair<String, Integer> validation = register.getStoreInfo().validateStoreInfo(null);
+        Pair<String, Integer> validation = register.validateStoreInfo(null);
         updateUiAfterValidation(validation.first, validation.second);
 
         return validation.second == VALIDATION_SUCCESS;

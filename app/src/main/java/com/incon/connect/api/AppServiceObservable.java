@@ -9,7 +9,7 @@ import com.incon.connect.apimodel.components.registration.ValidateEmailResponse;
 import com.incon.connect.apimodel.components.registration.ValidateOtpResponse;
 import com.incon.connect.dto.Location.LocationPostData;
 import com.incon.connect.dto.login.LoginUserData;
-import com.incon.connect.dto.registration.Register;
+import com.incon.connect.dto.registration.Registration;
 
 import java.util.HashMap;
 
@@ -28,7 +28,7 @@ public interface AppServiceObservable {
     Observable<LoginResponse> login(@Body LoginUserData loginUserData);
 
     @POST("merchant/register")
-    Observable<LoginResponse> register(@Body Register registrationBody);
+    Observable<LoginResponse> register(@Body Registration registrationBody);
 
     @POST("account/sendOtp")
     Observable<SendOtpResponse> sendOtp(@Body HashMap<String, String> email);

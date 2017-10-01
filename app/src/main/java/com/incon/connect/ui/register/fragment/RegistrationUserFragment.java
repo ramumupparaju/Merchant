@@ -1,6 +1,7 @@
 package com.incon.connect.ui.register.fragment;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,8 +23,9 @@ import com.incon.connect.AppUtils;
 import com.incon.connect.R;
 import com.incon.connect.custom.view.CustomTextInputLayout;
 import com.incon.connect.databinding.FragmentRegistrationUserBinding;
-import com.incon.connect.dto.registration.Register;
+import com.incon.connect.dto.registration.Registration;
 import com.incon.connect.ui.BaseFragment;
+import com.incon.connect.ui.RegistrationMapActivity;
 import com.incon.connect.ui.register.RegistrationActivity;
 import com.incon.connect.utils.DateUtils;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
@@ -45,7 +47,7 @@ public class RegistrationUserFragment extends BaseFragment implements
 
     private RegistrationUserFragmentPresenter registrationUserInfoFragPresenter;
     private FragmentRegistrationUserBinding binding;
-    private Register register; // initialized from registration acticity
+    private Registration register; // initialized from registration acticity
     private Animation shakeAnim;
     private HashMap<Integer, String> errorMap;
     private MaterialBetterSpinner genderSpinner;
@@ -65,7 +67,7 @@ public class RegistrationUserFragment extends BaseFragment implements
                 inflater, R.layout.fragment_registration_user, container, false);
         binding.setUserFragment(this);
         //here data must be an instance of the registration class
-        register = ((RegistrationActivity) getActivity()).registrationPresenter.getRegister();
+        register = ((RegistrationActivity) getActivity()).getRegistration();
         binding.setRegister(register);
         View rootView = binding.getRoot();
 
@@ -80,6 +82,12 @@ public class RegistrationUserFragment extends BaseFragment implements
         setFocusListenersForEditText();
     }
 
+    public void onAddressClick() {
+        Intent addressIntent = new Intent(getActivity(), RegistrationMapActivity.class);
+        startActivity(addressIntent);
+        binding.edittextRegisterAddress.setText("addrees");
+    }
+
     public void onDobClick() {
         showDatePicker();
     }
@@ -89,7 +97,7 @@ public class RegistrationUserFragment extends BaseFragment implements
         Calendar cal = Calendar.getInstance(TimeZone.getDefault());
 
 
-        String dateOfBirth = register.getUserInfo().getDateOfBirthToShow();
+        String dateOfBirth = register.getDateOfBirthToShow();
         if (!TextUtils.isEmpty(dateOfBirth)) {
             cal.setTimeInMillis(DateUtils.convertStringFormatToMillis(
                     dateOfBirth, DateFormatterConstants.MM_DD_YYYY));
@@ -122,11 +130,11 @@ public class RegistrationUserFragment extends BaseFragment implements
                     binding.edittextRegisterDob.setText(strDt);
                     String dobInYYYYMMDD = DateUtils.convertDateToOtherFormat(
                             selectedDateTime.getTime(), DateFormatterConstants.YYYY_MM_DD);
-                    register.getUserInfo().setDob(dobInYYYYMMDD);
-                    register.getUserInfo().setDateOfBirthToShow(strDt);
+                    register.setDob(dobInYYYYMMDD);
+                    register.setDateOfBirthToShow(strDt);
 
-                    Pair<String, Integer> validate = binding.getRegister().getUserInfo()
-                            .validateUserInfo((String) binding.edittextRegisterDob.getTag());
+                    Pair<String, Integer> validate = binding.getRegister().
+                            validateUserInfo((String) binding.edittextRegisterDob.getTag());
                     updateUiAfterValidation(validate.first, validate.second);
                 }
             };
@@ -184,6 +192,8 @@ public class RegistrationUserFragment extends BaseFragment implements
         errorMap.put(RegistrationValidation.RE_ENTER_PASSWORD_DOES_NOT_MATCH,
                 getString(R.string.error_re_enter_password_does_not_match));
 
+        errorMap.put(RegistrationValidation.ADDRESS_REQ, getString(R.string.error_address_req));
+
     }
 
     private void setFocusListenersForEditText() {
@@ -213,6 +223,7 @@ public class RegistrationUserFragment extends BaseFragment implements
         binding.edittextRegisterEmailid.setOnFocusChangeListener(onFocusChangeListener);
         binding.edittextRegisterPassword.setOnFocusChangeListener(onFocusChangeListener);
         binding.edittextRegisterReenterPassword.setOnFocusChangeListener(onFocusChangeListener);
+        binding.edittextRegisterAddress.setOnFocusChangeListener(onFocusChangeListener);
     }
 
     View.OnFocusChangeListener onFocusChangeListener = new View.OnFocusChangeListener() {
@@ -221,8 +232,8 @@ public class RegistrationUserFragment extends BaseFragment implements
 
             Object fieldId = view.getTag();
             if (fieldId != null) {
-                Pair<String, Integer> validation = binding.getRegister().getUserInfo()
-                        .validateUserInfo((String) fieldId);
+                Pair<String, Integer> validation = binding.getRegister().
+                        validateUserInfo((String) fieldId);
                 if (!hasFocus) {
                     if (view instanceof TextInputEditText) {
                         TextInputEditText textInputEditText = (TextInputEditText) view;
@@ -277,13 +288,14 @@ public class RegistrationUserFragment extends BaseFragment implements
     private boolean validateFields() {
         binding.inputLayoutRegisterUserName.setError(null);
         binding.inputLayoutRegisterPhone.setError(null);
+        binding.spinnerGender.setError(null);
         binding.inputLayoutRegisterEmailid.setError(null);
         binding.inputLayoutRegisterPassword.setError(null);
         binding.inputLayoutRegisterConfirmPassword.setError(null);
-        binding.spinnerGender.setError(null);
+        binding.inputLayoutRegisterAddress.setError(null);
 
-        Pair<String, Integer> validation = binding.getRegister().getUserInfo()
-                .validateUserInfo(null);
+        Pair<String, Integer> validation = binding.getRegister().
+                validateUserInfo(null);
         updateUiAfterValidation(validation.first, validation.second);
 
         return validation.second == VALIDATION_SUCCESS;

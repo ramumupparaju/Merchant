@@ -11,7 +11,7 @@ import com.incon.connect.apimodel.components.registration.ValidateOtpResponse;
 import com.incon.connect.custom.exception.NoConnectivityException;
 import com.incon.connect.dto.Location.LocationPostData;
 import com.incon.connect.dto.login.LoginUserData;
-import com.incon.connect.dto.registration.Register;
+import com.incon.connect.dto.registration.Registration;
 import com.incon.connect.utils.NetworkUtil;
 
 import java.util.HashMap;
@@ -60,7 +60,7 @@ public class AppApiService implements AppConstants {
                 .login(loginUserData));
     }
 
-    public Observable<LocationPostData> login(String loginUserData) {
+    public Observable<LocationPostData> locationPinCode(String loginUserData) {
         return addNetworkCheck(serviceInstance
                 .doGetLocationPinCode(loginUserData));
     }
@@ -73,7 +73,7 @@ public class AppApiService implements AppConstants {
         return addNetworkCheck(serviceInstance.forgotPassword(email));
     }
 
-    public Observable<LoginResponse> register(Register registrationBody) {
+    public Observable<LoginResponse> register(Registration registrationBody) {
         return addNetworkCheck(serviceInstance.register(registrationBody));
     }
 
