@@ -5,6 +5,7 @@ import java.util.Locale;
 public interface AppConstants {
 
     String TERMS_CONDITIONS_URL = "https://www.google.co.in"; //TODO have to change
+    String WEB_IMAGE = "http";
 
     String BUILD_FLAVOR = "moonz_dev";
     int VALIDATION_SUCCESS = 0;
@@ -83,7 +84,7 @@ public interface AppConstants {
 
     interface IntentConstants {
         String USER_PHONE_NUMBER = "userPhoneNumber";
-        String PUSH_MESSAGE = "pushMessage";
+        String IMAGE_PATH = "imagePath";
         String PUSH_TYPE = "pushType";
     }
 
@@ -145,6 +146,7 @@ public interface AppConstants {
     interface RequestCodes {
         int TAKE_PHOTO = 100;
         int PICK_FROM_GALLERY = 101;
+        int SEND_IMAGE_PATH = 102;
         int FORGOT_PASSWORD = 104;
         int CHANGE_EMAIL = 110;
         int TERMS_AND_CONDITIONS = 111;

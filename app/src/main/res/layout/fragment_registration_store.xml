@@ -54,7 +54,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="32dp"
                 android:contentDescription="@string/app_name"
-                android:onClick="@{() -> storeFragment.onAddressClick()}"
+                android:onClick="@{() -> storeFragment.openCameraToUpload()}"
 
             app:srcCompat="@drawable/ic_connect_logo_svg"/>
 

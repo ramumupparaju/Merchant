@@ -80,6 +80,7 @@
         name="select_image_list">
         <item>Take Photo</item>
         <item>Choose From Gallery</item>
+        <item>Tap to view</item>
     </string-array>
 
     <!-- Tools main list -->

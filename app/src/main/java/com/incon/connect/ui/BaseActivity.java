@@ -14,8 +14,10 @@ import android.support.v4.content.IntentCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Pair;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
 import com.incon.connect.AppConstants;
 import com.incon.connect.AppUtils;
 import com.incon.connect.R;
@@ -23,6 +25,8 @@ import com.incon.connect.callbacks.AlertDialogCallback;
 import com.incon.connect.custom.view.AppAlertVerticalTwoButtonsDialog;
 import com.incon.connect.utils.Logger;
 import com.incon.connect.utils.SharedPrefsUtils;
+
+import java.io.File;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -53,6 +57,16 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         initializePresenter();
 
         onCreateView(savedInstanceState);
+    }
+
+    public void loadImageUsingGlide(String imagePath, ImageView imageView) {
+
+        if (imagePath.contains(WEB_IMAGE)) {
+            Glide.with(this).load(imagePath).into(imageView);
+            return;
+        }
+        Glide.with(this).load(new File(imagePath))
+                .into(imageView);
     }
 
     public void setBasePresenter(BasePresenter basePresenter) {

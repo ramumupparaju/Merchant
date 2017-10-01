@@ -1,5 +1,6 @@
 package com.incon.connect.ui.register.fragment;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Intent;
@@ -7,6 +8,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.content.IntentCompat;
+import android.text.TextUtils;
 import android.util.Pair;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -21,13 +23,18 @@ import android.widget.TextView;
 import com.incon.connect.AppConstants;
 import com.incon.connect.R;
 import com.incon.connect.custom.view.CustomTextInputLayout;
+import com.incon.connect.custom.view.PickImageDialogInterface;
 import com.incon.connect.databinding.FragmentRegistrationStoreBinding;
 import com.incon.connect.dto.registration.Registration;
+import com.incon.connect.ui.BaseActivity;
 import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.RegistrationMapActivity;
 import com.incon.connect.ui.home.HomeActivity;
 import com.incon.connect.ui.register.RegistrationActivity;
 import com.incon.connect.ui.termsandcondition.TermsAndConditionActivity;
+import com.incon.connect.custom.view.PickImageDialog;
+import com.incon.connect.utils.Logger;
+import com.incon.connect.utils.PermissionUtils;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import java.util.HashMap;
@@ -39,12 +46,14 @@ import java.util.HashMap;
 public class RegistrationStoreFragment extends BaseFragment implements
         RegistrationStoreFragmentContract.View {
 
+    private static final String TAG = RegistrationStoreFragment.class.getSimpleName();
     private RegistrationStoreFragmentPresenter registrationStoreFragmentPresenter;
     private FragmentRegistrationStoreBinding binding;
     private Registration register; // initialized from registration acticity
     private Animation shakeAnim;
     private HashMap<Integer, String> errorMap;
-
+    private PickImageDialog pickImageDialog;
+    private String selectedFilePath = "";
     @Override
     protected void initializePresenter() {
         registrationStoreFragmentPresenter = new RegistrationStoreFragmentPresenter();
@@ -73,6 +82,64 @@ public class RegistrationStoreFragment extends BaseFragment implements
         loadValidationErrors();
         setFocusListenersForEditText();
     }
+
+
+    public void openCameraToUpload() {
+        PermissionUtils.getInstance().grantPermission(getActivity(),
+                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                        Manifest.permission.CAMERA},
+                new PermissionUtils.Callback() {
+                    @Override
+                    public void onFinish(HashMap<String, Integer> permissionsStatusMap) {
+                        int storageStatus = permissionsStatusMap.get(
+                                Manifest.permission.CAMERA);
+                        switch (storageStatus) {
+                            case PermissionUtils.PERMISSION_GRANTED:
+                                showImageOptionsDialog();
+                                Logger.v(TAG, "location :" + "granted");
+                                break;
+                            case PermissionUtils.PERMISSION_DENIED:
+                                Logger.v(TAG, "location :" + "denied");
+                                break;
+                            case PermissionUtils.PERMISSION_DENIED_FOREVER:
+                                Logger.v(TAG, "location :" + "denied forever");
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                });
+    }
+
+    private void showImageOptionsDialog() {
+        pickImageDialog = new PickImageDialog(getActivity());
+        pickImageDialog.mImageHandlingDelegate = pickImageDialogInterface;
+        pickImageDialog.initDialogLayout();
+    }
+
+
+    private PickImageDialogInterface pickImageDialogInterface = new PickImageDialogInterface() {
+        @Override
+        public void handleIntent(Intent intent, int requestCode) {
+            if (requestCode == RequestCodes.SEND_IMAGE_PATH) { // loading image in full screen
+                if (TextUtils.isEmpty(selectedFilePath)) {
+                    showErrorMessage(getString(R.string.error_image_path_req));
+                } else {
+                    intent.putExtra(IntentConstants.IMAGE_PATH, selectedFilePath);
+                    startActivity(intent);
+                }
+                return;
+            }
+            startActivityForResult(intent, requestCode);
+        }
+
+        @Override
+        public void displayPickedImage(String uri, int requestCode) {
+            selectedFilePath = uri;
+            ((BaseActivity) getActivity()).loadImageUsingGlide(
+                    selectedFilePath, binding.storeLogoIv);
+        }
+    };
 
     void loadCategorySpinnerData() {
         //TODO have to change using api
@@ -224,9 +291,15 @@ public class RegistrationStoreFragment extends BaseFragment implements
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == AppConstants.RequestCodes.TERMS_AND_CONDITIONS && resultCode == Activity
-                .RESULT_OK) {
-            registrationStoreFragmentPresenter.register(register);
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case RequestCodes.TERMS_AND_CONDITIONS:
+                    registrationStoreFragmentPresenter.register(register);
+                    break;
+                default:
+                    pickImageDialog.onActivityResult(requestCode, resultCode, data);
+                    break;
+            }
         }
 
     }
