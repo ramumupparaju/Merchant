@@ -54,7 +54,9 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="32dp"
                 android:contentDescription="@string/app_name"
-                app:srcCompat="@drawable/ic_connect_logo_svg"/>
+                android:onClick="@{() -> storeFragment.onAddressClick()}"
+
+            app:srcCompat="@drawable/ic_connect_logo_svg"/>
 
             <RelativeLayout
                 style="@style/BothMatch"

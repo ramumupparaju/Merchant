@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import com.incon.connect.MainActivity;
 import com.incon.connect.R;
 import com.incon.connect.ui.BaseActivity;
+import com.incon.connect.ui.home.HomeActivity;
 import com.incon.connect.ui.login.LoginActivity;
 import com.incon.connect.utils.SharedPrefsUtils;
 
@@ -56,7 +56,7 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
 
                 Intent intent;
                 if (isLoggedIn) {
-                    intent = new Intent(SplashActivity.this, MainActivity.class);
+                    intent = new Intent(SplashActivity.this, HomeActivity.class);
                 } else {
                     intent = new Intent(SplashActivity.this, LoginActivity.class);
                 }
