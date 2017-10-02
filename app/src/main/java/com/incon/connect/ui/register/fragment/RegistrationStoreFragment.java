@@ -22,7 +22,11 @@ import android.widget.TextView;
 
 import com.incon.connect.AppConstants;
 import com.incon.connect.R;
+import com.incon.connect.callbacks.AlertDialogCallback;
+import com.incon.connect.callbacks.OTPAlertDialogCallback;
+import com.incon.connect.custom.view.AppOtpDialog;
 import com.incon.connect.custom.view.CustomTextInputLayout;
+import com.incon.connect.custom.view.PickImageDialog;
 import com.incon.connect.custom.view.PickImageDialogInterface;
 import com.incon.connect.databinding.FragmentRegistrationStoreBinding;
 import com.incon.connect.dto.registration.Registration;
@@ -32,7 +36,6 @@ import com.incon.connect.ui.RegistrationMapActivity;
 import com.incon.connect.ui.home.HomeActivity;
 import com.incon.connect.ui.register.RegistrationActivity;
 import com.incon.connect.ui.termsandcondition.TermsAndConditionActivity;
-import com.incon.connect.custom.view.PickImageDialog;
 import com.incon.connect.utils.Logger;
 import com.incon.connect.utils.PermissionUtils;
 import com.incon.connect.utils.SharedPrefsUtils;
@@ -62,6 +65,8 @@ public class RegistrationStoreFragment extends BaseFragment implements
     private HashMap<Integer, String> errorMap;
     private PickImageDialog pickImageDialog;
     private String selectedFilePath = "";
+    private AppOtpDialog dialog;
+    private String enteredOtp;
 
     @Override
     protected void initializePresenter() {
@@ -278,7 +283,7 @@ public class RegistrationStoreFragment extends BaseFragment implements
                 showErrorMessage(getString(R.string.error_image_path_upload));
                 return;
             }
-            navigateToRegistrationActivityNext();
+            navigateToRegistrationActivityNext(); //// TODO: uncomment and remove above
         }
     }
 
@@ -321,6 +326,9 @@ public class RegistrationStoreFragment extends BaseFragment implements
         /*PushPresenter pushPresenter = new PushPresenter();
         pushPresenter.pushRegisterApi();*/ //TODO enable
 
+        if (dialog.isShowing()) {
+            dialog.dismiss();
+        }
         Intent intent = new Intent(getActivity(),
                 HomeActivity.class);
         // This is a convenient way to make the proper Intent to launch and
@@ -333,21 +341,68 @@ public class RegistrationStoreFragment extends BaseFragment implements
     @Override
     public void uploadStoreLogo() {
         File fileToUpload = new File(selectedFilePath == null ? "" : selectedFilePath);
-
-        // create RequestBody instance from file
-        MultipartBody.Part imagenPerfil = null;
         if (fileToUpload.exists()) {
             RequestBody requestFile =
                     RequestBody.create(MediaType.parse(MULTIPART_FORM_DATA), fileToUpload);
             // MultipartBody.Part is used to send also the actual file name
-            imagenPerfil = MultipartBody.Part.createFormData(STORE_LOGO,
+            MultipartBody.Part imagenPerfil = MultipartBody.Part.createFormData(STORE_LOGO,
                     fileToUpload.getName(), requestFile);
+            registrationStoreFragmentPresenter.uploadStoreLogo(SharedPrefsUtils.loginProvider()
+                    .getIntegerPreference(LoginPrefs.STORE_ID, 0), imagenPerfil);
         } else {
             showErrorMessage(getString(R.string.error_image_path_upload));
-            return;
         }
-        registrationStoreFragmentPresenter.uploadStoreLogo(SharedPrefsUtils.loginProvider()
-                .getIntegerPreference(LoginPrefs.STORE_ID, 0), imagenPerfil);
     }
 
+    @Override
+    public void validateOTP() {
+       showOtpDialog();
+    }
+
+    private void showOtpDialog() {
+        final String phoneNumber = SharedPrefsUtils.loginProvider()
+                .getStringPreference(LoginPrefs.USER_PHONE_NUMBER);
+        dialog = new AppOtpDialog.AlertDialogBuilder(getActivity(), new
+                OTPAlertDialogCallback() {
+                    @Override
+                    public void enteredOtp(String otpString) {
+                        enteredOtp = otpString;
+                    }
+
+                    @Override
+                    public void alertDialogCallback(byte dialogStatus) {
+                        switch (dialogStatus) {
+                            case AlertDialogCallback.OK:
+                                if (TextUtils.isEmpty(enteredOtp)) {
+                                    showErrorMessage(getString(R.string.error_otp_req));
+                                    return;
+                                }
+                                HashMap<String, String> verifyOTP = new HashMap<>();
+                                verifyOTP.put(ApiRequestKeyConstants.BODY_MOBILE_NUMBER,
+                                        phoneNumber);
+                                verifyOTP.put(ApiRequestKeyConstants.BODY_OTP, enteredOtp);
+                                registrationStoreFragmentPresenter.validateOTP(verifyOTP);
+                                break;
+                            case AlertDialogCallback.CANCEL:
+                                dialog.dismiss();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }).title(getString(R.string.dialog_verify_title, phoneNumber))
+                .build();
+        dialog.showDialog();
+    }
+
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (dialog.isShowing()) {
+            dialog.dismiss();
+        }
+        registrationStoreFragmentPresenter.disposeAll();
+    }
 }

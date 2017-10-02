@@ -71,8 +71,8 @@
     <!-- Gender dropdown options -->
     <string-array
         name="gender_options_list">
-        <item>Male</item>
-        <item>Female</item>
+        <item>M</item>
+        <item>F</item>
     </string-array>
 
     <!-- image capture options -->

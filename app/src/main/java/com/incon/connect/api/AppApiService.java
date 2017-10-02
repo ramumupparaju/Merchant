@@ -7,7 +7,6 @@ import com.incon.connect.apimodel.components.changepassword.ChangePasswordRespon
 import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
 import com.incon.connect.apimodel.components.registration.ValidateEmailResponse;
-import com.incon.connect.apimodel.components.registration.ValidateOtpResponse;
 import com.incon.connect.custom.exception.NoConnectivityException;
 import com.incon.connect.dto.Location.LocationPostData;
 import com.incon.connect.dto.login.LoginUserData;
@@ -78,15 +77,15 @@ public class AppApiService implements AppConstants {
         return addNetworkCheck(serviceInstance.register(registrationBody));
     }
 
-    public Observable<ApiBaseResponse> uploadStoreLogo(int storeId, MultipartBody.Part storeLogo) {
-        return addNetworkCheck(serviceInstance.uploadStoreLogo(storeId, storeLogo));
+    public Observable<Object> uploadStoreLogo(int storeId, MultipartBody.Part storeLogo) {
+        return addNetworkCheck(serviceInstance.uploadStoreLogo(String.valueOf(storeId), storeLogo));
     }
 
     public Observable<SendOtpResponse> sendOtp(HashMap<String, String> email) {
         return addNetworkCheck(serviceInstance.sendOtp(email));
     }
 
-    public Observable<ValidateOtpResponse> verifyOtp(HashMap<String, String> verify) {
+    public Observable<Object> validateOtp(HashMap<String, String> verify) {
         return addNetworkCheck(serviceInstance.validateOtp(verify));
     }
 

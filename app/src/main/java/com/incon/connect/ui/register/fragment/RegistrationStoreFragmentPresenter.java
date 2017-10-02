@@ -7,12 +7,13 @@ import android.util.Pair;
 import com.incon.connect.ConnectApplication;
 import com.incon.connect.R;
 import com.incon.connect.api.AppApiService;
-import com.incon.connect.apimodel.base.ApiBaseResponse;
 import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.data.login.LoginDataManagerImpl;
 import com.incon.connect.dto.registration.Registration;
 import com.incon.connect.ui.BasePresenter;
 import com.incon.connect.utils.ErrorMsgUtil;
+
+import java.util.HashMap;
 
 import io.reactivex.observers.DisposableObserver;
 import okhttp3.MultipartBody;
@@ -69,11 +70,35 @@ public class RegistrationStoreFragmentPresenter extends
      */
     @Override
     public void uploadStoreLogo(int storeId, MultipartBody.Part storeLogo) {
-        DisposableObserver<ApiBaseResponse> observer = new DisposableObserver<ApiBaseResponse>() {
+        DisposableObserver<Object> observer = new DisposableObserver<Object>() {
             @Override
-            public void onNext(ApiBaseResponse loginResponse) {
+            public void onNext(Object loginResponse) {
                 // save login data to shared preferences
-                loginDataManagerImpl.saveStoreLogo(loginResponse.getMessage());
+                getView().hideProgress();
+                getView().validateOTP();
+            }
+            @Override
+            public void onError(Throwable e) {
+                getView().hideProgress();
+                Pair<Integer, String> errorDetails = ErrorMsgUtil.getErrorDetails(e);
+                getView().handleException(errorDetails);
+            }
+            @Override
+            public void onComplete() {
+                getView().hideProgress();
+            }
+        };
+        AppApiService.getInstance().uploadStoreLogo(storeId, storeLogo).subscribe(observer);
+        addDisposable(observer);
+    }
+
+    @Override
+    public void validateOTP(HashMap<String, String> verify) {
+        getView().showProgress(appContext.getString(R.string.validating_code));
+        DisposableObserver<Object> observer = new DisposableObserver<Object>() {
+            @Override
+            public void onNext(Object loginResponse) {
+                // save login data to shared preferences
                 getView().hideProgress();
                 getView().navigateToHomeScreen();
             }
@@ -88,7 +113,7 @@ public class RegistrationStoreFragmentPresenter extends
                 getView().hideProgress();
             }
         };
-        AppApiService.getInstance().uploadStoreLogo(storeId, storeLogo).subscribe(observer);
+        AppApiService.getInstance().validateOtp(verify).subscribe(observer);
         addDisposable(observer);
     }
 

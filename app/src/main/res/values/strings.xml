@@ -60,6 +60,7 @@
 
     <!-- input error messages -->
     <string name="error_email_req">Email Address is required</string>
+    <string name="error_otp_req">Please enter received OTP</string>
     <string name="error_email_notvalid">Please enter valid email address</string>
     <string name="error_password_req">Password is required</string>
     <string name="error_re_enter_password_req">Password is required</string>
@@ -417,7 +418,7 @@
     <string name="app_update">Please Update to continue using the App.</string>
     <string name="wifi_notice_1">Please make sure your phone is currently connected to the same WiFi network as your sensor</string>
     <string name="wifi_notice_2">Please make sure your phone is currently connected to the same WiFi network that your sensor is going to use.</string>
-    <string name="validating_code">validating code..</string>
+    <string name="validating_code">validating OTP..</string>
     <string name="app_version">App Version: </string>
     <string name="restart_wizard">Restart setup</string>
     <string name="title_cannot_find_sensor">Problem finding sensor</string>

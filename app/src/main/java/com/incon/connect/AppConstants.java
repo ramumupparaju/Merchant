@@ -6,7 +6,7 @@ public interface AppConstants {
 
     String TERMS_CONDITIONS_URL = "https://www.google.co.in"; //TODO have to change
     String WEB_IMAGE = "http";
-    String MULTIPART_FORM_DATA = "multipart/form-data";
+    String MULTIPART_FORM_DATA = "image/*";
 
     String BUILD_FLAVOR = "moonz_dev";
     int VALIDATION_SUCCESS = 0;
@@ -133,9 +133,10 @@ public interface AppConstants {
     interface ApiRequestKeyConstants {
         String BODY_EMAIL = "email";
         String BODY_USER_ID = "userid";
+        String BODY_MOBILE_NUMBER = "mobileNumber";
+        String BODY_OTP = "otp";
         String STORE_LOGO = "logo";
         String BODY_PASSWORD = "password";
-        String BODY_OTP = "otp";
         String BODY_MODULE_ID = "moduleId";
         String HEADER_AUTHORIZATION = "Authorization";
         String HEADER_API_KEY = "api_key";

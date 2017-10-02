@@ -18,7 +18,9 @@ import okhttp3.MultipartBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.Url;
@@ -32,15 +34,16 @@ public interface AppServiceObservable {
     @POST("merchant/register")
     Observable<LoginResponse> register(@Body Registration registrationBody);
 
+    @Multipart
     @POST("merchant/logoupdate/{storeId}")
-    Observable<ApiBaseResponse> uploadStoreLogo(@Path("storeId") int storeId,
-                                                MultipartBody.Part storeLogo);
+    Observable<Object> uploadStoreLogo(@Path("storeId") String storeId,
+                                                @Part MultipartBody.Part storeLogo);
 
     @POST("account/sendOtp")
     Observable<SendOtpResponse> sendOtp(@Body HashMap<String, String> email);
 
-    @POST("account/validateOtp")
-    Observable<ValidateOtpResponse> validateOtp(@Body HashMap<String, String> verify);
+    @POST("validateotp")
+    Observable<Object> validateOtp(@Body HashMap<String, String> verify);
 
     @GET("account/validateEmail")
     Observable<ValidateEmailResponse> validateEmail(@Query(
