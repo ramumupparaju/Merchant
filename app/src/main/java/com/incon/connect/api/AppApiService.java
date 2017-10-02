@@ -6,7 +6,6 @@ import com.incon.connect.apimodel.base.ApiBaseResponse;
 import com.incon.connect.apimodel.components.changepassword.ChangePasswordResponse;
 import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
-import com.incon.connect.apimodel.components.registration.ValidateEmailResponse;
 import com.incon.connect.custom.exception.NoConnectivityException;
 import com.incon.connect.dto.Location.LocationPostData;
 import com.incon.connect.dto.login.LoginUserData;
