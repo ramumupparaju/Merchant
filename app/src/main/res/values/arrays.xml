@@ -59,6 +59,15 @@
         <item>@string/tab_return</item>
     </string-array>
 
+    <!-- Category dropdown options -->
+    <string-array
+        name="category_options_list">
+        <item>Kitchen</item>
+        <item>Electronics</item>
+        <item>Fashion</item>
+        <item>Books</item>
+    </string-array>
+
     <!-- Gender dropdown options -->
     <string-array
         name="gender_options_list">
@@ -71,6 +80,7 @@
         name="select_image_list">
         <item>Take Photo</item>
         <item>Choose From Gallery</item>
+        <item>Tap to view</item>
     </string-array>
 
     <!-- Tools main list -->

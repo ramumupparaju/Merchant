@@ -74,7 +74,7 @@
     <string name="error_firstname_req">First Name is required</string>
     <string name="error_lastname_req">Last Name is required</string>
     <string name="error_phone_req">Phone is required</string>
-    <string name="error_phone_type_req">Phone type is required</string>
+    <string name="error_category_req">Store category is required</string>
     <string name="error_phone_min_digits">Phone number should be at least 10 digits</string>
     <string name="error_one_phone_req">Please enter a contact number</string>
     <string name="error_timezone_req">Time Zone is required</string>
@@ -99,8 +99,10 @@
     <string name="error_tools_answer_req">Please select atleast one</string>
     <string name="error_currentpwd_req">Current Password is required</string>
     <string name="error_new_emailid_req">New EmailId is required</string>
-    <string name="error_hospital_req">Hospital is required</string>
     <string name="error_address_req">Address is required</string>
+    <string name="error_image_path_req">Select image to view</string>
+    <string name="error_image_path_upload">Select image to upload</string>
+    <string name="error_gstn_req">GSTN is required</string>
     <string name="error_new_confirm_pwd_not_matched">Password mismatch</string>
     <string name="error_city_req">City is required</string>
     <string name="error_postal_code_req">PostalCode is required</string>
@@ -109,7 +111,7 @@
     <string name="progress_login">Logging in...</string>
     <string name="progress_sendotp">Sending otp...</string>
     <string name="progress_verifycode">Verifying code...</string>
-    <string name="progress_verifyemail">Verifying email...</string>
+    <string name="progress_verifyemail">Verifying phoneNumber...</string>
     <string name="progress_defaults_registering">Defaults Registering...</string>
     <string name="progress_registering">Registering...</string>
     <string name="progress_changepassword">Changing Password...</string>
@@ -150,13 +152,15 @@
     <string name="dialog_logout">Are you sure you want to logout?</string>
 
 
-    <!-- Login -->
+    <!-- Forgot password -->
     <string name="login_username_hint">Email address</string>
     <string name="login_password_hint">Password</string>
     <string name="login_forgotpassword_title">Forgot Password?</string>
-    <string name="login_password_confirm_msg">You will receive an email with a temporary password.</string>
-    <string name="login_forgotpassword_enter_emailid">Enter your email address and we will send you a one-time password to use in resetting it.</string>
-    <string name="forgot_password_emailid_hint">Email address</string>
+    <string name="login_password_confirm_msg">You will receive an OTP with a temporary password
+        .</string>
+    <string name="login_forgotpassword_enter_phone_number">Enter your phoneNumber and we will send
+        you a one-time password to use in resetting it.</string>
+    <string name="forgot_password_phone_number_hint">Registered Phone number</string>
 
     <!-- change password -->
     <string name="changepassword_title">Change Password</string>
@@ -168,6 +172,8 @@
     <!-- Registration -->
     <string name="register_userinfo_title">User Information</string>
     <string name="register_userinfo_subtitle">Please enter information for the person who will be using the app.</string>
+    <string name="register_store_info_title">Store Information</string>
+    <string name="register_store_info_subtitle">Please enter store information</string>
     <string name="register_name_hint">Name</string>
     <string name="register_firstname_hint">First Name</string>
     <string name="register_lastname_hint">Last Name</string>
@@ -183,9 +189,13 @@
     <string name="register_zipcode_hint">Zip Code</string>
     <string name="register_dateofbirth_hint">Date of Birth</string>
     <string name="register_gender_hint">Gender</string>
+    <string name="register_category_hint">Category</string>
+    <string name="register_gstn_hint">GSTN</string>
+    <string name="register_address_hint">Address</string>
     <string name="register_address1_hint">Address1</string>
     <string name="register_address2_hint">Address2</string>
     <string name="register_street_hint">Street</string>
+    <string name="register_state_hint">State</string>
     <string name="register_city_hint">City</string>
     <string name="register_postalcode_hint">Postal Code</string>
     <string name="register_verify_email_hint">Verification Code</string>
@@ -197,11 +207,18 @@
     <string name="register_password_hint_unicode">&#9432;</string>
     <string name="register_timezone_why_unicode">\u003F</string>
 
+    <string name="google_map_key">AIzaSyBmlNQQda3yG66CV1j7vTY7lz2nZXtyDHY</string>
 
     <!--History-->
     <string name="tab_purchased">Purchased</string>
     <string name="tab_interest">Interest</string>
     <string name="tab_return">Return</string>
+
+
+    <!--Buy Request Screen-->
+    <string name="buy_request_brand">Brand</string>
+    <string name="buy_request_product_image">Product Image</string>
+    <string name="buy_request_product_info">Product Info</string>
 
 
     <!-- screen titles -->
@@ -251,7 +268,7 @@
     <string name="action_got_it">got it!</string>
     <string name="tools_aap_updated_at">Updated on %s</string>
     <string name="tools_summary_report_confirmation">You should receive the summary report via
-        email shortly.</string>
+        phoneNumber shortly.</string>
 
 
     <!--Setup Wizard-->
@@ -292,11 +309,11 @@
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_email">This phoneNumber address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
+    <string name="permission_rationale">"Contacts permissions are needed for providing phoneNumber
         completions."
     </string>
 
@@ -371,7 +388,7 @@
     <string name="menu_setup_recalibrate_sensor">Recalibrate sensor</string>
     <string name="menu_hospital_or_practice_hint">Hospital/Practice</string>
 
-    <!-- Change email -->
+    <!-- Change phoneNumber -->
     <string name="current_password_hint">Current Password</string>
     <string name="new_emailid_hint">New Email ID</string>
 

@@ -104,6 +104,7 @@ public class PurchasedFragment extends BaseFragment implements PurchasedContract
 
         bottomSheetPurchasedBinding.sheetTitle.setText("item : " + position);
 
+        bottomSheetPurchasedBinding.topRow.setVisibility(View.GONE);
         bottomSheetPurchasedBinding.bottomRow.removeAllViews();
 //TODO have to create based on response
         int noOfViews = new Random().nextInt(4);

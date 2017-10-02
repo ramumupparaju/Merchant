@@ -14,8 +14,10 @@ import android.support.v4.content.IntentCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Pair;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
 import com.incon.connect.AppConstants;
 import com.incon.connect.AppUtils;
 import com.incon.connect.R;
@@ -24,9 +26,11 @@ import com.incon.connect.custom.view.AppAlertVerticalTwoButtonsDialog;
 import com.incon.connect.utils.Logger;
 import com.incon.connect.utils.SharedPrefsUtils;
 
+import java.io.File;
+
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-import static com.incon.connect.AppConstants.LoginPrefs.EMAIL_ID;
+import static com.incon.connect.AppConstants.HttpErrorCodeConstants.ERROR_UNAUTHORIZED;
 
 public abstract class BaseActivity extends AppCompatActivity implements BaseView,
         AppConstants {
@@ -53,6 +57,16 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         initializePresenter();
 
         onCreateView(savedInstanceState);
+    }
+
+    public void loadImageUsingGlide(String imagePath, ImageView imageView) {
+
+        if (imagePath.contains(WEB_IMAGE)) {
+            Glide.with(this).load(imagePath).into(imageView);
+            return;
+        }
+        Glide.with(this).load(new File(imagePath))
+                .into(imageView);
     }
 
     public void setBasePresenter(BasePresenter basePresenter) {
@@ -93,8 +107,8 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     public void handleException(Pair<Integer, String> error) {
         if (error.first == 601) {
             updateAppDialog();
-        } else if (error.first == 401 || error.first == 403) {
-            Logger.e("handleException", "onLogoutCalled() from BA ");
+        } else if (error.first == ERROR_UNAUTHORIZED) {
+            Logger.e("handleException", "onLogoutCalled() from BE ");
             onLogoutClick();
         } else {
             showErrorMessage(error.second);
@@ -104,12 +118,10 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 
     public void onLogoutClick() {
         SharedPrefsUtils sharedPrefsUtils = SharedPrefsUtils.loginProvider();
-        String emailId = sharedPrefsUtils.getStringPreference(EMAIL_ID);
+        String phoneNumber = sharedPrefsUtils.getStringPreference(LoginPrefs.USER_PHONE_NUMBER);
 
         clearData();
-
-        sharedPrefsUtils.setStringPreference(EMAIL_ID, emailId);
-
+        sharedPrefsUtils.setStringPreference(LoginPrefs.USER_PHONE_NUMBER, phoneNumber);
         Intent intent = new Intent(this, com.incon.connect.ui.login.LoginActivity.class);
         // This is a convenient way to make the proper Intent to launch and
         // reset an application's task.

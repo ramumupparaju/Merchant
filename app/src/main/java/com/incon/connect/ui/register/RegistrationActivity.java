@@ -11,7 +11,7 @@ import android.widget.ScrollView;
 import com.incon.connect.R;
 import com.incon.connect.databinding.ActivityRegistrationBinding;
 import com.incon.connect.databinding.ViewRegistrationBottomButtonsBinding;
-import com.incon.connect.dto.registration.Register;
+import com.incon.connect.dto.registration.Registration;
 import com.incon.connect.ui.BaseActivity;
 import com.incon.connect.ui.register.adapter.RegistrationPagerAdapter;
 import com.incon.connect.ui.register.fragment.RegistrationStoreFragment;
@@ -27,6 +27,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
     private ViewRegistrationBottomButtonsBinding buttonsBinding;
     private RegistrationPagerAdapter registrationPagerAdapter;
     private int currentPagePos;
+    private Registration registration;
     private View.OnClickListener buttonClickListner = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -58,8 +59,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
 
     @Override
     protected void initializePresenter() {
-        Register register = new Register();
-        registrationPresenter = new RegistrationPresenter(register);
+        registrationPresenter = new RegistrationPresenter();
         registrationPresenter.setView(this);
         setBasePresenter(registrationPresenter);
     }
@@ -71,6 +71,23 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
         buttonsBinding = binding.includeRegisterBottomButtons;
         rootView = binding.getRoot();
 
+        loadData();
+    }
+
+    private void loadData() {
+        registration = new Registration();
+        registration.setName("shiva koka");
+        registration.setPhoneNumber("9966382224");
+        registration.setGenderType("Male");
+        registration.setEmailId("koka.shiva@gmail.com");
+        registration.setPassword("qwerty123");
+        registration.setConfirmPassword("qwerty123");
+
+        registration.setStoreName("GoOnGo");
+        registration.setStorePhoneNumber("9493486529");
+        registration.setStoreEmail("koka.shiva@gmail.com");
+        registration.setStoreGSTN("123456789");
+
         buttonsBinding.buttonLeft.setOnClickListener(buttonClickListner);
         buttonsBinding.buttonLeft.setText(getString(R.string.action_back));
         buttonsBinding.buttonRight.setOnClickListener(buttonClickListner);
@@ -78,6 +95,10 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
         initializePagerAdapter();
         handleBottomViewOnKeyBoardUp();
 
+    }
+
+    public Registration getRegistration() {
+        return registration;
     }
 
     private void handleBottomViewOnKeyBoardUp() {
@@ -101,7 +122,6 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
         binding.viewpagerRegister.addOnPageChangeListener(registerOnPageChangeListener);
         registerOnPageChangeListener.onPageSelected(0);
     }
-
 
     /**
      * these method is called from Registrationuser and store screen when user fills valid data

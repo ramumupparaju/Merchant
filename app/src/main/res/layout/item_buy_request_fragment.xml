@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="buyRequestResponse"
+            type="com.incon.connect.apimodel.components.buyrequest.BuyRequestResponse"/>
+    </data>
+
+
+        <LinearLayout
+            style="@style/MatchWrap"
+            android:gravity="center_horizontal"
+            android:weightSum="3"
+            android:minHeight="@dimen/margin_100"
+            android:orientation="horizontal"
+            >
+            <ImageView
+                style="@style/BothWrap"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_tab_buy_requests"
+                />
+            <ImageView
+                style="@style/BothWrap"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_tab_buy_requests"
+                />
+            <LinearLayout
+                style="@style/WrapMatch"
+                android:layout_weight="1"
+                android:layout_gravity="center|center_horizontal"
+                android:orientation="vertical">
+                <TextView
+                    style="@style/BothWrap"
+                    android:text="@string/buy_request_product_info"
+                    />
+                <TextView
+                    style="@style/BothWrap"
+                    android:text="@string/buy_request_product_info"
+                    />
+                <TextView
+                    style="@style/BothWrap"
+                    android:text="@string/buy_request_product_info"
+                    />
+                <TextView
+                    style="@style/BothWrap"
+                    android:text="@string/buy_request_product_info"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+</layout>

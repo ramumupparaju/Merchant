@@ -9,22 +9,21 @@ import android.provider.MediaStore;
 
 import com.incon.connect.AppConstants;
 import com.incon.connect.R;
+import com.incon.connect.ui.fullscreenimageview.FullScreenImageViewActivity;
 import com.incon.connect.utils.ImageUtils;
 import com.incon.connect.utils.Logger;
 
 import java.io.File;
 import java.io.Serializable;
 
+
 public class PickImageDialog implements Serializable {
 
+    private static final String TAG = PickImageDialog.class.getSimpleName();
     public PickImageDialogInterface mImageHandlingDelegate;
     private Activity mActivity;
     private static final String TYPE_IMAGE_STR = "image/*";
     private String realPathFromUri;
-
-    public final static String TARGET_CAPTURE_ABSOLUTE_PATH = Environment
-            .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator
-            + System.currentTimeMillis();
 
     public PickImageDialog(Activity activity) {
         this.mActivity = activity;
@@ -34,17 +33,19 @@ public class PickImageDialog implements Serializable {
 
         CharSequence[] items = mActivity.getResources().getStringArray(R.array.select_image_list);
         android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(mActivity,
-                android.R.style.Theme_Material_Light_Dialog_Alert);
+                android.R.style.Theme_Material_Dialog_Alert);
         //builder.setTitle(getString(R.string.app_name));
         builder.setItems(items, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogInterface, int item) {
+                        dialogInterface.dismiss();
                 switch (item) {
                     case 0:
-                        dialogInterface.dismiss();
                         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                         if (cameraIntent.resolveActivity(mActivity.getPackageManager()) != null) {
-//                            File directoryDcim = new File(TARGET_CAPTURE_ABSOLUTE_PATH);
-                           File directoryDcim = new File(TARGET_CAPTURE_ABSOLUTE_PATH);
+                            File directoryDcim = new File(
+                                    Environment.getExternalStoragePublicDirectory(
+                                            Environment.DIRECTORY_DCIM) + "/"
+                                            + System.currentTimeMillis() + ".jpg");
                             realPathFromUri = directoryDcim.getAbsolutePath();
                             cameraIntent.putExtra(
                                     MediaStore.EXTRA_OUTPUT, Uri.fromFile(directoryDcim));
@@ -53,13 +54,17 @@ public class PickImageDialog implements Serializable {
                         }
                         break;
                     case 1:
-                        dialogInterface.dismiss();
                         Intent galleryIntent = new Intent(
                                 Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                         galleryIntent.setType(TYPE_IMAGE_STR);
                         mImageHandlingDelegate.handleIntent(
                                 galleryIntent, AppConstants.RequestCodes.PICK_FROM_GALLERY);
                         break;
+                    case 2:
+                        Intent fullScreenIntent = new Intent(mActivity,
+                                FullScreenImageViewActivity.class);
+                        mImageHandlingDelegate.handleIntent(
+                                fullScreenIntent, AppConstants.RequestCodes.SEND_IMAGE_PATH);
                     default:
                         break;
                 }
@@ -82,7 +87,7 @@ public class PickImageDialog implements Serializable {
                             mActivity.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Logger.e("PickImageDialog", realPathFromUri);
+                                    Logger.e(TAG, "PickImageDialog :" + realPathFromUri);
                                     mImageHandlingDelegate.displayPickedImage(realPathFromUri,
                                             requestCode);
                                 }
@@ -101,7 +106,7 @@ public class PickImageDialog implements Serializable {
                             mActivity.runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Logger.e("PickImageDialog", realPathFromUri);
+                                    Logger.e(TAG, "PickImageDialog :" + realPathFromUri);
                                     mImageHandlingDelegate.displayPickedImage(realPathFromUri,
                                             requestCode);
                                 }

@@ -6,7 +6,7 @@
 
         <variable
             name="user"
-            type="com.incon.connect.dto.login.User"/>
+            type="com.incon.connect.dto.login.LoginUserData"/>
 
         <variable
             name="activity"
@@ -74,9 +74,9 @@
                             style="@style/MatchWrap"
                             fontPath="fonts/OpenSans-Regular.ttf"
                             android:imeOptions="actionNext"
-                            android:inputType="textEmailAddress"
+                            android:inputType="number"
                             android:maxLines="1"
-                            android:text="@={user.email}"
+                            android:text="@={user.phoneNumber}"
                             android:textColor="@color/colorForgotPasswordHintText"
                             android:textSize="14sp"/>
                     </com.incon.connect.custom.view.CustomTextInputLayout>
@@ -90,7 +90,8 @@
                         android:textColorHint="@color/colorForgotPasswordHintText"
                         app:errorEnabled="true"
                         app:fontName="fonts/OpenSans-Regular.ttf"
-                        app:hintTextAppearance="@style/TextInputLayout_FloatingTextColor">
+                        app:hintTextAppearance="@style/TextInputLayout_FloatingTextColor"
+                        app:passwordToggleEnabled="true">
 
                         <android.support.design.widget.TextInputEditText
                             android:id="@+id/edittext_password"

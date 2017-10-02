@@ -2,13 +2,16 @@ package com.incon.connect.api;
 
 import com.incon.connect.AppConstants;
 import com.incon.connect.BuildConfig;
+import com.incon.connect.apimodel.base.ApiBaseResponse;
 import com.incon.connect.apimodel.components.changepassword.ChangePasswordResponse;
 import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
 import com.incon.connect.apimodel.components.registration.ValidateEmailResponse;
 import com.incon.connect.apimodel.components.registration.ValidateOtpResponse;
 import com.incon.connect.custom.exception.NoConnectivityException;
-import com.incon.connect.dto.login.User;
+import com.incon.connect.dto.Location.LocationPostData;
+import com.incon.connect.dto.login.LoginUserData;
+import com.incon.connect.dto.registration.Registration;
 import com.incon.connect.utils.NetworkUtil;
 
 import java.util.HashMap;
@@ -16,6 +19,7 @@ import java.util.HashMap;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MultipartBody;
 
 public class AppApiService implements AppConstants {
 
@@ -52,22 +56,31 @@ public class AppApiService implements AppConstants {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
-    public Observable<LoginResponse> login(User user) {
+    public Observable<LoginResponse> login(LoginUserData loginUserData) {
         return addNetworkCheck(serviceInstance
-                .login(user));
+                .login(loginUserData));
+    }
+
+    public Observable<LocationPostData> locationPinCode(String loginUserData) {
+        return addNetworkCheck(serviceInstance
+                .doGetLocationPinCode(loginUserData));
     }
 
     public Observable<ChangePasswordResponse> resetPassword(HashMap<String, String> password) {
         return addNetworkCheck(serviceInstance.resetPassword(password));
     }
 
-    public Observable<ValidateOtpResponse> forgotPassword(HashMap<String, String> email) {
+    public Observable<ApiBaseResponse> forgotPassword(HashMap<String, String> email) {
         return addNetworkCheck(serviceInstance.forgotPassword(email));
     }
 
-    /*public Observable<RegistrationResponse> register(RegistrationBody registrationBody) {
+    public Observable<LoginResponse> register(Registration registrationBody) {
         return addNetworkCheck(serviceInstance.register(registrationBody));
-    }*/
+    }
+
+    public Observable<ApiBaseResponse> uploadStoreLogo(int storeId, MultipartBody.Part storeLogo) {
+        return addNetworkCheck(serviceInstance.uploadStoreLogo(storeId, storeLogo));
+    }
 
     public Observable<SendOtpResponse> sendOtp(HashMap<String, String> email) {
         return addNetworkCheck(serviceInstance.sendOtp(email));
