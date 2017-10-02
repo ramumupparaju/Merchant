@@ -175,6 +175,7 @@ public interface AppConstants {
         String DD_SLASH_MM_SLASH_YYYY = "dd/MM/yyyy"; //14/07/2017
         //Mon, 10 Jul 2017 10:08:20 GM
         String DDMMMM_H_MMA = "ddMMMM, h:mma"; //14July, 2:30PM
+        String YYYY_MM_DD_SLASH = "yyyy/MM/dd"; //2017/01/15
         String YYYY_MM_DD = "yyyy-MM-dd"; //2017-01-15
         String MMMM_SPACE_DD = "MMMM dd"; // March 24 at 11:26am
         String HH_MM_A = "hh:mma"; // March 24 at 11:26am
