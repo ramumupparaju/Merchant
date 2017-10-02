@@ -6,6 +6,7 @@
         android:background="@color/wild_sand">
 
         <android.support.design.widget.TabLayout
+
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -18,11 +19,41 @@
             app:tabMode="fixed"
             app:tabSelectedTextColor="@color/white"
             app:tabTextColor="@color/white"/>
+        <EditText
+            android:layout_below="@+id/tab_layout"
+            android:id="@+id/et_search_buy_request"
+            style="@style/MatchWrap"
+            android:drawableEnd="@android:drawable/ic_menu_search"
+            />
+        <LinearLayout
+            style="@style/View_Match"
+            android:orientation="horizontal"
+            android:layout_below="@+id/et_search_buy_request"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:id="@+id/ll_brand_details"
+            android:weightSum="1">
+            <TextView
+                style="@style/match_custom"
+                android:text="@string/buy_request_brand"
+                />
+            <TextView
+                style="@style/match_custom"
+                android:text="@string/buy_request_product_image"
+                />
+            <TextView
+                style="@style/match_custom"
+                android:text="@string/buy_request_product_info"
+                />
+
+        </LinearLayout>
+
 
         <com.incon.connect.custom.view.CustomViewPager
+
             android:id="@+id/view_pager"
             style="@style/BothMatch"
-            android:layout_below="@id/tab_layout"
+            android:layout_below="@+id/ll_brand_details"
             app:swipeable="false"
             app:tabGravity="fill"
             app:tabMode="fixed">

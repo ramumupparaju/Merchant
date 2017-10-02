@@ -56,7 +56,7 @@
                 android:contentDescription="@string/app_name"
                 android:onClick="@{() -> storeFragment.openCameraToUpload()}"
 
-            app:srcCompat="@drawable/ic_connect_logo_svg"/>
+            app:srcCompat="@drawable/ic_im_showroom"/>
 
             <RelativeLayout
                 style="@style/BothMatch"

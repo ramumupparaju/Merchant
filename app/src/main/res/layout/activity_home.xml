@@ -27,7 +27,8 @@
             <FrameLayout
                 android:id="@+id/container_toolbar"
                 style="@style/MatchWrap"
-                android:layout_height="?attr/actionBarSize">
+                android:layout_height="?attr/actionBarSize"
+                >
             </FrameLayout>
             <!-- Content Container -->
             <FrameLayout

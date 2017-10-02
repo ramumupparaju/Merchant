@@ -4,7 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.incon.connect.ui.home.fragment.DummyFragment;
+import com.incon.connect.ui.history.fragments.InterestFragment;
+import com.incon.connect.ui.history.fragments.ReturnFragment;
 import com.incon.connect.ui.history.fragments.PurchasedFragment;
 
 import java.util.HashMap;
@@ -32,10 +33,10 @@ public class HistoryTabPagerAdapter extends FragmentStatePagerAdapter {
                 tabFragment = new PurchasedFragment();
                 break;
             case 1:
-                tabFragment = new DummyFragment();
+                tabFragment = new InterestFragment();
                 break;
             case 2:
-                tabFragment = new DummyFragment();
+                tabFragment = new ReturnFragment();
                 break;
             default:
                 break;

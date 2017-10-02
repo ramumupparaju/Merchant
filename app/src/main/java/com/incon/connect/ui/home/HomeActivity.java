@@ -18,6 +18,7 @@ import com.incon.connect.ui.BaseActivity;
 import com.incon.connect.ui.buyrequets.BuyRequestFragment;
 import com.incon.connect.ui.home.fragment.DummyFragment;
 import com.incon.connect.ui.history.HistoryTabFragment;
+import com.incon.connect.ui.notifications.fragment.NotificationsFragment;
 import com.incon.connect.ui.qrcodescan.QrcodeBarcodeScanActivity;
 import com.incon.connect.ui.scan.ScanTabFragment;
 import com.incon.connect.ui.settings.SettingsActivity;
@@ -129,7 +130,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
                 aClass = DummyFragment.class;
                 break;
             case R.id.action_notifications:
-                aClass = DummyFragment.class;
+                aClass = NotificationsFragment.class;
                 break;
             default:
                 break;
