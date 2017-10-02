@@ -37,17 +37,13 @@ public interface AppServiceObservable {
     @Multipart
     @POST("merchant/logoupdate/{storeId}")
     Observable<Object> uploadStoreLogo(@Path("storeId") String storeId,
-                                                @Part MultipartBody.Part storeLogo);
+                                       @Part MultipartBody.Part storeLogo);
 
     @POST("account/sendOtp")
     Observable<SendOtpResponse> sendOtp(@Body HashMap<String, String> email);
 
     @POST("validateotp")
     Observable<Object> validateOtp(@Body HashMap<String, String> verify);
-
-    @GET("account/validateEmail")
-    Observable<ValidateEmailResponse> validateEmail(@Query(
-            AppConstants.ApiRequestKeyConstants.QUERY_EMAIL) String email);
 
     @GET("")
     Observable<LocationPostData> doGetLocationPinCode(@Url String url);
@@ -86,16 +82,5 @@ public interface AppServiceObservable {
             ApiRequestKeyConstants.HEADER_API_KEY) String apiKeyValue,
                                              @Header(AppConstants.ApiRequestKeyConstants.
                                                      HEADER_AUTHORIZATION) String authorization);
-/*
-
-    @POST("registerPush")
-    Observable<Object> pushTokenApi(@Body PushRegistrarBody pushRegistrarBody,
-                                    @Header(TueoConstants.
-                                            ApiRequestKeyConstants.HEADER_API_KEY)
-                                            String apiKeyValue,
-                                    @Header(TueoConstants.ApiRequestKeyConstants.
-                                            HEADER_AUTHORIZATION)
-                                            String authorization);
-*/
 
 }

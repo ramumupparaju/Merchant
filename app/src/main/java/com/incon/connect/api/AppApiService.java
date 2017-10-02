@@ -88,8 +88,4 @@ public class AppApiService implements AppConstants {
     public Observable<Object> validateOtp(HashMap<String, String> verify) {
         return addNetworkCheck(serviceInstance.validateOtp(verify));
     }
-
-    public Observable<ValidateEmailResponse> validateEmail(String email) {
-        return addNetworkCheck(serviceInstance.validateEmail(email));
-    }
 }
