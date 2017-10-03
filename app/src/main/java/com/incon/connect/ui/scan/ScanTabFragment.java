@@ -48,7 +48,7 @@ public class ScanTabFragment extends BaseFragment {
     }
 
     public void onManualClick() {
-        ((HomeActivity) getActivity()).replaceFragmentAndAddToStack(
+        ((HomeActivity) getActivity()).replaceFragment(
                 WarrantyRegistrationFragment.class, null);
        /* Intent intent = new Intent(getActivity(), WarrantyRegistrationActivity.class);
         startActivity(intent);*/
