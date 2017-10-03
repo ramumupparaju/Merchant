@@ -1,12 +1,12 @@
 package com.incon.connect.ui;
 
 
-import com.incon.connect.dto.Location.LocationPostData;
+import com.incon.connect.apimodel.Location.LocationPostData;
 
 public interface RegistrationMapContract {
 
     interface View extends BaseView {
-        void navigateToHomePage(LocationPostData loginResponse);
+        void moveMarkerToThisLocation(LocationPostData locationResponse);
     }
 
     interface Presenter {

@@ -1,12 +1,12 @@
 package com.incon.connect.api;
 
 import com.incon.connect.AppConstants;
+import com.incon.connect.apimodel.Location.LocationPostData;
 import com.incon.connect.apimodel.base.ApiBaseResponse;
 import com.incon.connect.apimodel.components.changepassword.ChangePasswordResponse;
 import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
 import com.incon.connect.apimodel.components.registration.ValidateOtpResponse;
-import com.incon.connect.dto.Location.LocationPostData;
 import com.incon.connect.dto.login.LoginUserData;
 import com.incon.connect.dto.registration.Registration;
 
@@ -21,6 +21,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 import retrofit2.http.Url;
 
 public interface AppServiceObservable {
@@ -44,7 +45,8 @@ public interface AppServiceObservable {
     Observable<Object> validateOtp(@Body HashMap<String, String> verify);
 
     @GET("")
-    Observable<LocationPostData> doGetLocationPinCode(@Url String url);
+    Observable<LocationPostData> doGetLocationPinCode(@Url String url, @Query("address") String
+            pincode);
 
     @POST("account/validateChangeEmailOTP")
     Observable<ValidateOtpResponse> validateChangeEmailOtp(@Body HashMap<String, String> verify,

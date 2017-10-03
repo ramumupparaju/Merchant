@@ -17,7 +17,7 @@ public interface AppConstants {
 
     interface GoogleMapConstants {
         int GEOCODER_MAX_ADDRESS_RESULTS = 1;
-        float DEFAULT_ZOOM_LEVEL = 14.0f;
+        float DEFAULT_ZOOM_LEVEL = 12.0f;
     }
 
     interface HttpErrorCodeConstants {
@@ -132,6 +132,8 @@ public interface AppConstants {
     }
 
     interface ApiRequestKeyConstants {
+        String GOOGLE_MAP_LOCATION_URL = "http://maps.googleapis.com/maps/api/"
+                + "geocode/json"; //?address=505211&region=us
         String BODY_EMAIL = "email";
         String BODY_USER_ID = "userid";
         String BODY_MOBILE_NUMBER = "mobileNumber";

@@ -68,6 +68,7 @@
     <string name="location_permission_msg">Please go to application settings and grant location
         permission.</string>
     <string name="error_email_req">Email Address is required</string>
+    <string name="error_location">"Unable to fetch location"</string>
     <string name="error_otp_req">Please enter received OTP</string>
     <string name="error_email_notvalid">Please enter valid email address</string>
     <string name="error_password_req">Password is required</string>
@@ -115,6 +116,7 @@
     <string name="error_postal_code_req">PostalCode is required</string>
 
     <!-- progress messages -->
+    <string name="progress_location">Loading location details...</string>
     <string name="progress_login">Logging in...</string>
     <string name="progress_sendotp">Sending otp...</string>
     <string name="progress_verifycode">Verifying code...</string>

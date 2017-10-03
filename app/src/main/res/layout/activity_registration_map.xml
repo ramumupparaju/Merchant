@@ -15,7 +15,7 @@
         style="@style/BothMatch">
         <!-- Pincode -->
         <com.incon.connect.custom.view.CustomTextInputLayout
-            android:id="@+id/input_pincode"
+            android:id="@+id/input_pincode_layout"
             style="@style/MatchWrap"
             android:hint="@string/register_postalcode_hint"
             android:textColorHint="@color/colorForgotPasswordHintText"
@@ -34,11 +34,11 @@
                 android:textSize="14sp"/>
         </com.incon.connect.custom.view.CustomTextInputLayout>
 
-        <!-- Pincode -->
+        <!-- city -->
         <com.incon.connect.custom.view.CustomTextInputLayout
-            android:id="@+id/input_city"
+            android:id="@+id/input_city_layout"
             style="@style/MatchWrap"
-            android:layout_below="@+id/input_pincode"
+            android:layout_below="@id/input_pincode_layout"
             android:hint="@string/register_city_hint"
             android:textColorHint="@color/colorForgotPasswordHintText"
             app:errorEnabled="true"
@@ -56,11 +56,11 @@
                 android:textSize="14sp"/>
         </com.incon.connect.custom.view.CustomTextInputLayout>
 
-        <!-- Pincode -->
+        <!-- State -->
         <com.incon.connect.custom.view.CustomTextInputLayout
-            android:id="@+id/input_state"
+            android:id="@+id/input_state_layout"
             style="@style/MatchWrap"
-            android:layout_below="@+id/input_city"
+            android:layout_below="@id/input_city_layout"
             android:hint="@string/register_state_hint"
             android:textColorHint="@color/colorForgotPasswordHintText"
             app:errorEnabled="true"
@@ -82,6 +82,6 @@
             android:id="@+id/map_monitor"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             style="@style/BothMatch"
-            android:layout_below="@+id/input_state"/>
+            android:layout_below="@+id/input_state_layout"/>
     </RelativeLayout>
 </layout>
