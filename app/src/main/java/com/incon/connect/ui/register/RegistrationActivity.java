@@ -1,6 +1,7 @@
 package com.incon.connect.ui.register;
 
 import android.databinding.DataBindingUtil;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -82,7 +83,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
         registration.setEmailId("koka.shiva@gmail.com");
         registration.setPassword("qwerty123");
         registration.setConfirmPassword("qwerty123");
-        registration.setUserAddress("address");
+//        registration.setUserAddress("address");
 
         registration.setStoreName("GoOnGo");
         registration.setStorePhoneNumber("9493486529");
@@ -171,13 +172,15 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
         }
     };
 
-    public void focusOnView(final ScrollView scrollView, final View editTextView) {
-        scrollView.post(new Runnable() {
+    public void focusOnView(final ScrollView scrollView, final View view) {
+        final Rect rect = new Rect(0, 0, view.getWidth(), view.getHeight());
+        view.requestRectangleOnScreen(rect, false);
+        /*scrollView.post(new Runnable() {
             @Override
             public void run() {
                 scrollView.smoothScrollTo(0, editTextView.getBottom());
             }
-        });
+        });*/
     }
 
     @Override
