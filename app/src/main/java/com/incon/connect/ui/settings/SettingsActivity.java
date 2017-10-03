@@ -16,6 +16,7 @@ import com.incon.connect.databinding.ActivitySettingsBinding;
 import com.incon.connect.dto.settings.SettingsItem;
 import com.incon.connect.ui.BaseActivity;
 import com.incon.connect.ui.changepassword.ChangePasswordActivity;
+import com.incon.connect.ui.register.RegistrationActivity;
 import com.incon.connect.ui.settings.adapters.SettingsAdapter;
 import com.incon.connect.utils.SharedPrefsUtils;
 
@@ -118,8 +119,8 @@ public class SettingsActivity extends BaseActivity implements SettingsContract.V
     public void onClickPosition(int position) {
         switch (position) {
             case MenuConstants.PROFILE:
-               /* Intent userProfileIntent = new Intent(this, RegistrationActivity.class);
-                startActivity(userProfileIntent);*/
+                Intent userProfileIntent = new Intent(this, RegistrationActivity.class);
+                startActivity(userProfileIntent);
                 break;
             case MenuConstants.CHANGE_PWD:
                 Intent changePasswordIntent = new Intent(this, ChangePasswordActivity.class);

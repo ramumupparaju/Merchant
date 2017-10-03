@@ -250,7 +250,7 @@ public class RegistrationUserFragment extends BaseFragment implements
 
             Object fieldId = view.getTag();
             if (fieldId != null) {
-                Pair<String, Integer> validation = binding.getRegister().
+                Pair<String, Integer> validation = register.
                         validateUserInfo((String) fieldId);
                 if (!hasFocus) {
                     if (view instanceof TextInputEditText) {

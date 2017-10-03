@@ -76,6 +76,8 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
     }
 
     private void loadData() {
+        registration = new Registration();
+
         buttonsBinding.buttonLeft.setOnClickListener(buttonClickListner);
         buttonsBinding.buttonLeft.setText(getString(R.string.action_back));
         buttonsBinding.buttonRight.setOnClickListener(buttonClickListner);
