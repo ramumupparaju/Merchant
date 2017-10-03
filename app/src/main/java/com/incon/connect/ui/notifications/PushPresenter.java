@@ -1,7 +1,6 @@
 package com.incon.connect.ui.notifications;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 
 import com.incon.connect.AppConstants;
 import com.incon.connect.ui.BasePresenter;
@@ -23,8 +22,9 @@ public class PushPresenter extends BasePresenter<PushContract.View> implements
     @Override
     public void pushRegisterApi() {
 
-        if (TextUtils.isEmpty(SharedPrefsUtils.loginProvider()
-                .getStringPreference(AppConstants.LoginPrefs.USER_ID))) {
+        if (SharedPrefsUtils.loginProvider()
+                .getIntegerPreference(AppConstants.LoginPrefs.USER_ID, AppConstants
+                        .DEFAULT_VALUE) == AppConstants.DEFAULT_VALUE) {
             return;
         }
 
