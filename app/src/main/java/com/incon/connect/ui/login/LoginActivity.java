@@ -54,7 +54,6 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
             binding.edittextPassword.requestFocus();
         }
         binding.setUser(loginUserData);
-
     }
 
     @Override
@@ -89,7 +88,6 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     }
 
     public void onLoginClick() {
-
         LoginUserData loginUserData = binding.getUser();
         int validationRes = loginUserData.validateLogin();
 

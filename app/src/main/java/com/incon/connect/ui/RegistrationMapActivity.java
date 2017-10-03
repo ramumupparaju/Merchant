@@ -1,6 +1,5 @@
 package com.incon.connect.ui;
 
-import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.location.Address;
 import android.location.Criteria;
@@ -8,7 +7,6 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.maps.CameraUpdate;
@@ -21,11 +19,13 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.incon.connect.R;
+import com.incon.connect.callbacks.ILocationCallbacks;
 import com.incon.connect.databinding.DialogRegistrationGooglemapBinding;
 import com.incon.connect.dto.Location.AddressComponent;
 import com.incon.connect.dto.Location.LocationPostData;
 import com.incon.connect.dto.Location.Result;
 import com.incon.connect.dto.registration.AddressDetails;
+import com.incon.connect.utils.DeviceLocation;
 
 import java.io.IOException;
 import java.util.List;
@@ -43,6 +43,7 @@ public class RegistrationMapActivity extends BaseActivity implements OnMapReadyC
     private List<Result> locationData;
     private List<AddressComponent> completeAddress;
     private Double mLatitude , mLongitude;
+
 
     @Override
     protected int getLayoutId() {
@@ -65,6 +66,37 @@ public class RegistrationMapActivity extends BaseActivity implements OnMapReadyC
         loginPresenter.doPostalCode("505211");
     }
 
+
+    ILocationCallbacks iLocationCallbacks = new ILocationCallbacks() {
+        @Override
+        public void onLocationListener(LatLng latLng) {
+
+            MarkerOptions options = new MarkerOptions()
+                    .position(latLng);
+
+            marker = mGoogleMap.addMarker(options);
+
+
+           /* UiUtils.dismissProgress();
+
+            Context context = edittextTime.getContext();
+            if (latLng == null) {
+                UiUtils.showToast(context, context.getString(R.string
+                        .location_permission_msg));
+            }
+            String timeString = DateAndTimePickerUtils.convertDate(
+            AppConstants.DateFormatterConstants
+                    .DD_MM_YYYY_HH_MM, System.currentTimeMillis());
+            edittextTime.setText(context.getString(R.string.time_location, timeString, String
+                            .valueOf(latLng
+                                    .longitude),
+                    String.valueOf(latLng.latitude)));
+
+            edittextTime.setVisibility(View.VISIBLE);
+            timeNameButton.setVisibility(View.GONE);
+        */}
+    };
+
     @Override
     public void onMapReady(GoogleMap googleMap) {
         if (mGoogleMap == null) {
@@ -75,14 +107,9 @@ public class RegistrationMapActivity extends BaseActivity implements OnMapReadyC
             ((UiSettings) localObject).setRotateGesturesEnabled(true);
             ((UiSettings) localObject).setMapToolbarEnabled(true);
 
-            if (ActivityCompat.checkSelfPermission(this,
-                    android.Manifest.permission.ACCESS_FINE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED
-                    && ActivityCompat.checkSelfPermission(this,
-                    android.Manifest.permission.ACCESS_COARSE_LOCATION)
-                    != PackageManager.PERMISSION_GRANTED) {
-                return;
-            }
+
+            DeviceLocation deviceLocation = new DeviceLocation(this, iLocationCallbacks);
+
             LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
             Criteria criteria = new Criteria();
             String bestProvider = locationManager.getBestProvider(criteria, true);

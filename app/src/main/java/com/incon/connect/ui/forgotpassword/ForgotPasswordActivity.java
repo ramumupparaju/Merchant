@@ -58,6 +58,8 @@ public class ForgotPasswordActivity extends BaseActivity implements ForgotPasswo
     @Override
     public void navigateToResetPromtPage() {
         Intent registrationIntent = new Intent(this, ResetPasswordPromptActivity.class);
+        registrationIntent.putExtra(IntentConstants.USER_PHONE_NUMBER, binding.edittextUsername
+                .getText().toString());
         startActivity(registrationIntent);
         finish();
     }

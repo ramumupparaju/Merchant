@@ -5,6 +5,8 @@ import android.databinding.Bindable;
 import android.text.TextUtils;
 import android.util.Pair;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 import com.incon.connect.AppConstants;
 import com.incon.connect.utils.DateUtils;
 import com.incon.connect.utils.ValidationUtils;
@@ -19,14 +21,25 @@ public class Registration extends BaseObservable {
 
 
     private String name;
+    @SerializedName("mobileNumber")
+    @Expose
     private String phoneNumber;
+    @SerializedName("userEmail")
+    @Expose
     private String emailId;
     private String password;
     private transient String confirmPassword;
+    @SerializedName("gender")
+    @Expose
     private String genderType;
     private String dob;
     private transient String dateOfBirthToShow;
+    @SerializedName("address")
+    @Expose
     private String userAddress;
+    @SerializedName("location")
+    @Expose
+    private String userLocation;
 
     //Store details
     private String storeName;
@@ -35,7 +48,11 @@ public class Registration extends BaseObservable {
     private String storeLocation;
     private String storeLogo;
     private String storeAddress;
+    @SerializedName("gstn")
+    @Expose
     private String storeGSTN;
+    @SerializedName("contactNumber")
+    @Expose
     private String storePhoneNumber;
 
     @Bindable
@@ -123,7 +140,7 @@ public class Registration extends BaseObservable {
         this.dateOfBirthToShow = dateOfBirthToShow;
         dob = DateUtils.convertDateToAnotherFormat(dateOfBirthToShow, AppConstants
                 .DateFormatterConstants.MM_DD_YYYY, AppConstants.DateFormatterConstants
-                .YYYY_MM_DD);
+                .YYYY_MM_DD_SLASH);
         notifyChange();
     }
 
