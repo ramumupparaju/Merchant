@@ -8,13 +8,13 @@ public interface AppConstants {
     String WEB_IMAGE = "http";
     String MULTIPART_FORM_DATA = "image/*";
     String COMMA_SEPARATOR = ",";
+    int DEFAULT_VALUE = Integer.MIN_VALUE;
 
     String BUILD_FLAVOR = "moonz_dev";
     int VALIDATION_SUCCESS = 0;
     int VALIDATION_FAILURE = -1;
     int VALIDATION_ZIPCODE_LENGTH = 5;
     String DELIMITOR = "-";
-    int DEAULT_VALUE = Integer.MAX_VALUE;
 
     interface GoogleMapConstants {
         int GEOCODER_MAX_ADDRESS_RESULTS = 1;
