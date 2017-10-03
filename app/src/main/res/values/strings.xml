@@ -58,7 +58,15 @@
     <string name="action_feedback">Feedback</string>
     <string name="action_development">Development</string>
 
+    <!--settings screen-->
+    <string name="action_settings">Settings</string>
+    <string name="app_version">App Version: </string>
+
+
     <!-- input error messages -->
+    <string name="app_update">Please Update to continue using the App.</string>
+    <string name="location_permission_msg">Please go to application settings and grant location
+        permission.</string>
     <string name="error_email_req">Email Address is required</string>
     <string name="error_otp_req">Please enter received OTP</string>
     <string name="error_email_notvalid">Please enter valid email address</string>
@@ -205,7 +213,10 @@
         important for the Tueo Health analytics to function optimally</string>
     <string name="register_password_hint_unicode">&#9432;</string>
     <string name="register_timezone_why_unicode">\u003F</string>
+    <string name="validating_code">validating code..</string>
 
+
+    <!--google maps-->
     <string name="google_map_key">AIzaSyBmlNQQda3yG66CV1j7vTY7lz2nZXtyDHY</string>
 
     <!--History-->
@@ -270,39 +281,6 @@
         phoneNumber shortly.</string>
 
 
-    <!--Setup Wizard-->
-    <string name="action_settings">Settings</string>
-
-    <string name="welcome_text">Welcome to the Tueo Health configuration app</string>
-    <string name="network_settings">Network settings</string>
-    <string name="other_settings">Other settings</string>
-    <string name="select_target_device">Select Sensor</string>
-    <string name="select_timezone">Confirm Sensor Timezone</string>
-    <string name="configuration_completed">Select target network</string>
-    <string name="bed_sensor_settings">Bed sensor settings</string>
-    <string name="comm_settings">Communication settings</string>
-
-    <string name="no_network">Configure WiFi Network</string>
-    <string name="network_ok">Network SSID</string>
-
-    <string name="xml_parser">Parsing XML</string>
-
-    <string-array name="bcg_running_mode">
-        <item>BCG</item>
-        <item>Data logger</item>
-    </string-array>
-
-    <string-array name="bcg_meas_direction">
-        <item>Inverted</item>
-        <item>Normal</item>
-    </string-array>
-
-    <string-array name="bcg_node_network_mode">
-        <item>Local</item>
-        <item>Cloud</item>
-    </string-array>
-    <string name="title_activity_login">Tueo Health Configuration App</string>
-
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -324,57 +302,6 @@
     <string name="lorem_ipsum"><![CDATA[Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris et magna ut erat elementum cursus in quis ipsum. Nam faucibus ultrices eros, vel tempor leo semper sit amet. Duis magna quam, congue vitae interdum nec, condimentum ut lectus. Sed commodo venenatis eros a dignissim. Nunc adipiscing turpis nec magna venenatis at ultricies ipsum bibendum. Sed volutpat urna quis nisi vulputate egestas. Etiam eu dui a enim lacinia dapibus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.\n\nPhasellus orci mi, eleifend nec congue id, volutpat at neque. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer semper velit vel leo rutrum sed fermentum elit porta.]]></string>
     <string name="title_screen_slide">Tueo Health Sensor Setup</string>
 
-    <!--Setup Titles-->
-    <string name="setup_title_1">Setup introduction</string>
-    <string name="setup_title_2">Remove backplate</string>
-    <string name="setup_title_3">Plug in sensor</string>
-    <string name="setup_title_4">Select sensor</string>
-    <string name="setup_title_5">Select WiFi access point</string>
-    <!--<string name="setup_title_6">Sensor configuration</string>-->
-    <string name="setup_title_7">Reattach backplate</string>
-    <string name="setup_title_8">Attach strap to bed</string>
-    <string name="setup_title_9">Tighten strap</string>
-    <string name="setup_title_10">Insert sensor into pocket</string>
-    <string name="setup_title_11">Empty bed calibration</string>
-    <string name="setup_title_12">Occupied bed calibration</string>
-    <string name="setup_title_13">Configuration complete</string>
-    <string name="setup_title_95">Restart sensor</string>
-    <string name="setup_title_96">Setup complete</string>
-    <string name="setup_title_97">WiFi setup complete</string>
-    <string name="setup_title_98">Calibration complete</string>
-    <string name="setup_title_99">Strap setup</string>
-
-
-    <!--Setup Text-->
-    <string name="setup_description_1">The following steps will guide you through installing the sensor on the bed and connecting it to your home WiFi. Make sure you know your home WiFi name and password and that your phone is connected to the same WiFi network the sensor will use.</string>
-    <string name="setup_description_2">Remove the black, magnetic backplate from the sensor and set it aside.</string>
-    <string name="setup_description_3">Now connect the sensor to power. Put the sensor near the strap pocket and route the cord so that it’s out of the way and unlikely to be accidentally disconnected. The sensor will turn on and, after a few moments, have a single blinking green light.</string>
-    <string name="setup_description_4">Select the sensor listed below. If multiple sensors are found, you can determine the correct sensor by comparing the last 6 characters of the name below with the last 6 characters of the MAC identifier on the back of the desired sensor.</string>
-    <string name="setup_description_5">Select the WiFi access point that the sensor will communicate with.  If multiple access points are available, choose the one with the greatest signal strength.</string>
-    <!--<string name="setup_description_6"></string>-->
-    <string name="setup_description_6">Please wait while we send this information to the sensor.</string>
-    <string name="setup_description_7">Reattach the magnetic backplate, paying close attention that the three ridges are properly aligned with the indentations on the back of the sensor.</string>
-    <string name="setup_description_8">Place the strap around the foot of the mattress at least 10 inches from the edge and as close as possible to your child. The strap should go under the sheets but on top of any mattress cover. The pocket opening should face the foot of the bed.</string>
-    <string name="setup_description_9">Adjust the strap so that the buckle is on the side of the mattress and the pocket is in the middle. Tighten the strap until the elastic has stretched enough that the whole strap lays flat against the mattress. You can slide the pocket along the strap.</string>
-    <string name="setup_description_10">Insert the sensor into the pocket on the strap so that the image of the person is oriented in the direction that the individual sleeps and the cord comes out towards the foot of the bed. Close the Velcro so that the sensor won’t come out of the pocket.</string>
-    <string name="setup_description_11">It is very important that during this step all sources of vibration near the bed be stopped, including fans, air conditioners, loud music, and walking around.</string>
-    <string name="setup_description_12">Replace normal bedding and calibrate the sensor with your child pretending to sleep in the bed. Ask your child to lay very still with eyes closed, on his or her back, for about one minute.</string>
-    <string name="setup_description_13">Your sensor should now be ready for use.  In a few moments you should see a solid green light as shown above.  If after 30 seconds the top green light continues to blink, please verify the wifi password you provided and run this setup process again.</string>
-    <string name="setup_description_14">Confirm the timezone of your sensor</string>
-    <string name="setup_description_95">Confirm backplate is removed and restart the sensor by unplugging it and then reconnecting it to power.</string>
-    <string name="setup_description_96">Now that you’re set up, it’s OK to unplug and then re-connect the sensor to power if you need to adjust cords, move furniture, or change the sheets. As long as it’s plugged in and the WiFi password doesn’t change it will transmit data.</string>
-    <string name="setup_description_99">Confirm strap is properly installed under the sheets and any mattress cover and as close as possible to the child without interfering.\nPosition the sensor pocket in the center of the mattress.  Tighten the strap until the elastic has stretched enough that the whole strap lays flat against the mattress.</string>
-
-    <!--Setup Dialog Text-->
-    <string name="success_message">Success!</string>
-    <string name="external_vibration_detected">External vibration detected! Please try again.</string>
-    <string name="dialog_msg_occupied_bed_calibration_warning">Sensor calibration was not successfully completed.  It is highly recommended that you complete calibration.  If it is not possible to complete, Tueo will attempt calibration using data gathered over a period of days, but this not possible in all circumstances.</string>
-
-    <!--Setup Button Text-->
-    <string name="empty_bed">Begin Empty Bed Calibration</string>
-    <string name="occupied_bed">Begin Occupied Bed Calibration</string>
-    <string name="title_activity_reboot">RebootActivity</string>
-
     <!-- menu -->
     <string name="menu_address_hint">Address</string>
     <string name="menu_sensor_name_hint">Sensor Name</string>
@@ -395,49 +322,7 @@
     <string name="new_password_hint">New Password</string>
     <string name="confirm_password_hint">Confirm Password</string>
 
-    <!-- Monitored person info -->
-    <string name="menu_controller_hint">Controller</string>
-    <string name="menu_rescue_hint">Rescue</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="udp_service_connected">UDP Service Connected</string>
-    <string name="udp_service_disconnected">UDP Service Disconnected</string>
-    <string name="local_service_started">UDP Service Started</string>
-    <string name="local_service_label">UDP Local Service</string>
-    <string name="local_service_stopped">UDP Service Stopped</string>
-    <string name="step_count" formatted="false">%d of %d</string>
-    <string name="dialog_msg_wifi_notice">Please make sure your number is currently connected to the same WiFi network that your sensor is going to use.</string>
-    <string name="dialog_msg_wifi_password_validation">Your wifi password must be at least 8 characters long to work with the Tueo Sensor</string>
-    <string name="sensor_not_found">Unable to find sensor. Please setup sensor before continuing</string>
-    <string name="wizard_restart_msg">You are about to restart the setup process.  Would you like to continue?</string>
-    <string name="scanning">Scanning...</string>
-    <string name="location_permission_msg">Please go to application settings and grant location
-        permission.</string>
-    <string name="support_message">If you’re looking for guidance or assistance with asthma management, make a request for a call with an asthma coach under the Tools menu in the app. If you’re having any technical difficulties with the app, your sensor, or something else related to your Tueo Health service please contact us at</string>
-    <string name="app_update">Please Update to continue using the App.</string>
-    <string name="wifi_notice_1">Please make sure your phone is currently connected to the same WiFi network as your sensor</string>
-    <string name="wifi_notice_2">Please make sure your phone is currently connected to the same WiFi network that your sensor is going to use.</string>
-    <string name="validating_code">validating OTP..</string>
-    <string name="app_version">App Version: </string>
-    <string name="restart_wizard">Restart setup</string>
-    <string name="title_cannot_find_sensor">Problem finding sensor</string>
-    <string name="msg_cannot_find_sensor">Is there only a single solid green light on your sensor?</string>
-    <string name="dialog_title_alert">Alert</string>
-    <string name="dialog_title_connect_to_wifi">Connect To WiFi</string>
-    <string name="dialog_title_invalid_wifi_pwd">Invalid WiFi Password</string>
-    <string name="wizard_step_back">BACK</string>
-    <string name="wizard_step_next">NEXT</string>
-    <string name="setup_completion_title">Registration and Setup Complete</string>
-    <string name="golive_description">You will be able to log in and access all features of the
-        Tueo Health Service on %1$s. We look forward to working together!</string>
-    <string name="golive_login_description">This account is not yet enabled for general usage.
-        Please return on %1$s</string>
-    <string name="complete_setup_wizard">Please complete the sensor setup process to proceed further.</string>
-    <string name="cac_title_message">An asthma coach will call you. What times do you prefer to be contacted?</string>
-    <string name="invalid_access_code">Invalid access code.</string>
-    <string name="enter_access_code">Enter application access code</string>
-    <string name="progress_sensor_info">Fetching sensor info...</string>
 
 </resources>
 

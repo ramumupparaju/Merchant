@@ -114,6 +114,10 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     }
 
     public void onRegisterClick() {
+        navigateToRegisterScreen();
+    }
+
+    private void navigateToRegisterScreen() {
         Intent registrationIntent = new Intent(this, RegistrationActivity.class);
         String phoneNumber = binding.edittextUsername.getText().toString();
         if (!TextUtils.isEmpty(phoneNumber)) {
@@ -122,7 +126,9 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         startActivity(registrationIntent);
         // donot finish current activity, since user may come back to login screen from registration
         // screens
+
     }
+
 
     public void onForgotPasswordClick() {
         Intent forgotPasswordIntent = new Intent(this, ForgotPasswordActivity.class);

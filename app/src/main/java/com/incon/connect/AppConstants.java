@@ -15,10 +15,11 @@ public interface AppConstants {
     String DELIMITOR = "-";
     int DEAULT_VALUE = Integer.MAX_VALUE;
 
-    interface SyncConstants {
-        int STATE_INCOMPLETE = 0;
-        int STATE_COMPLETED = 1;
+    interface GoogleMapConstants {
+        int GEOCODER_MAX_ADDRESS_RESULTS = 1;
+        float DEFAULT_ZOOM_LEVEL = 14.0f;
     }
+
     interface HttpErrorCodeConstants {
         int ERROR_UNAUTHORIZED = 401;
         int ERROR_FORBIDDEN = 403; // pay load error

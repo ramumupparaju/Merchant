@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
-            name="AddressDetails"
-            type="com.incon.connect.dto.registration.AddressDetails"/>
+            name="address"
+            type="android.location.Address"/>
 
     </data>
+
     <RelativeLayout
         android:id="@+id/map_view"
         style="@style/BothMatch">
@@ -27,7 +29,7 @@
                 fontPath="fonts/OpenSans-Regular.ttf"
                 android:imeOptions="actionNext"
                 android:maxLines="1"
-                android:text="@={AddressDetails.pinCode}"
+                android:text="@{address.getPostalCode()}"
                 android:textColor="@color/colorForgotPasswordHintText"
                 android:textSize="14sp"/>
         </com.incon.connect.custom.view.CustomTextInputLayout>
@@ -49,7 +51,7 @@
                 fontPath="fonts/OpenSans-Regular.ttf"
                 android:imeOptions="actionNext"
                 android:maxLines="1"
-                android:text="@={AddressDetails.city}"
+                android:text="@{address.getSubAdminArea()}"
                 android:textColor="@color/colorForgotPasswordHintText"
                 android:textSize="14sp"/>
         </com.incon.connect.custom.view.CustomTextInputLayout>
@@ -71,15 +73,15 @@
                 fontPath="fonts/OpenSans-Regular.ttf"
                 android:imeOptions="actionNext"
                 android:maxLines="1"
-                android:text="@={AddressDetails.state}"
+                android:text="@{address.getAdminArea()}"
                 android:textColor="@color/colorForgotPasswordHintText"
                 android:textSize="14sp"/>
         </com.incon.connect.custom.view.CustomTextInputLayout>
 
         <fragment
             android:id="@+id/map_monitor"
-            android:layout_below="@+id/input_state"
             android:name="com.google.android.gms.maps.SupportMapFragment"
-            style="@style/Match200" />
+            style="@style/BothMatch"
+            android:layout_below="@+id/input_state"/>
     </RelativeLayout>
 </layout>
