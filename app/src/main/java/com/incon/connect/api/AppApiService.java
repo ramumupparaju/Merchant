@@ -8,6 +8,7 @@ import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
 import com.incon.connect.custom.exception.NoConnectivityException;
 import com.incon.connect.dto.login.LoginUserData;
+import com.incon.connect.dto.notifications.PushRegistrarBody;
 import com.incon.connect.dto.registration.Registration;
 import com.incon.connect.utils.NetworkUtil;
 
@@ -80,5 +81,9 @@ public class AppApiService implements AppConstants {
 
     public Observable<Object> validateOtp(HashMap<String, String> verify) {
         return addNetworkCheck(serviceInstance.validateOtp(verify));
+    }
+
+    public Observable<Object> pushTokenApi(PushRegistrarBody pushRegistrarBody) {
+        return addNetworkCheck(serviceInstance.pushTokenApi(pushRegistrarBody));
     }
 }

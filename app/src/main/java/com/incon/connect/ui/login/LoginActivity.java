@@ -1,5 +1,6 @@
 package com.incon.connect.ui.login;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -16,8 +17,13 @@ import com.incon.connect.ui.BaseActivity;
 import com.incon.connect.ui.changepassword.ChangePasswordActivity;
 import com.incon.connect.ui.forgotpassword.ForgotPasswordActivity;
 import com.incon.connect.ui.home.HomeActivity;
+import com.incon.connect.ui.notifications.PushPresenter;
 import com.incon.connect.ui.register.RegistrationActivity;
+import com.incon.connect.utils.Logger;
+import com.incon.connect.utils.PermissionUtils;
 import com.incon.connect.utils.SharedPrefsUtils;
+
+import java.util.HashMap;
 
 
 public class LoginActivity extends BaseActivity implements LoginContract.View {
@@ -45,8 +51,8 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         binding = DataBindingUtil.setContentView(this, getLayoutId());
         binding.setActivity(this);
 
-//        LoginUserData loginUserData = new LoginUserData();
-        LoginUserData loginUserData = new LoginUserData("7799879990", "password");
+        LoginUserData loginUserData = new LoginUserData();
+//        LoginUserData loginUserData = new LoginUserData("7799879990", "password");
         String phoneNumberPreference = SharedPrefsUtils.loginProvider().
                 getStringPreference(LoginPrefs.USER_PHONE_NUMBER);
         if (!TextUtils.isEmpty(phoneNumberPreference)) {
@@ -73,6 +79,10 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
             clearData();
             return;
         }
+
+        PushPresenter pushPresenter = new PushPresenter();
+        pushPresenter.pushRegisterApi();
+
         Intent homeIntent = new Intent(this, HomeActivity.class);
         homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(homeIntent);
@@ -114,7 +124,28 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     }
 
     public void onRegisterClick() {
-        navigateToRegisterScreen();
+        PermissionUtils.getInstance().grantPermission(LoginActivity.this,
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                new PermissionUtils.Callback() {
+                    @Override
+                    public void onFinish(HashMap<String, Integer> permissionsStatusMap) {
+                        int locationStatus = permissionsStatusMap.get(
+                                Manifest.permission.ACCESS_FINE_LOCATION);
+                        switch (locationStatus) {
+                            case PermissionUtils.PERMISSION_GRANTED:
+                                navigateToRegisterScreen();
+                                Logger.v(TAG, "location :" + "granted");
+                            case PermissionUtils.PERMISSION_DENIED:
+                                Logger.v(TAG, "location :" + "denied");
+                                break;
+                            case PermissionUtils.PERMISSION_DENIED_FOREVER:
+                                Logger.v(TAG, "location :" + "denied forever");
+                            default:
+                                showErrorMessage(getString(R.string.location_permission_msg));
+                                break;
+                        }
+                    }
+                });
     }
 
     private void navigateToRegisterScreen() {

@@ -76,21 +76,6 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
     }
 
     private void loadData() {
-        registration = new Registration();
-        registration.setName("shiva koka");
-        registration.setPhoneNumber("9966382224");
-        registration.setGenderType("Male");
-        registration.setEmailId("koka.shiva@gmail.com");
-        registration.setPassword("qwerty123");
-        registration.setConfirmPassword("qwerty123");
-//        registration.setUserAddress("address");
-
-        registration.setStoreName("GoOnGo");
-        registration.setStorePhoneNumber("9493486529");
-        registration.setStoreEmail("koka.shiva@gmail.com");
-        registration.setStoreGSTN("123456789");
-        registration.setStoreAddress("address");
-
         buttonsBinding.buttonLeft.setOnClickListener(buttonClickListner);
         buttonsBinding.buttonLeft.setText(getString(R.string.action_back));
         buttonsBinding.buttonRight.setOnClickListener(buttonClickListner);

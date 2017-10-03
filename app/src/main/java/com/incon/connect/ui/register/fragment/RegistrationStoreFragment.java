@@ -34,6 +34,7 @@ import com.incon.connect.ui.BaseActivity;
 import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.RegistrationMapActivity;
 import com.incon.connect.ui.home.HomeActivity;
+import com.incon.connect.ui.notifications.PushPresenter;
 import com.incon.connect.ui.register.RegistrationActivity;
 import com.incon.connect.ui.termsandcondition.TermsAndConditionActivity;
 import com.incon.connect.utils.Logger;
@@ -269,8 +270,7 @@ public class RegistrationStoreFragment extends BaseFragment implements
 
     public void onAddressClick() {
         Intent addressIntent = new Intent(getActivity(), RegistrationMapActivity.class);
-        startActivity(addressIntent);
-        binding.edittextRegisterAddress.setText("addrees");
+        startActivityForResult(addressIntent, RequestCodes.ADDRESS_LOCATION);
     }
 
     /**
@@ -283,7 +283,7 @@ public class RegistrationStoreFragment extends BaseFragment implements
                 showErrorMessage(getString(R.string.error_image_path_upload));
                 return;
             }
-            navigateToRegistrationActivityNext(); //// TODO: uncomment and remove above
+            navigateToRegistrationActivityNext();
         }
     }
 
@@ -314,6 +314,10 @@ public class RegistrationStoreFragment extends BaseFragment implements
                 case RequestCodes.TERMS_AND_CONDITIONS:
                     registrationStoreFragmentPresenter.register(register);
                     break;
+                case RequestCodes.ADDRESS_LOCATION:
+                    register.setStoreAddress(data.getStringExtra(IntentConstants.ADDRESS_COMMA));
+                    register.setStoreLocation(data.getStringExtra(IntentConstants.LOCATION_COMMA));
+                    break;
                 default:
                     pickImageDialog.onActivityResult(requestCode, resultCode, data);
                     break;
@@ -323,8 +327,8 @@ public class RegistrationStoreFragment extends BaseFragment implements
     }
 
     public void navigateToHomeScreen() {
-        /*PushPresenter pushPresenter = new PushPresenter();
-        pushPresenter.pushRegisterApi();*/ //TODO enable
+        PushPresenter pushPresenter = new PushPresenter();
+        pushPresenter.pushRegisterApi();
 
         if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();

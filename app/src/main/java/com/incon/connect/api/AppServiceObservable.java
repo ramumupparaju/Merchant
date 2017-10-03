@@ -7,6 +7,7 @@ import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
 import com.incon.connect.apimodel.components.registration.ValidateOtpResponse;
 import com.incon.connect.dto.login.LoginUserData;
+import com.incon.connect.dto.notifications.PushRegistrarBody;
 import com.incon.connect.dto.registration.Registration;
 
 import java.util.HashMap;
@@ -75,5 +76,8 @@ public interface AppServiceObservable {
             ApiRequestKeyConstants.HEADER_API_KEY) String apiKeyValue,
                                              @Header(AppConstants.ApiRequestKeyConstants.
                                                      HEADER_AUTHORIZATION) String authorization);
+
+    @POST("registerPush")
+    Observable<Object> pushTokenApi(@Body PushRegistrarBody pushRegistrarBody);
 
 }

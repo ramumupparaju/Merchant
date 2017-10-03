@@ -1,5 +1,7 @@
 package com.incon.connect.ui;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.location.Address;
 import android.location.Geocoder;
@@ -10,7 +12,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -52,12 +53,34 @@ public class RegistrationMapActivity extends BaseActivity implements OnMapReadyC
     @Override
     protected void onCreateView(Bundle saveInstanceState) {
         binding = DataBindingUtil.setContentView(this, getLayoutId());
+        binding.setAddressActivity(this);
         SupportMapFragment mapFragment = SupportMapFragment.newInstance();
         getSupportFragmentManager().beginTransaction().add(R.id.map_monitor, mapFragment).commit();
         mapFragment.getMapAsync(this);
 
         addZipcodeWatcher();
     }
+
+    public void onOkClick() {
+
+        String zipCode = binding.edittextPincode.getText().toString();
+        if (TextUtils.isEmpty(zipCode)) {
+            showErrorMessage(getString(R.string.error_select_location));
+            return;
+        }
+
+        Intent dataIntent = new Intent();
+        StringBuilder addressBuilder = new StringBuilder(zipCode);
+        addressBuilder.append(COMMA_SEPARATOR + binding.edittextCity.getText().toString());
+        addressBuilder.append(COMMA_SEPARATOR + binding.edittextState.getText().toString());
+        addressBuilder.append(COMMA_SEPARATOR + binding.edittextCountry.getText().toString());
+        dataIntent.putExtra(IntentConstants.ADDRESS_COMMA, addressBuilder.toString());
+        dataIntent.putExtra(IntentConstants.LOCATION_COMMA, locationAddress.latitude
+                + COMMA_SEPARATOR + locationAddress.longitude);
+        setResult(Activity.RESULT_OK, dataIntent);
+        finish();
+    }
+
 
     private void addZipcodeWatcher() {
         Observable<TextViewAfterTextChangeEvent> zipCodeChangeObserver =
@@ -122,11 +145,11 @@ public class RegistrationMapActivity extends BaseActivity implements OnMapReadyC
             mGoogleMap = googleMap;
             new DeviceLocation(this, iLocationCallbacks);
 
-            UiSettings googlemapSettings = mGoogleMap.getUiSettings();
+            /*UiSettings googlemapSettings = mGoogleMap.getUiSettings();
             googlemapSettings.setZoomControlsEnabled(true);
             googlemapSettings.setMyLocationButtonEnabled(true);
             googlemapSettings.setRotateGesturesEnabled(true);
-            googlemapSettings.setMapToolbarEnabled(true);
+            googlemapSettings.setMapToolbarEnabled(true);*/
 
 
             mGoogleMap.setOnMapLongClickListener(onMapLongClickListener);
@@ -143,27 +166,23 @@ public class RegistrationMapActivity extends BaseActivity implements OnMapReadyC
 
     private void displayMarker(LatLng latLng, boolean zoomMap) {
 
-        if (latLng == null) {
-            showErrorMessage(getString(R.string
-                    .location_permission_msg));
-            return;
+        if (latLng != null) {
+            this.locationAddress = latLng;
+            if (marker == null) {
+                MarkerOptions options = new MarkerOptions()
+                        .position(latLng);
+                marker = mGoogleMap.addMarker(options);
+                mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,
+                        GoogleMapConstants.DEFAULT_ZOOM_LEVEL));
+            } else {
+                marker.setPosition(latLng);
+            }
+            if (zoomMap) {
+                mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,
+                        GoogleMapConstants.DEFAULT_ZOOM_LEVEL));
+            }
+            loadLocationDetailsFromGeocoder();
         }
-
-        this.locationAddress = latLng;
-        if (marker == null) {
-            MarkerOptions options = new MarkerOptions()
-                    .position(latLng);
-            marker = mGoogleMap.addMarker(options);
-            mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,
-                    GoogleMapConstants.DEFAULT_ZOOM_LEVEL));
-        } else {
-            marker.setPosition(latLng);
-        }
-        if (zoomMap) {
-            mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,
-                    GoogleMapConstants.DEFAULT_ZOOM_LEVEL));
-        }
-        loadLocationDetailsFromGeocoder();
     }
 
     private void loadLocationDetailsFromGeocoder() {

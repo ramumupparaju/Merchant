@@ -8,11 +8,16 @@
             name="address"
             type="android.location.Address"/>
 
+        <variable
+            name="addressActivity"
+            type="com.incon.connect.ui.RegistrationMapActivity"/>
+
     </data>
 
     <RelativeLayout
         android:id="@+id/map_view"
-        style="@style/BothMatch">
+        style="@style/BothMatch"
+        android:layout_marginTop="@dimen/margin_10">
         <!-- Pincode -->
         <com.incon.connect.custom.view.CustomTextInputLayout
             android:id="@+id/input_pincode_layout"
@@ -28,8 +33,8 @@
                 style="@style/MatchWrap"
                 fontPath="fonts/OpenSans-Regular.ttf"
                 android:imeOptions="actionNext"
+                android:inputType="numberSigned"
                 android:maxLines="1"
-                android:inputType="numberSigned|date"
                 android:text="@{address.getPostalCode()}"
                 android:textColor="@color/colorForgotPasswordHintText"
                 android:textSize="14sp"/>
@@ -103,5 +108,19 @@
             android:name="com.google.android.gms.maps.SupportMapFragment"
             style="@style/BothMatch"
             android:layout_below="@+id/input_country_layout"/>
+
+        <!-- Register button -->
+        <Button
+            android:id="@+id/button_ok"
+            style="@style/MatchWrap"
+            fontPath="fonts/OpenSans-Bold.ttf"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/margin_24"
+            android:background="@drawable/btn_login_register_roundedcorner"
+            android:onClick="@{() -> addressActivity.onOkClick()}"
+            android:text="@string/action_registration"
+            android:textAllCaps="true"
+            android:textColor="@color/tueo_theme"
+            android:textSize="@dimen/text_size_13"/>
     </RelativeLayout>
 </layout>

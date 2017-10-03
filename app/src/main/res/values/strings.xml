@@ -68,7 +68,8 @@
     <string name="location_permission_msg">Please go to application settings and grant location
         permission.</string>
     <string name="error_email_req">Email Address is required</string>
-    <string name="error_location">"Unable to fetch location"</string>
+    <string name="error_select_location">Please select location</string>
+    <string name="error_location">Unable to fetch location</string>
     <string name="error_otp_req">Please enter received OTP</string>
     <string name="error_email_notvalid">Please enter valid email address</string>
     <string name="error_password_req">Password is required</string>
@@ -220,7 +221,7 @@
 
 
     <!--google maps-->
-    <string name="google_map_key">AIzaSyBmlNQQda3yG66CV1j7vTY7lz2nZXtyDHY</string>
+    <string name="google_map_key">AIzaSyBeSVzykSGfWxZDtPRZoODVFTAFlT73OWE</string>
 
     <!--History-->
     <string name="tab_purchased">Purchased</string>
