@@ -112,7 +112,7 @@ public class ResetPasswordPromptActivity extends BaseActivity implements
 
     @Override
     public void navigateToHomeScreen() {
-        if (dialog.isShowing()) {
+        if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
         }
         Intent intent = new Intent(this,
@@ -137,7 +137,7 @@ public class ResetPasswordPromptActivity extends BaseActivity implements
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (dialog.isShowing()) {
+        if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
         }
         registrationStoreFragmentPresenter.disposeAll();

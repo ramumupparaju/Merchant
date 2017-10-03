@@ -326,7 +326,7 @@ public class RegistrationStoreFragment extends BaseFragment implements
         /*PushPresenter pushPresenter = new PushPresenter();
         pushPresenter.pushRegisterApi();*/ //TODO enable
 
-        if (dialog.isShowing()) {
+        if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
         }
         Intent intent = new Intent(getActivity(),
@@ -400,7 +400,7 @@ public class RegistrationStoreFragment extends BaseFragment implements
     @Override
     public void onDestroy() {
         super.onDestroy();
-        if (dialog.isShowing()) {
+        if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
         }
         registrationStoreFragmentPresenter.disposeAll();
