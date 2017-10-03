@@ -55,6 +55,14 @@ public class Registration extends BaseObservable {
     @Expose
     private String storePhoneNumber;
 
+    public String getUserLocation() {
+        return userLocation;
+    }
+
+    public void setUserLocation(String userLocation) {
+        this.userLocation = userLocation;
+    }
+
     @Bindable
     public String getGenderType() {
         return genderType;
@@ -75,12 +83,14 @@ public class Registration extends BaseObservable {
         notifyChange();
     }
 
+    @Bindable
     public String getUserAddress() {
         return userAddress;
     }
 
     public void setUserAddress(String userAddress) {
         this.userAddress = userAddress;
+        notifyChange();
     }
 
     @Bindable
@@ -313,6 +323,7 @@ public class Registration extends BaseObservable {
 
     public void setStoreAddress(String storeAddress) {
         this.storeAddress = storeAddress;
+        notifyChange();
     }
 
     @Bindable

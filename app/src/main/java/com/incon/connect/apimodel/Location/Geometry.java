@@ -1,5 +1,5 @@
 
-package com.incon.connect.dto.Location;
+package com.incon.connect.apimodel.Location;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

@@ -1,9 +1,10 @@
 
-package com.incon.connect.dto.Location;
+package com.incon.connect.apimodel.Location;
 
-import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
 
 public class LocationPostData {
 

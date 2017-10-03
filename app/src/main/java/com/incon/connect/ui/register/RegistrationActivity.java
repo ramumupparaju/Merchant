@@ -1,6 +1,7 @@
 package com.incon.connect.ui.register;
 
 import android.databinding.DataBindingUtil;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -75,21 +76,6 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
     }
 
     private void loadData() {
-        registration = new Registration();
-        registration.setName("shiva koka");
-        registration.setPhoneNumber("9966382224");
-        registration.setGenderType("Male");
-        registration.setEmailId("koka.shiva@gmail.com");
-        registration.setPassword("qwerty123");
-        registration.setConfirmPassword("qwerty123");
-        registration.setUserAddress("address");
-
-        registration.setStoreName("GoOnGo");
-        registration.setStorePhoneNumber("9493486529");
-        registration.setStoreEmail("koka.shiva@gmail.com");
-        registration.setStoreGSTN("123456789");
-        registration.setStoreAddress("address");
-
         buttonsBinding.buttonLeft.setOnClickListener(buttonClickListner);
         buttonsBinding.buttonLeft.setText(getString(R.string.action_back));
         buttonsBinding.buttonRight.setOnClickListener(buttonClickListner);
@@ -171,13 +157,15 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
         }
     };
 
-    public void focusOnView(final ScrollView scrollView, final View editTextView) {
-        scrollView.post(new Runnable() {
+    public void focusOnView(final ScrollView scrollView, final View view) {
+        final Rect rect = new Rect(0, 0, view.getWidth(), view.getHeight());
+        view.requestRectangleOnScreen(rect, false);
+        /*scrollView.post(new Runnable() {
             @Override
             public void run() {
                 scrollView.smoothScrollTo(0, editTextView.getBottom());
             }
-        });
+        });*/
     }
 
     @Override
