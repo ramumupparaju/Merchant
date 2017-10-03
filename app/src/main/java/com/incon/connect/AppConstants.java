@@ -132,8 +132,6 @@ public interface AppConstants {
     }
 
     interface ApiRequestKeyConstants {
-        String GOOGLE_MAP_LOCATION_URL = "http://maps.googleapis.com/maps/api/"
-                + "geocode/json"; //?address=505211&region=us
         String BODY_EMAIL = "email";
         String BODY_USER_ID = "userid";
         String BODY_MOBILE_NUMBER = "mobileNumber";

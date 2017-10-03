@@ -7,7 +7,6 @@ import com.incon.connect.apimodel.components.changepassword.ChangePasswordRespon
 import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
 import com.incon.connect.custom.exception.NoConnectivityException;
-import com.incon.connect.apimodel.Location.LocationPostData;
 import com.incon.connect.dto.login.LoginUserData;
 import com.incon.connect.dto.registration.Registration;
 import com.incon.connect.utils.NetworkUtil;
@@ -57,12 +56,6 @@ public class AppApiService implements AppConstants {
     public Observable<LoginResponse> login(LoginUserData loginUserData) {
         return addNetworkCheck(serviceInstance
                 .login(loginUserData));
-    }
-
-    public Observable<LocationPostData> locationPinCode(String loginUserData) {
-        return addNetworkCheck(serviceInstance
-                .doGetLocationPinCode(ApiRequestKeyConstants.GOOGLE_MAP_LOCATION_URL,
-                        loginUserData));
     }
 
     public Observable<ChangePasswordResponse> resetPassword(HashMap<String, String> password) {

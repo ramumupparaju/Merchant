@@ -16,10 +16,6 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.incon.connect.AppUtils;
 import com.incon.connect.R;
-import com.incon.connect.apimodel.Location.AddressComponent;
-import com.incon.connect.apimodel.Location.Location;
-import com.incon.connect.apimodel.Location.LocationPostData;
-import com.incon.connect.apimodel.Location.Result;
 import com.incon.connect.callbacks.ILocationCallbacks;
 import com.incon.connect.databinding.ActivityRegistrationMapBinding;
 import com.incon.connect.utils.DeviceLocation;
@@ -36,11 +32,9 @@ import io.reactivex.observers.DisposableObserver;
  * Created by LENOVO on 9/30/2017.
  */
 
-public class RegistrationMapActivity extends BaseActivity implements OnMapReadyCallback
-        , RegistrationMapContract.View {
+public class RegistrationMapActivity extends BaseActivity implements OnMapReadyCallback {
     private ActivityRegistrationMapBinding binding;
     public GoogleMap mGoogleMap;
-    private RegistrationMapPresenter registrationMapPresenter;
     private Marker marker;
     private String preZipCode;
     private LatLng locationAddress;
@@ -53,9 +47,6 @@ public class RegistrationMapActivity extends BaseActivity implements OnMapReadyC
 
     @Override
     protected void initializePresenter() {
-        registrationMapPresenter = new RegistrationMapPresenter();
-        registrationMapPresenter.setView(this);
-        setBasePresenter(registrationMapPresenter);
     }
 
     @Override
@@ -82,7 +73,8 @@ public class RegistrationMapActivity extends BaseActivity implements OnMapReadyC
                             if (zipCode.contains(preZipCode) && zipCode.length() > 5) {
                                 AppUtils.hideSoftKeyboard(RegistrationMapActivity.this,
                                         binding.edittextPincode);
-                                registrationMapPresenter.doPostalCode(zipCode);
+//                                registrationMapPresenter.doPostalCode(zipCode);
+                                fetchLocationFromZipcode();
                             }
                         }
                         preZipCode = zipCode;
@@ -99,11 +91,28 @@ public class RegistrationMapActivity extends BaseActivity implements OnMapReadyC
         zipCodeChangeObserver.subscribe(observer);
     }
 
+    private void fetchLocationFromZipcode() {
+        try {
+            List<Address> addressList = new Geocoder(RegistrationMapActivity.this).
+                    getFromLocationName(binding.edittextPincode.getText().toString(),
+                            GoogleMapConstants.GEOCODER_MAX_ADDRESS_RESULTS);
+            if (addressList != null && addressList.size() > 0) {
+                Address address = addressList.get(0);
+                if (address.hasLatitude() && address.hasLongitude()) {
+                    displayMarker(new LatLng(address.getLatitude(), address.getLongitude()),
+                            true);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     ILocationCallbacks iLocationCallbacks = new ILocationCallbacks() {
         @Override
         public void onLocationListener(LatLng latLng) {
-            displayMarker(latLng, true, true);
+            displayMarker(latLng, true);
         }
     };
 
@@ -128,11 +137,11 @@ public class RegistrationMapActivity extends BaseActivity implements OnMapReadyC
             GoogleMap.OnMapLongClickListener() {
                 @Override
                 public void onMapLongClick(LatLng latLng) {
-                    displayMarker(latLng, false, true);
+                    displayMarker(latLng, false);
                 }
             };
 
-    private void displayMarker(LatLng latLng, boolean zoomMap, boolean loadLocationDetails) {
+    private void displayMarker(LatLng latLng, boolean zoomMap) {
 
         if (latLng == null) {
             showErrorMessage(getString(R.string
@@ -154,9 +163,7 @@ public class RegistrationMapActivity extends BaseActivity implements OnMapReadyC
             mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,
                     GoogleMapConstants.DEFAULT_ZOOM_LEVEL));
         }
-        if (loadLocationDetails) {
-            loadLocationDetailsFromGeocoder();
-        }
+        loadLocationDetailsFromGeocoder();
     }
 
     private void loadLocationDetailsFromGeocoder() {
@@ -171,28 +178,13 @@ public class RegistrationMapActivity extends BaseActivity implements OnMapReadyC
                     latLng.longitude, GoogleMapConstants.GEOCODER_MAX_ADDRESS_RESULTS);
         } catch (IOException e) {
             e.printStackTrace();
-
         }
-
         if (list != null && list.size() > 0) {
             Address address = list.get(0);
             binding.setAddress(address);
-            marker.setTitle(address.getLocality());
         } else {
             showErrorMessage(getString(R.string.error_location));
         }
-    }
 
-    @Override
-    public void moveMarkerToThisLocation(LocationPostData locationResponse) {
-        if (locationResponse != null) {
-            List<Result> locationData = locationResponse.getResults();
-            if (locationData != null && locationData.size() > 0) {
-                Result result = locationData.get(0);
-                Location location = result.getGeometry().getLocation();
-                displayMarker(new LatLng(location.getLat(), location.getLng()), true, false);
-                List<AddressComponent> addressComponents = result.getAddressComponents();
-            }
-        }
     }
 }

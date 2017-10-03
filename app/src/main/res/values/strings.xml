@@ -205,6 +205,7 @@
     <string name="register_address2_hint">Address2</string>
     <string name="register_street_hint">Street</string>
     <string name="register_state_hint">State</string>
+    <string name="register_country_hint">Country</string>
     <string name="register_city_hint">City</string>
     <string name="register_postalcode_hint">Postal Code</string>
     <string name="register_verify_email_hint">Verification Code</string>
