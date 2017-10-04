@@ -236,7 +236,9 @@
     <string name="buy_request_product_image">Product Image</string>
     <string name="buy_request_product_info">Product Info</string>
 
-
+    <!--add offers-->
+    <string name="add_offer_brand">Brand</string>
+    <string name="add_offer_price">Price</string>
     <!-- screen titles -->
     <string name="title_history">History</string>
     <string name="title_buy_requests">Buy requests</string>

@@ -15,9 +15,10 @@ import com.incon.connect.R;
 import com.incon.connect.databinding.ActivityHomeBinding;
 import com.incon.connect.databinding.ToolBarBinding;
 import com.incon.connect.ui.BaseActivity;
+import com.incon.connect.ui.addoffer.fragment.AddOfferMerchantFragment;
 import com.incon.connect.ui.buyrequets.BuyRequestFragment;
-import com.incon.connect.ui.home.fragment.DummyFragment;
 import com.incon.connect.ui.history.HistoryTabFragment;
+import com.incon.connect.ui.home.fragment.DummyFragment;
 import com.incon.connect.ui.notifications.fragment.NotificationsFragment;
 import com.incon.connect.ui.qrcodescan.QrcodeBarcodeScanActivity;
 import com.incon.connect.ui.scan.ScanTabFragment;
@@ -127,7 +128,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
                 aClass = ScanTabFragment.class;
                 break;
             case R.id.action_offers_status:
-                aClass = DummyFragment.class;
+                aClass = AddOfferMerchantFragment.class;
                 break;
             case R.id.action_notifications:
                 aClass = NotificationsFragment.class;

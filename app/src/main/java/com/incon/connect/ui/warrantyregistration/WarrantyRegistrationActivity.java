@@ -2,12 +2,7 @@ package com.incon.connect.ui.warrantyregistration;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -25,7 +20,6 @@ public class WarrantyRegistrationActivity extends BaseActivity implements
     WarrantRegistrationPresenter warrantRegistrationPresenter;
     private ListView lv;
     ActivityWarrantyRegistrationBinding activityWarrantyRegistrationBinding;
-    EditText inputSearch, priceEdit, batchEdit, serialnoEdit;
     LinearLayout productDetailsLayout;
     ArrayAdapter<String> adapter;
     String products[] = {"Samsung", "Redmi", "Moto"};
@@ -40,7 +34,6 @@ public class WarrantyRegistrationActivity extends BaseActivity implements
     }
     public void onFloatingClick() {
         Toast.makeText(getApplicationContext(), "Floating button click", Toast.LENGTH_LONG).show();
-        inputSearch.setText("");
 
 
     }
@@ -63,34 +56,15 @@ public class WarrantyRegistrationActivity extends BaseActivity implements
                 R.id.product_name, products);
         lv.setAdapter(adapter);*/
 
-        inputSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                WarrantyRegistrationActivity.this.adapter.getFilter().filter(s);
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+      /*  lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                // inputSearch.setText(String.valueOf(position));
-                inputSearch.setText((String) parent.getItemAtPosition(position));
                 lv.setVisibility(View.GONE);
                 productDetailsLayout.setVisibility(View.VISIBLE);
 
             }
         });
-
+*/
     }
 }
