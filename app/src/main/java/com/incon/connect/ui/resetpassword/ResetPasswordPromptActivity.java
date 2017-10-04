@@ -9,7 +9,7 @@ import android.text.TextUtils;
 
 import com.incon.connect.R;
 import com.incon.connect.callbacks.AlertDialogCallback;
-import com.incon.connect.callbacks.OTPAlertDialogCallback;
+import com.incon.connect.callbacks.TextAlertDialogCallback;
 import com.incon.connect.custom.view.AppOtpDialog;
 import com.incon.connect.databinding.ActivityResetPasswordPromptBinding;
 import com.incon.connect.ui.BaseActivity;
@@ -52,9 +52,9 @@ public class ResetPasswordPromptActivity extends BaseActivity implements
     private void showOtpDialog() {
         final Intent intent = getIntent();
         dialog = new AppOtpDialog.AlertDialogBuilder(ResetPasswordPromptActivity.this, new
-                OTPAlertDialogCallback() {
+                TextAlertDialogCallback() {
                     @Override
-                    public void enteredOtp(String otpString) {
+                    public void enteredText(String otpString) {
                         enteredOtp = otpString;
                     }
 

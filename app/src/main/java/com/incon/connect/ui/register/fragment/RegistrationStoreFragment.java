@@ -17,18 +17,19 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.incon.connect.AppConstants;
 import com.incon.connect.R;
 import com.incon.connect.callbacks.AlertDialogCallback;
-import com.incon.connect.callbacks.OTPAlertDialogCallback;
+import com.incon.connect.callbacks.TextAlertDialogCallback;
+import com.incon.connect.custom.view.AppCheckBoxListDialog;
 import com.incon.connect.custom.view.AppOtpDialog;
 import com.incon.connect.custom.view.CustomTextInputLayout;
 import com.incon.connect.custom.view.PickImageDialog;
 import com.incon.connect.custom.view.PickImageDialogInterface;
 import com.incon.connect.databinding.FragmentRegistrationStoreBinding;
+import com.incon.connect.dto.dialog.CheckedModelSpinner;
 import com.incon.connect.dto.registration.Registration;
 import com.incon.connect.ui.BaseActivity;
 import com.incon.connect.ui.BaseFragment;
@@ -43,7 +44,9 @@ import com.incon.connect.utils.SharedPrefsUtils;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -67,6 +70,7 @@ public class RegistrationStoreFragment extends BaseFragment implements
     private PickImageDialog pickImageDialog;
     private String selectedFilePath = "";
     private AppOtpDialog dialog;
+    private AppCheckBoxListDialog categoryDialog;
     private String enteredOtp;
 
     @Override
@@ -93,7 +97,6 @@ public class RegistrationStoreFragment extends BaseFragment implements
 
     private void loadData() {
         shakeAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.shake);
-        loadCategorySpinnerData();
         loadValidationErrors();
         setFocusListenersForEditText();
     }
@@ -156,16 +159,6 @@ public class RegistrationStoreFragment extends BaseFragment implements
         }
     };
 
-    void loadCategorySpinnerData() {
-        //TODO have to change using api
-        String[] categoryTypeList = getResources().getStringArray(R.array.category_options_list);
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),
-                R.layout.view_spinner, categoryTypeList);
-        arrayAdapter.setDropDownViewResource(R.layout.view_spinner);
-        binding.spinnerCategory.setAdapter(arrayAdapter);
-    }
-
     private void loadValidationErrors() {
 
         errorMap = new HashMap<>();
@@ -204,8 +197,8 @@ public class RegistrationStoreFragment extends BaseFragment implements
                         if (actionId == EditorInfo.IME_ACTION_NEXT) {
                             switch (textView.getId()) {
                                 case R.id.edittext_register_phone:
-                                    binding.spinnerCategory.requestFocus();
-                                    binding.spinnerCategory.showDropDown();
+                                    binding.edittextRegisterCategory.requestFocus();
+                                    showCategorySelectionDialog();
                                     break;
 
                                 default:
@@ -291,7 +284,7 @@ public class RegistrationStoreFragment extends BaseFragment implements
         binding.inputLayoutRegisterStoreName.setError(null);
         binding.inputLayoutRegisterPhone.setError(null);
         binding.inputLayoutRegisterEmailid.setError(null);
-        binding.spinnerCategory.setError(null);
+//        binding.spinnerCategory.setError(null);
 
         Pair<String, Integer> validation = register.validateStoreInfo(null);
         updateUiAfterValidation(validation.first, validation.second);
@@ -360,16 +353,16 @@ public class RegistrationStoreFragment extends BaseFragment implements
 
     @Override
     public void validateOTP() {
-       showOtpDialog();
+        showOtpDialog();
     }
 
     private void showOtpDialog() {
         final String phoneNumber = SharedPrefsUtils.loginProvider()
                 .getStringPreference(LoginPrefs.USER_PHONE_NUMBER);
         dialog = new AppOtpDialog.AlertDialogBuilder(getActivity(), new
-                OTPAlertDialogCallback() {
+                TextAlertDialogCallback() {
                     @Override
-                    public void enteredOtp(String otpString) {
+                    public void enteredText(String otpString) {
                         enteredOtp = otpString;
                     }
 
@@ -399,6 +392,58 @@ public class RegistrationStoreFragment extends BaseFragment implements
         dialog.showDialog();
     }
 
+    public void onCategoryClick() {
+        showCategorySelectionDialog();
+    }
+
+    private void showCategorySelectionDialog() {
+        //TODO have to change using api
+        String[] categoryTypeList = getResources().getStringArray(R.array.category_options_list);
+
+        List<CheckedModelSpinner> checkedModelSpinnerList = new ArrayList<>();
+        for (int i = 0; i < categoryTypeList.length; i++) {
+            CheckedModelSpinner checkedModelSpinner = new CheckedModelSpinner();
+            checkedModelSpinner.setName(categoryTypeList[i]);
+            checkedModelSpinnerList.add(checkedModelSpinner);
+        }
+
+        //set previous selected categories as checked
+        String selectedCategories = binding.edittextRegisterCategory.getText().toString();
+        if (!TextUtils.isEmpty(selectedCategories)) {
+            String[] split = selectedCategories.split(COMMA_SEPARATOR);
+            for (String categoryString : split) {
+                CheckedModelSpinner checkedModelSpinner = new CheckedModelSpinner();
+                checkedModelSpinner.setName(categoryString);
+                int indexOf = checkedModelSpinnerList.indexOf(checkedModelSpinner);
+                checkedModelSpinnerList.get(indexOf).setChecked(true);
+            }
+
+        }
+        categoryDialog = new AppCheckBoxListDialog.AlertDialogBuilder(getActivity(), new
+                TextAlertDialogCallback() {
+                    @Override
+                    public void enteredText(String caetogories) {
+                        binding.edittextRegisterCategory.setText(caetogories);
+                    }
+
+                    @Override
+                    public void alertDialogCallback(byte dialogStatus) {
+                        switch (dialogStatus) {
+                            case AlertDialogCallback.OK:
+                                categoryDialog.dismiss();
+                                break;
+                            case AlertDialogCallback.CANCEL:
+                                categoryDialog.dismiss();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }).title(getString(R.string.register_category_hint))
+                .spinnerItems(checkedModelSpinnerList)
+                .build();
+        categoryDialog.showDialog();
+    }
 
 
     @Override
