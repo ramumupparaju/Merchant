@@ -40,7 +40,7 @@ public class QrcodeBarcodeScanActivity extends BaseActivity implements ZXingScan
     protected void onCreateView(Bundle saveInstanceState) {
         mScannerView = new ZXingScannerView(this);
         setContentView(mScannerView);
-        if (ContextCompat.checkSelfPermission(QrcodeBarcodeScanActivity.this,
+/*        if (ContextCompat.checkSelfPermission(QrcodeBarcodeScanActivity.this,
                 Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
 
@@ -53,7 +53,7 @@ public class QrcodeBarcodeScanActivity extends BaseActivity implements ZXingScan
         } else {
 
 
-        }
+        }*/
     }
 
     public void onRequestPermissionsResult(int requestCode,

@@ -259,7 +259,7 @@ public class Registration extends BaseObservable {
     private int validateDob() {
         Calendar dobDate = Calendar.getInstance();
         long dobInMillis = DateUtils.convertStringFormatToMillis(
-                getDob(), AppConstants.DateFormatterConstants.YYYY_MM_DD);
+                getDob(), AppConstants.DateFormatterConstants.YYYY_MM_DD_SLASH);
         dobDate.setTimeInMillis(dobInMillis);
         // futurde date check
         if (ValidationUtils.isFutureDate(dobDate)) {

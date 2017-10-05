@@ -5,6 +5,7 @@ import com.incon.connect.apimodel.base.ApiBaseResponse;
 import com.incon.connect.apimodel.components.changepassword.ChangePasswordResponse;
 import com.incon.connect.apimodel.components.defaults.DefaultsResponse;
 import com.incon.connect.apimodel.components.login.LoginResponse;
+import com.incon.connect.apimodel.components.qrcodebaruser.UserInfoResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
 import com.incon.connect.apimodel.components.registration.ValidateOtpResponse;
 import com.incon.connect.dto.login.LoginUserData;
@@ -41,6 +42,9 @@ public interface AppServiceObservable {
 
     @POST("account/sendOtp")
     Observable<SendOtpResponse> sendOtp(@Body HashMap<String, String> email);
+
+    @GET("user/getuser/scan/{uuid}/")
+    Observable<UserInfoResponse> userInfoData(@Path("uuid") String uuid);
 
     @POST("validateotp")
     Observable<LoginResponse> validateOtp(@Body HashMap<String, String> verify);

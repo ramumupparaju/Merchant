@@ -6,6 +6,7 @@ import com.incon.connect.apimodel.base.ApiBaseResponse;
 import com.incon.connect.apimodel.components.changepassword.ChangePasswordResponse;
 import com.incon.connect.apimodel.components.defaults.DefaultsResponse;
 import com.incon.connect.apimodel.components.login.LoginResponse;
+import com.incon.connect.apimodel.components.qrcodebaruser.UserInfoResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
 import com.incon.connect.custom.exception.NoConnectivityException;
 import com.incon.connect.dto.login.LoginUserData;
@@ -66,6 +67,11 @@ public class AppApiService implements AppConstants {
 
     public Observable<ChangePasswordResponse> changePassword(HashMap<String, String> password) {
         return addNetworkCheck(serviceInstance.changePassword(password));
+    }
+
+    public Observable<UserInfoResponse> userInfoData(String uudi) {
+        return addNetworkCheck(serviceInstance
+                .userInfoData(uudi));
     }
 
     public Observable<ApiBaseResponse> forgotPassword(HashMap<String, String> email) {
