@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import com.incon.connect.R;
@@ -26,6 +27,9 @@ public class WarrantyRegistrationFragment extends BaseFragment {
 
     }
     public void onFloatingClick() {
+        binding.searchView.setText(" ");
+        binding.listData.setVisibility(View.VISIBLE);
+        binding.linearPriceDetails.setVisibility(View.GONE);
     }
 
     public void onSubmitClick() {
@@ -37,21 +41,21 @@ public class WarrantyRegistrationFragment extends BaseFragment {
         if (rootView == null) {
             binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_warranty_registration, container, false);
+            binding.setWarrantyregistration(this);
             rootView = binding.getRoot();
         }
-       /* adapter = new ArrayAdapter<String>(getActivity(), R.layout.custom_warranty,
+        adapter = new ArrayAdapter<String>(getActivity(), R.layout.custom_warranty,
                 R.id.product_name, products);
         binding.listData.setAdapter(adapter);
         binding.listData.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // inputSearch.setText(String.valueOf(position));
-                inputSearch.setText((String) parent.getItemAtPosition(position));
-                lv.setVisibility(View.GONE);
-                productDetailsLayout.setVisibility(View.VISIBLE);
+                binding.searchView.setText((String) parent.getItemAtPosition(position));
+                binding.listData.setVisibility(View.GONE);
+                binding.linearPriceDetails.setVisibility(View.VISIBLE);
 
             }
-        });*/
+        });
 
         return rootView;
     }

@@ -45,7 +45,6 @@
                     style="@style/MatchWrap">
                     <ListView
                         android:visibility="gone"
-
                         android:id="@+id/list_data"
                         style="@style/MatchWrap" />
 
@@ -54,6 +53,7 @@
             <LinearLayout
                 android:id="@+id/linear_price_details"
                 android:orientation="vertical"
+                android:visibility="gone"
                 style="@style/MatchWrap">
                 <LinearLayout
                     android:layout_marginBottom="5dp"

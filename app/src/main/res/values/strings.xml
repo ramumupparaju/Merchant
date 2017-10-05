@@ -16,6 +16,8 @@
     <string name="action_serialno">Serial No :</string>
     <string name="action_submit">Submit</string>
     <string name="action_otp">OTP</string>
+    <string name="action_qr_code">QR Code Scan</string>
+    <string name="action_manual_entry">Manual Enter</string>
 
     <!--home_scanning activity-->
     <string name="action_or">OR</string>
@@ -235,10 +237,12 @@
     <string name="buy_request_product_image">Product Image</string>
     <string name="buy_request_product_info">Product Info</string>
 
-
+    <!--add offers-->
+    <string name="add_offer_brand">Brand</string>
+    <string name="add_offer_price">Price</string>
     <!-- screen titles -->
     <string name="title_history">History</string>
-    <string name="title_buy_requests">Buy offers</string>
+    <string name="title_buy_requests">Buy requests</string>
     <string name="title_scan">Scan</string>
     <string name="title_offers">Offers</string>
     <string name="title_notifications">Notifications</string>
