@@ -298,7 +298,7 @@ public class RegistrationUserFragment extends BaseFragment implements
     public void onClickNext() {
         if (validateFields()) {
             navigateToRegistrationActivityNext();
-        }/* else {
+        } /*else {
             navigateToRegistrationActivityNext(); // TODO have to comment
         }*/
     }

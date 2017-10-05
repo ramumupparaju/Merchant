@@ -1,13 +1,11 @@
 package com.incon.connect.api;
 
 import com.incon.connect.AppConstants;
-import com.incon.connect.apimodel.Location.LocationPostData;
 import com.incon.connect.apimodel.base.ApiBaseResponse;
 import com.incon.connect.apimodel.components.changepassword.ChangePasswordResponse;
+import com.incon.connect.apimodel.components.defaults.DefaultsResponse;
 import com.incon.connect.apimodel.components.login.LoginResponse;
-import com.incon.connect.apimodel.components.qrcodebaruser.UserInfoResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
-import com.incon.connect.apimodel.components.registration.ValidateEmailResponse;
 import com.incon.connect.apimodel.components.registration.ValidateOtpResponse;
 import com.incon.connect.dto.login.LoginUserData;
 import com.incon.connect.dto.notifications.PushRegistrarBody;
@@ -24,11 +22,11 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
-import retrofit2.http.Url;
 
 public interface AppServiceObservable {
-//http://maps.googleapis.com/maps/api/geocode/json?address=505211&region=us
+
+    @GET("defaults")
+    Observable<DefaultsResponse> defaultsApi();
 
     @POST("login")
     Observable<LoginResponse> login(@Body LoginUserData loginUserData);
@@ -44,21 +42,8 @@ public interface AppServiceObservable {
     @POST("account/sendOtp")
     Observable<SendOtpResponse> sendOtp(@Body HashMap<String, String> email);
 
-    @POST("account/validateOtp")
-    Observable<ValidateOtpResponse> validateOtp(@Body HashMap<String, String> verify);
-
-    @GET("account/validateEmail")
-    Observable<ValidateEmailResponse> validateEmail(@Query(
-            AppConstants.ApiRequestKeyConstants.QUERY_EMAIL) String email);
-
-    @GET("user/getuser/scan/{uuid}/")
-    Observable<UserInfoResponse> userInfoData(@Path(
-            "uuid") String uuid);
-
-    @GET("")
-    Observable<LocationPostData> doGetLocationPinCode(@Url String url);
-   /* @POST("validateotp")
-    Observable<Object> validateOtp(@Body HashMap<String, String> verify);*/
+    @POST("validateotp")
+    Observable<LoginResponse> validateOtp(@Body HashMap<String, String> verify);
 
     @POST("account/validateChangeEmailOTP")
     Observable<ValidateOtpResponse> validateChangeEmailOtp(@Body HashMap<String, String> verify,
@@ -74,10 +59,7 @@ public interface AppServiceObservable {
     @POST("merchant/forgotpassword")
     Observable<ApiBaseResponse> forgotPassword(@Body HashMap<String, String> phoneNumber);
 
-    @POST("account/resetPassword")
-    Observable<ChangePasswordResponse> resetPassword(@Body HashMap<String, String> password);
-
-    @POST("account/changePassword")
+    @POST("merchant/changepassword")
     Observable<ChangePasswordResponse> changePassword(@Body HashMap<String, String> password);
 
     @POST("account/changeEmail")

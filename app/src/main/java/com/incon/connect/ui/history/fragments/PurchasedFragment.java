@@ -155,13 +155,13 @@ public class PurchasedFragment extends BaseFragment implements PurchasedContract
                 @Override
                 public void onRefresh() {
                     purchasedAdapter.clearData();
-                    // Get alerts of account api
+                    //TODO Get alerts of account api
                     addTestData();
                 }
             };
 
     private void addTestData() {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 15; i++) {
             PurchasedResponse taskResponse = new PurchasedResponse();
             taskResponse.setId(i);
             taskResponse.setPositionText();

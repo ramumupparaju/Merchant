@@ -17,18 +17,21 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.incon.connect.AppConstants;
 import com.incon.connect.R;
+import com.incon.connect.apimodel.components.defaults.CategoryResponse;
+import com.incon.connect.apimodel.components.defaults.DefaultsResponse;
 import com.incon.connect.callbacks.AlertDialogCallback;
-import com.incon.connect.callbacks.OTPAlertDialogCallback;
+import com.incon.connect.callbacks.TextAlertDialogCallback;
+import com.incon.connect.custom.view.AppCheckBoxListDialog;
 import com.incon.connect.custom.view.AppOtpDialog;
 import com.incon.connect.custom.view.CustomTextInputLayout;
 import com.incon.connect.custom.view.PickImageDialog;
 import com.incon.connect.custom.view.PickImageDialogInterface;
 import com.incon.connect.databinding.FragmentRegistrationStoreBinding;
+import com.incon.connect.dto.dialog.CheckedModelSpinner;
 import com.incon.connect.dto.registration.Registration;
 import com.incon.connect.ui.BaseActivity;
 import com.incon.connect.ui.BaseFragment;
@@ -38,12 +41,14 @@ import com.incon.connect.ui.notifications.PushPresenter;
 import com.incon.connect.ui.register.RegistrationActivity;
 import com.incon.connect.ui.termsandcondition.TermsAndConditionActivity;
 import com.incon.connect.utils.Logger;
+import com.incon.connect.utils.OfflineDataManager;
 import com.incon.connect.utils.PermissionUtils;
-import com.incon.connect.utils.SharedPrefsUtils;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -61,12 +66,16 @@ public class RegistrationStoreFragment extends BaseFragment implements
     private static final String TAG = RegistrationStoreFragment.class.getSimpleName();
     private RegistrationStoreFragmentPresenter registrationStoreFragmentPresenter;
     private FragmentRegistrationStoreBinding binding;
+    private List<CategoryResponse> categoryResponseList; //fetched from defaults api call in
+    // registration
     private Registration register; // initialized from registration acticity
     private Animation shakeAnim;
     private HashMap<Integer, String> errorMap;
     private PickImageDialog pickImageDialog;
     private String selectedFilePath = "";
     private AppOtpDialog dialog;
+    private AppCheckBoxListDialog categoryDialog;
+    private List<CheckedModelSpinner> categorySpinnerList;
     private String enteredOtp;
 
     @Override
@@ -93,9 +102,19 @@ public class RegistrationStoreFragment extends BaseFragment implements
 
     private void loadData() {
         shakeAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.shake);
-        loadCategorySpinnerData();
         loadValidationErrors();
         setFocusListenersForEditText();
+
+
+        categorySpinnerList = new ArrayList<>();
+        DefaultsResponse defaultsResponse = new OfflineDataManager().loadData(
+                DefaultsResponse.class, DefaultsResponse.class.getName());
+        categoryResponseList = defaultsResponse.getCategories();
+        for (int i = 0; i < categoryResponseList.size(); i++) {
+            CheckedModelSpinner checkedModelSpinner = new CheckedModelSpinner();
+            checkedModelSpinner.setName(categoryResponseList.get(i).getName());
+            categorySpinnerList.add(checkedModelSpinner);
+        }
     }
 
 
@@ -156,16 +175,6 @@ public class RegistrationStoreFragment extends BaseFragment implements
         }
     };
 
-    void loadCategorySpinnerData() {
-        //TODO have to change using api
-        String[] categoryTypeList = getResources().getStringArray(R.array.category_options_list);
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),
-                R.layout.view_spinner, categoryTypeList);
-        arrayAdapter.setDropDownViewResource(R.layout.view_spinner);
-        binding.spinnerCategory.setAdapter(arrayAdapter);
-    }
-
     private void loadValidationErrors() {
 
         errorMap = new HashMap<>();
@@ -204,8 +213,8 @@ public class RegistrationStoreFragment extends BaseFragment implements
                         if (actionId == EditorInfo.IME_ACTION_NEXT) {
                             switch (textView.getId()) {
                                 case R.id.edittext_register_phone:
-                                    binding.spinnerCategory.requestFocus();
-                                    binding.spinnerCategory.showDropDown();
+                                    binding.edittextRegisterCategory.requestFocus();
+                                    showCategorySelectionDialog();
                                     break;
 
                                 default:
@@ -291,7 +300,7 @@ public class RegistrationStoreFragment extends BaseFragment implements
         binding.inputLayoutRegisterStoreName.setError(null);
         binding.inputLayoutRegisterPhone.setError(null);
         binding.inputLayoutRegisterEmailid.setError(null);
-        binding.spinnerCategory.setError(null);
+//        binding.spinnerCategory.setError(null);
 
         Pair<String, Integer> validation = register.validateStoreInfo(null);
         updateUiAfterValidation(validation.first, validation.second);
@@ -312,7 +321,7 @@ public class RegistrationStoreFragment extends BaseFragment implements
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case RequestCodes.TERMS_AND_CONDITIONS:
-                    registrationStoreFragmentPresenter.register(register);
+                    callRegisterApi();
                     break;
                 case RequestCodes.ADDRESS_LOCATION:
                     register.setStoreAddress(data.getStringExtra(IntentConstants.ADDRESS_COMMA));
@@ -324,6 +333,27 @@ public class RegistrationStoreFragment extends BaseFragment implements
             }
         }
 
+    }
+
+    private void callRegisterApi() {
+        //sets category ids as per api requirement
+        String[] categoryNames = register.getStoreCategoryNames().split(
+                COMMA_SEPARATOR);
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String categoryName : categoryNames) {
+            CategoryResponse categoryResponse = new CategoryResponse();
+            categoryResponse.setName(categoryName);
+            int indexOf = categoryResponseList.indexOf(categoryResponse);
+            stringBuilder.append(categoryResponseList.get(indexOf).getId());
+            stringBuilder.append(AppConstants.COMMA_SEPARATOR);
+        }
+        int start = stringBuilder.length() - 1;
+        register.setStoreCategoryIds(stringBuilder.toString().substring(0, start));
+
+        //sets gender type as single char as per api requirement
+        register.setGenderType(String.valueOf(register.getGenderType().charAt(0)));
+
+        registrationStoreFragmentPresenter.register(register);
     }
 
     public void navigateToHomeScreen() {
@@ -343,7 +373,7 @@ public class RegistrationStoreFragment extends BaseFragment implements
     }
 
     @Override
-    public void uploadStoreLogo() {
+    public void uploadStoreLogo(int storeId) {
         File fileToUpload = new File(selectedFilePath == null ? "" : selectedFilePath);
         if (fileToUpload.exists()) {
             RequestBody requestFile =
@@ -351,8 +381,7 @@ public class RegistrationStoreFragment extends BaseFragment implements
             // MultipartBody.Part is used to send also the actual file name
             MultipartBody.Part imagenPerfil = MultipartBody.Part.createFormData(STORE_LOGO,
                     fileToUpload.getName(), requestFile);
-            registrationStoreFragmentPresenter.uploadStoreLogo(SharedPrefsUtils.loginProvider()
-                    .getIntegerPreference(LoginPrefs.STORE_ID, 0), imagenPerfil);
+            registrationStoreFragmentPresenter.uploadStoreLogo(storeId, imagenPerfil);
         } else {
             showErrorMessage(getString(R.string.error_image_path_upload));
         }
@@ -360,16 +389,15 @@ public class RegistrationStoreFragment extends BaseFragment implements
 
     @Override
     public void validateOTP() {
-       showOtpDialog();
+        showOtpDialog();
     }
 
     private void showOtpDialog() {
-        final String phoneNumber = SharedPrefsUtils.loginProvider()
-                .getStringPreference(LoginPrefs.USER_PHONE_NUMBER);
+        final String phoneNumber = register.getPhoneNumber();
         dialog = new AppOtpDialog.AlertDialogBuilder(getActivity(), new
-                OTPAlertDialogCallback() {
+                TextAlertDialogCallback() {
                     @Override
-                    public void enteredOtp(String otpString) {
+                    public void enteredText(String otpString) {
                         enteredOtp = otpString;
                     }
 
@@ -399,6 +427,48 @@ public class RegistrationStoreFragment extends BaseFragment implements
         dialog.showDialog();
     }
 
+    public void onCategoryClick() {
+        showCategorySelectionDialog();
+    }
+
+    private void showCategorySelectionDialog() {
+        //set previous selected categories as checked
+        String selectedCategories = binding.edittextRegisterCategory.getText().toString();
+        if (!TextUtils.isEmpty(selectedCategories)) {
+            String[] split = selectedCategories.split(COMMA_SEPARATOR);
+            for (String categoryString : split) {
+                CheckedModelSpinner checkedModelSpinner = new CheckedModelSpinner();
+                checkedModelSpinner.setName(categoryString);
+                int indexOf = categorySpinnerList.indexOf(checkedModelSpinner);
+                categorySpinnerList.get(indexOf).setChecked(true);
+            }
+
+        }
+        categoryDialog = new AppCheckBoxListDialog.AlertDialogBuilder(getActivity(), new
+                TextAlertDialogCallback() {
+                    @Override
+                    public void enteredText(String caetogories) {
+                        binding.edittextRegisterCategory.setText(caetogories);
+                    }
+
+                    @Override
+                    public void alertDialogCallback(byte dialogStatus) {
+                        switch (dialogStatus) {
+                            case AlertDialogCallback.OK:
+                                categoryDialog.dismiss();
+                                break;
+                            case AlertDialogCallback.CANCEL:
+                                categoryDialog.dismiss();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }).title(getString(R.string.register_category_hint))
+                .spinnerItems(categorySpinnerList)
+                .build();
+        categoryDialog.showDialog();
+    }
 
 
     @Override

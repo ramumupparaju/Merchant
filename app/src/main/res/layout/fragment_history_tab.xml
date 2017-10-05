@@ -1,64 +1,46 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout
-        style="@style/BothMatch"
-        android:background="@color/wild_sand">
+        <android.support.design.widget.CoordinatorLayout
+            android:id="@+id/main_container"
+            style="@style/MatchWrap">
 
-        <android.support.design.widget.TabLayout
+            <android.support.design.widget.AppBarLayout
+                android:id="@+id/appbar"
+                style="@style/MatchWrap"
+                android:fitsSystemWindows="true"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-            android:id="@+id/tab_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="fill"
-            android:background="@color/colorPrimary"
-            android:fillViewport="true"
-            android:minHeight="?attr/actionBarSize"
-            android:theme="@style/AppTheme"
-            app:tabIndicatorColor="@color/denim"
-            app:tabMode="fixed"
-            app:tabSelectedTextColor="@color/white"
-            app:tabTextColor="@color/white"/>
-        <EditText
-            android:layout_below="@+id/tab_layout"
-            android:id="@+id/et_search_buy_request"
-            style="@style/MatchWrap"
-            android:drawableEnd="@android:drawable/ic_menu_search"
-            />
-        <LinearLayout
-            style="@style/View_Match"
-            android:orientation="horizontal"
-            android:layout_below="@+id/et_search_buy_request"
-            android:background="@color/colorPrimary"
-            android:gravity="center"
-            android:id="@+id/ll_brand_details"
-            android:weightSum="1">
-            <TextView
-                style="@style/match_custom"
-                android:text="@string/buy_request_brand"
-                />
-            <TextView
-                style="@style/match_custom"
-                android:text="@string/buy_request_product_image"
-                />
-            <TextView
-                style="@style/match_custom"
-                android:text="@string/buy_request_product_info"
-                />
+                <android.support.design.widget.CollapsingToolbarLayout
+                    style="@style/MatchWrap"
+                    android:fitsSystemWindows="true"
+                    app:contentScrim="?attr/colorPrimary"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
-        </LinearLayout>
+                    <android.support.design.widget.TabLayout
+                        android:id="@+id/tab_layout"
+                        style="@style/MatchWrap"
+                        android:layout_gravity="fill"
+                        android:background="@color/colorPrimary"
+                        android:fillViewport="true"
+                        android:minHeight="?attr/actionBarSize"
+                        android:theme="@style/AppTheme"
+                        app:tabIndicatorColor="@color/denim"
+                        app:tabMode="fixed"
+                        app:layout_collapseMode="parallax"
+                        app:tabSelectedTextColor="@color/white"
+                        app:tabTextColor="@color/white"/>
+                </android.support.design.widget.CollapsingToolbarLayout>
+            </android.support.design.widget.AppBarLayout>
 
+            <com.incon.connect.custom.view.CustomViewPager
+                android:id="@+id/view_pager"
+                style="@style/BothMatch"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:swipeable="false"
+                app:tabGravity="fill"
+                app:tabMode="fixed">
 
-        <com.incon.connect.custom.view.CustomViewPager
-
-            android:id="@+id/view_pager"
-            style="@style/BothMatch"
-            android:layout_below="@+id/ll_brand_details"
-            app:swipeable="false"
-            app:tabGravity="fill"
-            app:tabMode="fixed">
-
-        </com.incon.connect.custom.view.CustomViewPager>
-
-    </RelativeLayout>
+            </com.incon.connect.custom.view.CustomViewPager>
+        </android.support.design.widget.CoordinatorLayout>
 </layout>

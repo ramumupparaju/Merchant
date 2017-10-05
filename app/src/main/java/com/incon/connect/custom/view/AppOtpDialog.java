@@ -10,7 +10,7 @@ import android.widget.EditText;
 
 import com.incon.connect.R;
 import com.incon.connect.callbacks.AlertDialogCallback;
-import com.incon.connect.callbacks.OTPAlertDialogCallback;
+import com.incon.connect.callbacks.TextAlertDialogCallback;
 import com.incon.connect.databinding.ViewVerifyOtpBinding;
 
 public class AppOtpDialog extends Dialog implements View.OnClickListener {
@@ -18,7 +18,7 @@ public class AppOtpDialog extends Dialog implements View.OnClickListener {
     //All final attributes
     private final String title; // required
     private EditText editTextOtp; // required
-    private final OTPAlertDialogCallback mAlertDialogCallback; // required
+    private final TextAlertDialogCallback mAlertDialogCallback; // required
 
     /**
      * @param builder
@@ -62,7 +62,7 @@ public class AppOtpDialog extends Dialog implements View.OnClickListener {
                 mAlertDialogCallback.alertDialogCallback(AlertDialogCallback.CANCEL);
                 break;
             case R.id.button_right:
-                mAlertDialogCallback.enteredOtp(editTextOtp.getText().toString());
+                mAlertDialogCallback.enteredText(editTextOtp.getText().toString());
                 mAlertDialogCallback.alertDialogCallback(AlertDialogCallback.OK);
                 break;
             default:
@@ -72,11 +72,11 @@ public class AppOtpDialog extends Dialog implements View.OnClickListener {
 
     public static class AlertDialogBuilder {
         private final Context context;
-        private final OTPAlertDialogCallback callback;
+        private final TextAlertDialogCallback callback;
         private String title;
 
 
-        public AlertDialogBuilder(Context context, OTPAlertDialogCallback callback) {
+        public AlertDialogBuilder(Context context, TextAlertDialogCallback callback) {
             this.context = context;
             this.callback = callback;
         }

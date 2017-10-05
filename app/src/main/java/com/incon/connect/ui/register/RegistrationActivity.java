@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ScrollView;
 
+import com.incon.connect.AppUtils;
 import com.incon.connect.R;
 import com.incon.connect.databinding.ActivityRegistrationBinding;
 import com.incon.connect.databinding.ViewRegistrationBottomButtonsBinding;
@@ -76,6 +77,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
     }
 
     private void loadData() {
+        registrationPresenter.defaultsApi();
         registration = new Registration();
 
         buttonsBinding.buttonLeft.setOnClickListener(buttonClickListner);
@@ -105,6 +107,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
                     }
                 });
     }
+
     // Instantiate a PagerAdapter and sets to viewpager.
     private void initializePagerAdapter() {
         registrationPagerAdapter = new RegistrationPagerAdapter(getSupportFragmentManager());
@@ -130,6 +133,14 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
         if (currentPagePos > 0) {
             binding.viewpagerRegister.setCurrentItem(--currentPagePos);
         } else {
+            finish();
+        }
+    }
+
+    @Override
+    public void startRegistration(boolean startRegistration) {
+        if (!startRegistration) {
+            AppUtils.shortToast(this, getString(R.string.error_network));
             finish();
         }
     }
@@ -173,7 +184,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        registerPresenter.disposeAll();
+        registrationPresenter.disposeAll();
     }
 
 }
