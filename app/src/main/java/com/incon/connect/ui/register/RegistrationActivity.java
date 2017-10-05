@@ -84,7 +84,6 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
         buttonsBinding.buttonLeft.setText(getString(R.string.action_back));
         buttonsBinding.buttonRight.setOnClickListener(buttonClickListner);
         buttonsBinding.buttonRight.setText(getString(R.string.action_next));
-        initializePagerAdapter();
         handleBottomViewOnKeyBoardUp();
 
     }
@@ -142,6 +141,8 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
         if (!startRegistration) {
             AppUtils.shortToast(this, getString(R.string.error_network));
             finish();
+        } else {
+            initializePagerAdapter();
         }
     }
 

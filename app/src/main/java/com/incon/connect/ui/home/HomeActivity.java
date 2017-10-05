@@ -18,7 +18,6 @@ import com.incon.connect.ui.BaseActivity;
 import com.incon.connect.ui.addoffer.fragment.AddOfferMerchantFragment;
 import com.incon.connect.ui.buyrequets.BuyRequestFragment;
 import com.incon.connect.ui.history.HistoryTabFragment;
-import com.incon.connect.ui.home.fragment.DummyFragment;
 import com.incon.connect.ui.notifications.fragment.NotificationsFragment;
 import com.incon.connect.ui.qrcodescan.QrcodeBarcodeScanActivity;
 import com.incon.connect.ui.scan.ScanTabFragment;

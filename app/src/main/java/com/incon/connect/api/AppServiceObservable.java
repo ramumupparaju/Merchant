@@ -43,19 +43,9 @@ public interface AppServiceObservable {
     @POST("account/sendOtp")
     Observable<SendOtpResponse> sendOtp(@Body HashMap<String, String> email);
 
-    @POST("account/validateOtp")
-    Observable<ValidateOtpResponse> validateOtp(@Body HashMap<String, String> verify);
-
-    @GET("account/validateEmail")
-    Observable<ValidateEmailResponse> validateEmail(@Query(
-            AppConstants.ApiRequestKeyConstants.QUERY_EMAIL) String email);
-
     @GET("user/getuser/scan/{uuid}/")
-    Observable<UserInfoResponse> userInfoData(@Path(
-            "uuid") String uuid);
+    Observable<UserInfoResponse> userInfoData(@Path("uuid") String uuid);
 
-    @GET("")
-    Observable<LocationPostData> doGetLocationPinCode(@Url String url);
     @POST("validateotp")
     Observable<LoginResponse> validateOtp(@Body HashMap<String, String> verify);
 
