@@ -67,6 +67,7 @@ public class AppApiService implements AppConstants {
 
     public Observable<ChangePasswordResponse> changePassword(HashMap<String, String> password) {
         return addNetworkCheck(serviceInstance.changePassword(password));
+    }
 
     public Observable<UserInfoResponse> userInfoData(String uudi) {
         return addNetworkCheck(serviceInstance
