@@ -4,6 +4,7 @@ import com.incon.connect.AppConstants;
 import com.incon.connect.BuildConfig;
 import com.incon.connect.apimodel.base.ApiBaseResponse;
 import com.incon.connect.apimodel.components.changepassword.ChangePasswordResponse;
+import com.incon.connect.apimodel.components.defaults.DefaultsResponse;
 import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
 import com.incon.connect.custom.exception.NoConnectivityException;
@@ -52,6 +53,10 @@ public class AppApiService implements AppConstants {
                 .ambWith(observable)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
+    }
+
+    public Observable<DefaultsResponse> defaultsApi() {
+        return addNetworkCheck(serviceInstance.defaultsApi());
     }
 
     public Observable<LoginResponse> login(LoginUserData loginUserData) {

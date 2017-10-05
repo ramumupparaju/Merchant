@@ -133,6 +133,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
 
     public void clearData() {
 //        TCDbHelper.getDbInstance().clearAllTables();
+        //new OfflineDataManager().clearAllCache(this);
 
         SharedPrefsUtils.appProvider().clear();
         SharedPrefsUtils.cacheProvider().clear();

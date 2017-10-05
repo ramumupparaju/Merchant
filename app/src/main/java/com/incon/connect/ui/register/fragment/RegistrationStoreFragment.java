@@ -21,6 +21,8 @@ import android.widget.TextView;
 
 import com.incon.connect.AppConstants;
 import com.incon.connect.R;
+import com.incon.connect.apimodel.components.defaults.CategoryResponse;
+import com.incon.connect.apimodel.components.defaults.DefaultsResponse;
 import com.incon.connect.callbacks.AlertDialogCallback;
 import com.incon.connect.callbacks.TextAlertDialogCallback;
 import com.incon.connect.custom.view.AppCheckBoxListDialog;
@@ -39,6 +41,7 @@ import com.incon.connect.ui.notifications.PushPresenter;
 import com.incon.connect.ui.register.RegistrationActivity;
 import com.incon.connect.ui.termsandcondition.TermsAndConditionActivity;
 import com.incon.connect.utils.Logger;
+import com.incon.connect.utils.OfflineDataManager;
 import com.incon.connect.utils.PermissionUtils;
 import com.incon.connect.utils.SharedPrefsUtils;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
@@ -64,6 +67,8 @@ public class RegistrationStoreFragment extends BaseFragment implements
     private static final String TAG = RegistrationStoreFragment.class.getSimpleName();
     private RegistrationStoreFragmentPresenter registrationStoreFragmentPresenter;
     private FragmentRegistrationStoreBinding binding;
+    private List<CategoryResponse> categoryResponseList; //fetched from defaults api call in
+    // registration
     private Registration register; // initialized from registration acticity
     private Animation shakeAnim;
     private HashMap<Integer, String> errorMap;
@@ -71,6 +76,7 @@ public class RegistrationStoreFragment extends BaseFragment implements
     private String selectedFilePath = "";
     private AppOtpDialog dialog;
     private AppCheckBoxListDialog categoryDialog;
+    private List<CheckedModelSpinner> categorySpinnerList;
     private String enteredOtp;
 
     @Override
@@ -99,6 +105,17 @@ public class RegistrationStoreFragment extends BaseFragment implements
         shakeAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.shake);
         loadValidationErrors();
         setFocusListenersForEditText();
+
+
+        categorySpinnerList = new ArrayList<>();
+        DefaultsResponse defaultsResponse = new OfflineDataManager().loadData(
+                DefaultsResponse.class, DefaultsResponse.class.getName());
+        categoryResponseList = defaultsResponse.getCategories();
+        for (int i = 0; i < categoryResponseList.size(); i++) {
+            CheckedModelSpinner checkedModelSpinner = new CheckedModelSpinner();
+            checkedModelSpinner.setName(categoryResponseList.get(i).getName());
+            categorySpinnerList.add(checkedModelSpinner);
+        }
     }
 
 
@@ -305,7 +322,7 @@ public class RegistrationStoreFragment extends BaseFragment implements
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case RequestCodes.TERMS_AND_CONDITIONS:
-                    registrationStoreFragmentPresenter.register(register);
+                    callRegisterApi();
                     break;
                 case RequestCodes.ADDRESS_LOCATION:
                     register.setStoreAddress(data.getStringExtra(IntentConstants.ADDRESS_COMMA));
@@ -317,6 +334,27 @@ public class RegistrationStoreFragment extends BaseFragment implements
             }
         }
 
+    }
+
+    private void callRegisterApi() {
+        //sets category ids as per api requirement
+        String[] categoryNames = register.getStoreCategoryNames().split(
+                COMMA_SEPARATOR);
+        StringBuilder stringBuilder = new StringBuilder();
+        for (String categoryName : categoryNames) {
+            CategoryResponse categoryResponse = new CategoryResponse();
+            categoryResponse.setName(categoryName);
+            int indexOf = categoryResponseList.indexOf(categoryResponse);
+            stringBuilder.append(categoryResponseList.get(indexOf).getId());
+            stringBuilder.append(AppConstants.COMMA_SEPARATOR);
+        }
+        int start = stringBuilder.length() - 1;
+        register.setStoreCategoryIds(stringBuilder.toString().substring(0, start));
+
+        //sets gender type as single char as per api requirement
+        register.setGenderType(String.valueOf(register.getGenderType().charAt(0)));
+
+        registrationStoreFragmentPresenter.register(register);
     }
 
     public void navigateToHomeScreen() {
@@ -397,16 +435,6 @@ public class RegistrationStoreFragment extends BaseFragment implements
     }
 
     private void showCategorySelectionDialog() {
-        //TODO have to change using api
-        String[] categoryTypeList = getResources().getStringArray(R.array.category_options_list);
-
-        List<CheckedModelSpinner> checkedModelSpinnerList = new ArrayList<>();
-        for (int i = 0; i < categoryTypeList.length; i++) {
-            CheckedModelSpinner checkedModelSpinner = new CheckedModelSpinner();
-            checkedModelSpinner.setName(categoryTypeList[i]);
-            checkedModelSpinnerList.add(checkedModelSpinner);
-        }
-
         //set previous selected categories as checked
         String selectedCategories = binding.edittextRegisterCategory.getText().toString();
         if (!TextUtils.isEmpty(selectedCategories)) {
@@ -414,8 +442,8 @@ public class RegistrationStoreFragment extends BaseFragment implements
             for (String categoryString : split) {
                 CheckedModelSpinner checkedModelSpinner = new CheckedModelSpinner();
                 checkedModelSpinner.setName(categoryString);
-                int indexOf = checkedModelSpinnerList.indexOf(checkedModelSpinner);
-                checkedModelSpinnerList.get(indexOf).setChecked(true);
+                int indexOf = categorySpinnerList.indexOf(checkedModelSpinner);
+                categorySpinnerList.get(indexOf).setChecked(true);
             }
 
         }
@@ -440,7 +468,7 @@ public class RegistrationStoreFragment extends BaseFragment implements
                         }
                     }
                 }).title(getString(R.string.register_category_hint))
-                .spinnerItems(checkedModelSpinnerList)
+                .spinnerItems(categorySpinnerList)
                 .build();
         categoryDialog.showDialog();
     }

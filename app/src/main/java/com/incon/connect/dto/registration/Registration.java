@@ -44,7 +44,10 @@ public class Registration extends BaseObservable {
     //Store details
     private String storeName;
     private String storeEmail;
-    private String storeCategory;
+    private String storeCategoryNames;
+    @SerializedName("storeCategory")
+    @Expose
+    private String storeCategoryIds;
     private String storeLocation;
     private String storeLogo;
     private String storeAddress;
@@ -291,12 +294,20 @@ public class Registration extends BaseObservable {
     }
 
     @Bindable
-    public String getStoreCategory() {
-        return storeCategory;
+    public String getStoreCategoryNames() {
+        return storeCategoryNames;
     }
 
-    public void setStoreCategory(String storeCategory) {
-        this.storeCategory = storeCategory;
+    public void setStoreCategoryNames(String storeCategoryNames) {
+        this.storeCategoryNames = storeCategoryNames;
+    }
+
+    public String getStoreCategoryIds() {
+        return storeCategoryIds;
+    }
+
+    public void setStoreCategoryIds(String storeCategoryIds) {
+        this.storeCategoryIds = storeCategoryIds;
     }
 
     public String getStoreLocation() {
@@ -382,7 +393,7 @@ public class Registration extends BaseObservable {
                 break;
 
             case 2:
-                boolean storeCategory = TextUtils.isEmpty(getStoreCategory());
+                boolean storeCategory = TextUtils.isEmpty(getStoreCategoryNames());
                 if (emptyValidation && storeCategory) {
                     return AppConstants.RegistrationValidation.CATEGORY_REQ;
                 }

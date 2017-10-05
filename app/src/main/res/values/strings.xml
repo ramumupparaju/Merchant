@@ -117,6 +117,7 @@
     <string name="error_postal_code_req">PostalCode is required</string>
 
     <!-- progress messages -->
+    <string name="progress_defaults">Fetching details...</string>
     <string name="progress_location">Loading location details...</string>
     <string name="progress_login">Logging in...</string>
     <string name="progress_sendotp">Sending otp...</string>

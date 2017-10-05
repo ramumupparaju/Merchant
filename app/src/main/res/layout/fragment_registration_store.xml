@@ -121,7 +121,7 @@
                         style="@style/Register_TextInputEditText"
                         android:enabled="false"
                         android:tag="2"
-                        android:text="@={register.storeCategory}"/>
+                        android:text="@={register.storeCategoryNames}"/>
                 </com.incon.connect.custom.view.CustomTextInputLayout>
 
                 <!--Dummy view used for category click action-->

@@ -3,6 +3,7 @@ package com.incon.connect.api;
 import com.incon.connect.AppConstants;
 import com.incon.connect.apimodel.base.ApiBaseResponse;
 import com.incon.connect.apimodel.components.changepassword.ChangePasswordResponse;
+import com.incon.connect.apimodel.components.defaults.DefaultsResponse;
 import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
 import com.incon.connect.apimodel.components.registration.ValidateOtpResponse;
@@ -23,7 +24,9 @@ import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public interface AppServiceObservable {
-//http://maps.googleapis.com/maps/api/geocode/json?address=505211&region=us
+
+    @GET("defaults")
+    Observable<DefaultsResponse> defaultsApi();
 
     @POST("login")
     Observable<LoginResponse> login(@Body LoginUserData loginUserData);
