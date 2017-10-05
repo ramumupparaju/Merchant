@@ -1,8 +1,11 @@
 package com.incon.connect.ui.qrcodescan;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v13.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.google.zxing.Result;
@@ -103,6 +106,7 @@ public class QrcodeBarcodeScanActivity extends BaseActivity implements ZXingScan
     }
 
     public  void onWarrentyStarts() {
+
         Intent intent = new Intent(QrcodeBarcodeScanActivity.this ,
                 WarrantyRegistrationActivity.class);
         startActivity(intent);

@@ -8,7 +8,6 @@ import com.incon.connect.R;
 import com.incon.connect.ui.BaseActivity;
 import com.incon.connect.ui.login.LoginActivity;
 import com.incon.connect.ui.home.HomeActivity;
-import com.incon.connect.ui.login.LoginActivity;
 import com.incon.connect.utils.SharedPrefsUtils;
 
 import static com.incon.connect.AppConstants.LoginPrefs.LOGGED_IN;

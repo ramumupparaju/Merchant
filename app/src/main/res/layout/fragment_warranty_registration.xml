@@ -9,18 +9,24 @@
         android:background="@color/white"
         style="@style/BothMatch"
         >
+
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swiperefresh"
+            style="@style/MatchWrap">
+
+
         <LinearLayout
             android:orientation="vertical"
             style="@style/BothMatch">
 
             <LinearLayout
-                android:layout_marginTop="@dimen/margin_10"
+                android:layout_marginTop="@dimen/margin_5"
                 android:orientation="vertical"
                 style="@style/MatchWrap"
                 >
                 <LinearLayout
+                    android:layout_marginTop="@dimen/margin_5"
                     android:layout_weight="1"
-                    android:layout_marginTop="@dimen/margin_10"
                     android:orientation="horizontal"
                     style="@style/MatchWrap"
                     >
@@ -38,28 +44,32 @@
 
                 </LinearLayout>
                 <View
-                    android:layout_marginBottom="@dimen/margin_10"
                     android:layout_marginTop="@dimen/margin_10"
                     android:background="@color/edit_background"
                     style="@style/view"/>
                 <LinearLayout
                     android:layout_weight="1"
                     style="@style/MatchWrap">
-                    <ListView
-                        android:id="@+id/list_data"
-                        style="@style/BothWrap" />
+                    <android.support.v7.widget.RecyclerView
+                          android:id="@+id/recyclerview_data"
+                          android:fadeScrollbars="false"
+                          android:scrollbarSize="4dp"
+                          android:scrollbarThumbVertical="@drawable/scrollbar"
+                          android:scrollbars="vertical"
+                          style="@style/BothWrap" />
 
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
                 android:visibility="gone"
+
+                android:layout_marginTop="@dimen/margin_10"
                 android:id="@+id/linear_price_details"
                 android:orientation="vertical"
                 style="@style/MatchWrap">
                 <LinearLayout
 
                     android:layout_weight="1"
-                    android:layout_marginTop="@dimen/margin_10"
                     android:orientation="horizontal"
                     style="@style/MatchWrap">
 
@@ -80,12 +90,11 @@
                 </LinearLayout>
                 <View
                     android:layout_marginBottom="@dimen/margin_10"
-                    android:layout_marginTop="@dimen/margin_10"
+                    android:layout_marginTop="@dimen/margin_8"
                     android:background="@color/edit_background"
                     style="@style/view"/>
                 <LinearLayout
                     android:layout_weight="1"
-                    android:layout_marginTop="@dimen/margin_10"
                     android:orientation="horizontal"
                     style="@style/MatchWrap"
                     >
@@ -100,12 +109,11 @@
                 </LinearLayout>
                 <View
                     android:layout_marginBottom="@dimen/margin_10"
-                    android:layout_marginTop="@dimen/margin_10"
+                    android:layout_marginTop="@dimen/margin_8"
                     android:background="@color/edit_background"
                     style="@style/view"/>
                 <LinearLayout
                     android:layout_weight="1"
-                    android:layout_marginTop="@dimen/margin_10"
                     android:orientation="horizontal"
                     style="@style/MatchWrap">
                     <TextView
@@ -119,7 +127,7 @@
                 </LinearLayout>
                 <View
                     android:layout_marginBottom="@dimen/margin_10"
-                    android:layout_marginTop="@dimen/margin_10"
+                    android:layout_marginTop="@dimen/margin_8"
                     android:background="@color/edit_background"
                     style="@style/view"/>
 
@@ -172,6 +180,11 @@
 
 
         </LinearLayout>
+
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+
+
     </LinearLayout>
 
 

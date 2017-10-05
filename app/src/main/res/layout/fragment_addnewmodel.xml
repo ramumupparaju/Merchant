@@ -1,7 +1,153 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="addnewmodelfragment"
+            type="com.incon.connect.ui.addnewmodel.fragment.AddNewModelFragment"/>
+    </data>
 
-</LinearLayout>
+    <LinearLayout
+        android:background="@color/white"
+        style="@style/BothMatch"
+        >
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/swiperefresh"
+            style="@style/MatchWrap">
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            style="@style/BothMatch">
+
+            <LinearLayout
+                android:layout_marginTop="@dimen/margin_8"
+                android:orientation="vertical"
+                style="@style/MatchWrap"
+                >
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_marginTop="@dimen/margin_8"
+                    android:orientation="horizontal"
+                    style="@style/MatchWrap"
+                    >
+                    <TextView
+                        style="@style/text_field"
+                        android:text="@string/action_modelno" />
+
+                    <EditText
+                        style="@style/edit_field"
+                        android:id="@+id/search_view">
+
+                    </EditText>
+
+                </LinearLayout>
+                <View
+                    android:layout_marginBottom="@dimen/margin_10"
+                    android:layout_marginTop="@dimen/margin_8"
+                    android:background="@color/edit_background"
+                    style="@style/view"/>
+              <!--  <LinearLayout
+                    android:layout_weight="1"
+                    style="@style/MatchWrap">
+                    <ListView
+                        android:visibility="gone"
+                        android:id="@+id/list_data"
+                        style="@style/MatchWrap" />
+
+                </LinearLayout>-->
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/linear_price_details"
+                android:orientation="vertical"
+                style="@style/MatchWrap">
+                <LinearLayout
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    style="@style/MatchWrap">
+
+                    <LinearLayout
+                        android:layout_weight="1"
+                        style="@style/MatchWrap">
+                        <TextView
+                            style="@style/text_field"
+                            android:text="@string/action_price" />
+                        <EditText
+                            android:inputType="number"
+                            style="@style/edit_field"
+                            android:id="@+id/et_price"
+                            />
+                    </LinearLayout>
+
+                </LinearLayout>
+                <View
+                    android:layout_marginBottom="@dimen/margin_10"
+                    android:layout_marginTop="@dimen/margin_8"
+                    android:background="@color/edit_background"
+                    style="@style/view"/>
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    style="@style/MatchWrap"
+                    >
+                    <TextView
+                        style="@style/text_field"
+                        android:text="@string/action_batchno" />
+                    <EditText
+                        style="@style/edit_field"
+                        android:id="@+id/et_batchno" />
+
+                </LinearLayout>
+                <View
+                    android:layout_marginBottom="@dimen/margin_10"
+                    android:layout_marginTop="@dimen/margin_8"
+                    android:background="@color/edit_background"
+                    style="@style/view"/>
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    style="@style/MatchWrap">
+                    <TextView
+                        style="@style/text_field"
+                        android:text="@string/action_serialno" />
+                    <EditText
+                        style="@style/edit_field"
+                        android:id="@+id/et_serialno" />
+
+                </LinearLayout>
+                <View
+                    android:layout_marginBottom="@dimen/margin_10"
+                    android:layout_marginTop="@dimen/margin_8"
+                    android:background="@color/edit_background"
+                    style="@style/view"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_weight="1"
+                style="@style/MatchWrap"
+                >
+                <LinearLayout
+                    android:orientation="vertical"
+                    style="@style/BothMatch"
+                    >
+                    <Button
+                        android:onClick="@{() -> addnewmodelfragment.onSubmitClick()}"
+                        android:id="@+id/button_submit"
+                        style="@style/submit_button"
+                        />
+
+                    <EditText
+                        android:id="@+id/button_otp"
+                        style="@style/otp_button"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+        </android.support.v4.widget.SwipeRefreshLayout>
+    </LinearLayout>
+
+</layout>
+
