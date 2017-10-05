@@ -43,7 +43,7 @@ public interface AppServiceObservable {
     Observable<SendOtpResponse> sendOtp(@Body HashMap<String, String> email);
 
     @POST("validateotp")
-    Observable<Object> validateOtp(@Body HashMap<String, String> verify);
+    Observable<LoginResponse> validateOtp(@Body HashMap<String, String> verify);
 
     @POST("account/validateChangeEmailOTP")
     Observable<ValidateOtpResponse> validateChangeEmailOtp(@Body HashMap<String, String> verify,

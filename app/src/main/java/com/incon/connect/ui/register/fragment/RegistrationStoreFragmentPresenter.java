@@ -46,9 +46,7 @@ public class RegistrationStoreFragmentPresenter extends
         DisposableObserver<LoginResponse> observer = new DisposableObserver<LoginResponse>() {
             @Override
             public void onNext(LoginResponse loginResponse) {
-                // save login data to shared preferences
-                loginDataManagerImpl.saveLoginDataToPrefs(loginResponse);
-                getView().uploadStoreLogo();
+                getView().uploadStoreLogo(loginResponse.getStore().getId());
             }
             @Override
             public void onError(Throwable e) {
@@ -58,7 +56,6 @@ public class RegistrationStoreFragmentPresenter extends
             }
             @Override
             public void onComplete() {
-                getView().hideProgress();
             }
         };
         AppApiService.getInstance().register(registrationBody).subscribe(observer);
@@ -95,10 +92,11 @@ public class RegistrationStoreFragmentPresenter extends
     @Override
     public void validateOTP(HashMap<String, String> verify) {
         getView().showProgress(appContext.getString(R.string.validating_code));
-        DisposableObserver<Object> observer = new DisposableObserver<Object>() {
+        DisposableObserver<LoginResponse> observer = new DisposableObserver<LoginResponse>() {
             @Override
-            public void onNext(Object loginResponse) {
+            public void onNext(LoginResponse loginResponse) {
                 // save login data to shared preferences
+                loginDataManagerImpl.saveLoginDataToPrefs(loginResponse);
                 getView().hideProgress();
                 getView().navigateToHomeScreen();
             }

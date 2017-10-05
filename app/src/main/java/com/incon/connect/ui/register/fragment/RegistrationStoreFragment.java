@@ -43,7 +43,6 @@ import com.incon.connect.ui.termsandcondition.TermsAndConditionActivity;
 import com.incon.connect.utils.Logger;
 import com.incon.connect.utils.OfflineDataManager;
 import com.incon.connect.utils.PermissionUtils;
-import com.incon.connect.utils.SharedPrefsUtils;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import java.io.File;
@@ -374,7 +373,7 @@ public class RegistrationStoreFragment extends BaseFragment implements
     }
 
     @Override
-    public void uploadStoreLogo() {
+    public void uploadStoreLogo(int storeId) {
         File fileToUpload = new File(selectedFilePath == null ? "" : selectedFilePath);
         if (fileToUpload.exists()) {
             RequestBody requestFile =
@@ -382,8 +381,7 @@ public class RegistrationStoreFragment extends BaseFragment implements
             // MultipartBody.Part is used to send also the actual file name
             MultipartBody.Part imagenPerfil = MultipartBody.Part.createFormData(STORE_LOGO,
                     fileToUpload.getName(), requestFile);
-            registrationStoreFragmentPresenter.uploadStoreLogo(SharedPrefsUtils.loginProvider()
-                    .getIntegerPreference(LoginPrefs.STORE_ID, 0), imagenPerfil);
+            registrationStoreFragmentPresenter.uploadStoreLogo(storeId, imagenPerfil);
         } else {
             showErrorMessage(getString(R.string.error_image_path_upload));
         }
@@ -395,8 +393,7 @@ public class RegistrationStoreFragment extends BaseFragment implements
     }
 
     private void showOtpDialog() {
-        final String phoneNumber = SharedPrefsUtils.loginProvider()
-                .getStringPreference(LoginPrefs.USER_PHONE_NUMBER);
+        final String phoneNumber = register.getPhoneNumber();
         dialog = new AppOtpDialog.AlertDialogBuilder(getActivity(), new
                 TextAlertDialogCallback() {
                     @Override

@@ -125,7 +125,7 @@ public class ResetPasswordPromptActivity extends BaseActivity implements
     }
 
     @Override
-    public void uploadStoreLogo() {
+    public void uploadStoreLogo(int storeId) {
         //DO nothing
     }
 

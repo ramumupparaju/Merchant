@@ -17,7 +17,7 @@ public class RegistrationStoreFragmentContract {
     public interface View extends BaseView {
         void navigateToRegistrationActivityNext();
         void navigateToHomeScreen();
-        void uploadStoreLogo();
+        void uploadStoreLogo(int storeId);
         void validateOTP();
     }
 
