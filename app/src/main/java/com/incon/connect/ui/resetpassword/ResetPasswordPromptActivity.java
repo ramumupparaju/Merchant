@@ -24,9 +24,10 @@ public class ResetPasswordPromptActivity extends BaseActivity implements
 
     private static final String TAG = ResetPasswordPromptActivity.class.getName();
     private ActivityResetPasswordPromptBinding binding;
+    private RegistrationStoreFragmentPresenter registrationStoreFragmentPresenter;
     private AppOtpDialog dialog;
     private String enteredOtp;
-    private RegistrationStoreFragmentPresenter registrationStoreFragmentPresenter;
+    private String phoneNumber;
 
 
     @Override
@@ -46,6 +47,7 @@ public class ResetPasswordPromptActivity extends BaseActivity implements
         // handle events from here using android binding
         binding = DataBindingUtil.setContentView(this, getLayoutId());
         binding.setResetPasswordPrompt(this);
+        phoneNumber = getIntent().getStringExtra(IntentConstants.USER_PHONE_NUMBER);
         showOtpDialog();
     }
 
@@ -68,21 +70,20 @@ public class ResetPasswordPromptActivity extends BaseActivity implements
                                 }
                                 HashMap<String, String> verifyOTP = new HashMap<>();
                                 verifyOTP.put(ApiRequestKeyConstants.BODY_MOBILE_NUMBER,
-                                        intent.getStringExtra(IntentConstants.USER_PHONE_NUMBER));
+                                        phoneNumber);
                                 verifyOTP.put(ApiRequestKeyConstants.BODY_OTP, enteredOtp);
                                 registrationStoreFragmentPresenter.validateOTP(verifyOTP);
 
-                                dialog.dismiss();
                                 break;
                             case AlertDialogCallback.CANCEL:
-                                finish();
                                 dialog.dismiss();
+                                ResetPasswordPromptActivity.this.finish();
                                 break;
                             default:
                                 break;
                         }
                     }
-                }).title(getString(R.string.dialog_verify_title, "shiva"))
+                }).title(getString(R.string.dialog_verify_title, phoneNumber))
                 .build();
         dialog.showDialog();
     }

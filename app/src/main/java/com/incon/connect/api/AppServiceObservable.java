@@ -59,10 +59,7 @@ public interface AppServiceObservable {
     @POST("merchant/forgotpassword")
     Observable<ApiBaseResponse> forgotPassword(@Body HashMap<String, String> phoneNumber);
 
-    @POST("account/resetPassword")
-    Observable<ChangePasswordResponse> resetPassword(@Body HashMap<String, String> password);
-
-    @POST("account/changePassword")
+    @POST("merchant/changepassword")
     Observable<ChangePasswordResponse> changePassword(@Body HashMap<String, String> password);
 
     @POST("account/changeEmail")

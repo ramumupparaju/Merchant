@@ -13,6 +13,7 @@ import com.incon.connect.custom.view.CustomTextInputLayout;
 import com.incon.connect.databinding.ActivityChangePasswordBinding;
 import com.incon.connect.dto.changepassword.Password;
 import com.incon.connect.ui.BaseActivity;
+import com.incon.connect.utils.SharedPrefsUtils;
 
 import java.util.HashMap;
 
@@ -46,8 +47,6 @@ public class ChangePasswordActivity extends BaseActivity implements ChangePasswo
         binding.setPassword(password);
         binding.setActivity(this);
 
-        changePasswordPresenter.setChangePassword(password);
-
         shakeAnim = AnimationUtils.loadAnimation(this, R.anim.shake);
         loadValidationErrors();
         setFocusForViews();
@@ -77,8 +76,8 @@ public class ChangePasswordActivity extends BaseActivity implements ChangePasswo
         public void onFocusChange(View view, boolean hasFocus) {
             Object fieldId = view.getTag();
             if (fieldId != null) {
-                Pair<String, Integer> validation = changePasswordPresenter
-                        .validateUserInfo((String) fieldId);
+                Pair<String, Integer> validation = binding.getPassword().
+                        validateUserInfo((String) fieldId);
                 if (!hasFocus) {
                     if (view instanceof TextInputEditText) {
                         TextInputEditText textInputEditText = (TextInputEditText) view;
@@ -120,7 +119,7 @@ public class ChangePasswordActivity extends BaseActivity implements ChangePasswo
         binding.inputLayoutEnterNewpassword.setError(null);
         binding.inputLayoutConfirmPassword.setError(null);
 
-        Pair<String, Integer> validation = changePasswordPresenter.validateUserInfo(null);
+        Pair<String, Integer> validation = binding.getPassword().validateUserInfo(null);
         updateUiAfterValidation(validation.first, validation.second);
 
         return validation.second == VALIDATION_SUCCESS;
@@ -129,9 +128,12 @@ public class ChangePasswordActivity extends BaseActivity implements ChangePasswo
     public void onChangePasswordClick() {
         if (validateFields()) {
             HashMap<String, String> passwordMap = new HashMap<>();
+            passwordMap.put(ApiRequestKeyConstants.BODY_USER_ID,
+                    SharedPrefsUtils.loginProvider().getStringPreference(
+                            LoginPrefs.USER_PHONE_NUMBER));
             passwordMap.put(ApiRequestKeyConstants.BODY_PASSWORD,
                     binding.getPassword().getConfirmPassword());
-            changePasswordPresenter.resetPassword(passwordMap);
+            changePasswordPresenter.changePassword(passwordMap);
         }
     }
 
