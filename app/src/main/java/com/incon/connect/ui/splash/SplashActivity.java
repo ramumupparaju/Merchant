@@ -17,6 +17,7 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
 
     private static final int SPLASH_DELAY = 2000;
     private static final String TAG = SplashActivity.class.getName();
+    private Handler handler;
 
     @Override
     protected int getLayoutId() {
@@ -46,7 +47,7 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
     }
 
     private void splashTimeout() {
-        Handler handler = new Handler();
+        handler = new Handler();
         Runnable splashRunnable = new Runnable() {
             @Override
             public void run() {
@@ -68,5 +69,9 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
         handler.postDelayed(splashRunnable, SPLASH_DELAY);
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacksAndMessages(null);
+    }
 }
