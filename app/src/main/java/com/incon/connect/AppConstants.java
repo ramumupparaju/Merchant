@@ -166,6 +166,9 @@ public interface AppConstants {
         int CHANGE_EMAIL = 110;
         int TERMS_AND_CONDITIONS = 111;
         int ADDRESS_LOCATION = 112;
+        int USER_PROFILE_SCAN = 113;
+        int PRODUCT_WARRANTY_SCAN = 114;
+        int PRODUCT_ASSIGN_SCAN = 115;
     }
 
     interface TimeConstants {

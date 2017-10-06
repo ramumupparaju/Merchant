@@ -64,7 +64,10 @@
     <!--settings screen-->
     <string name="action_settings">Settings</string>
     <string name="app_version">App Version: </string>
+    <!--scan tap fragment-->
 
+    <string name="action_scancustomeruid">Scan Customer UID</string>
+    <string name="action_enter_mobilenumber">Enter Mobile Number</string>
 
     <!-- input error messages -->
     <string name="app_update">Please Update to continue using the App.</string>

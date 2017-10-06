@@ -9,22 +9,22 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.incon.connect.R;
-import com.incon.connect.databinding.FragmentScanTabBinding;
+import com.incon.connect.databinding.FragmentProductScanBinding;
 import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.home.HomeActivity;
 import com.incon.connect.ui.qrcodescan.QrcodeBarcodeScanActivity;
 import com.incon.connect.ui.warrantyregistration.fragment.WarrantyRegistrationFragment;
 
+/**
+ * Created by PC on 10/6/2017.
+ */
 
-public class ScanTabFragment extends BaseFragment {
-
-    private static final String TAG = ScanTabFragment.class.getSimpleName();
-    private FragmentScanTabBinding binding;
-
+public class ProductScanFragment extends BaseFragment {
     private View rootView;
-
+    FragmentProductScanBinding binding;
     @Override
     protected void initializePresenter() {
+
     }
 
     @Override
@@ -32,41 +32,26 @@ public class ScanTabFragment extends BaseFragment {
                                  Bundle savedInstanceState) {
         if (rootView == null) {
             binding = DataBindingUtil.inflate(
-                    inflater, R.layout.fragment_scan_tab, container, false);
-            binding.setScanning(this);
+                    inflater, R.layout.fragment_product_scan, container, false);
+            binding.setProductscanfragment(this);
             rootView = binding.getRoot();
-            initViews();
         }
         return rootView;
     }
 
-    public void initViews() {
-
-    }
-
     public void onScanClick() {
         Intent intent = new Intent(getActivity(), QrcodeBarcodeScanActivity.class);
-        startActivityForResult(intent, RequestCodes.USER_PROFILE_SCAN);
+        startActivityForResult(intent, RequestCodes.PRODUCT_WARRANTY_SCAN);
     }
 
-    public void onManualClick() {
-        ((HomeActivity) getActivity()).replaceFragment(
-                WarrantyRegistrationFragment.class, null);
-    }
-
-    private void onWarrentyStarts() {
-        ((HomeActivity) getActivity()).replaceFragmentAndAddToStack(
-                ProductScanFragment.class, null);
-    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
-                case RequestCodes.USER_PROFILE_SCAN:
-                    callUserProfileApiUsingQRCode();
+                case RequestCodes.PRODUCT_WARRANTY_SCAN:
+                    callProductWarrantyApiUsingQRCode();
                     break;
                 default:
                     break;
@@ -74,8 +59,13 @@ public class ScanTabFragment extends BaseFragment {
         }
     }
 
-    private void callUserProfileApiUsingQRCode() {
-        //TODO api call
-        onWarrentyStarts();
+    private void callProductWarrantyApiUsingQRCode() {
+        //TODO api cal
+        onManualClick();
+    }
+
+    public void onManualClick() {
+        ((HomeActivity) getActivity()).replaceFragmentAndAddToStack(
+                WarrantyRegistrationFragment.class, null);
     }
 }
