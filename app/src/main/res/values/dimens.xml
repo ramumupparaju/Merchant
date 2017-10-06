@@ -50,6 +50,7 @@
     <dimen name="margin_190">190dp</dimen>
     <dimen name="margin_250">250dp</dimen>
     <dimen name="margin_265">265dp</dimen>
+    <dimen name="margin_300">300dp</dimen>
 
     <dimen name="text_size_10">10sp</dimen>
     <dimen name="text_size_11">11sp</dimen>
