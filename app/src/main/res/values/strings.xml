@@ -9,6 +9,10 @@
     <string name="error_no_connectivity">Looks like you are offline, please check internet
         connectivity</string>
 
+
+    <!--Scanner titel-->
+    <string name="action_scantiel">QR Code Scanner</string>
+
     <!--warrantyregistration-->
     <string name="action_modelno">Model No :</string>
     <string name="action_price">Price :</string>

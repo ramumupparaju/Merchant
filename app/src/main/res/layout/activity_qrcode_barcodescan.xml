@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+
+        <variable
+            name="qrcodebarcodescanactivity"
+            type="com.incon.connect.ui.qrcodescan.QrcodeBarcodeScanActivity"/>
+
+    </data>
+
+<RelativeLayout
+    android:background="@color/colorPrimary"
+    style="@style/BothMatch">
+
+
+    <me.dm7.barcodescanner.zxing.ZXingScannerView
+        style="@style/scanner_view"
+        android:id="@+id/barcodescanner"
+        />
+
+    <TextView
+        android:id="@+id/text_qrcode_titel"
+        style="@style/scanner_titel"
+
+        />
+</RelativeLayout>
+
+</layout>
