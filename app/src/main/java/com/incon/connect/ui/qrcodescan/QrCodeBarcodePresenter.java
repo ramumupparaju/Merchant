@@ -17,7 +17,6 @@ import io.reactivex.observers.DisposableObserver;
 public class QrCodeBarcodePresenter extends BasePresenter<QrCodeBarcodeContract.View> implements
         QrCodeBarcodeContract.Presenter {
 
-//    private final Register register;
     private Context appContext;
     private static final String TAG = QrCodeBarcodePresenter.class.getName();
 
@@ -27,19 +26,10 @@ public class QrCodeBarcodePresenter extends BasePresenter<QrCodeBarcodeContract.
         appContext = ConnectApplication.getAppContext();
     }
 
-    public QrCodeBarcodePresenter(/*Register register*/) {
-//        this.register = register;
-    }
-
-  /*  public Register getRegister() {
-//        return register;
-    }*/
-
     @Override
-    public void getUserScannedInfo(String password) {
-
+    public void getUserScannedInfo(String qrCode) {
         getView().showProgress(appContext.getString(R.string.progress_login));
-        Observable<UserInfoResponse> loginObserver = userInfoData(password);
+        Observable<UserInfoResponse> loginObserver = userInfoData(qrCode);
         DisposableObserver<UserInfoResponse> observer = new DisposableObserver<UserInfoResponse>() {
             @Override
             public void onNext(UserInfoResponse loginResponse) {
@@ -49,7 +39,6 @@ public class QrCodeBarcodePresenter extends BasePresenter<QrCodeBarcodeContract.
             @Override
             public void onError(Throwable e) {
                 getView().hideProgress();
-                getView().navigateToQrCodeBarcodeScree(null);
                 Pair<Integer, String> errorDetails = ErrorMsgUtil.getErrorDetails(e);
                 getView().handleException(errorDetails);
             }
@@ -62,6 +51,7 @@ public class QrCodeBarcodePresenter extends BasePresenter<QrCodeBarcodeContract.
         loginObserver.subscribe(observer);
         addDisposable(observer);
     }
+
     public Observable<UserInfoResponse> userInfoData(String uuid) {
         return AppApiService.getInstance().userInfoData(uuid);
     }

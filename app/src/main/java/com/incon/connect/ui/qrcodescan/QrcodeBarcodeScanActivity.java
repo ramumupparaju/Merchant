@@ -3,10 +3,10 @@ package com.incon.connect.ui.qrcodescan;
 import android.Manifest;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.graphics.Camera;
 import android.os.Bundle;
 
 import com.google.zxing.Result;
+import com.incon.connect.AppUtils;
 import com.incon.connect.R;
 import com.incon.connect.apimodel.components.qrcodebaruser.UserInfoResponse;
 import com.incon.connect.databinding.ActivityQrcodeBarcodescanBinding;
@@ -23,37 +23,33 @@ import me.dm7.barcodescanner.zxing.ZXingScannerView;
  * Created by PC on 9/27/2017.
  */
 public class QrcodeBarcodeScanActivity extends BaseActivity implements ZXingScannerView.
-        ResultHandler , QrCodeBarcodeContract.View  {
-    private ZXingScannerView mScannerView;
-    Camera camera;
-    private QrCodeBarcodePresenter qrCodeBarcodePresenter;
-    private ActivityQrcodeBarcodescanBinding binding;
+        ResultHandler, QrCodeBarcodeContract.View {
+
     private static final String TAG = QrcodeBarcodeScanActivity.class.getSimpleName();
+    private ActivityQrcodeBarcodescanBinding binding;
+    private QrCodeBarcodePresenter qrCodeBarcodePresenter;
+    private ZXingScannerView mScannerView;
 
     @Override
     protected int getLayoutId() {
-        return  R.layout.activity_qrcode_barcodescan;
+        return R.layout.activity_qrcode_barcodescan;
     }
 
     @Override
     protected void initializePresenter() {
-       qrCodeBarcodePresenter = new QrCodeBarcodePresenter();
+        qrCodeBarcodePresenter = new QrCodeBarcodePresenter();
         qrCodeBarcodePresenter.setView(this);
         setBasePresenter(qrCodeBarcodePresenter);
     }
 
     @Override
     protected void onCreateView(Bundle saveInstanceState) {
-        mScannerView = new ZXingScannerView(this);
-        setContentView(mScannerView);
         binding = DataBindingUtil.setContentView(this, getLayoutId());
         binding.setQrcodebarcodescanactivity(this);
-       mScannerView = (ZXingScannerView) findViewById(R.id.barcodescanner);
-        openCameraToUpload();
+        mScannerView = (ZXingScannerView) findViewById(R.id.barcodescanner);
     }
 
-    private void openCameraToUpload() {
-
+    private void openCameraToScan() {
         PermissionUtils.getInstance().grantPermission(
                 this,
                 new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -65,29 +61,28 @@ public class QrcodeBarcodeScanActivity extends BaseActivity implements ZXingScan
                                 Manifest.permission.CAMERA);
                         switch (storageStatus) {
                             case PermissionUtils.PERMISSION_GRANTED:
-                                Logger.v(TAG, "location :" + "granted");
+                                mScannerView.setResultHandler(QrcodeBarcodeScanActivity.this);
+                                mScannerView.startCamera();
                                 break;
                             case PermissionUtils.PERMISSION_DENIED:
-                                Logger.v(TAG, "location :" + "denied");
-                                break;
+                                Logger.v(TAG, "CAMERA :" + "denied");
                             case PermissionUtils.PERMISSION_DENIED_FOREVER:
-                                Logger.v(TAG, "location :" + "denied forever");
-                                break;
+                                Logger.v(TAG, "CAMERA :" + "denied forever");
                             default:
+                                AppUtils.shortToast(QrcodeBarcodeScanActivity.this, getString(
+                                        R.string.location_permission_msg));
+                                finish();
                                 break;
                         }
                     }
                 });
-
     }
 
 
     @Override
     public void onResume() {
         super.onResume();
-        mScannerView.setResultHandler(this);
-        mScannerView.startCamera();
-
+//        openCameraToScan();
     }
 
     @Override
@@ -98,16 +93,8 @@ public class QrcodeBarcodeScanActivity extends BaseActivity implements ZXingScan
 
     @Override
     public void handleResult(Result result) {
-      /* AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Scan Result");
-        builder.setMessage(result.getText());
-        AlertDialog alert1 = builder.create();
-        alert1.show();*/
-        String uuid = "0d4e7ea7-d35f-4233-be2a-6e01b65e2bb9";
+        String uuid = "0d4e7ea7-d35f-4233-be2a-6e01b65e2bb9"; //TODO have to remove
         qrCodeBarcodePresenter.getUserScannedInfo(uuid);
-//        finish();
-//        mScannerView.stopCamera();
-         mScannerView.resumeCameraPreview(this);
 
     }
 
@@ -120,7 +107,7 @@ public class QrcodeBarcodeScanActivity extends BaseActivity implements ZXingScan
     }
 
     private void onWarrentyStarts() {
-        Intent intent = new Intent(QrcodeBarcodeScanActivity.this ,
+        Intent intent = new Intent(QrcodeBarcodeScanActivity.this,
                 WarrantyRegistrationActivity.class);
         startActivity(intent);
     }

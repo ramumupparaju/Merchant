@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android">
+
     <data>
 
         <variable
@@ -9,21 +10,21 @@
 
     </data>
 
-<RelativeLayout
-    android:background="@color/colorPrimary"
-    style="@style/BothMatch">
+    <RelativeLayout
+        style="@style/BothMatch"
+        android:background="@color/colorPrimary">
 
 
-    <me.dm7.barcodescanner.zxing.ZXingScannerView
-        style="@style/scanner_view"
-        android:id="@+id/barcodescanner"
-        />
+        <me.dm7.barcodescanner.zxing.ZXingScannerView
+            android:id="@+id/barcodescanner"
+            style="@style/scanner_view"
+            />
 
-    <TextView
-        android:id="@+id/text_qrcode_titel"
-        style="@style/scanner_titel"
+        <TextView
+            android:id="@+id/text_qrcode_titel"
+            style="@style/scanner_titel"
 
-        />
-</RelativeLayout>
+            />
+    </RelativeLayout>
 
 </layout>
