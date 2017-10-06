@@ -63,7 +63,7 @@
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:layout_marginTop">@dimen/margin_48</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:text">@string/action_scantiel</item>
+        <item name="android:text">@string/title_qr_code_scanner</item>
     </style>
 
     android:text="QR Code Scanner"
