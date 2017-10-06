@@ -2,24 +2,22 @@ package com.incon.connect.ui.warrantyregistration.fragment;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.design.widget.TextInputEditText;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.incon.connect.R;
 import com.incon.connect.apimodel.components.warrantyegistration.WarrantyRegistrationResponse;
-import com.incon.connect.callbacks.IClickCallback;
+import com.incon.connect.custom.adapters.AutocompleteCustomArrayAdapter;
+import com.incon.connect.custom.view.CustomAutoCompleteView;
 import com.incon.connect.databinding.FragmentWarrantyRegistrationBinding;
 import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.addnewmodel.fragment.AddNewModelFragment;
 import com.incon.connect.ui.home.HomeActivity;
 import com.incon.connect.ui.warrantyregistration.WarrantRegistrationContract;
 import com.incon.connect.ui.warrantyregistration.WarrantRegistrationPresenter;
-import com.incon.connect.ui.warrantyregistration.fragment.adapter.WarrantyRegistrationAdapter;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.jakewharton.rxbinding2.widget.TextViewAfterTextChangeEvent;
 
@@ -40,8 +38,9 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
     private View rootView;
     private FragmentWarrantyRegistrationBinding binding;
     private WarrantRegistrationPresenter warrantRegistrationPresenter;
+    private DisposableObserver<TextViewAfterTextChangeEvent> observer;
 
-    private WarrantyRegistrationAdapter warrantyRegistrationAdapter;
+    private AutocompleteCustomArrayAdapter modelNumberAdapter;
     private List<WarrantyRegistrationResponse> warrantyregistrationList;
     private String selectedModelNumber;
 
@@ -71,73 +70,57 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
             binding.setWarrantyregistration(this);
             rootView = binding.getRoot();
 
-            initViews();
+            warrantyregistrationList = new ArrayList<>();
+            initializeModelNumberAdapter(warrantyregistrationList);
         }
 
         return rootView;
     }
 
-    private IClickCallback iClickCallback = new IClickCallback() {
-        @Override
-        public void onClickPosition(int position) {
-            binding.modelNumberRecyclerview.setVisibility(View.GONE);
-            setTextForSearchView((warrantyregistrationList.get(position).getName()));
-            binding.linearPriceDetails.setVisibility(View.VISIBLE);
-            binding.modelNumberRecyclerview.setVisibility(View.GONE);
+    private void initializeModelNumberAdapter(List<WarrantyRegistrationResponse>
+                                                   modelNumberList) {
+        modelNumberAdapter = new AutocompleteCustomArrayAdapter(getContext(),
+                modelNumberList);
+        binding.edittextModelNumber.setAdapter(modelNumberAdapter);
+        setObservableForModelNumber(binding.edittextModelNumber);
 
+        binding.edittextModelNumber.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View arg1, int pos,
+                                    long id) {
+//                selectedModelNumber = warrantyregistrationList.get(pos).getName();
+            }
+        });
+    }
+
+    private void setObservableForModelNumber(CustomAutoCompleteView edittextModelNumber) {
+        if (observer != null) {
+            observer.dispose();
         }
-    };
+        observer = new DisposableObserver<TextViewAfterTextChangeEvent>() {
 
-    private void setTextForSearchView(String textToSet) {
-        selectedModelNumber = textToSet;
-        binding.edittextModelNumber.setText(textToSet);
-        binding.edittextModelNumber.clearFocus();
-    }
-
-    private void initViews() {
-
-
-        warrantyregistrationList = new ArrayList<>();
-        warrantyRegistrationAdapter = new WarrantyRegistrationAdapter();
-        warrantyRegistrationAdapter.setData(warrantyregistrationList);
-        warrantyRegistrationAdapter.setClickCallback(iClickCallback);
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
-                getContext(), linearLayoutManager.getOrientation());
-        binding.modelNumberRecyclerview.addItemDecoration(dividerItemDecoration);
-        binding.modelNumberRecyclerview.setAdapter(warrantyRegistrationAdapter);
-        binding.modelNumberRecyclerview.setLayoutManager(linearLayoutManager);
-        binding.modelNumberRecyclerview.setVisibility(View.GONE);
-
-        setObservadleForModelNumber(binding.edittextModelNumber);
-    }
-
-    private void setObservadleForModelNumber(TextInputEditText edittextModelNumber) {
-        DisposableObserver<TextViewAfterTextChangeEvent> observer =
-                new DisposableObserver<TextViewAfterTextChangeEvent>() {
-
-                    @Override
-                    public void onNext(TextViewAfterTextChangeEvent textViewAfterTextChangeEvent) {
-                        String modelNumberString = textViewAfterTextChangeEvent.editable()
-                                .toString();
-                        if ((TextUtils.isEmpty(selectedModelNumber) || !selectedModelNumber.equals(
-                                modelNumberString))) {
-                            if (modelNumberString.length() > WarrantyRegistrationConstants
-                                    .MINIMUM_MODELNUMBER_TO_SEARCH) {
-                                warrantRegistrationPresenter.doModelSearchApi(modelNumberString);
-                            }
-                        }
+            @Override
+            public void onNext(TextViewAfterTextChangeEvent textViewAfterTextChangeEvent) {
+                String modelNumberString = textViewAfterTextChangeEvent.editable()
+                        .toString();
+                if ((TextUtils.isEmpty(selectedModelNumber) || !selectedModelNumber.equals(
+                        modelNumberString))) {
+                    if (modelNumberString.length() > WarrantyRegistrationConstants
+                            .MINIMUM_MODELNUMBER_TO_SEARCH) {
+                        warrantRegistrationPresenter.doModelSearchApi(modelNumberString);
+                        selectedModelNumber = modelNumberString;
                     }
+                }
+            }
 
-                    @Override
-                    public void onError(Throwable e) {
-                    }
+            @Override
+            public void onError(Throwable e) {
+            }
 
-                    @Override
-                    public void onComplete() {
-                    }
-                };
+            @Override
+            public void onComplete() {
+            }
+        };
         RxTextView.afterTextChangeEvents(edittextModelNumber)
                 .debounce(300, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -146,20 +129,23 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
 
     @Override
     public void loadModelNumberData() {
-        binding.modelNumberRecyclerview.setVisibility(View.VISIBLE);
         warrantyregistrationList.clear();
 
         int sampleSearches = new Random().nextInt(4) + 1;
         for (int i = 0; i < sampleSearches; i++) {
             warrantyregistrationList.add(new WarrantyRegistrationResponse("pos : " + i));
         }
-        warrantyRegistrationAdapter.setData(warrantyregistrationList);
-        binding.modelNumberRecyclerview.setVisibility(View.VISIBLE);
+//        modelNumberAdapter.setData(warrantyregistrationList);
+        initializeModelNumberAdapter(warrantyregistrationList);
+        binding.edittextModelNumber.showDropDown();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        if (observer != null) {
+            observer.dispose();
+        }
         warrantRegistrationPresenter.disposeAll();
     }
 }

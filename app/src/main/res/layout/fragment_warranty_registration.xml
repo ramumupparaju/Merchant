@@ -27,15 +27,13 @@
                 app:fontName="fonts/OpenSans-Regular.ttf"
                 app:hintTextAppearance="@style/TextInputLayout_FloatingTextColor">
 
-                <android.support.design.widget.TextInputEditText
+                <com.incon.connect.custom.view.CustomAutoCompleteView
                     android:id="@+id/edittext_model_number"
-                    android:ellipsize="end"
                     style="@style/Register_TextInputEditText"
-                    android:focusable="true"
-                    android:imeOptions="actionDone"
                     android:maxLength="@integer/character_limit_100"
                     android:maxLines="1"
-                    android:tag="1"/>
+                    />
+
             </com.incon.connect.custom.view.CustomTextInputLayout>
 
             <LinearLayout
@@ -177,11 +175,6 @@
 
                 </LinearLayout>
             </LinearLayout>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/model_number_recyclerview"
-                style="@style/BothWrap"
-                android:layout_below="@id/input_layout_model_number"/>
         </RelativeLayout>
 
     </LinearLayout>
