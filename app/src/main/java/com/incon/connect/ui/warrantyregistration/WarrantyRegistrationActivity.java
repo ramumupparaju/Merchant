@@ -23,15 +23,17 @@ public class WarrantyRegistrationActivity extends BaseActivity implements
     LinearLayout productDetailsLayout;
     ArrayAdapter<String> adapter;
     String products[] = {"Samsung", "Redmi", "Moto"};
+
     @Override
     protected int getLayoutId() {
-        return  R.layout.activity_warranty_registration;
+        return R.layout.activity_warranty_registration;
     }
 
     @Override
     protected void initializePresenter() {
 
     }
+
     public void onFloatingClick() {
         Toast.makeText(getApplicationContext(), "Floating button click", Toast.LENGTH_LONG).show();
 

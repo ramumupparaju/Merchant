@@ -240,7 +240,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
             fragmentTransaction.replace(R.id.container, fragment, claz.getCanonicalName());
         }
         if (backStack) {
-            fragmentTransaction.addToBackStack(targetFragment.getClass().getName());
+            fragmentTransaction.addToBackStack(claz.getClass().getName());
         }
         fragmentTransaction.commitAllowingStateLoss();
         fragmentManager.executePendingTransactions();
