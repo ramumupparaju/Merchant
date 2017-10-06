@@ -16,6 +16,9 @@ public interface AppConstants {
     int VALIDATION_ZIPCODE_LENGTH = 5;
     String DELIMITOR = "-";
 
+    interface WarrantyRegistrationConstants {
+        int MINIMUM_MODELNUMBER_TO_SEARCH = 3;
+    }
     interface GoogleMapConstants {
         int GEOCODER_MAX_ADDRESS_RESULTS = 1;
         float DEFAULT_ZOOM_LEVEL = 12.0f;

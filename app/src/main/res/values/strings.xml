@@ -10,7 +10,7 @@
         connectivity</string>
 
     <!--warrantyregistration-->
-    <string name="action_modelno">Model No :</string>
+    <string name="action_modelno">Model No</string>
     <string name="action_price">Price :</string>
     <string name="action_batchno">Batch No :</string>
     <string name="action_serialno">Serial No :</string>

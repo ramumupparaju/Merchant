@@ -48,17 +48,17 @@ public class RegistrationPresenter extends BasePresenter<RegistrationContract.Vi
             public void onError(Throwable e) {
                 getView().hideProgress();
                 Pair<Integer, String> errorDetails = ErrorMsgUtil.getErrorDetails(e);
+                getView().handleException(errorDetails);
                 if (errorDetails.first == AppConstants.ErrorCodes.NO_NETWORK) {
                     DefaultsResponse defaultsResponse = offlineDataManager
                             .loadData(DefaultsResponse.class,
                                     DefaultsResponse.class.getName());
-                    if (defaultsResponse == null) {
-                        getView().startRegistration(false);
-                    } else {
+                    if (defaultsResponse != null) {
                         getView().startRegistration(true);
+                        return;
                     }
                 }
-                getView().handleException(errorDetails);
+                getView().startRegistration(false);
             }
 
             @Override

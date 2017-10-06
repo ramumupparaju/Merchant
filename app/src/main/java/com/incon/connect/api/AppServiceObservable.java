@@ -8,6 +8,7 @@ import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.apimodel.components.qrcodebaruser.UserInfoResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
 import com.incon.connect.apimodel.components.registration.ValidateOtpResponse;
+import com.incon.connect.apimodel.components.warrantyegistration.WarrantyRegistrationResponse;
 import com.incon.connect.dto.login.LoginUserData;
 import com.incon.connect.dto.notifications.PushRegistrarBody;
 import com.incon.connect.dto.registration.Registration;
@@ -66,20 +67,10 @@ public interface AppServiceObservable {
     @POST("merchant/changepassword")
     Observable<ChangePasswordResponse> changePassword(@Body HashMap<String, String> password);
 
-    @POST("account/changeEmail")
-    Observable<ApiBaseResponse> changeEmail(@Body HashMap<String, String> email,
-                                            @Header(AppConstants.ApiRequestKeyConstants.
-                                                    HEADER_API_KEY)
-                                                    String requestApiKey,
-                                            @Header(AppConstants.ApiRequestKeyConstants.
-                                                    HEADER_AUTHORIZATION)
-                                                    String authorization);
 
-    @GET("account/current")
-    Observable<LoginResponse> getUserDetails(@Header(AppConstants.
-            ApiRequestKeyConstants.HEADER_API_KEY) String apiKeyValue,
-                                             @Header(AppConstants.ApiRequestKeyConstants.
-                                                     HEADER_AUTHORIZATION) String authorization);
+    @POST("product/search/{modelNumber}")
+    Observable<WarrantyRegistrationResponse> modelNumberSearch(@Path("modelNumber")
+                                                                       String modelNumber);
 
     @POST("registerPush")
     Observable<Object> pushTokenApi(@Body PushRegistrarBody pushRegistrarBody);

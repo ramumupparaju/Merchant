@@ -15,8 +15,7 @@ import com.incon.connect.ui.BaseActivity;
  * Created by PC on 9/25/2017.
  */
 
-public class WarrantyRegistrationActivity extends BaseActivity implements
-        WarrantRegistrationContract.View {
+public class WarrantyRegistrationActivity extends BaseActivity {
     WarrantRegistrationPresenter warrantRegistrationPresenter;
     private ListView lv;
     ActivityWarrantyRegistrationBinding activityWarrantyRegistrationBinding;
