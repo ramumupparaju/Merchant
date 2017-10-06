@@ -25,6 +25,7 @@ import com.jakewharton.rxbinding2.widget.TextViewAfterTextChangeEvent;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -79,6 +80,7 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
     private IClickCallback iClickCallback = new IClickCallback() {
         @Override
         public void onClickPosition(int position) {
+            binding.modelNumberRecyclerview.setVisibility(View.GONE);
             setTextForSearchView((warrantyregistrationList.get(position).getName()));
             binding.linearPriceDetails.setVisibility(View.VISIBLE);
             binding.modelNumberRecyclerview.setVisibility(View.GONE);
@@ -144,7 +146,15 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
 
     @Override
     public void loadModelNumberData() {
+        binding.modelNumberRecyclerview.setVisibility(View.VISIBLE);
+        warrantyregistrationList.clear();
 
+        int sampleSearches = new Random().nextInt(4) + 1;
+        for (int i = 0; i < sampleSearches; i++) {
+            warrantyregistrationList.add(new WarrantyRegistrationResponse("pos : " + i));
+        }
+        warrantyRegistrationAdapter.setData(warrantyregistrationList);
+        binding.modelNumberRecyclerview.setVisibility(View.VISIBLE);
     }
 
     @Override

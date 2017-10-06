@@ -43,6 +43,7 @@ public class WarrantRegistrationPresenter extends BasePresenter<WarrantRegistrat
                         getView().hideProgress();
                         Pair<Integer, String> errorDetails = ErrorMsgUtil.getErrorDetails(e);
                         getView().handleException(errorDetails);
+                        getView().loadModelNumberData(); //TODO remove
                     }
 
                     @Override
