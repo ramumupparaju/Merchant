@@ -168,9 +168,8 @@
     <string name="dialog_verify_title">Please enter the verification code which\n was sent to %1$s.</string>
     <string name="dialog_logout">Are you sure you want to logout?</string>
 
-
     <!-- Forgot password -->
-    <string name="login_username_hint">Email address</string>
+    <string name="login_username_hint">Phone number</string>
     <string name="login_password_hint">Password</string>
     <string name="login_forgotpassword_title">Forgot Password?</string>
     <string name="login_password_confirm_msg">You will receive an OTP with a temporary password

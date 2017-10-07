@@ -3,7 +3,6 @@ package com.incon.connect.api;
 import com.incon.connect.AppConstants;
 import com.incon.connect.BuildConfig;
 import com.incon.connect.apimodel.base.ApiBaseResponse;
-import com.incon.connect.apimodel.components.changepassword.ChangePasswordResponse;
 import com.incon.connect.apimodel.components.defaults.DefaultsResponse;
 import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.apimodel.components.qrcodebaruser.UserInfoResponse;
@@ -66,7 +65,7 @@ public class AppApiService implements AppConstants {
                 .login(loginUserData));
     }
 
-    public Observable<ChangePasswordResponse> changePassword(HashMap<String, String> password) {
+    public Observable<LoginResponse> changePassword(HashMap<String, String> password) {
         return addNetworkCheck(serviceInstance.changePassword(password));
     }
 

@@ -62,7 +62,6 @@ public class RegistrationMapActivity extends BaseActivity implements OnMapReadyC
     }
 
     public void onOkClick() {
-
         String zipCode = binding.edittextPincode.getText().toString();
         if (TextUtils.isEmpty(zipCode)) {
             showErrorMessage(getString(R.string.error_select_location));
@@ -80,7 +79,6 @@ public class RegistrationMapActivity extends BaseActivity implements OnMapReadyC
         setResult(Activity.RESULT_OK, dataIntent);
         finish();
     }
-
 
     private void addZipcodeWatcher() {
         Observable<TextViewAfterTextChangeEvent> zipCodeChangeObserver =

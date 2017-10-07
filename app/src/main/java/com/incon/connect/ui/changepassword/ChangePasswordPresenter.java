@@ -7,6 +7,8 @@ import android.util.Pair;
 import com.incon.connect.ConnectApplication;
 import com.incon.connect.R;
 import com.incon.connect.api.AppApiService;
+import com.incon.connect.apimodel.components.login.LoginResponse;
+import com.incon.connect.data.login.LoginDataManagerImpl;
 import com.incon.connect.ui.BasePresenter;
 import com.incon.connect.utils.ErrorMsgUtil;
 
@@ -29,10 +31,10 @@ public class ChangePasswordPresenter extends BasePresenter<ChangePasswordContrac
     @Override
     public void changePassword(HashMap<String, String> password) {
         getView().showProgress(appContext.getString(R.string.progress_changepassword));
-        DisposableObserver<Object> observer = new DisposableObserver<Object>() {
+        DisposableObserver<LoginResponse> observer = new DisposableObserver<LoginResponse>() {
             @Override
-            public void onNext(Object o) {
-                getView().navigateToLoginPage();
+            public void onNext(LoginResponse loginResponse) {
+                getView().navigateToLoginPage(loginResponse);
             }
             @Override
             public void onError(Throwable e) {
@@ -46,6 +48,12 @@ public class ChangePasswordPresenter extends BasePresenter<ChangePasswordContrac
         };
         AppApiService.getInstance().changePassword(password).subscribe(observer);
         addDisposable(observer);
+    }
+
+    @Override
+    public void saveUserData(LoginResponse loginResponse) {
+        LoginDataManagerImpl loginDataManager = new LoginDataManagerImpl();
+        loginDataManager.saveLoginDataToPrefs(loginResponse);
     }
 
 }
