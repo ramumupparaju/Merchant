@@ -1,8 +1,7 @@
-package com.incon.connect.ui.home;
+package com.incon.connect.ui.home.asignqrcode.fragment;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,13 +9,12 @@ import android.view.ViewGroup;
 import com.incon.connect.R;
 import com.incon.connect.databinding.FragmentProductAssignBinding;
 import com.incon.connect.ui.BaseFragment;
-import com.incon.connect.ui.history.fragments.InterestContract;
 
 /**
  * Created by PC on 10/6/2017.
  */
 
-class ProductAssignFragment extends BaseFragment {
+public class ProductAssignFragment extends BaseFragment {
 
     private View rootView;
     FragmentProductAssignBinding binding;

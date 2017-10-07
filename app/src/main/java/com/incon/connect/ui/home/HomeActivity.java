@@ -19,11 +19,11 @@ import com.incon.connect.ui.BaseActivity;
 import com.incon.connect.ui.addoffer.fragment.AddOfferMerchantFragment;
 import com.incon.connect.ui.buyrequets.BuyRequestFragment;
 import com.incon.connect.ui.history.HistoryTabFragment;
+import com.incon.connect.ui.home.asignqrcode.fragment.ProductAssignFragment;
 import com.incon.connect.ui.notifications.fragment.NotificationsFragment;
 import com.incon.connect.ui.qrcodescan.QrcodeBarcodeScanActivity;
 import com.incon.connect.ui.scan.ScanTabFragment;
 import com.incon.connect.ui.settings.SettingsActivity;
-import com.incon.connect.ui.warrantyregistration.fragment.WarrantyRegistrationFragment;
 import com.incon.connect.utils.DeviceUtils;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 

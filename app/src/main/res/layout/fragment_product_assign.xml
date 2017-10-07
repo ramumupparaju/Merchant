@@ -3,7 +3,7 @@
     <data>
         <variable
             name="productassignfragment"
-            type="com.incon.connect.ui.home.ProductAssignFragment"/>
+            type="com.incon.connect.ui.home.asignqrcode.fragment.ProductAssignFragment"/>
     </data>
 
     <LinearLayout
@@ -133,7 +133,6 @@
                         style="@style/BothMatch"
                         >
                         <Button
-                            android:onClick="@{() -> productassignfragment.onSubmitClick()}"
                             android:id="@+id/button_submit"
                             style="@style/submit_button"
                             />

@@ -218,13 +218,20 @@ public interface AppConstants {
 
     interface MenuConstants {
         int PROFILE = 0;
+        int CHANGE_PWD = 1;
+        int LOGOUT = 2;
+        int STORESETTINGS = 3;
+        int BILLFORMAT = 4;
+        int STORELOCATIONONMAP = 5;
+        int CONTACTDETAILS = 6;
+        int TIMEINGS = 7;
+        int ACCOUNTSETTINGS = 8;
+
         int MONITORED_PERSON_INFO = 1;
         int PHYSICIAN_INFO = 2;
         int SENSOR = 3;
         int FAQ = 4;
         int SUPPORT = 5;
-        int CHANGE_PWD = 1;
-        int LOGOUT = 2;
     }
 
     interface ActivityResult {
