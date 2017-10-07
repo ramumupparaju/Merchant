@@ -93,6 +93,7 @@ public interface AppConstants {
         String IMAGE_PATH = "imagePath";
         String ADDRESS_COMMA = "addressDetails";
         String LOCATION_COMMA = "locationDetails";
+        String FROM_FORGOT_PASSWORD_SCREEN = "fromForgotPasswordScreen";
     }
 
     interface BundleConstants {

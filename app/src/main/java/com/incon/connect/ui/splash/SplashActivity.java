@@ -7,6 +7,7 @@ import android.os.Handler;
 import com.incon.connect.R;
 import com.incon.connect.ui.BaseActivity;
 import com.incon.connect.ui.home.HomeActivity;
+import com.incon.connect.ui.login.LoginActivity;
 import com.incon.connect.utils.SharedPrefsUtils;
 
 import static com.incon.connect.AppConstants.LoginPrefs.LOGGED_IN;
@@ -53,14 +54,12 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
 
                 boolean isLoggedIn = SharedPrefsUtils.loginProvider().
                         getBooleanPreference(LOGGED_IN, false);
-
                 Intent intent;
                 if (isLoggedIn) {
                     intent = new Intent(SplashActivity.this, HomeActivity.class);
                 } else {
-                    intent = new Intent(SplashActivity.this, HomeActivity.class);
+                    intent = new Intent(SplashActivity.this, LoginActivity.class);
                 }
-
                 startActivity(intent);
                 finish();
             }

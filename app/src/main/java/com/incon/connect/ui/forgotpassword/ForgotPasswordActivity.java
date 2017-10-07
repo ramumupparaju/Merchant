@@ -42,7 +42,6 @@ public class ForgotPasswordActivity extends BaseActivity implements ForgotPasswo
     protected void onCreateView(Bundle saveInstanceState) {
         // handle events from here using android binding
         binding = DataBindingUtil.setContentView(this, getLayoutId());
-
         buttonsBinding = binding.includeRegisterBottomButtons;
 
         String phoneNumber = getIntent().getExtras().getString(IntentConstants.USER_PHONE_NUMBER);

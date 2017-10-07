@@ -1,10 +1,8 @@
 package com.incon.connect.ui.resetpassword;
 
-import android.content.ComponentName;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v4.content.IntentCompat;
 import android.text.TextUtils;
 
 import com.incon.connect.R;
@@ -13,7 +11,7 @@ import com.incon.connect.callbacks.TextAlertDialogCallback;
 import com.incon.connect.custom.view.AppOtpDialog;
 import com.incon.connect.databinding.ActivityResetPasswordPromptBinding;
 import com.incon.connect.ui.BaseActivity;
-import com.incon.connect.ui.home.HomeActivity;
+import com.incon.connect.ui.changepassword.ChangePasswordActivity;
 import com.incon.connect.ui.register.fragment.RegistrationStoreFragmentContract;
 import com.incon.connect.ui.register.fragment.RegistrationStoreFragmentPresenter;
 
@@ -52,7 +50,6 @@ public class ResetPasswordPromptActivity extends BaseActivity implements
     }
 
     private void showOtpDialog() {
-        final Intent intent = getIntent();
         dialog = new AppOtpDialog.AlertDialogBuilder(ResetPasswordPromptActivity.this, new
                 TextAlertDialogCallback() {
                     @Override
@@ -117,12 +114,9 @@ public class ResetPasswordPromptActivity extends BaseActivity implements
             dialog.dismiss();
         }
         Intent intent = new Intent(this,
-                HomeActivity.class);
-        // This is a convenient way to make the proper Intent to launch and
-        // reset an application's task.
-        ComponentName cn = intent.getComponent();
-        Intent mainIntent = IntentCompat.makeRestartActivityTask(cn);
-        startActivity(mainIntent);
+                ChangePasswordActivity.class);
+        intent.putExtra(IntentConstants.FROM_FORGOT_PASSWORD_SCREEN, true);
+        startActivity(intent);
     }
 
     @Override
