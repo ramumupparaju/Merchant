@@ -1,75 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
         <variable
-            name="scantabfragment"
+            name="scanning"
             type="com.incon.connect.ui.scan.ScanTabFragment"/>
     </data>
-    <RelativeLayout
-        style="@style/BothMatch"
-      android:background="@android:color/white">
-        <android.support.v7.widget.CardView
-            style="@style/BothMatch"
-            app:cardCornerRadius="@dimen/margin_10"
-            android:layout_marginTop="@dimen/margin_180"
-            android:layout_marginBottom="@dimen/margin_190"
-            android:layout_marginRight="@dimen/margin_45"
-            android:layout_marginLeft="@dimen/margin_50"
-            >
-            <LinearLayout
-                android:orientation="vertical"
-                style="@style/BothMatch">
-                <LinearLayout
-                    android:onClick="@{() -> scantabfragment.onScanClick()}"
-                    android:id="@+id/layout_qrcode"
-                    android:orientation="horizontal"
-                    android:layout_weight="1"
-                    style="@style/MatchWrap">
-                    <TextView
-                        android:gravity="center"
-                        android:textSize="@dimen/text_size_20"
-                        android:textStyle="bold"
-                        android:textColor="@color/tueo_theme"
-                        android:layout_gravity="center"
-                        android:layout_weight="1.5"
-                        style="@style/BothWrap"
-                        android:text="@string/action_qr_code" />
-                    <ImageView
-                        android:layout_gravity="center"
-                        android:layout_weight="0.5"
-                        app:srcCompat="@drawable/ic_im_qrcode"
-                        style="@style/m35w35"/>
 
-                </LinearLayout>
-                <View
-                    android:background="@color/colorAccent"
-                    style="@style/view"/>
-                <LinearLayout
-                    android:onClick="@{() -> scantabfragment.onManualClick()}"
-                    android:id="@+id/layout_manualentry"
-                    android:orientation="horizontal"
-                    android:layout_weight="1"
-                    style="@style/MatchWrap"
-                    >
-                    <TextView
-                        android:gravity="center"
-                        android:textSize="@dimen/text_size_20"
-                        android:textStyle="bold"
-                        android:textColor="@color/tueo_theme"
-                        android:layout_gravity="center"
-                        android:layout_weight="1.5"
-                        style="@style/BothWrap"
-                        android:text="@string/action_manual_entry" />
-                    <ImageView
-                        android:layout_gravity="center"
-                        android:layout_weight="0.5"
-                        app:srcCompat="@drawable/ic_im_manual_enter"
-                        style="@style/m35w35"/>
+    <LinearLayout
+        style="@style/BothMatch">
+        <LinearLayout
+            android:background="@color/white"
+            android:orientation="vertical"
+            style="@style/BothMatch">
+            <TextView
+                android:layout_gravity="center"
+                android:id="@+id/text_scanuid"
+                style="@style/BothWrap"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/margin_40"
+                android:text="@string/action_scanuid"
+                />
 
-                </LinearLayout>
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
-    </RelativeLayout>
+            <ImageView
+                style="@style/scan_image"
+                android:onClick="@{() -> scanning.onScanClick()}"
+                android:id="@+id/im_scann"
+                app:srcCompat="@drawable/ic_connect_logo_svg" />
+
+            <TextView
+                android:layout_gravity="center"
+                android:id="@+id/text_or"
+                style="@style/BothWrap"
+                android:layout_alignStart="@+id/text_scanuid"
+                android:layout_marginTop="@dimen/margin_60"
+                android:text="@string/action_or" />
+
+
+
+            <TextView
+                style="@style/enter_mobilenumber"
+                android:onClick="@{() -> scanning.onManualClick()}"
+                android:background="@drawable/bg_edittext"
+                android:id="@+id/text_mobilenumber"
+                />
+
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
 
 </layout>

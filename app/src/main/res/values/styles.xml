@@ -66,7 +66,6 @@
         <item name="android:text">@string/title_qr_code_scanner</item>
     </style>
 
-    android:text="QR Code Scanner"
 
     <!--scan_image-->
 
@@ -75,8 +74,10 @@
         <item name="android:layout_height">@dimen/margin_150</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:layout_marginTop">70dp</item>
+        <item name="android:layout_marginTop">@dimen/margin_70</item>
     </style>
+
+
 
 
     <!--enter_mobilenumber-->
@@ -85,8 +86,8 @@
         <item name="android:layout_gravity">center</item>
         <item name="android:gravity">center</item>
         <item name="android:textAlignment">center</item>
-        <item name="android:layout_marginTop">55dp</item>
-        <item name="android:textColor">#4f535d</item>
+        <item name="android:layout_marginTop">@dimen/margin_50</item>
+        <item name="android:textColor">@color/river_bed</item>
         <item name="android:text">@string/action_entermobilenumber</item>
         <item name="android:layout_width">@dimen/margin_250</item>
         <item name="android:layout_height">@dimen/margin_70</item>
@@ -96,10 +97,6 @@
     <!--warrenty registation-->
 
     <!-- cardview_warrenty-->
-
-
-
-
 
     <style name="qrcode_warrenty" parent="BothWrap">
 
@@ -202,6 +199,14 @@
         <item name="android:layout_width">@dimen/margin_35</item>
         <item name="android:layout_height">@dimen/margin_35</item>
     </style>
+    <style name="m50w50">
+    <item name="android:layout_width">@dimen/margin_50</item>
+    <item name="android:layout_height">@dimen/margin_50</item>
+</style>
+    <style name="m100_w100">
+        <item name="android:layout_width">@dimen/margin_100</item>
+        <item name="android:layout_height">@dimen/margin_100</item>
+    </style>
 
     <!--style match_wrap-->
     <style name="MatchWrap">
@@ -211,6 +216,11 @@
     <style name="Match200">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">200dp</item>
+    </style>
+
+    <style name="w150_wrap">
+        <item name="android:layout_width">150dp</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
     <style name="View_Match">
         <item name="android:layout_width">match_parent</item>
@@ -224,6 +234,7 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:gravity">center</item>
     </style>
+
     <!--style view-->
     <style name="view">
         <item name="android:layout_width">match_parent</item>
@@ -284,6 +295,20 @@
         <item name="android:textAllCaps">false</item>
         <item name="android:textColor">@color/text_schedule_call_selector</item>
         <item name="android:textSize">13.4sp</item>
+    </style>
+
+    <!-- Add new model -->
+    <style name="Add_new_model_TextInputLayout" parent="@style/MatchWrap">
+        <!--<item name="android:layout_marginTop">5dp</item>-->
+        <item name="android:layout_marginStart">38dp</item>
+        <item name="android:layout_marginEnd">39dp</item>
+        <item name="android:textColorHint">@color/colorForgotPasswordHintText</item>
+    </style>
+    <style name="Add_new_model_TextInputEditText" parent="@style/MatchWrap">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/colorForgotPasswordHintText</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:inputType">text</item>
     </style>
 
     <!-- Register -->

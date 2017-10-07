@@ -7,6 +7,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
+import com.incon.connect.AppUtils;
 import com.incon.connect.BuildConfig;
 import com.incon.connect.R;
 import com.incon.connect.callbacks.AlertDialogCallback;
@@ -86,6 +87,9 @@ public class SettingsActivity extends BaseActivity implements SettingsContract.V
                 R.drawable.ic_menu_support_svg, R.drawable.ic_menu_change_password_svg,
                 R.drawable.ic_menu_logout_svg};*/
         int[] icons = {R.drawable.ic_menu_patient_info_svg,
+                R.drawable.ic_menu_logout_svg, R.drawable.ic_menu_logout_svg,
+                R.drawable.ic_menu_logout_svg, R.drawable.ic_menu_logout_svg,
+                R.drawable.ic_menu_logout_svg, R.drawable.ic_menu_logout_svg,
                 R.drawable.ic_menu_logout_svg};
         String[] menuTitles = getResources().getStringArray(R.array.side_menu_items_list);
 
@@ -129,6 +133,31 @@ public class SettingsActivity extends BaseActivity implements SettingsContract.V
             case MenuConstants.LOGOUT:
                 showLogoutDialog();
                 break;
+            case MenuConstants.STORESETTINGS:
+                AppUtils.shortToast(SettingsActivity.this, getString(
+                        R.string.title_menu_store_settings));
+                break;
+            case MenuConstants.BILLFORMAT:
+                AppUtils.shortToast(SettingsActivity.this, getString(
+                        R.string.title_menu_bill_format));
+                break;
+            case MenuConstants.STORELOCATIONONMAP:
+                AppUtils.shortToast(SettingsActivity.this, getString(
+                        R.string.title_menu_store_location_on_map));
+                break;
+            case MenuConstants.CONTACTDETAILS:
+                AppUtils.shortToast(SettingsActivity.this, getString(
+                        R.string.title_menu_contact_details));
+                break;
+            case MenuConstants.TIMEINGS:
+                AppUtils.shortToast(SettingsActivity.this, getString(
+                        R.string.title_menu_timeings));
+                break;
+            case MenuConstants.ACCOUNTSETTINGS:
+                AppUtils.shortToast(SettingsActivity.this, getString(
+                        R.string.title_menu_account_settings));
+                break;
+
             default:
                 break;
         }

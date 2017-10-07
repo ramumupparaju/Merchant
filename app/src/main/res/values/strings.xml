@@ -64,7 +64,10 @@
     <!--settings screen-->
     <string name="action_settings">Settings</string>
     <string name="app_version">App Version: </string>
+    <!--scan tap fragment-->
 
+    <string name="action_scancustomeruid">Scan Customer UID</string>
+    <string name="action_enter_mobilenumber">Enter Mobile Number</string>
 
     <!-- input error messages -->
     <string name="app_update">Please Update to continue using the App.</string>
@@ -182,6 +185,16 @@
     <string name="changepassword_new_password_hint">Enter new Password</string>
     <string name="eula_title">End User License Agreement</string>
 
+    <!--Add new Model-->
+    <string name="add_new_submit">SUBMIT</string>
+    <string name="add_new__model_no">Model No</string>
+    <string name="add_new__price">Price </string>
+    <string name="add_new__batch_no">Batch No</string>
+    <string name="add_new__serial_no">Serial No</string>
+    <string name="add_new__category">Category</string>
+    <string name="add_new__division">Division</string>
+    <string name="add_new__type">Type</string>
+
     <!-- Registration -->
     <string name="register_userinfo_title">User Information</string>
     <string name="register_userinfo_subtitle">Please enter information for the person who will be using the app.</string>
@@ -231,6 +244,16 @@
     <string name="tab_interest">Interest</string>
     <string name="tab_return">Return</string>
 
+    <!--Settings -->
+    <string name="title_menu_change_password">Change Password</string>
+    <string name="title_menu_logout">Logout</string>
+    <string name="title_menu_profile">Profile</string>
+    <string name="title_menu_store_settings">Store Settings</string>
+    <string name="title_menu_bill_format">Bill Format</string>
+    <string name="title_menu_store_location_on_map">Store Location On Map</string>
+    <string name="title_menu_contact_details">Contact Details</string>
+    <string name="title_menu_timeings">Timeings</string>
+    <string name="title_menu_account_settings">Account Settings</string>
 
     <!--Buy Request Screen-->
     <string name="buy_request_brand">Brand</string>
@@ -262,7 +285,6 @@
     <string name="title_menu_support">Support</string>
     <string name="title_menu_sensor_info">Sensor</string>
     <string name="title_menu_change_email_address">Change Email Address</string>
-    <string name="title_menu_change_password">Change Password</string>
     <string name="title_menu_faq">FAQ</string>
     <string name="title_menu_development">Development</string>
 

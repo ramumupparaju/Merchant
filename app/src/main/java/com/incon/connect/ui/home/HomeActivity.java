@@ -1,5 +1,6 @@
 package com.incon.connect.ui.home;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import com.incon.connect.ui.BaseActivity;
 import com.incon.connect.ui.addoffer.fragment.AddOfferMerchantFragment;
 import com.incon.connect.ui.buyrequets.BuyRequestFragment;
 import com.incon.connect.ui.history.HistoryTabFragment;
+import com.incon.connect.ui.home.asignqrcode.fragment.ProductAssignFragment;
 import com.incon.connect.ui.notifications.fragment.NotificationsFragment;
 import com.incon.connect.ui.qrcodescan.QrcodeBarcodeScanActivity;
 import com.incon.connect.ui.scan.ScanTabFragment;
@@ -93,6 +95,29 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
             }
         });
         replaceToolBar(toolBarBinding.toolbar);
+    }
+
+    public void onAssignProductClick() {
+        Intent intent = new Intent(this, QrcodeBarcodeScanActivity.class);
+        startActivityForResult(intent, RequestCodes.PRODUCT_ASSIGN_SCAN);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case RequestCodes.PRODUCT_ASSIGN_SCAN:
+                    navigateToProductAssignScreen();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    private void navigateToProductAssignScreen() {
+        replaceFragmentAndAddToStack(
+                ProductAssignFragment.class, null);
     }
 
     public void replaceToolBar(View toolBarView) {
