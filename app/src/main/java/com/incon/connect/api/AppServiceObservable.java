@@ -5,12 +5,13 @@ import com.incon.connect.apimodel.components.defaults.DefaultsResponse;
 import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.apimodel.components.qrcodebaruser.UserInfoResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
-import com.incon.connect.apimodel.components.warrantyegistration.WarrantyRegistrationResponse;
 import com.incon.connect.dto.login.LoginUserData;
+import com.incon.connect.dto.model.search.ModelSearchResponse;
 import com.incon.connect.dto.notifications.PushRegistrarBody;
 import com.incon.connect.dto.registration.Registration;
 
 import java.util.HashMap;
+import java.util.List;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
@@ -52,8 +53,8 @@ public interface AppServiceObservable {
     @GET("user/getuser/scan/{uuid}/")
     Observable<UserInfoResponse> userInfoData(@Path("uuid") String uuid);
 
-    @POST("product/search/{modelNumber}")
-    Observable<WarrantyRegistrationResponse> modelNumberSearch(@Path("modelNumber")
+    @GET("product/search/{modelNumber}")
+    Observable<List<ModelSearchResponse>> modelNumberSearch(@Path("modelNumber")
                                                                        String modelNumber);
 
     @POST("registerPush")

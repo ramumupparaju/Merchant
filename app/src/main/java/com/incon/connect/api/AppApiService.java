@@ -7,14 +7,15 @@ import com.incon.connect.apimodel.components.defaults.DefaultsResponse;
 import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.apimodel.components.qrcodebaruser.UserInfoResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
-import com.incon.connect.apimodel.components.warrantyegistration.WarrantyRegistrationResponse;
 import com.incon.connect.custom.exception.NoConnectivityException;
 import com.incon.connect.dto.login.LoginUserData;
+import com.incon.connect.dto.model.search.ModelSearchResponse;
 import com.incon.connect.dto.notifications.PushRegistrarBody;
 import com.incon.connect.dto.registration.Registration;
 import com.incon.connect.utils.NetworkUtil;
 
 import java.util.HashMap;
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -94,7 +95,7 @@ public class AppApiService implements AppConstants {
         return addNetworkCheck(serviceInstance.validateOtp(verify));
     }
 
-    public Observable<WarrantyRegistrationResponse> modelNumberSearch(String modelNumber) {
+    public Observable<List<ModelSearchResponse>> modelNumberSearch(String modelNumber) {
         return addNetworkCheck(serviceInstance.modelNumberSearch(modelNumber));
     }
 

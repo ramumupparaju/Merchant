@@ -1,6 +1,9 @@
 package com.incon.connect.ui.warrantyregistration;
 
+import com.incon.connect.dto.model.search.ModelSearchResponse;
 import com.incon.connect.ui.BaseView;
+
+import java.util.List;
 
 /**
  * Created by PC on 9/26/2017.
@@ -8,7 +11,7 @@ import com.incon.connect.ui.BaseView;
 
 public interface WarrantRegistrationContract {
     interface View extends BaseView {
-        void loadModelNumberData();
+        void loadModelNumberData(List<ModelSearchResponse> modelSearchResponseList);
     }
 
     interface Presenter {

@@ -5,12 +5,15 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Pair;
 
+import com.incon.connect.AppConstants;
 import com.incon.connect.ConnectApplication;
 import com.incon.connect.R;
 import com.incon.connect.api.AppApiService;
-import com.incon.connect.apimodel.components.warrantyegistration.WarrantyRegistrationResponse;
+import com.incon.connect.dto.model.search.ModelSearchResponse;
 import com.incon.connect.ui.BasePresenter;
 import com.incon.connect.utils.ErrorMsgUtil;
+
+import java.util.List;
 
 import io.reactivex.observers.DisposableObserver;
 
@@ -30,12 +33,12 @@ public class WarrantRegistrationPresenter extends BasePresenter<WarrantRegistrat
 
     @Override
     public void doModelSearchApi(String modelNumberToSearch) {
-        getView().showProgress(appContext.getString(R.string.progress_login));
-        DisposableObserver<WarrantyRegistrationResponse> observer =
-                new DisposableObserver<WarrantyRegistrationResponse>() {
+        getView().showProgress(appContext.getString(R.string.progress_loading));
+        DisposableObserver<List<ModelSearchResponse>> observer =
+                new DisposableObserver<List<ModelSearchResponse>>() {
                     @Override
-                    public void onNext(WarrantyRegistrationResponse loginResponse) {
-                        getView().loadModelNumberData();
+                    public void onNext(List<ModelSearchResponse> searchResponseList) {
+                        getView().loadModelNumberData(searchResponseList);
                     }
 
                     @Override
@@ -43,7 +46,9 @@ public class WarrantRegistrationPresenter extends BasePresenter<WarrantRegistrat
                         getView().hideProgress();
                         Pair<Integer, String> errorDetails = ErrorMsgUtil.getErrorDetails(e);
                         getView().handleException(errorDetails);
-                        getView().loadModelNumberData(); //TODO remove
+                        if (errorDetails.first != AppConstants.ErrorCodes.NO_NETWORK) {
+                            getView().loadModelNumberData(null);
+                        }
                     }
 
                     @Override
