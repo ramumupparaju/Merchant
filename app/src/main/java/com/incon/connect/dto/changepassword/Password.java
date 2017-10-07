@@ -2,8 +2,11 @@ package com.incon.connect.dto.changepassword;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.text.TextUtils;
+import android.util.Pair;
 
 import com.incon.connect.AppConstants;
+import com.incon.connect.utils.ValidationUtils;
 
 public class Password  extends BaseObservable implements AppConstants {
 
@@ -26,6 +29,60 @@ public class Password  extends BaseObservable implements AppConstants {
 
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
+    }
+
+    public Pair<String, Integer> validateUserInfo(String tag) {
+
+        int fieldId = AppConstants.VALIDATION_FAILURE;
+        if (tag == null) {
+            for (int i = 0; i <= 1; i++) {
+                fieldId = validateFields(i, true);
+                if (fieldId != AppConstants.VALIDATION_SUCCESS) {
+                    tag = i + "";
+                    break;
+                }
+            }
+        }
+        else {
+            fieldId =  validateFields(Integer.parseInt(tag), false);
+        }
+
+        return  new Pair<>(tag, fieldId);
+    }
+
+    private int validateFields(int id, boolean emptyValidation) {
+        switch (id) {
+            case 0:
+                boolean passwordEmpty = TextUtils.isEmpty(getNewPassword());
+                if (emptyValidation && passwordEmpty) {
+                    return AppConstants.PasswordValidation.NEWPWD_REQ;
+                }
+                else if (!passwordEmpty && !ValidationUtils
+                        .isPasswordValid(getNewPassword())) {
+                    return AppConstants.PasswordValidation.NEWPWD_PATTERN_REQ;
+                }
+                break;
+
+            case 1:
+                boolean reEnterPasswordEmpty = TextUtils.isEmpty(getConfirmPassword());
+                if (emptyValidation && reEnterPasswordEmpty) {
+                    return AppConstants.PasswordValidation.CONFIRMPWD_REQ;
+                }
+                else if (!reEnterPasswordEmpty) {
+                    boolean passwordEmpty1 = TextUtils.isEmpty(getNewPassword());
+                    if (passwordEmpty1 || (!getNewPassword()
+                            .equals(getConfirmPassword()))) {
+                        return AppConstants.PasswordValidation
+                                .PWD_NOTMATCH;
+                    }
+
+                }
+                break;
+
+            default:
+                return AppConstants.VALIDATION_SUCCESS;
+        }
+        return AppConstants.VALIDATION_SUCCESS;
     }
 
 }

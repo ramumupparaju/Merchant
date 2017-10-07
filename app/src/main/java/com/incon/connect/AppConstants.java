@@ -7,18 +7,23 @@ public interface AppConstants {
     String TERMS_CONDITIONS_URL = "https://www.google.co.in"; //TODO have to change
     String WEB_IMAGE = "http";
     String MULTIPART_FORM_DATA = "image/*";
+    String COMMA_SEPARATOR = ",";
+    int DEFAULT_VALUE = Integer.MIN_VALUE;
 
     String BUILD_FLAVOR = "moonz_dev";
     int VALIDATION_SUCCESS = 0;
     int VALIDATION_FAILURE = -1;
     int VALIDATION_ZIPCODE_LENGTH = 5;
     String DELIMITOR = "-";
-    int DEAULT_VALUE = Integer.MAX_VALUE;
 
-    interface SyncConstants {
-        int STATE_INCOMPLETE = 0;
-        int STATE_COMPLETED = 1;
+    interface WarrantyRegistrationConstants {
+        int MINIMUM_MODELNUMBER_TO_SEARCH = 3;
     }
+    interface GoogleMapConstants {
+        int GEOCODER_MAX_ADDRESS_RESULTS = 1;
+        float DEFAULT_ZOOM_LEVEL = 12.0f;
+    }
+
     interface HttpErrorCodeConstants {
         int ERROR_UNAUTHORIZED = 401;
         int ERROR_FORBIDDEN = 403; // pay load error
@@ -86,12 +91,19 @@ public interface AppConstants {
     interface IntentConstants {
         String USER_PHONE_NUMBER = "userPhoneNumber";
         String IMAGE_PATH = "imagePath";
-        String PUSH_TYPE = "pushType";
+        String ADDRESS_COMMA = "addressDetails";
+        String LOCATION_COMMA = "locationDetails";
     }
 
     interface BundleConstants {
-        String SELECTED_DATE = "selectedDate";
+
     }
+
+    interface PushSubTypeConstants {
+        String CONNECT_PUSH = "tueoPush";
+        String  PUSH_DEVICE_TYPE = "android";
+    }
+
 
     interface CachePrefs {
         String IS_ACCESS_CODE_VERIFIED = "isAccessCodeVerified";
@@ -153,6 +165,7 @@ public interface AppConstants {
         int FORGOT_PASSWORD = 104;
         int CHANGE_EMAIL = 110;
         int TERMS_AND_CONDITIONS = 111;
+        int ADDRESS_LOCATION = 112;
     }
 
     interface TimeConstants {

@@ -9,7 +9,7 @@ import android.text.TextUtils;
 
 import com.incon.connect.R;
 import com.incon.connect.callbacks.AlertDialogCallback;
-import com.incon.connect.callbacks.OTPAlertDialogCallback;
+import com.incon.connect.callbacks.TextAlertDialogCallback;
 import com.incon.connect.custom.view.AppOtpDialog;
 import com.incon.connect.databinding.ActivityResetPasswordPromptBinding;
 import com.incon.connect.ui.BaseActivity;
@@ -24,9 +24,10 @@ public class ResetPasswordPromptActivity extends BaseActivity implements
 
     private static final String TAG = ResetPasswordPromptActivity.class.getName();
     private ActivityResetPasswordPromptBinding binding;
+    private RegistrationStoreFragmentPresenter registrationStoreFragmentPresenter;
     private AppOtpDialog dialog;
     private String enteredOtp;
-    private RegistrationStoreFragmentPresenter registrationStoreFragmentPresenter;
+    private String phoneNumber;
 
 
     @Override
@@ -46,15 +47,16 @@ public class ResetPasswordPromptActivity extends BaseActivity implements
         // handle events from here using android binding
         binding = DataBindingUtil.setContentView(this, getLayoutId());
         binding.setResetPasswordPrompt(this);
+        phoneNumber = getIntent().getStringExtra(IntentConstants.USER_PHONE_NUMBER);
         showOtpDialog();
     }
 
     private void showOtpDialog() {
         final Intent intent = getIntent();
         dialog = new AppOtpDialog.AlertDialogBuilder(ResetPasswordPromptActivity.this, new
-                OTPAlertDialogCallback() {
+                TextAlertDialogCallback() {
                     @Override
-                    public void enteredOtp(String otpString) {
+                    public void enteredText(String otpString) {
                         enteredOtp = otpString;
                     }
 
@@ -68,21 +70,20 @@ public class ResetPasswordPromptActivity extends BaseActivity implements
                                 }
                                 HashMap<String, String> verifyOTP = new HashMap<>();
                                 verifyOTP.put(ApiRequestKeyConstants.BODY_MOBILE_NUMBER,
-                                        intent.getStringExtra(IntentConstants.USER_PHONE_NUMBER));
+                                        phoneNumber);
                                 verifyOTP.put(ApiRequestKeyConstants.BODY_OTP, enteredOtp);
                                 registrationStoreFragmentPresenter.validateOTP(verifyOTP);
 
-                                dialog.dismiss();
                                 break;
                             case AlertDialogCallback.CANCEL:
-                                finish();
                                 dialog.dismiss();
+                                ResetPasswordPromptActivity.this.finish();
                                 break;
                             default:
                                 break;
                         }
                     }
-                }).title(getString(R.string.dialog_verify_title, "shiva"))
+                }).title(getString(R.string.dialog_verify_title, phoneNumber))
                 .build();
         dialog.showDialog();
     }
@@ -112,7 +113,7 @@ public class ResetPasswordPromptActivity extends BaseActivity implements
 
     @Override
     public void navigateToHomeScreen() {
-        if (dialog.isShowing()) {
+        if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
         }
         Intent intent = new Intent(this,
@@ -125,7 +126,7 @@ public class ResetPasswordPromptActivity extends BaseActivity implements
     }
 
     @Override
-    public void uploadStoreLogo() {
+    public void uploadStoreLogo(int storeId) {
         //DO nothing
     }
 
@@ -137,7 +138,7 @@ public class ResetPasswordPromptActivity extends BaseActivity implements
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (dialog.isShowing()) {
+        if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
         }
         registrationStoreFragmentPresenter.disposeAll();

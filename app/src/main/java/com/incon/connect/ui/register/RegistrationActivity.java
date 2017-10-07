@@ -1,6 +1,7 @@
 package com.incon.connect.ui.register;
 
 import android.databinding.DataBindingUtil;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ScrollView;
 
+import com.incon.connect.AppUtils;
 import com.incon.connect.R;
 import com.incon.connect.databinding.ActivityRegistrationBinding;
 import com.incon.connect.databinding.ViewRegistrationBottomButtonsBinding;
@@ -75,26 +77,13 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
     }
 
     private void loadData() {
+        registrationPresenter.defaultsApi();
         registration = new Registration();
-        registration.setName("shiva koka");
-        registration.setPhoneNumber("9966382224");
-        registration.setGenderType("Male");
-        registration.setEmailId("koka.shiva@gmail.com");
-        registration.setPassword("qwerty123");
-        registration.setConfirmPassword("qwerty123");
-        registration.setUserAddress("address");
-
-        registration.setStoreName("GoOnGo");
-        registration.setStorePhoneNumber("9493486529");
-        registration.setStoreEmail("koka.shiva@gmail.com");
-        registration.setStoreGSTN("123456789");
-        registration.setStoreAddress("address");
 
         buttonsBinding.buttonLeft.setOnClickListener(buttonClickListner);
         buttonsBinding.buttonLeft.setText(getString(R.string.action_back));
         buttonsBinding.buttonRight.setOnClickListener(buttonClickListner);
         buttonsBinding.buttonRight.setText(getString(R.string.action_next));
-        initializePagerAdapter();
         handleBottomViewOnKeyBoardUp();
 
     }
@@ -117,6 +106,7 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
                     }
                 });
     }
+
     // Instantiate a PagerAdapter and sets to viewpager.
     private void initializePagerAdapter() {
         registrationPagerAdapter = new RegistrationPagerAdapter(getSupportFragmentManager());
@@ -147,6 +137,16 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
     }
 
     @Override
+    public void startRegistration(boolean startRegistration) {
+        if (!startRegistration) {
+            AppUtils.shortToast(this, getString(R.string.error_network));
+            finish();
+        } else {
+            initializePagerAdapter();
+        }
+    }
+
+    @Override
     public void onBackPressed() {
         navigateToBack();
     }
@@ -171,19 +171,21 @@ public class RegistrationActivity extends BaseActivity implements RegistrationCo
         }
     };
 
-    public void focusOnView(final ScrollView scrollView, final View editTextView) {
-        scrollView.post(new Runnable() {
+    public void focusOnView(final ScrollView scrollView, final View view) {
+        final Rect rect = new Rect(0, 0, view.getWidth(), view.getHeight());
+        view.requestRectangleOnScreen(rect, false);
+        /*scrollView.post(new Runnable() {
             @Override
             public void run() {
                 scrollView.smoothScrollTo(0, editTextView.getBottom());
             }
-        });
+        });*/
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        registerPresenter.disposeAll();
+        registrationPresenter.disposeAll();
     }
 
 }

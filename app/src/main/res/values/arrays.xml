@@ -1,56 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="wizard_adapter">
-        <item>com.tueohealth.ui.components.setup_wizard.fragments.WizardInfoFragment</item>
-        <item>com.tueohealth.ui.components.setup_wizard.fragments.WizardInfoFragment</item>
-        <item>com.tueohealth.ui.components.setup_wizard.fragments.WizardInfoFragment</item>
-        <item>com.tueohealth.ui.components.setup_wizard.fragments.WizardInfoFragment</item>
-        <item>com.tueohealth.ui.components.setup_wizard.fragments.WizardInfoFragment</item>
-        <item>com.tueohealth.ui.components.setup_wizard.fragments.WizardInfoFragment</item>
-        <item>com.tueohealth.ui.components.setup_wizard.fragments.WizardInfoFragment</item>
-        <item>com.tueohealth.ui.components.setup_wizard.fragments.WizardInfoFragment</item>
-        <item>com.tueohealth.ui.components.setup_wizard.fragments.WizardInfoFragment</item>
-        <item>com.tueohealth.ui.components.setup_wizard.fragments.WizardInfoFragment</item>
-        <item>com.tueohealth.ui.components.setup_wizard.fragments.WizardInfoFragment</item>
-        <item>com.tueohealth.ui.components.setup_wizard.fragments.WizardInfoFragment</item>
-        <item>com.tueohealth.ui.components.setup_wizard.fragments.WizardInfoFragment</item>
-        <item>com.tueohealth.ui.components.setup_wizard.fragments.WizardInfoFragment</item>
-        <item>com.tueohealth.ui.components.setup_wizard.fragments.WizardInfoFragment</item>
-        <item>com.tueohealth.ui.components.setup_wizard.fragments.WizardInfoFragment</item>
-    </string-array>
-
-    <string-array name="alerts_adapter">
-        <item>question_mc, com.tueohealth.ui.components.alerts.fragments.AlertsQuestionMCFragment</item>
-        <item>question_ms, com.tueohealth.ui.components.alerts.fragments.AlertsQuestionMSFragment</item>
-        <item>question_slider, com.tueohealth.ui.components.alerts.fragments.AlertsSliderFragment</item>
-        <item>question_date, com.tueohealth.ui.components.alerts.fragments.AlertsCalendarFragment</item>
-        <item>info_typical, com.tueohealth.ui.components.alerts.fragments.AlertsInfoTypicalFragment</item>
-        <item>info_typical_summary, com.tueohealth.ui.components.alerts.fragments.AlertsInfoTypicalSummaryFragment</item>
-        <item>info_graph, com.tueohealth.ui.components.alerts.fragments.AlertsInfoGraphFragment</item>
-        <item>info_capture_aap, com.tueohealth.ui.components.alerts.fragments.AlertCameraImageFragment</item>
-        <item>info_start, com.tueohealth.ui.components.alerts.fragments.AlertsInfoStartFragment</item>
-        <item>info_terminal, com.tueohealth.ui.components.alerts.fragments.AlertsInfoTerminalFragment</item>
-    </string-array>
-
-    <!-- TimeZone Spinner statusData -->
-    <string-array
-        name="timezones">
-        <item>US/Eastern</item>
-        <item>US/Hawaii</item>
-        <item>US/Samoa</item>
-        <item>US/East-Indiana</item>
-        <item>US/Mountain</item>
-        <item>US/Michigan</item>
-        <item>US/Pacific</item>
-        <item>US/Central</item>
-        <item>US/Indiana-Starke</item>
-        <item>US/Pacific-New</item>
-        <item>US/Alaska</item>
-        <item>US/Arizona</item>
-    </string-array>
-
-
     <!-- Tabs when user select history in home screen -->
     <string-array
         name="history_tab">
@@ -59,20 +9,11 @@
         <item>@string/tab_return</item>
     </string-array>
 
-    <!-- Category dropdown options -->
-    <string-array
-        name="category_options_list">
-        <item>Kitchen</item>
-        <item>Electronics</item>
-        <item>Fashion</item>
-        <item>Books</item>
-    </string-array>
-
     <!-- Gender dropdown options -->
     <string-array
         name="gender_options_list">
-        <item>M</item>
-        <item>F</item>
+        <item>Male</item>
+        <item>Female</item>
     </string-array>
 
     <!-- image capture options -->
@@ -81,15 +22,6 @@
         <item>Take Photo</item>
         <item>Choose From Gallery</item>
         <item>Tap to view</item>
-    </string-array>
-
-    <!-- Tools main list -->
-    <string-array
-        name="tools_main_list">
-        <item>Asthma Action Plan</item>
-        <item>Asthma Control Assessment</item>
-        <item>Asthma Coach</item>
-        <item>Summary Report</item>
     </string-array>
 
     <!-- Side MenuItems -->
@@ -103,21 +35,5 @@
         <item>Change Password</item>-->
         <item>Logout</item>
     </string-array>
-
-    <string-array
-        name="month_list">
-        <item>Jan</item>
-        <item>Feb</item>
-        <item>Mar</item>
-        <item>Apr</item>
-        <item>May</item>
-        <item>Jun</item>
-        <item>July</item>
-        <item>Aug</item>
-        <item>Oct</item>
-        <item>Nov</item>
-        <item>Dec</item>
-    </string-array>
-
 
 </resources>

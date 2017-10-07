@@ -4,11 +4,14 @@ import com.incon.connect.AppConstants;
 import com.incon.connect.BuildConfig;
 import com.incon.connect.apimodel.base.ApiBaseResponse;
 import com.incon.connect.apimodel.components.changepassword.ChangePasswordResponse;
+import com.incon.connect.apimodel.components.defaults.DefaultsResponse;
 import com.incon.connect.apimodel.components.login.LoginResponse;
+import com.incon.connect.apimodel.components.qrcodebaruser.UserInfoResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
+import com.incon.connect.apimodel.components.warrantyegistration.WarrantyRegistrationResponse;
 import com.incon.connect.custom.exception.NoConnectivityException;
-import com.incon.connect.dto.Location.LocationPostData;
 import com.incon.connect.dto.login.LoginUserData;
+import com.incon.connect.dto.notifications.PushRegistrarBody;
 import com.incon.connect.dto.registration.Registration;
 import com.incon.connect.utils.NetworkUtil;
 
@@ -54,18 +57,22 @@ public class AppApiService implements AppConstants {
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
+    public Observable<DefaultsResponse> defaultsApi() {
+        return addNetworkCheck(serviceInstance.defaultsApi());
+    }
+
     public Observable<LoginResponse> login(LoginUserData loginUserData) {
         return addNetworkCheck(serviceInstance
                 .login(loginUserData));
     }
 
-    public Observable<LocationPostData> locationPinCode(String loginUserData) {
-        return addNetworkCheck(serviceInstance
-                .doGetLocationPinCode(loginUserData));
+    public Observable<ChangePasswordResponse> changePassword(HashMap<String, String> password) {
+        return addNetworkCheck(serviceInstance.changePassword(password));
     }
 
-    public Observable<ChangePasswordResponse> resetPassword(HashMap<String, String> password) {
-        return addNetworkCheck(serviceInstance.resetPassword(password));
+    public Observable<UserInfoResponse> userInfoData(String uudi) {
+        return addNetworkCheck(serviceInstance
+                .userInfoData(uudi));
     }
 
     public Observable<ApiBaseResponse> forgotPassword(HashMap<String, String> email) {
@@ -84,7 +91,15 @@ public class AppApiService implements AppConstants {
         return addNetworkCheck(serviceInstance.sendOtp(email));
     }
 
-    public Observable<Object> validateOtp(HashMap<String, String> verify) {
+    public Observable<LoginResponse> validateOtp(HashMap<String, String> verify) {
         return addNetworkCheck(serviceInstance.validateOtp(verify));
+    }
+
+    public Observable<WarrantyRegistrationResponse> modelNumberSearch(String modelNumber) {
+        return addNetworkCheck(serviceInstance.modelNumberSearch(modelNumber));
+    }
+
+    public Observable<Object> pushTokenApi(PushRegistrarBody pushRegistrarBody) {
+        return addNetworkCheck(serviceInstance.pushTokenApi(pushRegistrarBody));
     }
 }

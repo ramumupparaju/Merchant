@@ -8,7 +8,10 @@ import com.incon.connect.ui.BaseView;
 
 public interface WarrantRegistrationContract {
     interface View extends BaseView {
+        void loadModelNumberData();
     }
+
     interface Presenter {
+        void doModelSearchApi(String modelNumberToSearch);
     }
 }

@@ -44,7 +44,10 @@ public class Registration extends BaseObservable {
     //Store details
     private String storeName;
     private String storeEmail;
-    private String storeCategory;
+    private String storeCategoryNames;
+    @SerializedName("storeCategory")
+    @Expose
+    private String storeCategoryIds;
     private String storeLocation;
     private String storeLogo;
     private String storeAddress;
@@ -54,6 +57,14 @@ public class Registration extends BaseObservable {
     @SerializedName("contactNumber")
     @Expose
     private String storePhoneNumber;
+
+    public String getUserLocation() {
+        return userLocation;
+    }
+
+    public void setUserLocation(String userLocation) {
+        this.userLocation = userLocation;
+    }
 
     @Bindable
     public String getGenderType() {
@@ -75,12 +86,14 @@ public class Registration extends BaseObservable {
         notifyChange();
     }
 
+    @Bindable
     public String getUserAddress() {
         return userAddress;
     }
 
     public void setUserAddress(String userAddress) {
         this.userAddress = userAddress;
+        notifyChange();
     }
 
     @Bindable
@@ -246,7 +259,7 @@ public class Registration extends BaseObservable {
     private int validateDob() {
         Calendar dobDate = Calendar.getInstance();
         long dobInMillis = DateUtils.convertStringFormatToMillis(
-                getDob(), AppConstants.DateFormatterConstants.YYYY_MM_DD);
+                getDob(), AppConstants.DateFormatterConstants.YYYY_MM_DD_SLASH);
         dobDate.setTimeInMillis(dobInMillis);
         // futurde date check
         if (ValidationUtils.isFutureDate(dobDate)) {
@@ -281,12 +294,20 @@ public class Registration extends BaseObservable {
     }
 
     @Bindable
-    public String getStoreCategory() {
-        return storeCategory;
+    public String getStoreCategoryNames() {
+        return storeCategoryNames;
     }
 
-    public void setStoreCategory(String storeCategory) {
-        this.storeCategory = storeCategory;
+    public void setStoreCategoryNames(String storeCategoryNames) {
+        this.storeCategoryNames = storeCategoryNames;
+    }
+
+    public String getStoreCategoryIds() {
+        return storeCategoryIds;
+    }
+
+    public void setStoreCategoryIds(String storeCategoryIds) {
+        this.storeCategoryIds = storeCategoryIds;
     }
 
     public String getStoreLocation() {
@@ -313,6 +334,7 @@ public class Registration extends BaseObservable {
 
     public void setStoreAddress(String storeAddress) {
         this.storeAddress = storeAddress;
+        notifyChange();
     }
 
     @Bindable
@@ -371,7 +393,7 @@ public class Registration extends BaseObservable {
                 break;
 
             case 2:
-                boolean storeCategory = TextUtils.isEmpty(getStoreCategory());
+                boolean storeCategory = TextUtils.isEmpty(getStoreCategoryNames());
                 if (emptyValidation && storeCategory) {
                     return AppConstants.RegistrationValidation.CATEGORY_REQ;
                 }

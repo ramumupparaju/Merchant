@@ -1,5 +1,6 @@
 package com.incon.connect.ui.register.fragment;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -75,6 +76,24 @@ public class RegistrationUserFragment extends BaseFragment implements
         return rootView;
     }
 
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case RequestCodes.ADDRESS_LOCATION:
+                    register.setUserAddress(data.getStringExtra(IntentConstants.ADDRESS_COMMA));
+                    register.setUserLocation(data.getStringExtra(IntentConstants.LOCATION_COMMA));
+                    break;
+                default:
+                    break;
+            }
+        }
+
+    }
+
     private void loadData() {
         shakeAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.shake);
         loadGenderSpinnerData();
@@ -84,8 +103,7 @@ public class RegistrationUserFragment extends BaseFragment implements
 
     public void onAddressClick() {
         Intent addressIntent = new Intent(getActivity(), RegistrationMapActivity.class);
-        startActivity(addressIntent);
-        binding.edittextRegisterAddress.setText("addrees");
+        startActivityForResult(addressIntent, RequestCodes.ADDRESS_LOCATION);
     }
 
     public void onDobClick() {
@@ -232,7 +250,7 @@ public class RegistrationUserFragment extends BaseFragment implements
 
             Object fieldId = view.getTag();
             if (fieldId != null) {
-                Pair<String, Integer> validation = binding.getRegister().
+                Pair<String, Integer> validation = register.
                         validateUserInfo((String) fieldId);
                 if (!hasFocus) {
                     if (view instanceof TextInputEditText) {
@@ -280,7 +298,7 @@ public class RegistrationUserFragment extends BaseFragment implements
     public void onClickNext() {
         if (validateFields()) {
             navigateToRegistrationActivityNext();
-        }/* else {
+        } /*else {
             navigateToRegistrationActivityNext(); // TODO have to comment
         }*/
     }
