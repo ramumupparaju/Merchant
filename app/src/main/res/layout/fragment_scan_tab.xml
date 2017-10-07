@@ -41,7 +41,7 @@
 
 
 
-            <TextView
+            <EditText
                 style="@style/enter_mobilenumber"
                 android:onClick="@{() -> scanning.onManualClick()}"
                 android:background="@drawable/bg_edittext"

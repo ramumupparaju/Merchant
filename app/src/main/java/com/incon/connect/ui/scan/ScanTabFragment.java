@@ -54,7 +54,7 @@ public class ScanTabFragment extends BaseFragment {
                 WarrantyRegistrationFragment.class, null);
     }
 
-    private void onWarrentyStarts() {
+    private void onWarrentyRegistation() {
         ((HomeActivity) getActivity()).replaceFragmentAndAddToStack(
                 ProductScanFragment.class, null);
     }
@@ -76,6 +76,6 @@ public class ScanTabFragment extends BaseFragment {
 
     private void callUserProfileApiUsingQRCode() {
         //TODO api call
-        onWarrentyStarts();
+        onWarrentyRegistation();
     }
 }

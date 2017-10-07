@@ -115,14 +115,14 @@
                 android:textColor="@color/tueo_theme"
                 android:textSize="@dimen/text_size_13"/>
 
-            <android.support.design.widget.FloatingActionButton
+            <ImageView
                 android:id="@+id/floating_button"
                 android:layout_below="@id/button_submit"
-                style="@style/BothWrap"
-                android:layout_marginLeft="@dimen/margin_285"
+                style="@style/m50w50"
+                android:layout_marginLeft="@dimen/margin_280"
                 android:layout_marginTop="@dimen/margin_10"
                 android:onClick="@{() -> warrantyregistration.onFloatingClick()}"
-                android:src="@android:drawable/ic_dialog_email"/>
+                app:srcCompat="@drawable/ic_im_add_new"/>
 
 
 

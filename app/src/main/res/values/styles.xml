@@ -88,7 +88,7 @@
         <item name="android:textAlignment">center</item>
         <item name="android:layout_marginTop">@dimen/margin_50</item>
         <item name="android:textColor">@color/river_bed</item>
-        <item name="android:text">@string/action_entermobilenumber</item>
+        <item name="android:hint">@string/action_entermobilenumber</item>
         <item name="android:layout_width">@dimen/margin_250</item>
         <item name="android:layout_height">@dimen/margin_70</item>
 
@@ -203,6 +203,11 @@
     <item name="android:layout_width">@dimen/margin_50</item>
     <item name="android:layout_height">@dimen/margin_50</item>
 </style>
+
+    <style name="m75w75">
+        <item name="android:layout_width">@dimen/margin_75</item>
+        <item name="android:layout_height">@dimen/margin_75</item>
+    </style>
     <style name="m100_w100">
         <item name="android:layout_width">@dimen/margin_100</item>
         <item name="android:layout_height">@dimen/margin_100</item>
