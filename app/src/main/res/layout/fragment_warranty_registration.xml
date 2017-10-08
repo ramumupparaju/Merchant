@@ -3,8 +3,13 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
-            name="warrantyregistration"
+            name="warrantyRegistration"
+            type="com.incon.connect.dto.warrantyregistration.WarrantyRegistration"/>
+
+        <variable
+            name="fragment"
             type="com.incon.connect.ui.warrantyregistration.WarrantyRegistrationFragment"/>
     </data>
 
@@ -100,7 +105,6 @@
                     />
             </com.incon.connect.custom.view.CustomTextInputLayout>
 
-
             <Button
                 android:layout_marginLeft="@dimen/margin_110"
                 android:id="@+id/button_submit"
@@ -111,17 +115,18 @@
                 android:layout_marginTop="@dimen/margin_10"
                 android:background="@drawable/btn_login_register_roundedcorner"
                 android:text="@string/add_new_submit"
+                android:onClick="@{() -> fragment.onSubmitClick()}"
                 android:textAllCaps="true"
                 android:textColor="@color/tueo_theme"
                 android:textSize="@dimen/text_size_13"/>
 
             <ImageView
-                android:id="@+id/floating_button"
+                android:id="@+id/ad_new_model_button"
                 android:layout_below="@id/button_submit"
                 style="@style/m50w50"
                 android:layout_marginLeft="@dimen/margin_280"
                 android:layout_marginTop="@dimen/margin_10"
-                android:onClick="@{() -> warrantyregistration.onFloatingClick()}"
+                android:onClick="@{() -> fragment.onNewModelClick()}"
                 app:srcCompat="@drawable/ic_im_add_new"/>
 
 

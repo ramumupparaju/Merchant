@@ -14,6 +14,7 @@ import com.incon.connect.dto.login.LoginUserData;
 import com.incon.connect.apimodel.components.search.ModelSearchResponse;
 import com.incon.connect.dto.notifications.PushRegistrarBody;
 import com.incon.connect.dto.registration.Registration;
+import com.incon.connect.dto.warrantyregistration.WarrantyRegistration;
 import com.incon.connect.utils.NetworkUtil;
 
 import java.util.HashMap;
@@ -114,6 +115,10 @@ public class AppApiService implements AppConstants {
 
     public Observable<Object> addingNewModel(int merchantId, AddNewModel addNewModelBody) {
         return addNetworkCheck(serviceInstance.addingNewModel(merchantId, addNewModelBody));
+    }
+
+    public Observable<Object> warrantyRegisterApi(WarrantyRegistration warrantyRegistration) {
+        return addNetworkCheck(serviceInstance.warrantyRegisterApi(warrantyRegistration));
     }
 
     public Observable<Object> pushTokenApi(PushRegistrarBody pushRegistrarBody) {

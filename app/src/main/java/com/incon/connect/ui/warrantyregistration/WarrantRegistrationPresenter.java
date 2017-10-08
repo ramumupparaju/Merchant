@@ -10,9 +10,13 @@ import com.incon.connect.ConnectApplication;
 import com.incon.connect.R;
 import com.incon.connect.api.AppApiService;
 import com.incon.connect.apimodel.components.search.ModelSearchResponse;
+import com.incon.connect.dto.warrantyregistration.WarrantyRegistration;
 import com.incon.connect.ui.BasePresenter;
+import com.incon.connect.ui.register.fragment.RegistrationStoreFragmentContract;
+import com.incon.connect.ui.register.fragment.RegistrationStoreFragmentPresenter;
 import com.incon.connect.utils.ErrorMsgUtil;
 
+import java.util.HashMap;
 import java.util.List;
 
 import io.reactivex.observers.DisposableObserver;
@@ -60,4 +64,79 @@ public class WarrantRegistrationPresenter extends BasePresenter<WarrantRegistrat
         addDisposable(observer);
     }
 
+    @Override
+    public void doWarrantyRegistrationApi(WarrantyRegistration warrantyRegistration) {
+        getView().showProgress(appContext.getString(R.string.progress_warranty_registering));
+        DisposableObserver<Object> observer = new
+                DisposableObserver<Object>() {
+                    @Override
+                    public void onNext(Object warrantyRegisteredResponse) {
+                        getView().warrantyRegistered(warrantyRegisteredResponse);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        getView().hideProgress();
+                        Pair<Integer, String> errorDetails = ErrorMsgUtil.getErrorDetails(e);
+                        getView().handleException(errorDetails);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        getView().hideProgress();
+                    }
+                };
+        AppApiService.getInstance().warrantyRegisterApi(warrantyRegistration).subscribe(observer);
+        addDisposable(observer);
+    }
+
+    @Override
+    public void validateOTP(HashMap<String, String> verifyOTP) {
+        RegistrationStoreFragmentPresenter storeFragmentPresenter = new
+                RegistrationStoreFragmentPresenter();
+        storeFragmentPresenter.setView(view);
+        storeFragmentPresenter.validateOTP(verifyOTP);
+    }
+
+    RegistrationStoreFragmentContract.View view = new RegistrationStoreFragmentContract.View() {
+        @Override
+        public void navigateToRegistrationActivityNext() {
+//Do nothing
+        }
+
+        @Override
+        public void navigateToHomeScreen() {
+//Do nothing
+        }
+
+        @Override
+        public void uploadStoreLogo(int storeId) {
+//Do nothing
+        }
+
+        @Override
+        public void validateOTP() {
+            getView().validateOtp();
+        }
+
+        @Override
+        public void showProgress(String message) {
+            getView().showProgress(message);
+        }
+
+        @Override
+        public void hideProgress() {
+            getView().hideProgress();
+        }
+
+        @Override
+        public void showErrorMessage(String errorMessage) {
+            getView().showErrorMessage(errorMessage);
+        }
+
+        @Override
+        public void handleException(Pair<Integer, String> error) {
+            getView().handleException(error);
+        }
+    };
 }
