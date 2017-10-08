@@ -24,7 +24,7 @@ public class ServiceGenerator {
     private static final int TIMEOUT_CONNECT = 30;   //In seconds
     private static final int TIMEOUT_READ = 30;   //In seconds
 
-    private static final String CONTENT_TYPE = "Content-Type";
+    private static final String CONTENT_TYPE = "Content-ModelType";
     private static final String CONTENT_TYPE_VALUE = "application/json";
     private AppServiceObservable tueoHealthService;
 

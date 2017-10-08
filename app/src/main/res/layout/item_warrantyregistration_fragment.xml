@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+    >
 
     <data>
 
         <variable
             name="warrantyregistrationResponse"
-            type="com.incon.connect.apimodel.components.warrantyegistration.WarrantyRegistrationResponse"/>
+            type="com.incon.connect.dto.model.search.ModelSearchResponse"/>
     </data>
 
     <RelativeLayout
@@ -16,11 +16,12 @@
         android:paddingLeft="@dimen/margin_5"
         android:paddingRight="@dimen/margin_5"
         android:paddingTop="@dimen/margin_15">
+
         <TextView
-            android:layout_marginLeft="10dp"
-            android:text="@{warrantyregistrationResponse.getName}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="@{warrantyregistrationResponse.modelNumber}"
             />
 
     </RelativeLayout>

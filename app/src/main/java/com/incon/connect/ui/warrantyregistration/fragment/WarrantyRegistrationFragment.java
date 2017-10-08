@@ -9,21 +9,20 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import com.incon.connect.R;
-import com.incon.connect.apimodel.components.warrantyegistration.WarrantyRegistrationResponse;
-import com.incon.connect.custom.adapters.AutocompleteCustomArrayAdapter;
 import com.incon.connect.custom.view.CustomAutoCompleteView;
 import com.incon.connect.databinding.FragmentWarrantyRegistrationBinding;
+import com.incon.connect.dto.model.search.ModelSearchResponse;
 import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.addnewmodel.fragment.AddNewModelFragment;
 import com.incon.connect.ui.home.HomeActivity;
 import com.incon.connect.ui.warrantyregistration.WarrantRegistrationContract;
 import com.incon.connect.ui.warrantyregistration.WarrantRegistrationPresenter;
+import com.incon.connect.ui.warrantyregistration.fragment.adapter.ModelSearchArrayAdapter;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.jakewharton.rxbinding2.widget.TextViewAfterTextChangeEvent;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -40,9 +39,10 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
     private WarrantRegistrationPresenter warrantRegistrationPresenter;
     private DisposableObserver<TextViewAfterTextChangeEvent> observer;
 
-    private AutocompleteCustomArrayAdapter modelNumberAdapter;
-    private List<WarrantyRegistrationResponse> warrantyregistrationList;
+    private ModelSearchArrayAdapter modelNumberAdapter;
+    private List<ModelSearchResponse> warrantyregistrationList;
     private String selectedModelNumber;
+    private int selectedPosition;
 
     @Override
     protected void initializePresenter() {
@@ -55,7 +55,6 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
     public void onFloatingClick() {
         ((HomeActivity) getActivity()).replaceFragment(
                 AddNewModelFragment.class, null);
-
     }
 
     public void onSubmitClick() {
@@ -70,16 +69,16 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
             binding.setWarrantyregistration(this);
             rootView = binding.getRoot();
 
-            warrantyregistrationList = new ArrayList<>();
-            initializeModelNumberAdapter(warrantyregistrationList);
+            initializeModelNumberAdapter(new ArrayList<ModelSearchResponse>());
         }
 
         return rootView;
     }
 
-    private void initializeModelNumberAdapter(List<WarrantyRegistrationResponse>
-                                                   modelNumberList) {
-        modelNumberAdapter = new AutocompleteCustomArrayAdapter(getContext(),
+    private void initializeModelNumberAdapter(List<ModelSearchResponse>
+                                                      modelNumberList) {
+        this.warrantyregistrationList = modelNumberList;
+        modelNumberAdapter = new ModelSearchArrayAdapter(getContext(),
                 modelNumberList);
         binding.edittextModelNumber.setAdapter(modelNumberAdapter);
         setObservableForModelNumber(binding.edittextModelNumber);
@@ -88,7 +87,9 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
             @Override
             public void onItemClick(AdapterView<?> parent, View arg1, int pos,
                                     long id) {
-//                selectedModelNumber = warrantyregistrationList.get(pos).getName();
+                selectedPosition = pos;
+                selectedModelNumber = warrantyregistrationList.get(
+                        selectedPosition).getModelNumber();
             }
         });
     }
@@ -128,15 +129,11 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
     }
 
     @Override
-    public void loadModelNumberData() {
-        warrantyregistrationList.clear();
-
-        int sampleSearches = new Random().nextInt(4) + 1;
-        for (int i = 0; i < sampleSearches; i++) {
-            warrantyregistrationList.add(new WarrantyRegistrationResponse("pos : " + i));
+    public void loadModelNumberData(List<ModelSearchResponse> modelSearchResponseList) {
+        if (modelSearchResponseList == null) {
+            modelSearchResponseList = new ArrayList<>();
         }
-//        modelNumberAdapter.setData(warrantyregistrationList);
-        initializeModelNumberAdapter(warrantyregistrationList);
+        initializeModelNumberAdapter(modelSearchResponseList);
         binding.edittextModelNumber.showDropDown();
     }
 

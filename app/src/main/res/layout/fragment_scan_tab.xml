@@ -4,54 +4,93 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="scanning"
             type="com.incon.connect.ui.scan.ScanTabFragment"/>
     </data>
 
     <LinearLayout
-        style="@style/BothMatch">
+        style="@style/BothMatch"
+        android:background="@color/white">
+
         <LinearLayout
-            android:background="@color/white"
-            android:orientation="vertical"
-            style="@style/BothMatch">
+            android:id="@+id/scan_ui"
+            style="@style/BothMatch"
+            android:orientation="vertical">
+
             <TextView
-                android:layout_gravity="center"
                 android:id="@+id/text_scanuid"
                 style="@style/BothWrap"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
                 android:layout_marginTop="@dimen/margin_40"
                 android:text="@string/action_scanuid"
                 />
 
             <ImageView
+                android:id="@+id/im_scann"
                 style="@style/scan_image"
                 android:onClick="@{() -> scanning.onScanClick()}"
-                android:id="@+id/im_scann"
-                app:srcCompat="@drawable/ic_connect_logo_svg" />
+                app:srcCompat="@drawable/ic_connect_logo_svg"/>
 
             <TextView
-                android:layout_gravity="center"
                 android:id="@+id/text_or"
                 style="@style/BothWrap"
                 android:layout_alignStart="@+id/text_scanuid"
-                android:layout_marginTop="@dimen/margin_55"
-                android:text="@string/action_or" />
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_60"
+                android:text="@string/action_or"/>
 
-
-
-            <EditText
-                style="@style/enter_mobilenumber"
-                android:onClick="@{() -> scanning.onManualClick()}"
-                android:background="@drawable/bg_edittext"
+            <TextView
                 android:id="@+id/text_mobilenumber"
+                style="@style/enter_mobilenumber"
+                android:background="@drawable/bg_edittext"
+                android:onClick="@{() -> scanning.onPhoneNumberClick()}"
                 />
-
-
-
         </LinearLayout>
 
+        <RelativeLayout
+            android:id="@+id/phone_number_edit_layout"
+            style="@style/BothMatch"
+            android:clickable="true"
+            android:visibility="gone">
+
+
+            <TextView
+                android:id="@+id/cancel_label_tv"
+                style="@style/style_notes_edit_buttons"
+                android:layout_alignParentBottom="true"
+                android:onClick="@{()->scanning.onCancelClick()}"
+                android:text="@string/action_cancel"/>
+
+            <TextView
+                android:id="@+id/done_label_tv"
+                style="@style/style_notes_edit_buttons"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:onClick="@{()->scanning.onDoneClick()}"
+                android:text="@string/action_done"
+                android:textColor="@color/scorpion"/>
+
+            <EditText
+                android:id="@+id/phone_number_et"
+                style="@style/BothMatch"
+                fontPath="fonts/OpenSans-Semibold.ttf"
+                android:layout_above="@id/cancel_label_tv"
+                android:background="@color/white"
+                android:focusable="true"
+                android:gravity="top"
+                android:hint="@string/action_enter_customer_phone_number"
+                android:imeOptions="actionDone"
+                android:inputType="phone"
+                android:padding="@dimen/margin_10"
+                android:textColor="@color/emperor"
+                android:textColorHint="@color/emperor"
+                android:textSize="@dimen/text_size_15"/>
+
+        </RelativeLayout>
 
     </LinearLayout>
 

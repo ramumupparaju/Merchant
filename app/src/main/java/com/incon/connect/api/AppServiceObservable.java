@@ -6,8 +6,8 @@ import com.incon.connect.apimodel.components.history.purchased.PurchasedHistoryR
 import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.apimodel.components.qrcodebaruser.UserInfoResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
-import com.incon.connect.apimodel.components.warrantyegistration.WarrantyRegistrationResponse;
 import com.incon.connect.dto.login.LoginUserData;
+import com.incon.connect.dto.model.search.ModelSearchResponse;
 import com.incon.connect.dto.notifications.PushRegistrarBody;
 import com.incon.connect.dto.registration.Registration;
 
@@ -54,11 +54,14 @@ public interface AppServiceObservable {
     @GET("merchant/history/purchased/{userId}")
     Observable<List<PurchasedHistoryResponse>> purchasedApi(@Path("userId") int userId);
 
+    @GET("user/getuser/{phoneNumber}")
+    Observable<UserInfoResponse> userInfoUsingPhoneNumber(@Path("phoneNumber") String phoneNumber);
+
     @GET("user/getuser/scan/{uuid}/")
     Observable<UserInfoResponse> userInfoData(@Path("uuid") String uuid);
 
-    @POST("product/search/{modelNumber}")
-    Observable<WarrantyRegistrationResponse> modelNumberSearch(@Path("modelNumber")
+    @GET("product/search/{modelNumber}")
+    Observable<List<ModelSearchResponse>> modelNumberSearch(@Path("modelNumber")
                                                                        String modelNumber);
 
     @POST("registerPush")

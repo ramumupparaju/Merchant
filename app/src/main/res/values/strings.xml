@@ -21,6 +21,7 @@
     <string name="action_manual_entry">Manual Enter</string>
 
     <!--home_scanning activity-->
+    <string name="action_enter_customer_phone_number">Enter customer phone number</string>
     <string name="action_or">OR</string>
     <string name="action_scanuid">Scan Customer UID</string>
     <string name="action_entermobilenumber">Enter Mobile Number</string>

@@ -110,13 +110,6 @@
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".ui.warrantyregistration.WarrantyRegistrationActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait">
-
-        </activity>
-
-        <activity
             android:name=".ui.addoffer.AddOfferActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait">

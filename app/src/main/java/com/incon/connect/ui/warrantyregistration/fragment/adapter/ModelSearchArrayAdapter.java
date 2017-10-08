@@ -1,4 +1,4 @@
-package com.incon.connect.custom.adapters;
+package com.incon.connect.ui.warrantyregistration.fragment.adapter;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -9,28 +9,23 @@ import android.widget.ArrayAdapter;
 
 import com.incon.connect.BR;
 import com.incon.connect.R;
-import com.incon.connect.apimodel.components.warrantyegistration.WarrantyRegistrationResponse;
 import com.incon.connect.databinding.ItemWarrantyregistrationFragmentBinding;
+import com.incon.connect.dto.model.search.ModelSearchResponse;
 
 import java.util.List;
 
-public class AutocompleteCustomArrayAdapter extends ArrayAdapter<WarrantyRegistrationResponse> {
+public class ModelSearchArrayAdapter extends ArrayAdapter<ModelSearchResponse> {
 
 
     private Context mContext;
-    private List<WarrantyRegistrationResponse> modelNumbersResponseList;
+    private List<ModelSearchResponse> modelNumbersResponseList;
     private LayoutInflater layoutInflater;
 
-    public AutocompleteCustomArrayAdapter(Context context, List<WarrantyRegistrationResponse>
+    public ModelSearchArrayAdapter(Context context, List<ModelSearchResponse>
             modelList) {
         super(context, R.layout.item_warrantyregistration_fragment, modelList);
         this.mContext = context;
         this.modelNumbersResponseList = modelList;
-    }
-
-    public void setData(List<WarrantyRegistrationResponse> modelNumbersResponseList) {
-        this.modelNumbersResponseList = modelNumbersResponseList;
-        notifyDataSetChanged();
     }
 
     @Override
@@ -46,7 +41,7 @@ public class AutocompleteCustomArrayAdapter extends ArrayAdapter<WarrantyRegistr
             binding = DataBindingUtil.inflate(layoutInflater,
                     R.layout.item_warrantyregistration_fragment, parent, false);
         }
-        WarrantyRegistrationResponse modelNumber = modelNumbersResponseList.get(position);
+        ModelSearchResponse modelNumber = modelNumbersResponseList.get(position);
         binding.setVariable(BR.warrantyregistrationResponse, modelNumber);
         binding.executePendingBindings();
         return binding.getRoot();

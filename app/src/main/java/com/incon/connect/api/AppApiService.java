@@ -8,9 +8,9 @@ import com.incon.connect.apimodel.components.history.purchased.PurchasedHistoryR
 import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.apimodel.components.qrcodebaruser.UserInfoResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
-import com.incon.connect.apimodel.components.warrantyegistration.WarrantyRegistrationResponse;
 import com.incon.connect.custom.exception.NoConnectivityException;
 import com.incon.connect.dto.login.LoginUserData;
+import com.incon.connect.dto.model.search.ModelSearchResponse;
 import com.incon.connect.dto.notifications.PushRegistrarBody;
 import com.incon.connect.dto.registration.Registration;
 import com.incon.connect.utils.NetworkUtil;
@@ -71,11 +71,6 @@ public class AppApiService implements AppConstants {
         return addNetworkCheck(serviceInstance.changePassword(password));
     }
 
-    public Observable<UserInfoResponse> userInfoData(String uudi) {
-        return addNetworkCheck(serviceInstance
-                .userInfoData(uudi));
-    }
-
     public Observable<ApiBaseResponse> forgotPassword(HashMap<String, String> email) {
         return addNetworkCheck(serviceInstance.forgotPassword(email));
     }
@@ -100,7 +95,15 @@ public class AppApiService implements AppConstants {
         return addNetworkCheck(serviceInstance.purchasedApi(userId));
     }
 
-    public Observable<WarrantyRegistrationResponse> modelNumberSearch(String modelNumber) {
+    public Observable<UserInfoResponse> userInfoData(String uudi) {
+        return addNetworkCheck(serviceInstance.userInfoData(uudi));
+    }
+
+    public Observable<UserInfoResponse> userInfoUsingPhoneNumber(String phoneNumber) {
+        return addNetworkCheck(serviceInstance.userInfoUsingPhoneNumber(phoneNumber));
+    }
+
+    public Observable<List<ModelSearchResponse>> modelNumberSearch(String modelNumber) {
         return addNetworkCheck(serviceInstance.modelNumberSearch(modelNumber));
     }
 
