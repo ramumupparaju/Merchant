@@ -81,7 +81,7 @@ public class ScanTabFragment extends BaseFragment implements PurchasedContract.V
         }
     }
 
-    private void onWarrentyStarts() {
+    private void onWarrentyRegistation() {
         ((HomeActivity) getActivity()).replaceFragmentAndAddToStack(
                 ProductScanFragment.class, null);
     }
@@ -103,6 +103,6 @@ public class ScanTabFragment extends BaseFragment implements PurchasedContract.V
 
     private void callUserProfileApiUsingQRCode() {
         //TODO api call
-        onWarrentyStarts();
+        onWarrentyRegistation();
     }
 }
