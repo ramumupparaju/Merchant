@@ -11,13 +11,12 @@ import android.view.ViewGroup;
 import com.incon.connect.R;
 import com.incon.connect.databinding.FragmentScanTabBinding;
 import com.incon.connect.ui.BaseFragment;
-import com.incon.connect.ui.history.fragments.PurchasedContract;
 import com.incon.connect.ui.home.HomeActivity;
 import com.incon.connect.ui.qrcodescan.QrcodeBarcodeScanActivity;
 import com.incon.connect.utils.ValidationUtils;
 
 
-public class ScanTabFragment extends BaseFragment implements PurchasedContract.View {
+public class ScanTabFragment extends BaseFragment {
 
     private static final String TAG = ScanTabFragment.class.getSimpleName();
     private static final int PHONE_NUMBER_EDIT_UI = 1;

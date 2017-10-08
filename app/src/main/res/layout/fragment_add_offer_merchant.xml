@@ -1,36 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout
-        style="@style/MatchWrap"
-        android:background="@color/wild_sand">
+    <data>
+        <variable
+            name="addoffermerchantfragment"
+            type="com.incon.connect.ui.addoffer.fragment.AddOfferMerchantFragment"/>
+    </data>
+    <ScrollView
+        android:id="@+id/scrollview_add_an_offer"
+        style="@style/BothMatch"
+        android:fadeScrollbars="false"
+        android:scrollbarSize="4dp"
+        android:scrollbarThumbVertical="@drawable/scrollbar"
+        android:scrollbars="vertical">
 
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/swiperefresh"
-            style="@style/MatchWrap"
-            >
+        <RelativeLayout
+            android:background="@color/white"
+            style="@style/BothMatch">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/buy_request_recyclerview"
-                style="@style/BothWrap"
+            <RelativeLayout
+                style="@style/BothMatch"
+                android:layout_marginTop="30dp">
+
+                 <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                    android:id="@+id/spinner_brand"
+                    style="@style/spinnerItemStyle"
+                    android:layout_marginBottom="@dimen/margin_24"
+                    android:focusable="true"
+                    android:hint="@string/add_an_offer_brand_hint"
+                    android:tag="2"
+                    app:errorEnabled="true"
+                    app:met_floatingLabel="highlight"
+                    app:met_textColor="@color/colorForgotPasswordHintText"
+                    app:met_textColorHint="@color/colorForgotPasswordHintText"/>
+                <!-- spinner division -->
+
+               <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                    android:id="@+id/spinner_division"
+                    style="@style/spinnerItemStyle"
+                    android:layout_below="@+id/spinner_brand"
+                    android:layout_marginBottom="@dimen/margin_24"
+                    android:focusable="true"
+                    android:hint="@string/add_an_offer_division_hint"
+                    android:tag="2"
+                    app:errorEnabled="true"
+                    app:met_floatingLabel="highlight"
+                    app:met_textColor="@color/colorForgotPasswordHintText"
+                    app:met_textColorHint="@color/colorForgotPasswordHintText"/>
+                <!-- spinner model -->
+                <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                    android:id="@+id/spinner_model"
+                    style="@style/spinnerItemStyle"
+                    android:layout_below="@+id/spinner_division"
+                    android:layout_marginBottom="@dimen/margin_24"
+                    android:focusable="true"
+                    android:hint="@string/add_an_offer_model_hint"
+                    android:tag="2"
+                    app:errorEnabled="true"
+                    app:met_floatingLabel="highlight"
+                    app:met_textColor="@color/colorForgotPasswordHintText"
+                    app:met_textColorHint="@color/colorForgotPasswordHintText"/>
+
+                <!-- Date  -->
+                <com.incon.connect.custom.view.CustomTextInputLayout
+                    android:id="@+id/input_layout_date"
+                    style="@style/Register_TextInputLayout"
+                    android:layout_below="@id/spinner_model"
+                    android:hint="@string/add_an_offer_date_hint"
+                    app:errorEnabled="true"
+                    app:fontName="fonts/OpenSans-Regular.ttf"
+                    app:hintTextAppearance="@style/TextInputLayout_FloatingTextColor">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/edittext_date"
+                        style="@style/Register_TextInputEditText"
+                        android:enabled="false"
+                        android:tag="3"/>
+                </com.incon.connect.custom.view.CustomTextInputLayout>
+                <!-- add an offer -->
+
+         <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                     android:id="@+id/spinner_add_an_offer"
+                    style="@style/spinnerItemStyle"
+                   android:layout_below="@id/input_layout_date"
+                    android:layout_marginBottom="@dimen/margin_24"
+                    android:focusable="true"
+                    android:hint="@string/add_an_offer_on_MRP_hint"
+                    android:tag="2"
+                    app:errorEnabled="true"
+                    app:met_floatingLabel="highlight"
+                    app:met_textColor="@color/colorForgotPasswordHintText"
+                    app:met_textColorHint="@color/colorForgotPasswordHintText"/>
+                <com.incon.connect.custom.view.CustomTextInputLayout
+                     android:id="@+id/input_layout_offer_expires"
+                    style="@style/Register_TextInputLayout"
+                   android:layout_below="@id/spinner_add_an_offer"
+                    android:hint="@string/offer_expires_hint"
+                    app:errorEnabled="true"
+                    app:fontName="fonts/OpenSans-Regular.ttf"
+                    app:hintTextAppearance="@style/TextInputLayout_FloatingTextColor">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/edittext_offer_expires"
+                        style="@style/Register_TextInputEditText"
+                        android:enabled="false"
+                        android:tag="3"
+                        />
+                </com.incon.connect.custom.view.CustomTextInputLayout>
+
+               <Button
+                android:layout_marginLeft="@dimen/margin_110"
+                android:id="@+id/button_submit"
+                style="@style/w150_wrap"
+                fontPath="fonts/OpenSans-Bold.ttf"
+                 android:layout_below="@+id/input_layout_offer_expires"
+                android:layout_marginBottom="@dimen/margin_10"
                 android:layout_marginTop="@dimen/margin_10"
-                android:fadeScrollbars="false"
-                android:scrollbarSize="4dp"
-                android:scrollbarThumbVertical="@drawable/scrollbar"
-                android:scrollbars="vertical"/>
+                android:background="@drawable/btn_login_register_roundedcorner"
+                android:text="@string/add_new_submit"
+                android:textAllCaps="true"
+                android:textColor="@color/tueo_theme"
+                android:textSize="@dimen/text_size_13"/>
 
-        </android.support.v4.widget.SwipeRefreshLayout>
-        <Button
-            android:text="sumbit"
-            android:textColor="#ffffff"
-            android:background="@drawable/submit_button_bg"
-            android:id="@+id/submit_addoffer"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="150dp"
-            style="@style/submit_buttonwh"
-            />
+            </RelativeLayout>
 
-
-    </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
 
 </layout>
