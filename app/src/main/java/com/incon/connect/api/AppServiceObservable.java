@@ -57,8 +57,8 @@ public interface AppServiceObservable {
     @GET("user/getuser/{phoneNumber}")
     Observable<UserInfoResponse> userInfoUsingPhoneNumber(@Path("phoneNumber") String phoneNumber);
 
-    @GET("user/getuser/scan/{uuid}/")
-    Observable<UserInfoResponse> userInfoData(@Path("uuid") String uuid);
+    @GET("user/getuser/scan/{qrCode}/")
+    Observable<UserInfoResponse> userInfoUsingQrCode(@Path("qrCode") String qrCode);
 
     @GET("product/search/{modelNumber}")
     Observable<List<ModelSearchResponse>> modelNumberSearch(@Path("modelNumber")

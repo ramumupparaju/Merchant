@@ -124,7 +124,8 @@
     <string name="error_postal_code_req">PostalCode is required</string>
 
     <!-- progress messages -->
-    <string name="progress_purchased_history">Lodding Purchased History...</string>
+    <string name="progress_purchased_history">Loading Purchased History...</string>
+    <string name="progress_user_details">Fetching user details...</string>
     <string name="progress_defaults">Fetching details...</string>
     <string name="progress_location">Loading location details...</string>
     <string name="progress_login">Logging in...</string>

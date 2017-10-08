@@ -9,25 +9,29 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.incon.connect.R;
+import com.incon.connect.apimodel.components.qrcodebaruser.UserInfoResponse;
 import com.incon.connect.databinding.FragmentScanTabBinding;
 import com.incon.connect.ui.BaseFragment;
-import com.incon.connect.ui.history.fragments.PurchasedContract;
 import com.incon.connect.ui.home.HomeActivity;
 import com.incon.connect.ui.qrcodescan.QrcodeBarcodeScanActivity;
 import com.incon.connect.utils.ValidationUtils;
 
 
-public class ScanTabFragment extends BaseFragment implements PurchasedContract.View {
+public class ScanTabFragment extends BaseFragment implements ScanTabContract.View {
 
     private static final String TAG = ScanTabFragment.class.getSimpleName();
+    private View rootView;
     private static final int PHONE_NUMBER_EDIT_UI = 1;
     private static final int SCAN_OPTIONS_UI = 2;
     private FragmentScanTabBinding binding;
+    private ScanTabPresenter scanTabPresenter;
 
-    private View rootView;
 
     @Override
     protected void initializePresenter() {
+        scanTabPresenter = new ScanTabPresenter();
+        scanTabPresenter.setView(this);
+        setBasePresenter(scanTabPresenter);
     }
 
     @Override
@@ -57,13 +61,13 @@ public class ScanTabFragment extends BaseFragment implements PurchasedContract.V
     }
 
     public void onDoneClick() {
-        //TODO check phone number is valid or not if valid call api cal
         String phoneNumber = binding.phoneNumberEt.getText().toString();
         if (ValidationUtils.isPhoneNumberValid(phoneNumber)) {
-            //TODO API CALL
-
+            scanTabPresenter.userInfoUsingPhoneNumber(phoneNumber);
             binding.textMobilenumber.setText(phoneNumber);
             showUIType(SCAN_OPTIONS_UI);
+        } else {
+            showErrorMessage(getString(R.string.error_phone_min_digits));
         }
     }
 
@@ -81,7 +85,7 @@ public class ScanTabFragment extends BaseFragment implements PurchasedContract.V
         }
     }
 
-    private void onWarrentyRegistation() {
+    private void showProductInfoScreen() {
         ((HomeActivity) getActivity()).replaceFragmentAndAddToStack(
                 ProductScanFragment.class, null);
     }
@@ -89,11 +93,13 @@ public class ScanTabFragment extends BaseFragment implements PurchasedContract.V
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case RequestCodes.USER_PROFILE_SCAN:
-                    callUserProfileApiUsingQRCode();
+                    if (data != null) {
+                        scanTabPresenter.userInfoUsingQrCode(
+                                data.getStringExtra(IntentConstants.SCANNED_CODE));
+                    }
                     break;
                 default:
                     break;
@@ -101,8 +107,8 @@ public class ScanTabFragment extends BaseFragment implements PurchasedContract.V
         }
     }
 
-    private void callUserProfileApiUsingQRCode() {
-        //TODO api call
-        onWarrentyRegistation();
+    @Override
+    public void userInfo(UserInfoResponse userInfoResponse) {
+        showProductInfoScreen();
     }
 }

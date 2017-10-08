@@ -89,6 +89,7 @@ public interface AppConstants {
     }
 
     interface IntentConstants {
+        String SCANNED_CODE = "scanedCode";
         String USER_PHONE_NUMBER = "userPhoneNumber";
         String IMAGE_PATH = "imagePath";
         String ADDRESS_COMMA = "addressDetails";

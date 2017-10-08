@@ -1,10 +1,13 @@
 
 package com.incon.connect.apimodel.components.qrcodebaruser;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class UserInfoResponse {
+public class UserInfoResponse implements Parcelable {
 
     @SerializedName("id")
     @Expose
@@ -128,4 +131,67 @@ public class UserInfoResponse {
         this.gender = gender;
     }
 
+
+    protected UserInfoResponse(Parcel in) {
+        id = in.readByte() == 0x00 ? null : in.readInt();
+        name = in.readString();
+        email = in.readString();
+        location = in.readString();
+        msisdn = in.readString();
+        usertype = in.readByte() == 0x00 ? null : in.readInt();
+        store = (Store) in.readValue(Store.class.getClassLoader());
+        uuid = in.readString();
+        country = in.readString();
+        dob = in.readByte() == 0x00 ? null : in.readDouble();
+        gender = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        if (id == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeInt(id);
+        }
+        dest.writeString(name);
+        dest.writeString(email);
+        dest.writeString(location);
+        dest.writeString(msisdn);
+        if (usertype == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeInt(usertype);
+        }
+        dest.writeValue(store);
+        dest.writeString(uuid);
+        dest.writeString(country);
+        if (dob == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeDouble(dob);
+        }
+        dest.writeString(gender);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<UserInfoResponse> CREATOR =
+            new Parcelable.Creator<UserInfoResponse>() {
+        @Override
+        public UserInfoResponse createFromParcel(Parcel in) {
+            return new UserInfoResponse(in);
+        }
+
+        @Override
+        public UserInfoResponse[] newArray(int size) {
+            return new UserInfoResponse[size];
+        }
+    };
 }
