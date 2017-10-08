@@ -7,7 +7,7 @@ import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.apimodel.components.qrcodebaruser.UserInfoResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
 import com.incon.connect.dto.login.LoginUserData;
-import com.incon.connect.dto.model.search.ModelSearchResponse;
+import com.incon.connect.apimodel.components.search.ModelSearchResponse;
 import com.incon.connect.dto.notifications.PushRegistrarBody;
 import com.incon.connect.dto.registration.Registration;
 
@@ -57,8 +57,8 @@ public interface AppServiceObservable {
     @GET("user/getuser/{phoneNumber}")
     Observable<UserInfoResponse> userInfoUsingPhoneNumber(@Path("phoneNumber") String phoneNumber);
 
-    @GET("user/getuser/scan/{uuid}/")
-    Observable<UserInfoResponse> userInfoData(@Path("uuid") String uuid);
+    @GET("user/getuser/scan/{qrCode}/")
+    Observable<UserInfoResponse> userInfoUsingQrCode(@Path("qrCode") String qrCode);
 
     @GET("product/search/{modelNumber}")
     Observable<List<ModelSearchResponse>> modelNumberSearch(@Path("modelNumber")

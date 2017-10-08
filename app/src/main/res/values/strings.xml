@@ -127,6 +127,8 @@
     <string name="progress_addoffer_merchant_fragment">Lodding AddOffer Merchant Fragment..
         .</string>
     <string name="progress_purchased_history">Lodding Purchased History...</string>
+    <string name="progress_purchased_history">Loading Purchased History...</string>
+    <string name="progress_user_details">Fetching user details...</string>
     <string name="progress_defaults">Fetching details...</string>
     <string name="progress_location">Loading location details...</string>
     <string name="progress_login">Logging in...</string>
@@ -198,17 +200,6 @@
     <string name="add_new__category">Category</string>
     <string name="add_new__division">Division</string>
     <string name="add_new__type">Type</string>
-
-
-
-    <!--Add an offer-->
-
-    <string name="add_an_offer_brand_hint">Brand</string>
-    <string name="add_an_offer_division_hint">Division</string>
-    <string name="add_an_offer_model_hint">Model</string>
-    <string name="add_an_offer_date_hint">Date</string>
-    <string name="add_an_offer_on_MRP_hint">Add An Offer On_MRP: %</string>
-    <string name="offer_expires_hint">Offer Expires On</string>
 
     <!-- Registration -->
     <string name="register_userinfo_title">User Information</string>

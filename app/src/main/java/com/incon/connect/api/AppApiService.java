@@ -10,7 +10,7 @@ import com.incon.connect.apimodel.components.qrcodebaruser.UserInfoResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
 import com.incon.connect.custom.exception.NoConnectivityException;
 import com.incon.connect.dto.login.LoginUserData;
-import com.incon.connect.dto.model.search.ModelSearchResponse;
+import com.incon.connect.apimodel.components.search.ModelSearchResponse;
 import com.incon.connect.dto.notifications.PushRegistrarBody;
 import com.incon.connect.dto.registration.Registration;
 import com.incon.connect.utils.NetworkUtil;
@@ -95,8 +95,8 @@ public class AppApiService implements AppConstants {
         return addNetworkCheck(serviceInstance.purchasedApi(userId));
     }
 
-    public Observable<UserInfoResponse> userInfoData(String uudi) {
-        return addNetworkCheck(serviceInstance.userInfoData(uudi));
+    public Observable<UserInfoResponse> userInfoUsingQrCode(String qrCode) {
+        return addNetworkCheck(serviceInstance.userInfoUsingQrCode(qrCode));
     }
 
     public Observable<UserInfoResponse> userInfoUsingPhoneNumber(String phoneNumber) {

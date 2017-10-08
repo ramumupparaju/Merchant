@@ -2,13 +2,13 @@ package com.incon.connect.ui.qrcodescan;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 
 import com.google.zxing.Result;
 import com.incon.connect.AppUtils;
 import com.incon.connect.R;
-import com.incon.connect.apimodel.components.qrcodebaruser.UserInfoResponse;
 import com.incon.connect.databinding.ActivityQrcodeBarcodescanBinding;
 import com.incon.connect.ui.BaseActivity;
 import com.incon.connect.utils.Logger;
@@ -25,7 +25,6 @@ public class QrcodeBarcodeScanActivity extends BaseActivity implements QrCodeBar
 
     private static final String TAG = QrcodeBarcodeScanActivity.class.getSimpleName();
     private ActivityQrcodeBarcodescanBinding binding;
-    private QrCodeBarcodePresenter qrCodeBarcodePresenter;
     private ZXingScannerView mScannerView;
 
     @Override
@@ -35,9 +34,6 @@ public class QrcodeBarcodeScanActivity extends BaseActivity implements QrCodeBar
 
     @Override
     protected void initializePresenter() {
-        qrCodeBarcodePresenter = new QrCodeBarcodePresenter();
-        qrCodeBarcodePresenter.setView(this);
-        setBasePresenter(qrCodeBarcodePresenter);
     }
 
     @Override
@@ -80,10 +76,7 @@ public class QrcodeBarcodeScanActivity extends BaseActivity implements QrCodeBar
         @Override
         public void handleResult(Result result) {
             String uuid = "0d4e7ea7-d35f-4233-be2a-6e01b65e2bb9"; //TODO have to remove
-//        qrCodeBarcodePresenter.getUserScannedInfo(uuid);
-
-            setResult(Activity.RESULT_OK);
-            finish();
+            navigateToPreviousScreen(result.getText());
         }
     };
 
@@ -100,10 +93,10 @@ public class QrcodeBarcodeScanActivity extends BaseActivity implements QrCodeBar
     }
 
     @Override
-    public void navigateToQrCodeBarcodeScree(UserInfoResponse userInfoResponse) {
-        if (userInfoResponse != null) {
-//            onWarrentyStarts();
-        }
+    public void navigateToPreviousScreen(String qrCode) {
+        Intent intentData = new Intent();
+        intentData.putExtra(IntentConstants.SCANNED_CODE, qrCode);
+        setResult(Activity.RESULT_OK, intentData);
+        finish();
     }
-
 }

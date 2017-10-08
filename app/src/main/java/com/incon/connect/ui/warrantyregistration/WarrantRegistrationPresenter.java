@@ -9,7 +9,7 @@ import com.incon.connect.AppConstants;
 import com.incon.connect.ConnectApplication;
 import com.incon.connect.R;
 import com.incon.connect.api.AppApiService;
-import com.incon.connect.dto.model.search.ModelSearchResponse;
+import com.incon.connect.apimodel.components.search.ModelSearchResponse;
 import com.incon.connect.ui.BasePresenter;
 import com.incon.connect.utils.ErrorMsgUtil;
 

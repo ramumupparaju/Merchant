@@ -1,4 +1,4 @@
-package com.incon.connect.dto.model.search;
+package com.incon.connect.apimodel.components.search;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

@@ -5,7 +5,7 @@
     <data>
         <variable
             name="warrantyregistration"
-            type="com.incon.connect.ui.warrantyregistration.fragment.WarrantyRegistrationFragment"/>
+            type="com.incon.connect.ui.warrantyregistration.WarrantyRegistrationFragment"/>
     </data>
 
     <RelativeLayout
