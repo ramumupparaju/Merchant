@@ -6,6 +6,7 @@ import com.incon.connect.apimodel.components.history.purchased.PurchasedHistoryR
 import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.apimodel.components.qrcodebaruser.UserInfoResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
+import com.incon.connect.dto.addnewmodel.AddNewModel;
 import com.incon.connect.dto.login.LoginUserData;
 import com.incon.connect.apimodel.components.search.ModelSearchResponse;
 import com.incon.connect.dto.notifications.PushRegistrarBody;
@@ -60,9 +61,16 @@ public interface AppServiceObservable {
     @GET("user/getuser/scan/{qrCode}/")
     Observable<UserInfoResponse> userInfoUsingQrCode(@Path("qrCode") String qrCode);
 
+    @POST("product/getproduct")
+    Observable<Object> productInfoUsingQrCode(@Body HashMap<String, String> qrCode);
+
     @GET("product/search/{modelNumber}")
     Observable<List<ModelSearchResponse>> modelNumberSearch(@Path("modelNumber")
                                                                        String modelNumber);
+
+    @POST("product/addnew/{merchantId}")
+    Observable<Object>  addingNewModel(@Path("merchantId") int merchantId, @Body AddNewModel
+            addNewModelBody);
 
     @POST("registerPush")
     Observable<Object> pushTokenApi(@Body PushRegistrarBody pushRegistrarBody);

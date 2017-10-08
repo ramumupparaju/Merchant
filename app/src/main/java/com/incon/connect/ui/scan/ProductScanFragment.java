@@ -18,13 +18,16 @@ import com.incon.connect.ui.warrantyregistration.WarrantyRegistrationFragment;
 /**
  * Created by PC on 10/6/2017.
  */
-
-public class ProductScanFragment extends BaseFragment {
+public class ProductScanFragment extends BaseFragment implements ProductScanContract.View {
     private View rootView;
-    FragmentProductScanBinding binding;
+    private FragmentProductScanBinding binding;
+    private ProductScanPresenter productScanPresenter;
+
     @Override
     protected void initializePresenter() {
-
+        productScanPresenter = new ProductScanPresenter();
+        productScanPresenter.setView(this);
+        setBasePresenter(productScanPresenter);
     }
 
     @Override
@@ -51,7 +54,10 @@ public class ProductScanFragment extends BaseFragment {
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case RequestCodes.PRODUCT_WARRANTY_SCAN:
-                    callProductWarrantyApiUsingQRCode();
+                    if (data != null) {
+                        productScanPresenter.productInfoUsingQrCode(
+                                data.getStringExtra(IntentConstants.SCANNED_CODE));
+                    }
                     break;
                 default:
                     break;
@@ -59,12 +65,14 @@ public class ProductScanFragment extends BaseFragment {
         }
     }
 
-    private void callProductWarrantyApiUsingQRCode() {
-        //TODO api cal
-        onManualClick();
+    public void onManualClick() {
+        ((HomeActivity) getActivity()).replaceFragmentAndAddToStack(
+                WarrantyRegistrationFragment.class, null);
     }
 
-    public void onManualClick() {
+    @Override
+    public void productInfo(Object productInfoResponse) {
+        //TODO open warranty registration screen with data instead of null
         ((HomeActivity) getActivity()).replaceFragmentAndAddToStack(
                 WarrantyRegistrationFragment.class, null);
     }

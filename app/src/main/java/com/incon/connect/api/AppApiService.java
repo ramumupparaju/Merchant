@@ -9,6 +9,7 @@ import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.apimodel.components.qrcodebaruser.UserInfoResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
 import com.incon.connect.custom.exception.NoConnectivityException;
+import com.incon.connect.dto.addnewmodel.AddNewModel;
 import com.incon.connect.dto.login.LoginUserData;
 import com.incon.connect.apimodel.components.search.ModelSearchResponse;
 import com.incon.connect.dto.notifications.PushRegistrarBody;
@@ -103,8 +104,16 @@ public class AppApiService implements AppConstants {
         return addNetworkCheck(serviceInstance.userInfoUsingPhoneNumber(phoneNumber));
     }
 
+    public Observable<Object> productInfoUsingQrCode(HashMap<String, String> qrCode) {
+        return addNetworkCheck(serviceInstance.productInfoUsingQrCode(qrCode));
+    }
+
     public Observable<List<ModelSearchResponse>> modelNumberSearch(String modelNumber) {
         return addNetworkCheck(serviceInstance.modelNumberSearch(modelNumber));
+    }
+
+    public Observable<Object> addingNewModel(int merchantId, AddNewModel addNewModelBody) {
+        return addNetworkCheck(serviceInstance.addingNewModel(merchantId, addNewModelBody));
     }
 
     public Observable<Object> pushTokenApi(PushRegistrarBody pushRegistrarBody) {
