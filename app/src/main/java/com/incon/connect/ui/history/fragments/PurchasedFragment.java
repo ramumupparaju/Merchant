@@ -89,7 +89,7 @@ public class PurchasedFragment extends BaseFragment implements PurchasedContract
         binding.purchasedRecyclerview.setAdapter(purchasedAdapter);
         binding.purchasedRecyclerview.setLayoutManager(linearLayoutManager);
 
-        addTestData();
+//        addTestData();
     }
 
     private IClickCallback iClickCallback = new IClickCallback() {

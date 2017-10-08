@@ -50,6 +50,9 @@ public interface AppServiceObservable {
     @POST("merchant/changepassword")
     Observable<LoginResponse> changePassword(@Body HashMap<String, String> password);
 
+    @GET("user/getuser/{phoneNumber}")
+    Observable<UserInfoResponse> userInfoUsingPhoneNumber(@Path("phoneNumber") String phoneNumber);
+
     @GET("user/getuser/scan/{uuid}/")
     Observable<UserInfoResponse> userInfoData(@Path("uuid") String uuid);
 

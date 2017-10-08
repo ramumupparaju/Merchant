@@ -204,4 +204,8 @@ public class ModelSearchResponse {
         this.notes = notes;
     }
 
+    @Override
+    public String toString() {
+        return modelNumber;
+    }
 }

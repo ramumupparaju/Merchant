@@ -70,11 +70,6 @@ public class AppApiService implements AppConstants {
         return addNetworkCheck(serviceInstance.changePassword(password));
     }
 
-    public Observable<UserInfoResponse> userInfoData(String uudi) {
-        return addNetworkCheck(serviceInstance
-                .userInfoData(uudi));
-    }
-
     public Observable<ApiBaseResponse> forgotPassword(HashMap<String, String> email) {
         return addNetworkCheck(serviceInstance.forgotPassword(email));
     }
@@ -93,6 +88,15 @@ public class AppApiService implements AppConstants {
 
     public Observable<LoginResponse> validateOtp(HashMap<String, String> verify) {
         return addNetworkCheck(serviceInstance.validateOtp(verify));
+    }
+
+
+    public Observable<UserInfoResponse> userInfoData(String uudi) {
+        return addNetworkCheck(serviceInstance.userInfoData(uudi));
+    }
+
+    public Observable<UserInfoResponse> userInfoUsingPhoneNumber(String phoneNumber) {
+        return addNetworkCheck(serviceInstance.userInfoUsingPhoneNumber(phoneNumber));
     }
 
     public Observable<List<ModelSearchResponse>> modelNumberSearch(String modelNumber) {

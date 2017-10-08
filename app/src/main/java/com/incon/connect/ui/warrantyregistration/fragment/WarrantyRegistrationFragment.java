@@ -42,6 +42,7 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
     private ModelSearchArrayAdapter modelNumberAdapter;
     private List<ModelSearchResponse> warrantyregistrationList;
     private String selectedModelNumber;
+    private int selectedPosition;
 
     @Override
     protected void initializePresenter() {
@@ -54,7 +55,6 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
     public void onFloatingClick() {
         ((HomeActivity) getActivity()).replaceFragment(
                 AddNewModelFragment.class, null);
-
     }
 
     public void onSubmitClick() {
@@ -76,7 +76,7 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
     }
 
     private void initializeModelNumberAdapter(List<ModelSearchResponse>
-                                                   modelNumberList) {
+                                                      modelNumberList) {
         this.warrantyregistrationList = modelNumberList;
         modelNumberAdapter = new ModelSearchArrayAdapter(getContext(),
                 modelNumberList);
@@ -87,7 +87,9 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
             @Override
             public void onItemClick(AdapterView<?> parent, View arg1, int pos,
                                     long id) {
-//                selectedModelNumber = warrantyregistrationList.get(pos).getName();
+                selectedPosition = pos;
+                selectedModelNumber = warrantyregistrationList.get(
+                        selectedPosition).getModelNumber();
             }
         });
     }
@@ -128,11 +130,10 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
 
     @Override
     public void loadModelNumberData(List<ModelSearchResponse> modelSearchResponseList) {
-
         if (modelSearchResponseList == null) {
             modelSearchResponseList = new ArrayList<>();
         }
-        initializeModelNumberAdapter(warrantyregistrationList);
+        initializeModelNumberAdapter(modelSearchResponseList);
         binding.edittextModelNumber.showDropDown();
     }
 
