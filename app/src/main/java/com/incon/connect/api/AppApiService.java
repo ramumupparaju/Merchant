@@ -4,6 +4,7 @@ import com.incon.connect.AppConstants;
 import com.incon.connect.BuildConfig;
 import com.incon.connect.apimodel.base.ApiBaseResponse;
 import com.incon.connect.apimodel.components.defaults.DefaultsResponse;
+import com.incon.connect.apimodel.components.history.purchased.PurchasedHistoryResponse;
 import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.apimodel.components.qrcodebaruser.UserInfoResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
@@ -15,6 +16,7 @@ import com.incon.connect.dto.registration.Registration;
 import com.incon.connect.utils.NetworkUtil;
 
 import java.util.HashMap;
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -92,6 +94,10 @@ public class AppApiService implements AppConstants {
 
     public Observable<LoginResponse> validateOtp(HashMap<String, String> verify) {
         return addNetworkCheck(serviceInstance.validateOtp(verify));
+    }
+
+    public Observable<List<PurchasedHistoryResponse>> purchasedApi(int userId) {
+        return addNetworkCheck(serviceInstance.purchasedApi(userId));
     }
 
     public Observable<WarrantyRegistrationResponse> modelNumberSearch(String modelNumber) {

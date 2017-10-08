@@ -41,7 +41,7 @@ public class ScanTabFragment extends BaseFragment {
     }
 
     public void initViews() {
-
+        ((HomeActivity) getActivity()).setToolbarTitle(getString(R.string.title_scan));
     }
 
     public void onScanClick() {

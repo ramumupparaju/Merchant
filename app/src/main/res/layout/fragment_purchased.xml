@@ -6,7 +6,9 @@
         style="@style/BothMatch"
         android:background="@color/white">
 
+
         <android.support.v4.widget.SwipeRefreshLayout
+            android:layout_below="@+id/ll_brand_details"
             android:id="@+id/swiperefresh"
             style="@style/BothMatch"
             >

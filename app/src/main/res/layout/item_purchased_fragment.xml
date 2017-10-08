@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="purchasedResponse"
-            type="com.incon.connect.apimodel.components.history.purchased.PurchasedResponse"/>
+            name="purchasedHistoryResponse"
+            type="com.incon.connect.apimodel.components.history.purchased.PurchasedHistoryResponse"/>
     </data>
 
     <RelativeLayout
@@ -33,6 +33,7 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/margin_10"
             android:textColor="@color/cadet_blue"
+            android:text="@{purchasedHistoryResponse.batchNumber}"
             android:textSize="11.5sp"/>
 
         <TextView
@@ -43,7 +44,7 @@
             android:layout_marginStart="@dimen/margin_10"
             android:layout_toEndOf="@id/task_iv"
             android:layout_toStartOf="@id/text_task_time"
-            android:text="@{purchasedResponse.positionText}"
+            android:text="@{purchasedHistoryResponse.productName}"
             android:textColor="@color/ebony_clay"
             android:textSize="13.4sp"/>
 

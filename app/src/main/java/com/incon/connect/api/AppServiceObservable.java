@@ -2,6 +2,7 @@ package com.incon.connect.api;
 
 import com.incon.connect.apimodel.base.ApiBaseResponse;
 import com.incon.connect.apimodel.components.defaults.DefaultsResponse;
+import com.incon.connect.apimodel.components.history.purchased.PurchasedHistoryResponse;
 import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.apimodel.components.qrcodebaruser.UserInfoResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
@@ -11,6 +12,7 @@ import com.incon.connect.dto.notifications.PushRegistrarBody;
 import com.incon.connect.dto.registration.Registration;
 
 import java.util.HashMap;
+import java.util.List;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
@@ -48,6 +50,9 @@ public interface AppServiceObservable {
 
     @POST("merchant/changepassword")
     Observable<LoginResponse> changePassword(@Body HashMap<String, String> password);
+
+    @GET("merchant/history/purchased/{userId}")
+    Observable<List<PurchasedHistoryResponse>> purchasedApi(@Path("userId") int userId);
 
     @GET("user/getuser/scan/{uuid}/")
     Observable<UserInfoResponse> userInfoData(@Path("uuid") String uuid);

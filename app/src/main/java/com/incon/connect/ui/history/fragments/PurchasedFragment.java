@@ -12,13 +12,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.incon.connect.R;
-import com.incon.connect.apimodel.components.history.purchased.PurchasedResponse;
+import com.incon.connect.apimodel.components.history.purchased.PurchasedHistoryResponse;
 import com.incon.connect.callbacks.IClickCallback;
 import com.incon.connect.databinding.BottomSheetPurchasedBinding;
 import com.incon.connect.databinding.CustomBottomViewBinding;
 import com.incon.connect.databinding.FragmentPurchasedBinding;
 import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.history.adapter.PurchasedAdapter;
+import com.incon.connect.utils.SharedPrefsUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,8 +35,8 @@ public class PurchasedFragment extends BaseFragment implements PurchasedContract
     private PurchasedPresenter purchasedPresenter;
     private FragmentPurchasedBinding binding;
     private PurchasedAdapter purchasedAdapter;
-    private List<PurchasedResponse> purchasedList;
-
+    private List<PurchasedHistoryResponse> purchasedList;
+    private int userId;
     private BottomSheetDialog bottomSheetDialog;
     private BottomSheetPurchasedBinding bottomSheetPurchasedBinding;
 
@@ -89,7 +90,10 @@ public class PurchasedFragment extends BaseFragment implements PurchasedContract
         binding.purchasedRecyclerview.setAdapter(purchasedAdapter);
         binding.purchasedRecyclerview.setLayoutManager(linearLayoutManager);
 
-        addTestData();
+
+        userId = SharedPrefsUtils.loginProvider().getIntegerPreference(
+                LoginPrefs.USER_ID, DEFAULT_VALUE);
+        purchasedPresenter.purchased(userId);
     }
 
     private IClickCallback iClickCallback = new IClickCallback() {
@@ -155,25 +159,25 @@ public class PurchasedFragment extends BaseFragment implements PurchasedContract
                 @Override
                 public void onRefresh() {
                     purchasedAdapter.clearData();
-                    //TODO Get alerts of account api
-                    addTestData();
+                    purchasedPresenter.purchased(userId);
                 }
             };
 
-    private void addTestData() {
-        for (int i = 0; i < 15; i++) {
-            PurchasedResponse taskResponse = new PurchasedResponse();
-            taskResponse.setId(i);
-            taskResponse.setPositionText();
-            purchasedList.add(taskResponse);
-        }
-        purchasedAdapter.setData(purchasedList);
-        dismissSwipeRefresh();
-    }
+
 
     private void dismissSwipeRefresh() {
         if (binding.swiperefresh.isRefreshing()) {
             binding.swiperefresh.setRefreshing(false);
         }
+    }
+
+    @Override
+    public void loadPurchasedHistory(List<PurchasedHistoryResponse> purchasedHistoryResponseList) {
+        if (purchasedHistoryResponseList == null) {
+            purchasedHistoryResponseList = new ArrayList<>();
+        }
+        this.purchasedList = purchasedHistoryResponseList;
+        purchasedAdapter.setData(purchasedList);
+        dismissSwipeRefresh();
     }
 }

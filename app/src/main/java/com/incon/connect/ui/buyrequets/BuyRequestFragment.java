@@ -17,6 +17,7 @@ import com.incon.connect.callbacks.IClickCallback;
 import com.incon.connect.databinding.FragmentBuyRequestBinding;
 import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.history.adapter.BuyRequestAdapter;
+import com.incon.connect.ui.home.HomeActivity;
 import com.incon.connect.ui.qrcodescan.QrcodeBarcodeScanActivity;
 
 import java.util.ArrayList;
@@ -65,6 +66,7 @@ public class BuyRequestFragment extends BaseFragment implements BuyRequestContra
     }
 
     private void initViews() {
+        ((HomeActivity) getActivity()).setToolbarTitle(getString(R.string.title_buy_requests));
 
         binding.swiperefresh.setColorSchemeResources(R.color.colorPrimaryDark);
         binding.swiperefresh.setOnRefreshListener(onRefreshListener);

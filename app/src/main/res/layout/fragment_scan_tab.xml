@@ -36,7 +36,7 @@
                 android:id="@+id/text_or"
                 style="@style/BothWrap"
                 android:layout_alignStart="@+id/text_scanuid"
-                android:layout_marginTop="@dimen/margin_60"
+                android:layout_marginTop="@dimen/margin_55"
                 android:text="@string/action_or" />
 
 

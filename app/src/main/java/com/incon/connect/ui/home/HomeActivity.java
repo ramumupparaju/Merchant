@@ -40,6 +40,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     private View rootView;
     private HomePresenter homePresenter;
     private ActivityHomeBinding binding;
+    private ToolBarBinding toolBarBinding;
 
     private LinkedHashMap<Integer, Fragment> tabFragments = new LinkedHashMap<>();
 
@@ -73,12 +74,19 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         initializeToolBar();
     }
 
+
+
+    public void setToolbarTitle(String title) {
+        toolBarBinding.toolbarTitleTv.setText(title);
+
+    }
+
     protected void initializeToolBar() {
         LayoutInflater layoutInflater = getLayoutInflater();
-        ToolBarBinding toolBarBinding = DataBindingUtil.inflate(layoutInflater,
+         toolBarBinding = DataBindingUtil.inflate(layoutInflater,
                 R.layout.tool_bar, null, false);
         setSupportActionBar(toolBarBinding.toolbar);
-        toolBarBinding.toolbarTitleTv.setText(R.string.title_history);
+        setToolbarTitle(getString(R.string.title_history));
 
         toolBarBinding.toolbarLeftIv.setOnClickListener(new View.OnClickListener() {
             @Override

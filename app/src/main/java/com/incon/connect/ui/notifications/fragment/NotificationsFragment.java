@@ -18,6 +18,7 @@ import com.incon.connect.databinding.BottomSheetNotificationsBinding;
 import com.incon.connect.databinding.CustomBottomViewBinding;
 import com.incon.connect.databinding.FragmentNotificationsBinding;
 import com.incon.connect.ui.BaseFragment;
+import com.incon.connect.ui.home.HomeActivity;
 import com.incon.connect.ui.notifications.fragment.adapter.NotificationsAdapter;
 
 import java.util.ArrayList;
@@ -68,7 +69,7 @@ public class NotificationsFragment extends BaseFragment {
     }
 
     private void initViews() {
-
+        ((HomeActivity) getActivity()).setToolbarTitle(getString(R.string.title_notifications));
         binding.swiperefresh.setColorSchemeResources(R.color.colorPrimaryDark);
         binding.swiperefresh.setOnRefreshListener(onRefreshListener);
 

@@ -8,10 +8,9 @@ import android.view.ViewGroup;
 
 import com.incon.connect.BR;
 import com.incon.connect.R;
-import com.incon.connect.apimodel.components.history.purchased.PurchasedResponse;
+import com.incon.connect.apimodel.components.history.purchased.PurchasedHistoryResponse;
 import com.incon.connect.callbacks.IClickCallback;
 import com.incon.connect.databinding.ItemPurchasedFragmentBinding;
-import com.incon.connect.utils.DateUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +21,7 @@ import java.util.List;
  */
 public class PurchasedAdapter extends RecyclerView.Adapter
         <PurchasedAdapter.ViewHolder>  {
-    private List<PurchasedResponse> purchasedList = new ArrayList<>();
+    private List<PurchasedHistoryResponse> purchasedList = new ArrayList<>();
     private IClickCallback clickCallback;
 
     @Override
@@ -35,8 +34,8 @@ public class PurchasedAdapter extends RecyclerView.Adapter
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        PurchasedResponse purchasedResponse = purchasedList.get(position);
-        holder.bind(purchasedResponse);
+        PurchasedHistoryResponse purchasedHistoryResponse = purchasedList.get(position);
+        holder.bind(purchasedHistoryResponse);
     }
 
     @Override
@@ -45,8 +44,8 @@ public class PurchasedAdapter extends RecyclerView.Adapter
     }
 
 
-    public void setData(List<PurchasedResponse> taskResponseList) {
-        purchasedList = taskResponseList;
+    public void setData(List<PurchasedHistoryResponse> purchasedHistoryResponseList) {
+        purchasedList = purchasedHistoryResponseList;
         notifyDataSetChanged();
     }
 
@@ -70,10 +69,8 @@ public class PurchasedAdapter extends RecyclerView.Adapter
         }
 
 
-        public void bind(PurchasedResponse topCourse) {
-            binding.setVariable(BR.purchasedResponse, topCourse);
-            binding.textTaskTime.setText(DateUtils.formatTimeDay(System.currentTimeMillis()
-                    - topCourse.getId() * 1000));
+        public void bind(PurchasedHistoryResponse purchasedHistoryResponse) {
+            binding.setVariable(BR.purchasedHistoryResponse, purchasedHistoryResponse);
             binding.executePendingBindings();
         }
 

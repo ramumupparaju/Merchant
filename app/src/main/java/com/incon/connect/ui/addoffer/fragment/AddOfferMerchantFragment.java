@@ -17,6 +17,7 @@ import com.incon.connect.dto.addoffer.AddOfferResponse;
 import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.addoffer.adapter.AddOfferMerchantAdapter;
 import com.incon.connect.ui.buyrequets.BuyRequestContract;
+import com.incon.connect.ui.home.HomeActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +65,7 @@ public class AddOfferMerchantFragment extends BaseFragment implements BuyRequest
     }
 
     private void initViews() {
-
+        ((HomeActivity) getActivity()).setToolbarTitle(getString(R.string.title_offers));
         binding.swiperefresh.setColorSchemeResources(R.color.colorPrimaryDark);
         binding.swiperefresh.setOnRefreshListener(onRefreshListener);
 

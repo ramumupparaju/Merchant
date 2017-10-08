@@ -74,7 +74,7 @@
         <item name="android:layout_height">@dimen/margin_150</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:layout_marginTop">@dimen/margin_70</item>
+        <item name="android:layout_marginTop">@dimen/margin_65</item>
     </style>
 
 
@@ -86,7 +86,7 @@
         <item name="android:layout_gravity">center</item>
         <item name="android:gravity">center</item>
         <item name="android:textAlignment">center</item>
-        <item name="android:layout_marginTop">@dimen/margin_50</item>
+        <item name="android:layout_marginTop">@dimen/margin_45</item>
         <item name="android:textColor">@color/river_bed</item>
         <item name="android:hint">@string/action_entermobilenumber</item>
         <item name="android:layout_width">@dimen/margin_250</item>
@@ -189,6 +189,12 @@
         <item name="android:layout_height">match_parent</item>
     </style>
 
+    <!--style match_match-->
+    <style name="Match_50" parent="@android:style/TextAppearance.Medium">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+    </style>
+
     <!--style wrap_wrap-->
     <style name="BothWrap">
         <item name="android:layout_width">wrap_content</item>
@@ -229,7 +235,7 @@
     </style>
     <style name="View_Match">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">50dp</item>
+        <item name="android:layout_height">30dp</item>
         <item name="android:paddingLeft">2dp</item>
     </style>
     <style name="match_custom">
