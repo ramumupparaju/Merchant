@@ -139,7 +139,7 @@
                         android:text="@={register.dateOfBirthToShow}"/>
                 </com.incon.connect.custom.view.CustomTextInputLayout>
 
-
+                 <!--dummy view for dob click event -->
                 <View
                     android:id="@+id/view_dob"
                     android:layout_width="match_parent"

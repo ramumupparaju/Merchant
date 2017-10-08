@@ -26,6 +26,13 @@
     <string name="action_scanuid">Scan Customer UID</string>
     <string name="action_entermobilenumber">Enter Mobile Number</string>
 
+       <!-- add offer -->
+    <string name="add_an_offer_brand_hint">Brand</string>
+    <string name="add_an_offer_division_hint">Division</string>
+    <string name="add_an_offer_model_hint">Model</string>
+    <string name="add_an_offer_on_mrp_hint">Add An Offer On MRP: %</string>
+    <string name="add_an_offer_date_hint">Offer Start On</string>
+    <string name="offer_expires_hint">Offer Expires On</string>
 
     <!-- actions -->
     <string name="action_changepassword">CHANGE PASSWORD</string>
@@ -127,7 +134,6 @@
     <string name="progress_addoffer_merchant_fragment">Lodding AddOffer Merchant Fragment..
         .</string>
     <string name="progress_purchased_history">Lodding Purchased History...</string>
-    <string name="progress_purchased_history">Loading Purchased History...</string>
     <string name="progress_user_details">Fetching user details...</string>
     <string name="progress_defaults">Fetching details...</string>
     <string name="progress_location">Loading location details...</string>

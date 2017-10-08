@@ -14,7 +14,7 @@ public interface AddOfferMerchantContract {
         void loadAddOfferMerchant(List<AddOfferMerchantFragmentResponse>
                                           addOfferMerchantFragmentResponsesList);
     }
-    interface Presenter{
+    interface Presenter {
 
     }
 }

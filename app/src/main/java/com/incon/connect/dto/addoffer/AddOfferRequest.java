@@ -1,9 +1,12 @@
 package com.incon.connect.dto.addoffer;
 
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class AddOfferResponse {
+public class AddOfferRequest extends BaseObservable {
 
     @SerializedName("id")
     @Expose
@@ -26,17 +29,69 @@ public class AddOfferResponse {
     @SerializedName("dateRequested")
     @Expose
     private String dateRequested;
+    @SerializedName("division")
+    @Expose
+    private String division;
+    @SerializedName("model")
+    @Expose
+    private String model;
+
+    @SerializedName("offerStartOn")
+    @Expose
+    private String offerStartOn;
+
+    @SerializedName("offerExpiresOn")
+    @Expose
+    private String offerExpiresOn;
+
+
+    public String getOfferStartOn() {
+        return offerStartOn;
+    }
+
+    public void setOfferStartOn(String offerStartOn) {
+        this.offerStartOn = offerStartOn;
+    }
+
+    public String getOfferExpiresOn() {
+        return offerExpiresOn;
+    }
+
+    public void setOfferExpiresOn(String offerExpiresOn) {
+        this.offerExpiresOn = offerExpiresOn;
+    }
+
+    public String getDivision() {
+        return division;
+    }
+
+    public void setDivision(String division) {
+        this.division = division;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+
+
 
     public void setPositionText(String positionText) {
         this.positionText = positionText;
     }
 
+    @Bindable
     public String getBrandName() {
         return brandName;
     }
 
     public void setBrandName(String brandName) {
         this.brandName = brandName;
+        notifyChange();
     }
 
     public String getBrandType() {
