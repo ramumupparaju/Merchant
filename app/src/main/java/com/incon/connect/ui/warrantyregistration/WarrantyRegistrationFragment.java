@@ -13,7 +13,7 @@ import com.incon.connect.apimodel.components.search.ModelSearchResponse;
 import com.incon.connect.custom.view.CustomAutoCompleteView;
 import com.incon.connect.databinding.FragmentWarrantyRegistrationBinding;
 import com.incon.connect.ui.BaseFragment;
-import com.incon.connect.ui.addnewmodel.fragment.AddNewModelFragment;
+import com.incon.connect.ui.addnewmodel.AddNewModelFragment;
 import com.incon.connect.ui.home.HomeActivity;
 import com.incon.connect.ui.warrantyregistration.adapter.ModelSearchArrayAdapter;
 import com.jakewharton.rxbinding2.widget.RxTextView;

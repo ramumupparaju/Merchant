@@ -147,8 +147,9 @@ public interface AppConstants {
     interface ApiRequestKeyConstants {
         String BODY_EMAIL = "email";
         String BODY_USER_ID = "userid";
-        String BODY_MOBILE_NUMBER = "mobileNumber";
+        String BODY_PRODUCT_CODE = "code";
         String BODY_OTP = "otp";
+        String BODY_MOBILE_NUMBER = "mobileNumber";
         String STORE_LOGO = "logo";
         String BODY_PASSWORD = "password";
         String BODY_MODULE_ID = "moduleId";
