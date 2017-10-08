@@ -13,7 +13,7 @@ import com.incon.connect.databinding.FragmentProductScanBinding;
 import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.home.HomeActivity;
 import com.incon.connect.ui.qrcodescan.QrcodeBarcodeScanActivity;
-import com.incon.connect.ui.warrantyregistration.fragment.WarrantyRegistrationFragment;
+import com.incon.connect.ui.warrantyregistration.WarrantyRegistrationFragment;
 
 /**
  * Created by PC on 10/6/2017.

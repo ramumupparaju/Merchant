@@ -1,4 +1,4 @@
-package com.incon.connect.ui.warrantyregistration.fragment.adapter;
+package com.incon.connect.ui.warrantyregistration.adapter;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -10,7 +10,7 @@ import android.widget.ArrayAdapter;
 import com.incon.connect.BR;
 import com.incon.connect.R;
 import com.incon.connect.databinding.ItemWarrantyregistrationFragmentBinding;
-import com.incon.connect.dto.model.search.ModelSearchResponse;
+import com.incon.connect.apimodel.components.search.ModelSearchResponse;
 
 import java.util.List;
 
@@ -42,7 +42,7 @@ public class ModelSearchArrayAdapter extends ArrayAdapter<ModelSearchResponse> {
                     R.layout.item_warrantyregistration_fragment, parent, false);
         }
         ModelSearchResponse modelNumber = modelNumbersResponseList.get(position);
-        binding.setVariable(BR.warrantyregistrationResponse, modelNumber);
+        binding.setVariable(BR.modelSearchResponse, modelNumber);
         binding.executePendingBindings();
         return binding.getRoot();
     }

@@ -7,7 +7,7 @@ import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.apimodel.components.qrcodebaruser.UserInfoResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
 import com.incon.connect.dto.login.LoginUserData;
-import com.incon.connect.dto.model.search.ModelSearchResponse;
+import com.incon.connect.apimodel.components.search.ModelSearchResponse;
 import com.incon.connect.dto.notifications.PushRegistrarBody;
 import com.incon.connect.dto.registration.Registration;
 

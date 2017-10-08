@@ -1,4 +1,4 @@
-package com.incon.connect.ui.warrantyregistration.fragment;
+package com.incon.connect.ui.warrantyregistration;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -9,15 +9,13 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import com.incon.connect.R;
+import com.incon.connect.apimodel.components.search.ModelSearchResponse;
 import com.incon.connect.custom.view.CustomAutoCompleteView;
 import com.incon.connect.databinding.FragmentWarrantyRegistrationBinding;
-import com.incon.connect.dto.model.search.ModelSearchResponse;
 import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.addnewmodel.fragment.AddNewModelFragment;
 import com.incon.connect.ui.home.HomeActivity;
-import com.incon.connect.ui.warrantyregistration.WarrantRegistrationContract;
-import com.incon.connect.ui.warrantyregistration.WarrantRegistrationPresenter;
-import com.incon.connect.ui.warrantyregistration.fragment.adapter.ModelSearchArrayAdapter;
+import com.incon.connect.ui.warrantyregistration.adapter.ModelSearchArrayAdapter;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.jakewharton.rxbinding2.widget.TextViewAfterTextChangeEvent;
 
@@ -43,10 +41,10 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
     private List<ModelSearchResponse> warrantyregistrationList;
     private String selectedModelNumber;
     private int selectedPosition;
+    boolean isOtpVerified;
 
     @Override
     protected void initializePresenter() {
-
         warrantRegistrationPresenter = new WarrantRegistrationPresenter();
         warrantRegistrationPresenter.setView(this);
         setBasePresenter(warrantRegistrationPresenter);
@@ -68,7 +66,6 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
                     inflater, R.layout.fragment_warranty_registration, container, false);
             binding.setWarrantyregistration(this);
             rootView = binding.getRoot();
-
             initializeModelNumberAdapter(new ArrayList<ModelSearchResponse>());
         }
 
