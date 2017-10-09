@@ -11,6 +11,7 @@ import com.incon.connect.dto.login.LoginUserData;
 import com.incon.connect.apimodel.components.search.ModelSearchResponse;
 import com.incon.connect.dto.notifications.PushRegistrarBody;
 import com.incon.connect.dto.registration.Registration;
+import com.incon.connect.dto.warrantyregistration.WarrantyRegistration;
 
 import java.util.HashMap;
 import java.util.List;
@@ -71,6 +72,9 @@ public interface AppServiceObservable {
     @POST("product/addnew/{merchantId}")
     Observable<Object>  addingNewModel(@Path("merchantId") int merchantId, @Body AddNewModel
             addNewModelBody);
+
+    @POST("warranty/register")
+    Observable<Object>  warrantyRegisterApi(@Body WarrantyRegistration warrantyRegistration);
 
     @POST("registerPush")
     Observable<Object> pushTokenApi(@Body PushRegistrarBody pushRegistrarBody);

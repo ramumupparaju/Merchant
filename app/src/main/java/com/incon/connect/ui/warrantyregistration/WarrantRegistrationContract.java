@@ -1,8 +1,10 @@
 package com.incon.connect.ui.warrantyregistration;
 
 import com.incon.connect.apimodel.components.search.ModelSearchResponse;
+import com.incon.connect.dto.warrantyregistration.WarrantyRegistration;
 import com.incon.connect.ui.BaseView;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -11,9 +13,13 @@ import java.util.List;
 public interface WarrantRegistrationContract {
     interface View extends BaseView {
         void loadModelNumberData(List<ModelSearchResponse> modelSearchResponseList);
+        void warrantyRegistered(Object warrantyRegisteredResponse);
+        void validateOtp();
     }
 
     interface Presenter {
         void doModelSearchApi(String modelNumberToSearch);
+        void doWarrantyRegistrationApi(WarrantyRegistration warrantyRegistration);
+        void validateOTP(HashMap<String, String> verifyOTP);
     }
 }

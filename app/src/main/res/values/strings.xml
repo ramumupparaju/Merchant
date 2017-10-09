@@ -19,6 +19,8 @@
     <string name="action_otp">OTP</string>
     <string name="action_qr_code">QR Code Scan</string>
     <string name="action_manual_entry">Manual Enter</string>
+    <string name="dialog_warranty_registered_successfully">Warranty has been registered
+        successfully</string>
 
     <!--home_scanning activity-->
     <string name="action_enter_customer_phone_number">Enter customer phone number</string>
@@ -135,6 +137,7 @@
         .</string>
     <string name="progress_purchased_history">Lodding Purchased History...</string>
     <string name="progress_user_details">Fetching user details...</string>
+    <string name="progress_warranty_registering">Registering warranty...</string>
     <string name="progress_add_new_model">Adding new model...</string>
     <string name="progress_product_details">Fetching product details...</string>
     <string name="progress_defaults">Fetching details...</string>
