@@ -3,8 +3,11 @@ package com.incon.connect.api;
 import com.incon.connect.AppConstants;
 import com.incon.connect.BuildConfig;
 import com.incon.connect.apimodel.base.ApiBaseResponse;
+import com.incon.connect.apimodel.components.buyrequest.BuyRequestResponse;
 import com.incon.connect.apimodel.components.defaults.DefaultsResponse;
+import com.incon.connect.apimodel.components.history.purchased.InterestHistoryResponse;
 import com.incon.connect.apimodel.components.history.purchased.PurchasedHistoryResponse;
+import com.incon.connect.apimodel.components.history.purchased.ReturnHistoryResponse;
 import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.apimodel.components.qrcodebaruser.UserInfoResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
@@ -95,6 +98,15 @@ public class AppApiService implements AppConstants {
 
     public Observable<List<PurchasedHistoryResponse>> purchasedApi(int userId) {
         return addNetworkCheck(serviceInstance.purchasedApi(userId));
+    }
+    public Observable<List<InterestHistoryResponse>> interestApi(int userId) {
+        return addNetworkCheck(serviceInstance.interestApi(userId));
+    }
+    public Observable<List<ReturnHistoryResponse>> returnApi(int userId) {
+        return addNetworkCheck(serviceInstance.returnApi(userId));
+    }
+    public Observable<List<BuyRequestResponse>> buyRequestApi(int merchantId) {
+        return addNetworkCheck(serviceInstance.buyRequestApi(merchantId));
     }
 
     public Observable<UserInfoResponse> userInfoUsingQrCode(String qrCode) {

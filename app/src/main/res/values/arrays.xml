@@ -28,14 +28,14 @@
     <string-array
         name="side_menu_items_list">
         <item>@string/title_menu_change_password</item>
-        <item>@string/title_menu_logout</item>
-        <!--<item>@string/title_menu_profile</item>-->
-        <item>@string/title_menu_store_settings</item>
-        <item>@string/title_menu_bill_format</item>
         <item>@string/title_menu_store_location_on_map</item>
+        <item>@string/title_menu_bill_format</item>
+        <item>@string/title_menu_timings</item>
+        <item>@string/title_menu_store_settings</item>
         <item>@string/title_menu_contact_details</item>
-        <item>@string/title_menu_timeings</item>
         <item>@string/title_menu_account_settings</item>
+        <item>@string/title_menu_logout</item>
+
     </string-array>
 
 </resources>

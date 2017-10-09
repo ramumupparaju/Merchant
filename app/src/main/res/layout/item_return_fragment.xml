@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="returnResponse"
-            type="com.incon.connect.apimodel.components.history.purchased.ReturnResponse"/>
+            name="returnHistoryResponse"
+            type="com.incon.connect.apimodel.components.history.purchased.ReturnHistoryResponse"/>
     </data>
 
     <RelativeLayout
@@ -32,6 +32,7 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/margin_10"
+            android:text="@{returnHistoryResponse.batchNumber}"
             android:textColor="@color/cadet_blue"
             android:textSize="11.5sp"/>
 
@@ -43,7 +44,7 @@
             android:layout_marginStart="@dimen/margin_10"
             android:layout_toEndOf="@id/task_iv"
             android:layout_toStartOf="@id/text_task_time"
-            android:text="@{returnResponse.positionText}"
+            android:text="@{returnHistoryResponse.productName}"
             android:textColor="@color/ebony_clay"
             android:textSize="13.4sp"/>
 

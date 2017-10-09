@@ -222,13 +222,14 @@ public interface AppConstants {
     interface MenuConstants {
         int PROFILE = 0;
         int CHANGE_PWD = 1;
-        int LOGOUT = 2;
-        int STORESETTINGS = 3;
-        int BILLFORMAT = 4;
-        int STORELOCATIONONMAP = 5;
+        int STORELOCATIONONMAP = 2;
+        int BILLFORMAT = 3;
+        int TIMEINGS = 4;
+        int STORESETTINGS = 5;
         int CONTACTDETAILS = 6;
-        int TIMEINGS = 7;
-        int ACCOUNTSETTINGS = 8;
+        int ACCOUNTSETTINGS = 7;
+        int LOGOUT = 8;
+
 
         int MONITORED_PERSON_INFO = 1;
         int PHYSICIAN_INFO = 2;

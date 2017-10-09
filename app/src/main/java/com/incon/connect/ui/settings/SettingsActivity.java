@@ -82,15 +82,12 @@ public class SettingsActivity extends BaseActivity implements SettingsContract.V
     }
 
     private void prepareMenuData() {
-        /*int[] icons = {R.drawable.ic_menu_patient_info_svg, R.drawable.ic_menu_physician_info_svg,
-                R.drawable.ic_menu_sensor_svg, R.drawable.ic_menu_faq_svg,
-                R.drawable.ic_menu_support_svg, R.drawable.ic_menu_change_password_svg,
-                R.drawable.ic_menu_logout_svg};*/
-        int[] icons = {R.drawable.ic_menu_patient_info_svg,
-                R.drawable.ic_menu_logout_svg, R.drawable.ic_menu_logout_svg,
-                R.drawable.ic_menu_logout_svg, R.drawable.ic_menu_logout_svg,
-                R.drawable.ic_menu_logout_svg, R.drawable.ic_menu_logout_svg,
-                R.drawable.ic_menu_logout_svg};
+
+        int[] icons = {R.drawable.ic_menu_change_password,
+                R.drawable.ic_menu_store_location_on_map, R.drawable.ic_menu_bill_format,
+                R.drawable.ic_menu_timings, R.drawable.ic_menu_store_settings,
+                R.drawable.ic_menu_contact_details, R.drawable.ic_menu_account_settings,
+                R.drawable.ic_menu_logout_svg };
         String[] menuTitles = getResources().getStringArray(R.array.side_menu_items_list);
 
         menuItems = new ArrayList<>();
@@ -119,6 +116,8 @@ public class SettingsActivity extends BaseActivity implements SettingsContract.V
         }
     }
 
+
+
     @Override
     public void onClickPosition(int position) {
         switch (position) {
@@ -130,32 +129,36 @@ public class SettingsActivity extends BaseActivity implements SettingsContract.V
                 Intent changePasswordIntent = new Intent(this, ChangePasswordActivity.class);
                 startActivity(changePasswordIntent);
                 break;
-            case MenuConstants.LOGOUT:
-                showLogoutDialog();
-                break;
-            case MenuConstants.STORESETTINGS:
+            case MenuConstants.STORELOCATIONONMAP:
                 AppUtils.shortToast(SettingsActivity.this, getString(
-                        R.string.title_menu_store_settings));
+                        R.string.title_menu_store_location_on_map));
                 break;
             case MenuConstants.BILLFORMAT:
                 AppUtils.shortToast(SettingsActivity.this, getString(
                         R.string.title_menu_bill_format));
                 break;
-            case MenuConstants.STORELOCATIONONMAP:
+            case MenuConstants.TIMEINGS:
                 AppUtils.shortToast(SettingsActivity.this, getString(
-                        R.string.title_menu_store_location_on_map));
+                        R.string.title_menu_timings));
                 break;
+
+            case MenuConstants.STORESETTINGS:
+                AppUtils.shortToast(SettingsActivity.this, getString(
+                        R.string.title_menu_store_settings));
+                break;
+
+
             case MenuConstants.CONTACTDETAILS:
                 AppUtils.shortToast(SettingsActivity.this, getString(
                         R.string.title_menu_contact_details));
                 break;
-            case MenuConstants.TIMEINGS:
-                AppUtils.shortToast(SettingsActivity.this, getString(
-                        R.string.title_menu_timeings));
-                break;
+
             case MenuConstants.ACCOUNTSETTINGS:
                 AppUtils.shortToast(SettingsActivity.this, getString(
                         R.string.title_menu_account_settings));
+                break;
+            case MenuConstants.LOGOUT:
+                showLogoutDialog();
                 break;
 
             default:

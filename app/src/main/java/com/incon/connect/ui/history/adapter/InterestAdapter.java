@@ -8,10 +8,9 @@ import android.view.ViewGroup;
 
 import com.incon.connect.BR;
 import com.incon.connect.R;
-import com.incon.connect.apimodel.components.history.purchased.InterestResponse;
+import com.incon.connect.apimodel.components.history.purchased.InterestHistoryResponse;
 import com.incon.connect.callbacks.IClickCallback;
 import com.incon.connect.databinding.ItemInterestFragmentBinding;
-import com.incon.connect.utils.DateUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +21,7 @@ import java.util.List;
 
 public class InterestAdapter extends RecyclerView.Adapter
         <InterestAdapter.ViewHolder> {
-    private List<InterestResponse> lnterestList = new ArrayList<>();
+    private List<InterestHistoryResponse> lnterestList = new ArrayList<>();
     private IClickCallback clickCallback;
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -34,10 +33,8 @@ public class InterestAdapter extends RecyclerView.Adapter
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        InterestResponse interestResponse = lnterestList.get(position);
+        InterestHistoryResponse interestResponse = lnterestList.get(position);
         holder.bind(interestResponse);
-
-
 
     }
 
@@ -45,8 +42,8 @@ public class InterestAdapter extends RecyclerView.Adapter
     public int getItemCount() {
         return lnterestList.size();
     }
-    public  void setData(List<InterestResponse> taskResponseList) {
-        lnterestList = taskResponseList;
+    public  void setData(List<InterestHistoryResponse> interestHistoryResponseList) {
+        lnterestList = interestHistoryResponseList;
         notifyDataSetChanged();
 
     }
@@ -61,8 +58,6 @@ public class InterestAdapter extends RecyclerView.Adapter
 
 
 
-
-
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener  {
         private final ItemInterestFragmentBinding binding;
         public ViewHolder(ItemInterestFragmentBinding binding) {
@@ -70,10 +65,8 @@ public class InterestAdapter extends RecyclerView.Adapter
             this.binding = binding;
             binding.getRoot().setOnClickListener(this);
         }
-        public void bind(InterestResponse topCourse) {
-            binding.setVariable(BR.interestResponse, topCourse);
-            binding.textTaskTime.setText(DateUtils.formatTimeDay(System.currentTimeMillis()
-                    - topCourse.getId() * 1000));
+        public void bind(InterestHistoryResponse interestHistoryResponse) {
+            binding.setVariable(BR.interestHistoryResponse, interestHistoryResponse);
             binding.executePendingBindings();
         }
 

@@ -1,8 +1,11 @@
 package com.incon.connect.api;
 
 import com.incon.connect.apimodel.base.ApiBaseResponse;
+import com.incon.connect.apimodel.components.buyrequest.BuyRequestResponse;
 import com.incon.connect.apimodel.components.defaults.DefaultsResponse;
+import com.incon.connect.apimodel.components.history.purchased.InterestHistoryResponse;
 import com.incon.connect.apimodel.components.history.purchased.PurchasedHistoryResponse;
+import com.incon.connect.apimodel.components.history.purchased.ReturnHistoryResponse;
 import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.apimodel.components.qrcodebaruser.UserInfoResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
@@ -55,6 +58,17 @@ public interface AppServiceObservable {
 
     @GET("merchant/history/purchased/{userId}")
     Observable<List<PurchasedHistoryResponse>> purchasedApi(@Path("userId") int userId);
+
+//    TODO Change purchased to interest
+    @GET("merchant/history/purchased/{userId}")
+    Observable<List<InterestHistoryResponse>> interestApi(@Path("userId") int userId);
+
+    //    TODO Change purchased to return
+    @GET("merchant/history/purchased/{userId}")
+    Observable<List<ReturnHistoryResponse>> returnApi(@Path("userId") int userId);
+
+    @POST("user/buyrequest/{merchantId}")
+    Observable<List<BuyRequestResponse>> buyRequestApi(@Path("merchantId") int merchantId);
 
     @GET("user/getuser/{phoneNumber}")
     Observable<UserInfoResponse> userInfoUsingPhoneNumber(@Path("phoneNumber") String phoneNumber);

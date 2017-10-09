@@ -55,7 +55,6 @@ public class PurchasedFragment extends BaseFragment implements PurchasedContract
             binding = DataBindingUtil.inflate(inflater, R.layout.fragment_purchased,
                     container, false);
 
-
             loadBottomSheet();
             initViews();
             rootView = binding.getRoot();
@@ -162,7 +161,6 @@ public class PurchasedFragment extends BaseFragment implements PurchasedContract
                     purchasedPresenter.purchased(userId);
                 }
             };
-
 
 
     private void dismissSwipeRefresh() {

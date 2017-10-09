@@ -12,13 +12,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.incon.connect.R;
-import com.incon.connect.apimodel.components.history.purchased.ReturnResponse;
+import com.incon.connect.apimodel.components.history.purchased.ReturnHistoryResponse;
 import com.incon.connect.callbacks.IClickCallback;
 import com.incon.connect.databinding.BottomSheetReturnBinding;
 import com.incon.connect.databinding.CustomBottomViewBinding;
 import com.incon.connect.databinding.FragmentReturnBinding;
 import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.history.adapter.ReturnAdapter;
+import com.incon.connect.utils.SharedPrefsUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,17 +30,20 @@ import java.util.Random;
  */
 
 public class ReturnFragment extends BaseFragment implements ReturnContract.View {
-
-    private FragmentReturnBinding binding;
     private View rootView;
-    private List<ReturnResponse> returnList;
+    private FragmentReturnBinding binding;
+    private ReturnPresenter returnPresenter;
+    private List<ReturnHistoryResponse> returnList;
     private ReturnAdapter returnAdapter;
-
+    private int userId;
     private BottomSheetDialog bottomSheetDialog;
     private BottomSheetReturnBinding bottomSheetReturnBinding;
 
     @Override
     protected void initializePresenter() {
+        returnPresenter = new ReturnPresenter();
+        returnPresenter.setView(this);
+        setBasePresenter(returnPresenter);
 
     }
 
@@ -82,22 +86,13 @@ public class ReturnFragment extends BaseFragment implements ReturnContract.View 
         binding.returnRecyclerview.addItemDecoration(dividerItemDecoration);
         binding.returnRecyclerview.setAdapter(returnAdapter);
         binding.returnRecyclerview.setLayoutManager(linearLayoutManager);
-        addTestData();
+
+        userId = SharedPrefsUtils.loginProvider().getIntegerPreference(
+                LoginPrefs.USER_ID, DEFAULT_VALUE);
+        returnPresenter.returnH(userId);
 
     }
 
-    private void addTestData() {
-        for (int i = 0; i < 5; i++) {
-            ReturnResponse returnResponse = new ReturnResponse();
-            returnResponse.setId(i);
-            returnResponse.setPositionText();
-            returnList.add(returnResponse);
-        }
-        returnAdapter.setData(returnList);
-        dismissSwipeRefresh();
-
-
-    }
 
     private void dismissSwipeRefresh() {
         if (binding.swiperefresh.isRefreshing()) {
@@ -169,11 +164,20 @@ public class ReturnFragment extends BaseFragment implements ReturnContract.View 
                 @Override
                 public void onRefresh() {
                     returnAdapter.clearData();
-                    // Get alerts of account api
-                    addTestData();
+                    returnPresenter.returnH(userId);
+
                 }
             };
 
 
+    @Override
+    public void loadReturnHistory(List<ReturnHistoryResponse> returnHistoryResponseList) {
+        if (returnHistoryResponseList == null) {
+            returnHistoryResponseList = new ArrayList<>();
+        }
+        this.returnList = returnHistoryResponseList;
+        returnAdapter.setData(returnList);
+        dismissSwipeRefresh();
 
+    }
 }

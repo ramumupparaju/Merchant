@@ -8,10 +8,9 @@ import android.view.ViewGroup;
 
 import com.incon.connect.BR;
 import com.incon.connect.R;
-import com.incon.connect.apimodel.components.history.purchased.ReturnResponse;
+import com.incon.connect.apimodel.components.history.purchased.ReturnHistoryResponse;
 import com.incon.connect.callbacks.IClickCallback;
 import com.incon.connect.databinding.ItemReturnFragmentBinding;
-import com.incon.connect.utils.DateUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +21,7 @@ import java.util.List;
 
 public class ReturnAdapter extends  RecyclerView.Adapter
         <ReturnAdapter.ViewHolder>  {
-    private List<ReturnResponse> returnList = new ArrayList<>();
+    private List<ReturnHistoryResponse> returnList = new ArrayList<>();
     private IClickCallback clickCallback;
 
     @Override
@@ -35,8 +34,8 @@ public class ReturnAdapter extends  RecyclerView.Adapter
 
     @Override
     public void onBindViewHolder(ReturnAdapter.ViewHolder holder, int position) {
-        ReturnResponse returnResponse = returnList.get(position);
-        holder.bind(returnResponse);
+        ReturnHistoryResponse returnHistoryResponse = returnList.get(position);
+        holder.bind(returnHistoryResponse);
     }
 
     @Override
@@ -45,8 +44,8 @@ public class ReturnAdapter extends  RecyclerView.Adapter
     }
 
 
-    public void setData(List<ReturnResponse> taskResponseList) {
-        returnList = taskResponseList;
+    public void setData(List<ReturnHistoryResponse> returnHistoryResponseList) {
+        returnList = returnHistoryResponseList;
         notifyDataSetChanged();
     }
 
@@ -70,10 +69,9 @@ public class ReturnAdapter extends  RecyclerView.Adapter
         }
 
 
-        public void bind(ReturnResponse topCourse) {
-            binding.setVariable(BR.returnResponse, topCourse);
-            binding.textTaskTime.setText(DateUtils.formatTimeDay(System.currentTimeMillis()
-                    - topCourse.getId() * 1000));
+        public void bind(ReturnHistoryResponse returnHistoryResponse) {
+            binding.setVariable(BR.returnHistoryResponse
+                    , returnHistoryResponse);
             binding.executePendingBindings();
         }
 

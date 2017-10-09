@@ -8,68 +8,24 @@ public class BuyRequestResponse {
     @SerializedName("id")
     @Expose
     private Integer id;
-    @SerializedName("positiontext")
+    @SerializedName("merchantId")
     @Expose
-    private String positionText;
-    @SerializedName("brandName")
+    private Integer merchantId;
+    @SerializedName("qrcodeid")
     @Expose
-    private String brandName;
-    @SerializedName("brandType")
+    private Integer qrcodeid;
+    @SerializedName("customerId")
     @Expose
-    private String brandType;
-    @SerializedName("buyingStatus")
+    private Integer customerId;
+    @SerializedName("status")
     @Expose
-    private String buyingStatus;
-    @SerializedName("productName")
+    private Object status;
+    @SerializedName("createdDate")
     @Expose
-    private String productName;
-    @SerializedName("dateRequested")
+    private Object createdDate;
+    @SerializedName("createdBy")
     @Expose
-    private String dateRequested;
-
-    public void setPositionText(String positionText) {
-        this.positionText = positionText;
-    }
-
-    public String getBrandName() {
-        return brandName;
-    }
-
-    public void setBrandName(String brandName) {
-        this.brandName = brandName;
-    }
-
-    public String getBrandType() {
-        return brandType;
-    }
-
-    public void setBrandType(String brandType) {
-        this.brandType = brandType;
-    }
-
-    public String getBuyingStatus() {
-        return buyingStatus;
-    }
-
-    public void setBuyingStatus(String buyingStatus) {
-        this.buyingStatus = buyingStatus;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-
-    public String getDateRequested() {
-        return dateRequested;
-    }
-
-    public void setDateRequested(String dateRequested) {
-        this.dateRequested = dateRequested;
-    }
+    private Integer createdBy;
 
     public Integer getId() {
         return id;
@@ -79,12 +35,52 @@ public class BuyRequestResponse {
         this.id = id;
     }
 
-
-    public void setPositionText() {
-        positionText = "position :" + id;
+    public Integer getMerchantId() {
+        return merchantId;
     }
 
-    public String getPositionText() {
-        return positionText;
+    public void setMerchantId(Integer merchantId) {
+        this.merchantId = merchantId;
     }
+
+    public Integer getQrcodeid() {
+        return qrcodeid;
+    }
+
+    public void setQrcodeid(Integer qrcodeid) {
+        this.qrcodeid = qrcodeid;
+    }
+
+    public Integer getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
+    }
+
+    public Object getStatus() {
+        return status;
+    }
+
+    public void setStatus(Object status) {
+        this.status = status;
+    }
+
+    public Object getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Object createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Integer getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(Integer createdBy) {
+        this.createdBy = createdBy;
+    }
+
 }

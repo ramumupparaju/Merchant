@@ -1,4 +1,4 @@
-package com.incon.connect.ui.history.adapter;
+package com.incon.connect.ui.buyrequets.adapter;
 
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
@@ -44,8 +44,8 @@ public class BuyRequestAdapter extends RecyclerView.Adapter
     }
 
 
-    public void setData(List<BuyRequestResponse> taskResponseList) {
-        buyRequestList = taskResponseList;
+    public void setData(List<BuyRequestResponse> buyRequestResponseList) {
+        buyRequestList = buyRequestResponseList;
         notifyDataSetChanged();
     }
 
@@ -69,8 +69,8 @@ public class BuyRequestAdapter extends RecyclerView.Adapter
         }
 
 
-        public void bind(BuyRequestResponse topCourse) {
-            binding.setVariable(BR.buyRequestResponse, topCourse);
+        public void bind(BuyRequestResponse buyRequestResponse) {
+            binding.setVariable(BR.buyRequestResponse, buyRequestResponse);
             binding.executePendingBindings();
         }
 

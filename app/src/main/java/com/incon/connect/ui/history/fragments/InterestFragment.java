@@ -12,13 +12,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.incon.connect.R;
-import com.incon.connect.apimodel.components.history.purchased.InterestResponse;
+import com.incon.connect.apimodel.components.history.purchased.InterestHistoryResponse;
 import com.incon.connect.callbacks.IClickCallback;
 import com.incon.connect.databinding.BottomSheetInterestBinding;
 import com.incon.connect.databinding.CustomBottomViewBinding;
 import com.incon.connect.databinding.FragmentInterestBinding;
 import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.history.adapter.InterestAdapter;
+import com.incon.connect.utils.SharedPrefsUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,12 +30,13 @@ import java.util.Random;
  */
 
 public class InterestFragment extends BaseFragment implements InterestContract.View {
-    FragmentInterestBinding binding;
-    InterestPresenter interestPresenter;
-    private List<InterestResponse> interestList;
-    InterestAdapter interestAdapter;
-    private BottomSheetInterestBinding bottomSheetInterestBinding;
-    private BottomSheetDialog bottomSheetDialog;
+     private FragmentInterestBinding binding;
+     private InterestPresenter interestPresenter;
+     private List<InterestHistoryResponse> interestList;
+     private int userId;
+     private InterestAdapter interestAdapter;
+     private BottomSheetInterestBinding bottomSheetInterestBinding;
+     private BottomSheetDialog bottomSheetDialog;
 
 
     private View rootView;
@@ -56,7 +58,6 @@ public class InterestFragment extends BaseFragment implements InterestContract.V
             initViews();
             loadBottomSheet();
 
-
             rootView = binding.getRoot();
         }
         return rootView;
@@ -76,6 +77,7 @@ public class InterestFragment extends BaseFragment implements InterestContract.V
     private void initViews() {
         binding.swiperefresh.setColorSchemeResources(R.color.colorPrimaryDark);
         binding.swiperefresh.setOnRefreshListener(onRefreshListener);
+
         interestList = new ArrayList<>();
         interestAdapter = new InterestAdapter();
         interestAdapter.setData(interestList);
@@ -86,30 +88,14 @@ public class InterestFragment extends BaseFragment implements InterestContract.V
         binding.interestRecyclerview.addItemDecoration(dividerItemDecoration);
         binding.interestRecyclerview.setAdapter(interestAdapter);
         binding.interestRecyclerview.setLayoutManager(linearLayoutManager);
-        addTestData();
 
+        userId = SharedPrefsUtils.loginProvider().getIntegerPreference(
+                LoginPrefs.USER_ID, DEFAULT_VALUE);
+        interestPresenter.interest(userId);
     }
 
-    private void addTestData() {
-        for (int i = 0; i < 5; i++) {
-            InterestResponse interestResponse = new InterestResponse();
-            interestResponse.setId(i);
-            interestResponse.setPositionText();
-            interestList.add(interestResponse);
-        }
-        interestAdapter.setData(interestList);
-        dismissSwipeRefresh();
 
 
-    }
-
-    private void dismissSwipeRefresh() {
-        if (binding.swiperefresh.isRefreshing()) {
-            binding.swiperefresh.setRefreshing(false);
-        }
-
-
-    }
 
     private IClickCallback iClickCallback = new IClickCallback() {
         @Override
@@ -173,11 +159,24 @@ public class InterestFragment extends BaseFragment implements InterestContract.V
                 @Override
                 public void onRefresh() {
                     interestAdapter.clearData();
-                    // Get alerts of account api
-                    addTestData();
+                    interestPresenter.interest(userId);
                 }
             };
+    private void dismissSwipeRefresh() {
+        if (binding.swiperefresh.isRefreshing()) {
+            binding.swiperefresh.setRefreshing(false);
+        }
+    }
 
+    @Override
+    public void loadInterestHistory(List<InterestHistoryResponse> interestHistoryResponseList) {
+        if (interestHistoryResponseList == null) {
+            interestHistoryResponseList = new ArrayList<>();
+        }
+        this.interestList = interestHistoryResponseList;
+        interestAdapter.setData(interestList);
+        dismissSwipeRefresh();
+    }
 
 
 }

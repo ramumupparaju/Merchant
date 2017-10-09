@@ -1,6 +1,5 @@
 package com.incon.connect.ui.buyrequets;
 
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -16,9 +15,9 @@ import com.incon.connect.apimodel.components.buyrequest.BuyRequestResponse;
 import com.incon.connect.callbacks.IClickCallback;
 import com.incon.connect.databinding.FragmentBuyRequestBinding;
 import com.incon.connect.ui.BaseFragment;
-import com.incon.connect.ui.history.adapter.BuyRequestAdapter;
+import com.incon.connect.ui.buyrequets.adapter.BuyRequestAdapter;
 import com.incon.connect.ui.home.HomeActivity;
-import com.incon.connect.ui.qrcodescan.QrcodeBarcodeScanActivity;
+import com.incon.connect.utils.SharedPrefsUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,23 +31,19 @@ public class BuyRequestFragment extends BaseFragment implements BuyRequestContra
 
         private static final String TAG = BuyRequestFragment.class.getSimpleName();
     private FragmentBuyRequestBinding binding;
-    //    private ToolBarBinding toolBarBinding;
     private View rootView;
     private List<BuyRequestResponse> buyRequestList;
     private BuyRequestAdapter buyRequestAdapter;
-    private String imageUrl = "https://thegreatergroup.com/wp-content/uploads/samsung-logo.jpeg";
-    private String imageLogoUrl = "https://www.thegoodguys.com.au/wcsstore/TGGCAS/idcplg?"
-           + "IdcService="
-            + "GET_FILE&RevisionSelectionMethod=LatestReleased&noSaveAs=1&dDocName=50033329_119905"
-           + "&Rendition=ZOOMIMAGE";
+    private BuyRequestPresenter buyRequestPresenter;
+    private int merchantId;
 
-//    private Typeface defaultTypeFace;
-//    private Typeface selectedTypeFace;
-//    private String[] tabTitles;
-//    private HistoryTabPagerAdapter adapter;
+
 
     @Override
     protected void initializePresenter() {
+        buyRequestPresenter = new BuyRequestPresenter();
+        buyRequestPresenter.setView(this);
+        setBasePresenter(buyRequestPresenter);
 
     }
 
@@ -82,20 +77,22 @@ public class BuyRequestFragment extends BaseFragment implements BuyRequestContra
         binding.buyRequestRecyclerview.addItemDecoration(dividerItemDecoration);
         binding.buyRequestRecyclerview.setAdapter(buyRequestAdapter);
         binding.buyRequestRecyclerview.setLayoutManager(linearLayoutManager);
+
+        merchantId = SharedPrefsUtils.loginProvider().getIntegerPreference(
+                LoginPrefs.USER_ID, DEFAULT_VALUE);
+        buyRequestPresenter.buyRequest(merchantId);
+
     }
     private SwipeRefreshLayout.OnRefreshListener onRefreshListener =
             new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
                     buyRequestAdapter.clearData();
-                    // Get alerts of account api
-                    addTestData();
+                    buyRequestPresenter.buyRequest(merchantId);
+
                 }
             };
-    public void onScanningClick() {
-        Intent intent = new Intent(getActivity(), QrcodeBarcodeScanActivity.class);
-        startActivity(intent);
-    }
+
 
     private IClickCallback iClickCallback = new IClickCallback() {
         @Override
@@ -103,24 +100,23 @@ public class BuyRequestFragment extends BaseFragment implements BuyRequestContra
             AppUtils.showSnackBar(getView() , "Accepted" + position);
         }
     };
-    private void addTestData() {
-        for (int i = 0; i < 5; i++) {
-            BuyRequestResponse taskResponse = new BuyRequestResponse();
-            taskResponse.setId(i);
-            taskResponse.setPositionText();
-            taskResponse.setBrandName(imageUrl);
-            taskResponse.setBrandType(imageLogoUrl);
-            taskResponse.setBuyingStatus("Pending");
-            taskResponse.setDateRequested("02/10/2017");
-            buyRequestList.add(taskResponse);
-        }
-        buyRequestAdapter.setData(buyRequestList);
-        dismissSwipeRefresh();
-    }
 
     private void dismissSwipeRefresh() {
         if (binding.swiperefresh.isRefreshing()) {
             binding.swiperefresh.setRefreshing(false);
         }
+    }
+
+    @Override
+    public void loadBuyRequest(List<BuyRequestResponse> buyRequestResponseList) {
+        if (buyRequestResponseList == null) {
+            buyRequestResponseList = new ArrayList<>();
+        }
+        this.buyRequestList = buyRequestResponseList;
+        buyRequestAdapter.setData(buyRequestList);
+        dismissSwipeRefresh();
+
+
+
     }
 }
