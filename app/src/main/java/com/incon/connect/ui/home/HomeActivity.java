@@ -79,7 +79,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         initializeToolBar();
     }
 
-
     public void setToolbarTitle(String title) {
         toolBarBinding.toolbarTitleTv.setText(title);
 

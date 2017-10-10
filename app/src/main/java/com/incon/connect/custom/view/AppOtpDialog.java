@@ -9,7 +9,6 @@ import android.view.Window;
 import android.widget.EditText;
 
 import com.incon.connect.R;
-import com.incon.connect.callbacks.AlertDialogCallback;
 import com.incon.connect.callbacks.TextAlertDialogCallback;
 import com.incon.connect.databinding.ViewVerifyOtpBinding;
 
@@ -44,6 +43,7 @@ public class AppOtpDialog extends Dialog implements View.OnClickListener {
                 context.getString(R.string.action_next));
         viewVerifyOtpBinding.includeRegisterBottomButtons.buttonLeft.setOnClickListener(this);
         viewVerifyOtpBinding.includeRegisterBottomButtons.buttonRight.setOnClickListener(this);
+        viewVerifyOtpBinding.resendOtpTv.setOnClickListener(this);
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(contentView);
@@ -58,12 +58,15 @@ public class AppOtpDialog extends Dialog implements View.OnClickListener {
             return;
         }
         switch (view.getId()) {
+            case R.id.resend_otp_tv:
+                mAlertDialogCallback.alertDialogCallback(TextAlertDialogCallback.RESEND_OTP);
+                break;
             case R.id.button_left:
-                mAlertDialogCallback.alertDialogCallback(AlertDialogCallback.CANCEL);
+                mAlertDialogCallback.alertDialogCallback(TextAlertDialogCallback.CANCEL);
                 break;
             case R.id.button_right:
                 mAlertDialogCallback.enteredText(editTextOtp.getText().toString());
-                mAlertDialogCallback.alertDialogCallback(AlertDialogCallback.OK);
+                mAlertDialogCallback.alertDialogCallback(TextAlertDialogCallback.OK);
                 break;
             default:
                 break;
