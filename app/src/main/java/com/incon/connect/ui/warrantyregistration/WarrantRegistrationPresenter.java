@@ -9,11 +9,10 @@ import com.incon.connect.AppConstants;
 import com.incon.connect.ConnectApplication;
 import com.incon.connect.R;
 import com.incon.connect.api.AppApiService;
+import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.apimodel.components.search.ModelSearchResponse;
 import com.incon.connect.dto.warrantyregistration.WarrantyRegistration;
 import com.incon.connect.ui.BasePresenter;
-import com.incon.connect.ui.register.fragment.RegistrationStoreFragmentContract;
-import com.incon.connect.ui.register.fragment.RegistrationStoreFragmentPresenter;
 import com.incon.connect.utils.ErrorMsgUtil;
 
 import java.util.HashMap;
@@ -76,9 +75,10 @@ public class WarrantRegistrationPresenter extends BasePresenter<WarrantRegistrat
 
                     @Override
                     public void onError(Throwable e) {
-                        getView().hideProgress();
+                        WarrantRegistrationContract.View view = getView();
+                        view.hideProgress();
                         Pair<Integer, String> errorDetails = ErrorMsgUtil.getErrorDetails(e);
-                        getView().handleException(errorDetails);
+                        view.handleException(errorDetails);
                     }
 
                     @Override
@@ -91,52 +91,28 @@ public class WarrantRegistrationPresenter extends BasePresenter<WarrantRegistrat
     }
 
     @Override
-    public void validateOTP(HashMap<String, String> verifyOTP) {
-        RegistrationStoreFragmentPresenter storeFragmentPresenter = new
-                RegistrationStoreFragmentPresenter();
-        storeFragmentPresenter.setView(view);
-        storeFragmentPresenter.validateOTP(verifyOTP);
+    public void validateUserOTP(HashMap<String, String> verify) {
+        getView().showProgress(appContext.getString(R.string.validating_code));
+        DisposableObserver<LoginResponse> observer = new DisposableObserver<LoginResponse>() {
+            @Override
+            public void onNext(LoginResponse loginResponse) {
+                WarrantRegistrationContract.View view = getView();
+                view.hideProgress();
+                view.validateUserOTP();
+            }
+            @Override
+            public void onError(Throwable e) {
+                WarrantRegistrationContract.View view = getView();
+                view.hideProgress();
+                Pair<Integer, String> errorDetails = ErrorMsgUtil.getErrorDetails(e);
+                view.handleException(errorDetails);
+            }
+            @Override
+            public void onComplete() {
+                getView().hideProgress();
+            }
+        };
+        AppApiService.getInstance().validateOtp(verify).subscribe(observer);
+        addDisposable(observer);
     }
-
-    RegistrationStoreFragmentContract.View view = new RegistrationStoreFragmentContract.View() {
-        @Override
-        public void navigateToRegistrationActivityNext() {
-//Do nothing
-        }
-
-        @Override
-        public void navigateToHomeScreen() {
-//Do nothing
-        }
-
-        @Override
-        public void uploadStoreLogo(int storeId) {
-//Do nothing
-        }
-
-        @Override
-        public void validateOTP() {
-            getView().validateOtp();
-        }
-
-        @Override
-        public void showProgress(String message) {
-            getView().showProgress(message);
-        }
-
-        @Override
-        public void hideProgress() {
-            getView().hideProgress();
-        }
-
-        @Override
-        public void showErrorMessage(String errorMessage) {
-            getView().showErrorMessage(errorMessage);
-        }
-
-        @Override
-        public void handleException(Pair<Integer, String> error) {
-            getView().handleException(error);
-        }
-    };
 }

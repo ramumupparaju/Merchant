@@ -14,12 +14,12 @@ public interface WarrantRegistrationContract {
     interface View extends BaseView {
         void loadModelNumberData(List<ModelSearchResponse> modelSearchResponseList);
         void warrantyRegistered(Object warrantyRegisteredResponse);
-        void validateOtp();
+        void validateUserOTP();
     }
 
     interface Presenter {
         void doModelSearchApi(String modelNumberToSearch);
         void doWarrantyRegistrationApi(WarrantyRegistration warrantyRegistration);
-        void validateOTP(HashMap<String, String> verifyOTP);
+        void validateUserOTP(HashMap<String, String> verifyOTP);
     }
 }

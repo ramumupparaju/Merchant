@@ -281,6 +281,8 @@
     <string name="title_history">History</string>
     <string name="title_buy_requests">Buy requests</string>
     <string name="title_scan">Scan</string>
+    <string name="title_warranty_register">Warranty Registration</string>
+    <string name="title_add_new_model">New Model</string>
     <string name="title_offers">Offers</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_qr_code_scanner">QR Code Scanner</string>
