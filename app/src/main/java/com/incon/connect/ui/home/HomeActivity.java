@@ -101,8 +101,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         toolBarBinding.toolbarRightIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, QrcodeBarcodeScanActivity.class);
-                startActivity(intent);
+                onAssignProductClick();
             }
         });
         replaceToolBar(toolBarBinding.toolbar);

@@ -1,51 +1,57 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android">
+
     <data>
+
         <variable
             name="productassignfragment"
             type="com.incon.connect.ui.home.asignqrcode.fragment.ProductAssignFragment"/>
     </data>
 
     <LinearLayout
-        android:background="@color/white"
         style="@style/BothMatch"
+        android:background="@color/white"
         >
+
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swiperefresh"
             style="@style/MatchWrap">
 
 
             <LinearLayout
-                android:orientation="vertical"
-                style="@style/BothMatch">
+                style="@style/BothMatch"
+                android:orientation="vertical">
 
                 <LinearLayout
+                    style="@style/MatchWrap"
                     android:layout_marginTop="@dimen/margin_8"
                     android:orientation="vertical"
-                    style="@style/MatchWrap"
                     >
+
                     <LinearLayout
-                        android:layout_weight="1"
-                        android:layout_marginTop="@dimen/margin_8"
-                        android:orientation="horizontal"
                         style="@style/MatchWrap"
+                        android:layout_marginTop="@dimen/margin_8"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
                         >
+
                         <TextView
                             style="@style/text_field"
-                            android:text="@string/action_modelno" />
+                            android:text="@string/action_modelno"/>
 
                         <EditText
-                            style="@style/edit_field"
-                            android:id="@+id/search_view">
+                            android:id="@+id/search_view"
+                            style="@style/edit_field">
 
                         </EditText>
 
                     </LinearLayout>
+
                     <View
+                        style="@style/view"
                         android:layout_marginBottom="@dimen/margin_10"
                         android:layout_marginTop="@dimen/margin_8"
-                        android:background="@color/edit_background"
-                        style="@style/view"/>
+                        android:background="@color/edit_background"/>
                     <!--  <LinearLayout
                           android:layout_weight="1"
                           style="@style/MatchWrap">
@@ -57,81 +63,96 @@
                       </LinearLayout>-->
 
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/linear_price_details"
-                    android:orientation="vertical"
-                    style="@style/MatchWrap">
+                    style="@style/MatchWrap"
+                    android:orientation="vertical">
+
                     <LinearLayout
+                        style="@style/MatchWrap"
                         android:layout_marginBottom="5dp"
                         android:layout_weight="1"
-                        android:orientation="horizontal"
-                        style="@style/MatchWrap">
+                        android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_weight="1"
-                            style="@style/MatchWrap">
+                            style="@style/MatchWrap"
+                            android:layout_weight="1">
+
                             <TextView
                                 style="@style/text_field"
-                                android:text="@string/action_price" />
+                                android:text="@string/action_price"/>
+
                             <EditText
-                                android:inputType="number"
-                                style="@style/edit_field"
                                 android:id="@+id/et_price"
+                                style="@style/edit_field"
+                                android:inputType="number"
                                 />
                         </LinearLayout>
 
                     </LinearLayout>
+
                     <View
+                        style="@style/view"
                         android:layout_marginBottom="@dimen/margin_10"
                         android:layout_marginTop="@dimen/margin_8"
-                        android:background="@color/edit_background"
-                        style="@style/view"/>
+                        android:background="@color/edit_background"/>
+
                     <LinearLayout
-                        android:layout_weight="1"
-                        android:orientation="horizontal"
                         style="@style/MatchWrap"
-                        >
-                        <TextView
-                            style="@style/text_field"
-                            android:text="@string/action_batchno" />
-                        <EditText
-                            style="@style/edit_field"
-                            android:id="@+id/et_batchno" />
-
-                    </LinearLayout>
-                    <View
-                        android:layout_marginBottom="@dimen/margin_10"
-                        android:layout_marginTop="@dimen/margin_8"
-                        android:background="@color/edit_background"
-                        style="@style/view"/>
-                    <LinearLayout
                         android:layout_weight="1"
                         android:orientation="horizontal"
-                        style="@style/MatchWrap">
+                        >
+
                         <TextView
                             style="@style/text_field"
-                            android:text="@string/action_serialno" />
+                            android:text="@string/action_batchno"/>
+
                         <EditText
-                            style="@style/edit_field"
-                            android:id="@+id/et_serialno" />
+                            android:id="@+id/et_batchno"
+                            style="@style/edit_field"/>
 
                     </LinearLayout>
+
                     <View
+                        style="@style/view"
                         android:layout_marginBottom="@dimen/margin_10"
                         android:layout_marginTop="@dimen/margin_8"
-                        android:background="@color/edit_background"
-                        style="@style/view"/>
+                        android:background="@color/edit_background"/>
+
+                    <LinearLayout
+                        style="@style/MatchWrap"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/text_field"
+                            android:text="@string/action_serialno"/>
+
+                        <EditText
+                            android:id="@+id/et_serialno"
+                            style="@style/edit_field"/>
+
+                    </LinearLayout>
+
+                    <View
+                        style="@style/view"
+                        android:layout_marginBottom="@dimen/margin_10"
+                        android:layout_marginTop="@dimen/margin_8"
+                        android:background="@color/edit_background"/>
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_weight="1"
                     style="@style/MatchWrap"
+                    android:layout_weight="1"
                     >
+
                     <LinearLayout
-                        android:orientation="vertical"
                         style="@style/BothMatch"
+                        android:orientation="vertical"
                         >
+
                         <Button
                             android:id="@+id/button_submit"
                             style="@style/submit_button"
