@@ -25,6 +25,7 @@ import com.jakewharton.rxbinding2.widget.TextViewAfterTextChangeEvent;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 import io.reactivex.Observable;
 import io.reactivex.observers.DisposableObserver;
@@ -113,8 +114,14 @@ public class RegistrationMapActivity extends BaseActivity implements OnMapReadyC
     }
 
     private void fetchLocationFromZipcode() {
+
+        if (!Geocoder.isPresent()) {
+//todo error msg to fill manually
+            return;
+        }
         try {
-            List<Address> addressList = new Geocoder(RegistrationMapActivity.this).
+            Geocoder geocoder = new Geocoder(RegistrationMapActivity.this, Locale.getDefault());
+            List<Address> addressList = geocoder.
                     getFromLocationName(binding.edittextPincode.getText().toString(),
                             GoogleMapConstants.GEOCODER_MAX_ADDRESS_RESULTS);
             if (addressList != null && addressList.size() > 0) {
@@ -127,6 +134,7 @@ public class RegistrationMapActivity extends BaseActivity implements OnMapReadyC
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
 
@@ -184,9 +192,14 @@ public class RegistrationMapActivity extends BaseActivity implements OnMapReadyC
     }
 
     private void loadLocationDetailsFromGeocoder() {
+
+        if (!Geocoder.isPresent()) {
+//todo error msg to fill manually
+            return;
+        }
+
         //fetching address using geo coder
-        Geocoder geocoder =
-                new Geocoder(RegistrationMapActivity.this);
+        Geocoder geocoder = new Geocoder(RegistrationMapActivity.this, Locale.getDefault());
         List<Address> list = null;
 
         LatLng latLng = locationAddress;

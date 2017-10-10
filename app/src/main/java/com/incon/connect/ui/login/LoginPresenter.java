@@ -11,7 +11,11 @@ import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.data.login.LoginDataManagerImpl;
 import com.incon.connect.dto.login.LoginUserData;
 import com.incon.connect.ui.BasePresenter;
+import com.incon.connect.ui.validateotp.ValidateOtpContract;
+import com.incon.connect.ui.validateotp.ValidateOtpPresenter;
 import com.incon.connect.utils.ErrorMsgUtil;
+
+import java.util.HashMap;
 
 import io.reactivex.observers.DisposableObserver;
 
@@ -55,6 +59,45 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
         AppApiService.getInstance().login(loginUserData).subscribe(observer);
         addDisposable(observer);
     }
+
+    @Override
+    public void validateOTP(HashMap<String, String> verify) {
+        getView().showProgress(appContext.getString(R.string.validating_code));
+        ValidateOtpPresenter otpPresenter = new ValidateOtpPresenter();
+        otpPresenter.initialize(null);
+        otpPresenter.setView(otpView);
+        otpPresenter.validateOTP(verify);
+    }
+
+    ValidateOtpContract.View otpView = new ValidateOtpContract.View() {
+        @Override
+        public void validateOTP(LoginResponse loginResponse) {
+// save login data to shared preferences
+            loginDataManagerImpl.saveLoginDataToPrefs(loginResponse);
+            getView().hideProgress();
+            getView().navigateToHomePage(loginResponse);
+        }
+
+        @Override
+        public void showProgress(String message) {
+            getView().showProgress(message);
+        }
+
+        @Override
+        public void hideProgress() {
+            getView().hideProgress();
+        }
+
+        @Override
+        public void showErrorMessage(String errorMessage) {
+            getView().showErrorMessage(errorMessage);
+        }
+
+        @Override
+        public void handleException(Pair<Integer, String> error) {
+            getView().handleException(error);
+        }
+    };
 
     public void saveLoginData(LoginResponse loginResponse) {
         // save login response to shared preferences

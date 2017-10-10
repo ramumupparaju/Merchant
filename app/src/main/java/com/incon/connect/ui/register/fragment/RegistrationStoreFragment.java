@@ -43,6 +43,7 @@ import com.incon.connect.ui.termsandcondition.TermsAndConditionActivity;
 import com.incon.connect.utils.Logger;
 import com.incon.connect.utils.OfflineDataManager;
 import com.incon.connect.utils.PermissionUtils;
+import com.incon.connect.utils.SharedPrefsUtils;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import java.io.File;
@@ -389,6 +390,11 @@ public class RegistrationStoreFragment extends BaseFragment implements
 
     @Override
     public void validateOTP() {
+        //make it as registration done but not verified otp
+        SharedPrefsUtils.loginProvider().setBooleanPreference(LoginPrefs.IS_REGISTERED, true);
+        SharedPrefsUtils.loginProvider().setStringPreference(LoginPrefs.USER_PHONE_NUMBER,
+                register.getPhoneNumber());
+
         showOtpDialog();
     }
 

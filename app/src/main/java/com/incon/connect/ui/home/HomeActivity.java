@@ -25,6 +25,7 @@ import com.incon.connect.ui.qrcodescan.QrcodeBarcodeScanActivity;
 import com.incon.connect.ui.scan.ScanTabFragment;
 import com.incon.connect.ui.settings.SettingsActivity;
 import com.incon.connect.utils.DeviceUtils;
+import com.incon.connect.utils.SharedPrefsUtils;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import java.util.LinkedHashMap;
@@ -69,11 +70,14 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
 
         binding.bottomNavigationView.setCurrentItem(TAB_HISTORY);
 
+
+        //changed preference as otp verified
+        SharedPrefsUtils.loginProvider().setBooleanPreference(LoginPrefs.IS_REGISTERED, false);
+
         //hockey app update checking
 //        UpdateManager.register(this);
         initializeToolBar();
     }
-
 
 
     public void setToolbarTitle(String title) {
@@ -83,7 +87,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
 
     protected void initializeToolBar() {
         LayoutInflater layoutInflater = getLayoutInflater();
-         toolBarBinding = DataBindingUtil.inflate(layoutInflater,
+        toolBarBinding = DataBindingUtil.inflate(layoutInflater,
                 R.layout.tool_bar, null, false);
         setSupportActionBar(toolBarBinding.toolbar);
         setToolbarTitle(getString(R.string.title_history));
@@ -109,6 +113,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         Intent intent = new Intent(this, QrcodeBarcodeScanActivity.class);
         startActivityForResult(intent, RequestCodes.PRODUCT_ASSIGN_SCAN);
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
