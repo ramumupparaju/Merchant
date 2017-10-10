@@ -67,7 +67,8 @@ public interface AppServiceObservable {
     @GET("merchant/history/purchased/{userId}")
     Observable<List<ReturnHistoryResponse>> returnApi(@Path("userId") int userId);
 
-    @POST("user/buyrequest/{merchantId}")
+
+    @GET("user/buyrequest/{merchantId}")
     Observable<List<BuyRequestResponse>> buyRequestApi(@Path("merchantId") int merchantId);
 
     @GET("user/getuser/{phoneNumber}")

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.incon.connect.R;
 import com.incon.connect.apimodel.components.buyrequest.BuyRequestResponse;
 import com.incon.connect.callbacks.IClickCallback;
 import com.incon.connect.databinding.FragmentBuyRequestBinding;
+import com.incon.connect.dto.buyrequests.BuyRequest;
 import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.buyrequets.adapter.BuyRequestAdapter;
 import com.incon.connect.ui.home.HomeActivity;
@@ -29,15 +31,13 @@ import java.util.List;
  */
 public class BuyRequestFragment extends BaseFragment implements BuyRequestContract.View {
 
-        private static final String TAG = BuyRequestFragment.class.getSimpleName();
+    private static final String TAG = BuyRequestFragment.class.getSimpleName();
     private FragmentBuyRequestBinding binding;
     private View rootView;
-    private List<BuyRequestResponse> buyRequestList;
     private BuyRequestAdapter buyRequestAdapter;
     private BuyRequestPresenter buyRequestPresenter;
     private int merchantId;
-
-
+     private List<BuyRequestResponse> buyRequestList;
 
     @Override
     protected void initializePresenter() {
@@ -80,8 +80,12 @@ public class BuyRequestFragment extends BaseFragment implements BuyRequestContra
 
         merchantId = SharedPrefsUtils.loginProvider().getIntegerPreference(
                 LoginPrefs.USER_ID, DEFAULT_VALUE);
+        BuyRequest buyRequest = new BuyRequest();
+        buyRequest.setCustomerId("19");
+        buyRequest.setMerchantId("2");
+        buyRequest.setQrcodeid("1");
         buyRequestPresenter.buyRequest(merchantId);
-
+        Log.d(TAG, "no network");
     }
     private SwipeRefreshLayout.OnRefreshListener onRefreshListener =
             new SwipeRefreshLayout.OnRefreshListener() {
@@ -89,7 +93,6 @@ public class BuyRequestFragment extends BaseFragment implements BuyRequestContra
                 public void onRefresh() {
                     buyRequestAdapter.clearData();
                     buyRequestPresenter.buyRequest(merchantId);
-
                 }
             };
 
@@ -104,18 +107,20 @@ public class BuyRequestFragment extends BaseFragment implements BuyRequestContra
     private void dismissSwipeRefresh() {
         if (binding.swiperefresh.isRefreshing()) {
             binding.swiperefresh.setRefreshing(false);
+
         }
     }
+
 
     @Override
     public void loadBuyRequest(List<BuyRequestResponse> buyRequestResponseList) {
         if (buyRequestResponseList == null) {
             buyRequestResponseList = new ArrayList<>();
+
         }
         this.buyRequestList = buyRequestResponseList;
         buyRequestAdapter.setData(buyRequestList);
         dismissSwipeRefresh();
-
 
 
     }

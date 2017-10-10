@@ -105,6 +105,7 @@ public class AppApiService implements AppConstants {
     public Observable<List<ReturnHistoryResponse>> returnApi(int userId) {
         return addNetworkCheck(serviceInstance.returnApi(userId));
     }
+
     public Observable<List<BuyRequestResponse>> buyRequestApi(int merchantId) {
         return addNetworkCheck(serviceInstance.buyRequestApi(merchantId));
     }
