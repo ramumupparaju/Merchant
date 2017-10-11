@@ -3,6 +3,7 @@ package com.incon.connect.api;
 import com.incon.connect.AppConstants;
 import com.incon.connect.BuildConfig;
 import com.incon.connect.apimodel.base.ApiBaseResponse;
+import com.incon.connect.apimodel.components.addoffer.AddOfferMerchantFragmentResponse;
 import com.incon.connect.apimodel.components.buyrequest.BuyRequestResponse;
 import com.incon.connect.apimodel.components.defaults.DefaultsResponse;
 import com.incon.connect.apimodel.components.history.purchased.InterestHistoryResponse;
@@ -13,6 +14,7 @@ import com.incon.connect.apimodel.components.qrcodebaruser.UserInfoResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
 import com.incon.connect.custom.exception.NoConnectivityException;
 import com.incon.connect.dto.addnewmodel.AddNewModel;
+import com.incon.connect.dto.addoffer.AddOfferRequest;
 import com.incon.connect.dto.login.LoginUserData;
 import com.incon.connect.apimodel.components.search.ModelSearchResponse;
 import com.incon.connect.dto.notifications.PushRegistrarBody;
@@ -106,9 +108,14 @@ public class AppApiService implements AppConstants {
         return addNetworkCheck(serviceInstance.returnApi(userId));
     }
 
-    public Observable<List<BuyRequestResponse>> buyRequestApi(int merchantId) {
-        return addNetworkCheck(serviceInstance.buyRequestApi(merchantId));
+    public Observable<List<BuyRequestResponse>> buyRequestApi(int userId) {
+        return addNetworkCheck(serviceInstance.buyRequestApi(userId));
     }
+
+     public Observable<AddOfferMerchantFragmentResponse> addOffer(AddOfferRequest addOfferRequest) {
+        return addNetworkCheck(serviceInstance.addOffer(addOfferRequest));
+    }
+
 
     public Observable<UserInfoResponse> userInfoUsingQrCode(String qrCode) {
         return addNetworkCheck(serviceInstance.userInfoUsingQrCode(qrCode));

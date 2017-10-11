@@ -5,7 +5,7 @@
     <data>
 
         <variable
-            name="qrcodebarcodescanactivity"
+            name="qrcodeScanActivity"
             type="com.incon.connect.ui.qrcodescan.QrcodeBarcodeScanActivity"/>
 
     </data>
@@ -15,8 +15,8 @@
         android:background="@color/colorPrimary">
 
 
-        <me.dm7.barcodescanner.zxing.ZXingScannerView
-            android:id="@+id/barcodescanner"
+        <com.journeyapps.barcodescanner.CompoundBarcodeView
+            android:id="@+id/qrcode_scanner"
             style="@style/scanner_view"
             />
 

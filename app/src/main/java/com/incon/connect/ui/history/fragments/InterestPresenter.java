@@ -50,7 +50,7 @@ public class InterestPresenter extends BasePresenter<InterestContract.View> impl
                         getView().hideProgress();
                     }
                 };
-        AppApiService.getInstance().interestApi(userId).subscribe(observer);
+        AppApiService.getInstance().interestApi(2).subscribe(observer);
         addDisposable(observer);
     }
 }

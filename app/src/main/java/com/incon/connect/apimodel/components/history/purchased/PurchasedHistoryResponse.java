@@ -4,7 +4,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class PurchasedHistoryResponse {
-
     @SerializedName("serialNumber")
     @Expose
     private String serialNumber;
@@ -49,7 +48,16 @@ public class PurchasedHistoryResponse {
     private String status;
     @SerializedName("warrantyEndDate")
     @Expose
-    private long warrantyEndDate;
+    private String warrantyEndDate;
+    @SerializedName("productLogoUrl")
+    @Expose
+    private String productLogoUrl;
+    @SerializedName("productImageUrl")
+    @Expose
+    private String productImageUrl;
+    @SerializedName("productQrCode")
+    @Expose
+    private String productQrCode;
 
     public String getSerialNumber() {
         return serialNumber;
@@ -163,12 +171,36 @@ public class PurchasedHistoryResponse {
         this.status = status;
     }
 
-    public long getWarrantyEndDate() {
+    public String getWarrantyEndDate() {
         return warrantyEndDate;
     }
 
-    public void setWarrantyEndDate(long warrantyEndDate) {
+    public void setWarrantyEndDate(String warrantyEndDate) {
         this.warrantyEndDate = warrantyEndDate;
+    }
+
+    public String getProductLogoUrl() {
+        return productLogoUrl;
+    }
+
+    public void setProductLogoUrl(String productLogoUrl) {
+        this.productLogoUrl = productLogoUrl;
+    }
+
+    public String getProductImageUrl() {
+        return productImageUrl;
+    }
+
+    public void setProductImageUrl(String productImageUrl) {
+        this.productImageUrl = productImageUrl;
+    }
+
+    public String getProductQrCode() {
+        return productQrCode;
+    }
+
+    public void setProductQrCode(String productQrCode) {
+        this.productQrCode = productQrCode;
     }
 
 }

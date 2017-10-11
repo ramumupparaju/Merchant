@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 
 import com.incon.connect.AppUtils;
@@ -22,10 +21,10 @@ import com.incon.connect.dto.addoffer.AddOfferRequest;
 import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.home.HomeActivity;
 import com.incon.connect.utils.DateUtils;
+import com.incon.connect.utils.SharedPrefsUtils;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -50,6 +49,7 @@ public class AddOfferMerchantFragment extends BaseFragment implements
     private HashMap<Integer, String> errorMap;
     private Animation shakeAnim;
     private AddOfferRequest addOfferRequest;
+    private int merchantId;
 
 
     @Override
@@ -114,7 +114,8 @@ public class AddOfferMerchantFragment extends BaseFragment implements
                     String strDt = simpleDate.format(selectedDateTime.getTime());
                     String endDt = simpleDate.format(selectedDateTime.getTime());
 
-                    binding.edittextOfferExpires.setText(strDt);
+                    binding.edittextStartOn.setText(strDt);
+                    binding.edittextOfferExpires.setText(endDt);
                  //   binding.edittextOfferExpires.setText(endDt);
                     String dobInYYYYMMDD = DateUtils.convertDateToOtherFormat(
                             selectedDateTime.getTime(), DateFormatterConstants.YYYY_MM_DD);
@@ -131,7 +132,6 @@ public class AddOfferMerchantFragment extends BaseFragment implements
 
     private void loadData() {
         shakeAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.shake);
-        loadGenderSpinnerData();
     }
 
     private void updateUiAfterValidation(String tag, int validationId) {
@@ -156,31 +156,33 @@ public class AddOfferMerchantFragment extends BaseFragment implements
                     : errorMap.get(validationId));
         }
     }
-    private void loadGenderSpinnerData() {
 
-        String[] genderTypeList = getResources().getStringArray(R.array.gender_options_list);
 
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),
-                R.layout.view_spinner, genderTypeList);
-        arrayAdapter.setDropDownViewResource(R.layout.view_spinner);
-        binding.spinnerBrand.setAdapter(arrayAdapter);
-        binding.spinnerDivision.setAdapter(arrayAdapter);
-        binding.spinnerModel.setAdapter(arrayAdapter);
-    }
 
     private void initViews() {
         ((HomeActivity) getActivity()).setToolbarTitle(getString(R.string.title_offers));
 
+         merchantId = SharedPrefsUtils.loginProvider().getIntegerPreference(
+                LoginPrefs.USER_ID, DEFAULT_VALUE);
+
+        AddOfferRequest addOfferRequest = new AddOfferRequest();
+        addOfferRequest.setCustomerId("19");
+        addOfferRequest.setMerchantId("2");
+        addOfferRequest.setBrandId("1");
+        addOfferRequest.setCategoryId("5");
+        addOfferRequest.setModelNumber("MODEL3321");
+        addOfferRequest.setOffer("20");
+        addOfferRequest.setProductId("34");
+        addOfferRequest.setPurchaseId("2");
+        addOfferRequest.setFromDate("2017-10-07T20:02:03.725Z");
+        addOfferRequest.setToDate("2017-10-27T20:02:03.725Z");
+        addOfferMerchantPresenter.addOffer(merchantId);
+
     }
 
-    @Override
-    public void loadAddOfferMerchant(List<AddOfferMerchantFragmentResponse>
-                                                 addOfferMerchantFragmentResponsesList) {
 
-        if (addOfferMerchantFragmentResponsesList == null) {
-            addOfferMerchantFragmentResponsesList = new ArrayList<>();
-            this.addOfferMerchantList = addOfferMerchantFragmentResponsesList;
-        }
+    @Override
+    public void loadAddOfferMerchant(int merchantId) {
 
     }
 }

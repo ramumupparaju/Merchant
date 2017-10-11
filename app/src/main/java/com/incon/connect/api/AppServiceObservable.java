@@ -1,6 +1,7 @@
 package com.incon.connect.api;
 
 import com.incon.connect.apimodel.base.ApiBaseResponse;
+import com.incon.connect.apimodel.components.addoffer.AddOfferMerchantFragmentResponse;
 import com.incon.connect.apimodel.components.buyrequest.BuyRequestResponse;
 import com.incon.connect.apimodel.components.defaults.DefaultsResponse;
 import com.incon.connect.apimodel.components.history.purchased.InterestHistoryResponse;
@@ -10,6 +11,7 @@ import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.apimodel.components.qrcodebaruser.UserInfoResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
 import com.incon.connect.dto.addnewmodel.AddNewModel;
+import com.incon.connect.dto.addoffer.AddOfferRequest;
 import com.incon.connect.dto.login.LoginUserData;
 import com.incon.connect.apimodel.components.search.ModelSearchResponse;
 import com.incon.connect.dto.notifications.PushRegistrarBody;
@@ -59,7 +61,7 @@ public interface AppServiceObservable {
     @GET("merchant/history/purchased/{userId}")
     Observable<List<PurchasedHistoryResponse>> purchasedApi(@Path("userId") int userId);
 
-//    TODO Change purchased to interest
+     //    TODO Change purchased to interest
     @GET("merchant/history/purchased/{userId}")
     Observable<List<InterestHistoryResponse>> interestApi(@Path("userId") int userId);
 
@@ -67,9 +69,11 @@ public interface AppServiceObservable {
     @GET("merchant/history/purchased/{userId}")
     Observable<List<ReturnHistoryResponse>> returnApi(@Path("userId") int userId);
 
+    @GET("merchant/buy-requests/{userId}")
+    Observable<List<BuyRequestResponse>> buyRequestApi(@Path("userId") int userId);
 
-    @GET("user/buyrequest/{merchantId}")
-    Observable<List<BuyRequestResponse>> buyRequestApi(@Path("merchantId") int merchantId);
+    @POST("offers/addoffers")
+    Observable<AddOfferMerchantFragmentResponse> addOffer(@Body AddOfferRequest addOfferRequest);
 
     @GET("user/getuser/{phoneNumber}")
     Observable<UserInfoResponse> userInfoUsingPhoneNumber(@Path("phoneNumber") String phoneNumber);

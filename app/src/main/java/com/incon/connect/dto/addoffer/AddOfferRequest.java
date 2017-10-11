@@ -1,145 +1,110 @@
 package com.incon.connect.dto.addoffer;
 
 import android.databinding.BaseObservable;
-import android.databinding.Bindable;
-
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 
 public class AddOfferRequest extends BaseObservable {
 
-    @SerializedName("id")
-    @Expose
-    private Integer id;
-    @SerializedName("positiontext")
-    @Expose
-    private String positionText;
-    @SerializedName("brandName")
-    @Expose
-    private String brandName;
-    @SerializedName("brandType")
-    @Expose
-    private String brandType;
-    @SerializedName("buyingStatus")
-    @Expose
-    private String buyingStatus;
-    @SerializedName("productName")
-    @Expose
-    private String productName;
-    @SerializedName("dateRequested")
-    @Expose
-    private String dateRequested;
-    @SerializedName("division")
-    @Expose
-    private String division;
-    @SerializedName("model")
-    @Expose
-    private String model;
+    private String brandId;
+    private String categoryId;
+    private String customerId;
+    private String divisionId;
+    private String fromDate;
+    private String merchantId;
+    private String modelNumber;
+    private String offer;
+    private String productId;
+    private String purchaseId;
+    private String toDate;
 
-    @SerializedName("offerStartOn")
-    @Expose
-    private String offerStartOn;
-
-    @SerializedName("offerExpiresOn")
-    @Expose
-    private String offerExpiresOn;
-
-
-    public String getOfferStartOn() {
-        return offerStartOn;
+    public String getBrandId() {
+        return brandId;
     }
 
-    public void setOfferStartOn(String offerStartOn) {
-        this.offerStartOn = offerStartOn;
+    public void setBrandId(String brandId) {
+        this.brandId = brandId;
     }
 
-    public String getOfferExpiresOn() {
-        return offerExpiresOn;
+    public String getCategoryId() {
+        return categoryId;
     }
 
-    public void setOfferExpiresOn(String offerExpiresOn) {
-        this.offerExpiresOn = offerExpiresOn;
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public String getDivision() {
-        return division;
+    public String getCustomerId() {
+        return customerId;
     }
 
-    public void setDivision(String division) {
-        this.division = division;
+    public void setCustomerId(String customerId) {
+        this.customerId = customerId;
     }
 
-    public String getModel() {
-        return model;
+    public String getDivisionId() {
+        return divisionId;
     }
 
-    public void setModel(String model) {
-        this.model = model;
+    public void setDivisionId(String divisionId) {
+        this.divisionId = divisionId;
     }
 
-
-
-
-    public void setPositionText(String positionText) {
-        this.positionText = positionText;
+    public String getFromDate() {
+        return fromDate;
     }
 
-    @Bindable
-    public String getBrandName() {
-        return brandName;
+    public void setFromDate(String fromDate) {
+        this.fromDate = fromDate;
     }
 
-    public void setBrandName(String brandName) {
-        this.brandName = brandName;
-        notifyChange();
+    public String getMerchantId() {
+        return merchantId;
     }
 
-    public String getBrandType() {
-        return brandType;
+    public void setMerchantId(String merchantId) {
+        this.merchantId = merchantId;
     }
 
-    public void setBrandType(String brandType) {
-        this.brandType = brandType;
+    public String getModelNumber() {
+        return modelNumber;
     }
 
-    public String getBuyingStatus() {
-        return buyingStatus;
+    public void setModelNumber(String modelNumber) {
+        this.modelNumber = modelNumber;
     }
 
-    public void setBuyingStatus(String buyingStatus) {
-        this.buyingStatus = buyingStatus;
+    public String getOffer() {
+        return offer;
     }
 
-    public String getProductName() {
-        return productName;
+    public void setOffer(String offer) {
+        this.offer = offer;
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
+    public String getProductId() {
+        return productId;
     }
 
-    public String getDateRequested() {
-        return dateRequested;
+    public void setProductId(String productId) {
+        this.productId = productId;
     }
 
-    public void setDateRequested(String dateRequested) {
-        this.dateRequested = dateRequested;
+    public String getPurchaseId() {
+        return purchaseId;
     }
 
-    public Integer getId() {
-        return id;
+    public void setPurchaseId(String purchaseId) {
+        this.purchaseId = purchaseId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public String getToDate() {
+        return toDate;
+    }
+
+    public void setToDate(String toDate) {
+        this.toDate = toDate;
     }
 
 
-    public void setPositionText() {
-        positionText = "position :" + id;
-    }
 
-    public String getPositionText() {
-        return positionText;
-    }
+
 }

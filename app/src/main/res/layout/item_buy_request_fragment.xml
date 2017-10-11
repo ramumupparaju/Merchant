@@ -9,44 +9,66 @@
             type="com.incon.connect.apimodel.components.buyrequest.BuyRequestResponse"/>
     </data>
 
-    <RelativeLayout
+    <LinearLayout
+        android:weightSum="3"
+        android:orientation="horizontal"
         style="@style/MatchWrap"
         android:background="@drawable/list_ripple_effect"
-        android:minHeight="70dp"
-        android:paddingBottom="@dimen/margin_15"
-        android:paddingLeft="@dimen/margin_5"
-        android:paddingRight="@dimen/margin_5"
-        android:paddingTop="@dimen/margin_15">
+        android:minHeight="70dp">
+        <LinearLayout
+            android:layout_weight="1"
+            style="@style/BothMatch">
 
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/task_iv"
-            style="@style/BothWrap"
-            android:layout_centerVertical="true"
-            android:layout_margin="@dimen/margin_5"
-            app:srcCompat="@drawable/ic_dashboard_alert_svg"/>
+            <android.support.v7.widget.AppCompatImageView
+                style="@style/m75w75"
+                android:layout_margin="25dp"
+                app:srcCompat="@drawable/ic_im_showroom"/>
 
-        <TextView
-            android:id="@+id/text_task_time"
-            style="@style/BothWrap"
-            fontPath="fonts/OpenSans-Bold.ttf"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/margin_10"
-            android:text="@{buyRequestResponse.merchantId}"
-            android:textColor="@color/cadet_blue"
-            android:textSize="11.5sp"/>
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/text_task_title"
-            style="@style/BothWrap"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/margin_10"
-            android:layout_marginStart="@dimen/margin_10"
-            android:layout_toEndOf="@id/task_iv"
-            android:text="@{buyRequestResponse.customerId}"
-            android:layout_toStartOf="@id/text_task_time"
-            android:textColor="@color/ebony_clay"
-            android:textSize="13.4sp"/>
+        <LinearLayout
+            android:layout_weight="1"
+            style="@style/BothMatch"
+            >
 
-    </RelativeLayout>
+            <android.support.v7.widget.AppCompatImageView
+                style="@style/m75w75"
+                android:layout_margin="25dp"
+                app:srcCompat="@drawable/ic_im_showroom"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            style="@style/BothMatch"
+            >
+
+            <TextView
+                android:layout_marginTop="@dimen/margin_7"
+                style="@style/BothWrap"
+                android:text="11/10/2017"
+                android:textColor="@color/ebony_clay"
+                android:textSize="10.4sp"
+                />
+
+            <TextView
+                android:layout_marginTop="@dimen/margin_15"
+                style="@style/BothWrap"
+                android:text="@{buyRequestResponse.productName}"
+                android:textColor="@color/ebony_clay"
+                android:textSize="12.4sp"
+                />
+            <TextView
+                android:layout_marginTop="@dimen/margin_12"
+                android:text="@{buyRequestResponse.brandName}"
+                style="@style/BothWrap"
+                android:textColor="@color/ebony_clay"
+                android:textSize="12.4sp"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
 </layout>

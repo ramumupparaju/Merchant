@@ -50,9 +50,11 @@ public class InterestHistoryResponse {
     @SerializedName("status")
     @Expose
     private String status;
+
+
     @SerializedName("warrantyEndDate")
     @Expose
-    private long warrantyEndDate;
+    private String warrantyEndDate;
 
     public String getSerialNumber() {
         return serialNumber;
@@ -165,13 +167,14 @@ public class InterestHistoryResponse {
     public void setStatus(String status) {
         this.status = status;
     }
-
-    public long getWarrantyEndDate() {
+    public String getWarrantyEndDate() {
         return warrantyEndDate;
     }
 
-    public void setWarrantyEndDate(long warrantyEndDate) {
+    public void setWarrantyEndDate(String warrantyEndDate) {
         this.warrantyEndDate = warrantyEndDate;
     }
+
+
 
 }

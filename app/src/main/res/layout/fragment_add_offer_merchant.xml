@@ -32,7 +32,7 @@
                     style="@style/spinnerItemStyle"
                     android:layout_marginBottom="@dimen/margin_24"
                     android:focusable="true"
-                    android:text="@={addOfferRequest.brandName}"
+                    android:text="@={addOfferRequest.brandId}"
                     android:hint="@string/add_an_offer_brand_hint"
                     android:tag="2"
                     app:errorEnabled="true"
@@ -48,7 +48,7 @@
                     android:layout_marginBottom="@dimen/margin_24"
                     android:focusable="true"
                     android:hint="@string/add_an_offer_division_hint"
-                    android:text="@={addOfferRequest.division}"
+                    android:text="@={addOfferRequest.divisionId}"
                     android:tag="2"
                     app:errorEnabled="true"
                     app:met_floatingLabel="highlight"
@@ -62,7 +62,7 @@
                     android:layout_below="@+id/spinner_division"
                     android:layout_marginBottom="@dimen/margin_24"
                     android:focusable="true"
-                    android:text="@={addOfferRequest.model}"
+                    android:text="@={addOfferRequest.modelNumber}"
                     android:hint="@string/add_an_offer_model_hint"
                     android:tag="2"
                     app:errorEnabled="true"
@@ -81,10 +81,10 @@
                     app:hintTextAppearance="@style/TextInputLayout_FloatingTextColor">
 
                     <android.support.design.widget.TextInputEditText
-                        android:id="@+id/edittext_date"
+                        android:id="@+id/edittext_start_on"
                         style="@style/Register_TextInputEditText"
                         android:enabled="false"
-                        android:text="@={addOfferRequest.offerStartOn}"
+                        android:text="@={addOfferRequest.fromDate}"
                         android:tag="3"/>
                 </com.incon.connect.custom.view.CustomTextInputLayout>
            <!-- dummy view for Offers start date selection -->
@@ -136,7 +136,7 @@
                         style="@style/Register_TextInputEditText"
                         android:enabled="false"
                         android:tag="3"
-                        android:text="@={addOfferRequest.offerExpiresOn}"
+                        android:text="@={addOfferRequest.toDate}"
                         />
                 </com.incon.connect.custom.view.CustomTextInputLayout>
                 <!-- dummy view for Offers end date selection -->

@@ -5,82 +5,159 @@ import com.google.gson.annotations.SerializedName;
 
 public class BuyRequestResponse {
 
-    @SerializedName("id")
+    @SerializedName("serialNumber")
     @Expose
-    private Integer id;
-    @SerializedName("merchantId")
+    private String serialNumber;
+    @SerializedName("mobileNumber")
     @Expose
-    private Integer merchantId;
-    @SerializedName("qrcodeid")
+    private String mobileNumber;
+    @SerializedName("batchNumber")
     @Expose
-    private Integer qrcodeid;
-    @SerializedName("customerId")
+    private String batchNumber;
+    @SerializedName("productId")
     @Expose
-    private Integer customerId;
-    @SerializedName("status")
+    private Integer productId;
+    @SerializedName("productName")
     @Expose
-    private Object status;
-    @SerializedName("createdDate")
+    private String productName;
+    @SerializedName("information")
     @Expose
-    private Object createdDate;
-    @SerializedName("createdBy")
+    private String information;
+    @SerializedName("brandId")
     @Expose
-    private Integer createdBy;
+    private String brandId;
+    @SerializedName("brandName")
+    @Expose
+    private String brandName;
+    @SerializedName("price")
+    @Expose
+    private Integer price;
+    @SerializedName("address")
+    @Expose
+    private String address;
+    @SerializedName("location")
+    @Expose
+    private String location;
+    @SerializedName("productLogoUrl")
+    @Expose
+    private String productLogoUrl;
+    @SerializedName("productImageUrl")
+    @Expose
+    private String productImageUrl;
+    @SerializedName("requestId")
+    @Expose
+    private Integer requestId;
 
-    public Integer getId() {
-        return id;
+    public String getSerialNumber() {
+        return serialNumber;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
     }
 
-    public Integer getMerchantId() {
-        return merchantId;
+    public String getMobileNumber() {
+        return mobileNumber;
     }
 
-    public void setMerchantId(Integer merchantId) {
-        this.merchantId = merchantId;
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
     }
 
-    public Integer getQrcodeid() {
-        return qrcodeid;
+    public String getBatchNumber() {
+        return batchNumber;
     }
 
-    public void setQrcodeid(Integer qrcodeid) {
-        this.qrcodeid = qrcodeid;
+    public void setBatchNumber(String batchNumber) {
+        this.batchNumber = batchNumber;
     }
 
-    public Integer getCustomerId() {
-        return customerId;
+    public Integer getProductId() {
+        return productId;
     }
 
-    public void setCustomerId(Integer customerId) {
-        this.customerId = customerId;
+    public void setProductId(Integer productId) {
+        this.productId = productId;
     }
 
-    public Object getStatus() {
-        return status;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setStatus(Object status) {
-        this.status = status;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
-    public Object getCreatedDate() {
-        return createdDate;
+    public String getInformation() {
+        return information;
     }
 
-    public void setCreatedDate(Object createdDate) {
-        this.createdDate = createdDate;
+    public void setInformation(String information) {
+        this.information = information;
     }
 
-    public Integer getCreatedBy() {
-        return createdBy;
+    public String getBrandId() {
+        return brandId;
     }
 
-    public void setCreatedBy(Integer createdBy) {
-        this.createdBy = createdBy;
+    public void setBrandId(String brandId) {
+        this.brandId = brandId;
+    }
+
+    public String getBrandName() {
+        return brandName;
+    }
+
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getProductLogoUrl() {
+        return productLogoUrl;
+    }
+
+    public void setProductLogoUrl(String productLogoUrl) {
+        this.productLogoUrl = productLogoUrl;
+    }
+
+    public String getProductImageUrl() {
+        return productImageUrl;
+    }
+
+    public void setProductImageUrl(String productImageUrl) {
+        this.productImageUrl = productImageUrl;
+    }
+
+    public Integer getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(Integer requestId) {
+        this.requestId = requestId;
     }
 
 }

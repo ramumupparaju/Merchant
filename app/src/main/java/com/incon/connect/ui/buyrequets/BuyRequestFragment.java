@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +14,6 @@ import com.incon.connect.R;
 import com.incon.connect.apimodel.components.buyrequest.BuyRequestResponse;
 import com.incon.connect.callbacks.IClickCallback;
 import com.incon.connect.databinding.FragmentBuyRequestBinding;
-import com.incon.connect.dto.buyrequests.BuyRequest;
 import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.buyrequets.adapter.BuyRequestAdapter;
 import com.incon.connect.ui.home.HomeActivity;
@@ -36,7 +34,7 @@ public class BuyRequestFragment extends BaseFragment implements BuyRequestContra
     private View rootView;
     private BuyRequestAdapter buyRequestAdapter;
     private BuyRequestPresenter buyRequestPresenter;
-    private int merchantId;
+    private int userId;
      private List<BuyRequestResponse> buyRequestList;
 
     @Override
@@ -78,21 +76,16 @@ public class BuyRequestFragment extends BaseFragment implements BuyRequestContra
         binding.buyRequestRecyclerview.setAdapter(buyRequestAdapter);
         binding.buyRequestRecyclerview.setLayoutManager(linearLayoutManager);
 
-        merchantId = SharedPrefsUtils.loginProvider().getIntegerPreference(
+        userId = SharedPrefsUtils.loginProvider().getIntegerPreference(
                 LoginPrefs.USER_ID, DEFAULT_VALUE);
-        BuyRequest buyRequest = new BuyRequest();
-        buyRequest.setCustomerId("19");
-        buyRequest.setMerchantId("2");
-        buyRequest.setQrcodeid("1");
-        buyRequestPresenter.buyRequest(merchantId);
-        Log.d(TAG, "no network");
+        buyRequestPresenter.buyRequest(userId);
     }
     private SwipeRefreshLayout.OnRefreshListener onRefreshListener =
             new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
                     buyRequestAdapter.clearData();
-                    buyRequestPresenter.buyRequest(merchantId);
+                    buyRequestPresenter.buyRequest(userId);
                 }
             };
 

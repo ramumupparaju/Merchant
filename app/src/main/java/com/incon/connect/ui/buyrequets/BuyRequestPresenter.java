@@ -35,7 +35,7 @@ public class BuyRequestPresenter extends BasePresenter<BuyRequestContract.View> 
     }
 
 
-    public void buyRequest(int merchantId) {
+    public void buyRequest(int userId) {
         getView().showProgress(appContext.getString(R.string.progress_buy_request));
         DisposableObserver<List<BuyRequestResponse>> observer = new
                 DisposableObserver<List<BuyRequestResponse>>() {
@@ -59,7 +59,7 @@ public class BuyRequestPresenter extends BasePresenter<BuyRequestContract.View> 
 
             }
         };
-        AppApiService.getInstance().buyRequestApi(merchantId).subscribe(observer);
+        AppApiService.getInstance().buyRequestApi(2).subscribe(observer);
         addDisposable(observer);
 
     }
