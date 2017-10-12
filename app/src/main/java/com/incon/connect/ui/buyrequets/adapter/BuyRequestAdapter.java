@@ -35,6 +35,8 @@ public class BuyRequestAdapter extends RecyclerView.Adapter
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         BuyRequestResponse purchasedResponse = buyRequestList.get(position);
+
+
         holder.bind(purchasedResponse);
     }
 

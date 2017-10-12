@@ -16,8 +16,7 @@
         android:minHeight="70dp">
         <LinearLayout
             android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            style="@style/BothMatch">
 
             <android.support.v7.widget.AppCompatImageView
                 android:layout_gravity="center"
@@ -30,8 +29,7 @@
 
         <LinearLayout
             android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            style="@style/BothMatch">
 
             <android.support.v7.widget.AppCompatImageView
                 style="@style/m75w75"
@@ -44,8 +42,7 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            style="@style/BothMatch">
 
             <TextView
                 android:layout_marginTop="@dimen/margin_7"

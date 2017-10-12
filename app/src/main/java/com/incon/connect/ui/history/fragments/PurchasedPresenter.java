@@ -53,7 +53,7 @@ public class PurchasedPresenter extends BasePresenter<PurchasedContract.View> im
                 getView().hideProgress();
             }
         };
-        AppApiService.getInstance().purchasedApi(2).subscribe(observer);
+        AppApiService.getInstance().purchasedApi(userId).subscribe(observer);
         addDisposable(observer);
     }
 }

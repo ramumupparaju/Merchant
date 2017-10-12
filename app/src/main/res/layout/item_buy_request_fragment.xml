@@ -20,9 +20,11 @@
             style="@style/BothMatch">
 
             <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/product_logo"
                 style="@style/m75w75"
                 android:layout_margin="25dp"
-                app:srcCompat="@drawable/ic_im_showroom"/>
+                android:src="@{buyRequestResponse.productLogoUrl}"
+                />
 
         </LinearLayout>
 
@@ -32,9 +34,10 @@
             >
 
             <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/product_image"
                 style="@style/m75w75"
                 android:layout_margin="25dp"
-                app:srcCompat="@drawable/ic_im_showroom"
+                android:src="@{buyRequestResponse.productImageUrl}"
                 />
 
         </LinearLayout>

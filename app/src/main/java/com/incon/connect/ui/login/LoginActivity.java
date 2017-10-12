@@ -164,7 +164,8 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     public void onRegisterClick() {
         PermissionUtils.getInstance().grantPermission(LoginActivity.this,
-                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION},
                 new PermissionUtils.Callback() {
                     @Override
                     public void onFinish(HashMap<String, Integer> permissionsStatusMap) {

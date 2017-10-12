@@ -59,7 +59,7 @@ public class BuyRequestPresenter extends BasePresenter<BuyRequestContract.View> 
 
             }
         };
-        AppApiService.getInstance().buyRequestApi(2).subscribe(observer);
+        AppApiService.getInstance().buyRequestApi(userId).subscribe(observer);
         addDisposable(observer);
 
     }
