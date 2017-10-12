@@ -1,5 +1,5 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <RelativeLayout
         style="@style/BothMatch"
@@ -10,32 +10,19 @@
             style="@style/MatchWrap"
             android:drawableEnd="@android:drawable/ic_menu_search"
             />
-        <LinearLayout
-            style="@style/View_Match"
-            android:orientation="horizontal"
-            android:layout_below="@+id/et_search_buy_request"
-            android:background="@color/colorPrimary"
-            android:gravity="center"
-            android:id="@+id/ll_brand_details"
-            android:weightSum="1">
-            <TextView
-                style="@style/match_custom"
-                android:text="@string/buy_request_brand"
-                />
-            <TextView
-                style="@style/match_custom"
-                android:text="@string/buy_request_product_image"
-                />
-            <TextView
-                style="@style/match_custom"
-                android:text="@string/buy_request_product_info"
-                />
 
-        </LinearLayout>
+        <include
+            android:id="@+id/list_header"
+            layout="@layout/item_list_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/et_search_buy_request"
+            />
+
         <android.support.v4.widget.SwipeRefreshLayout
-            android:layout_below="@+id/ll_brand_details"
             android:id="@+id/swiperefresh"
             style="@style/BothMatch"
+            android:layout_below="@+id/list_header"
             >
 
             <android.support.v7.widget.RecyclerView

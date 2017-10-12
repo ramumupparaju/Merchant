@@ -238,10 +238,10 @@
         <item name="android:layout_height">30dp</item>
         <item name="android:paddingLeft">2dp</item>
     </style>
-    <style name="match_custom">
-        <item name="android:layout_width">match_parent</item>
+    <style name="item_list_header_textview">
+        <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">0.33</item>
+        <item name="android:layout_weight">1</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:gravity">center</item>
     </style>

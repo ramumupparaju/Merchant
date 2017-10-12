@@ -1,9 +1,12 @@
 package com.incon.connect.apimodel.components.history.purchased;
 
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class PurchasedHistoryResponse {
+public class PurchasedHistoryResponse extends BaseObservable {
     @SerializedName("serialNumber")
     @Expose
     private String serialNumber;
@@ -179,6 +182,7 @@ public class PurchasedHistoryResponse {
         this.warrantyEndDate = warrantyEndDate;
     }
 
+    @Bindable
     public String getProductLogoUrl() {
         return productLogoUrl;
     }
