@@ -49,7 +49,7 @@
             >
             <LinearLayout
                 style="@style/BothWrap"
-                android:gravity="center"
+                android:gravity="left"
                 android:orientation="vertical">
                 <TextView
                     style="@style/BothWrap"
@@ -64,7 +64,6 @@
                     android:layout_marginTop="@dimen/margin_15"
                     android:text="@{buyRequestResponse.productName}"
                     android:textColor="@color/ebony_clay"
-                    android:gravity="center"
                     android:textSize="12.4sp"
                     />
 
