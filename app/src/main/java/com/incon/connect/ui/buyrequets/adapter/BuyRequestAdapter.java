@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.incon.connect.AppUtils;
 import com.incon.connect.BR;
 import com.incon.connect.R;
 import com.incon.connect.apimodel.components.buyrequest.BuyRequestResponse;
@@ -73,6 +74,10 @@ public class BuyRequestAdapter extends RecyclerView.Adapter
 
         public void bind(BuyRequestResponse buyRequestResponse) {
             binding.setVariable(BR.buyRequestResponse, buyRequestResponse);
+            AppUtils.loadImageFromApi(binding.brandImageview, buyRequestResponse
+                    .getProductLogoUrl());
+            AppUtils.loadImageFromApi(binding.productImageImageview, buyRequestResponse
+                    .getProductImageUrl());
             binding.executePendingBindings();
         }
 
