@@ -3,6 +3,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="activity"
             type="com.incon.connect.ui.settings.SettingsActivity"/>
@@ -18,23 +19,26 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:contentInsetStart="0dp">
+
             <RelativeLayout
                 style="@style/MatchWrap">
+
                 <ImageView
                     android:id="@+id/toolbar_left_iv"
                     style="@style/WrapMatch"
-                    android:paddingStart="15dp"
                     android:paddingEnd="15dp"
+                    android:paddingStart="15dp"
                     android:visibility="visible"
                     app:srcCompat="@drawable/ic_back_arrow"/>
+
                 <TextView
                     android:id="@+id/title"
                     style="@style/BothWrap"
+                    fontPath="fonts/OpenSans-Bold.ttf"
                     android:layout_centerInParent="true"
+                    android:text="@string/action_settings"
                     android:textColor="@color/white"
                     android:textSize="15.4sp"
-                    fontPath="fonts/OpenSans-Bold.ttf"
-                    android:text="@string/action_settings"
                     />
 
             </RelativeLayout>
@@ -42,23 +46,27 @@
         </android.support.v7.widget.Toolbar>
 
         <android.support.v7.widget.RecyclerView
-            style="@style/BothMatch"
             android:id="@+id/recyclerview_menu"
+            style="@style/BothMatch"
+            android:layout_above="@+id/app_version"
             android:layout_below="@id/toolbar"
             android:layout_margin="8dp"
-            android:layout_above="@+id/app_version"
-            android:background="@color/white">
+            android:background="@color/white"
+            android:fadeScrollbars="false"
+            android:scrollbarSize="4dp"
+            android:scrollbarThumbVertical="@drawable/scrollbar"
+            android:scrollbars="vertical">
         </android.support.v7.widget.RecyclerView>
 
         <TextView
             android:id="@+id/app_version"
             style="@style/BothWrap"
+            fontPath="fonts/OpenSans-Bold.ttf"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="5dp"
             android:textColor="@color/white"
             android:textSize="15.4sp"
-            android:layout_margin="5dp"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            fontPath="fonts/OpenSans-Bold.ttf"
             />
 
     </RelativeLayout>
