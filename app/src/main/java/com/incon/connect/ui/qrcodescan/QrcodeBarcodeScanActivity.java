@@ -7,8 +7,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
-import android.widget.ProgressBar;
 
 import com.google.zxing.ResultPoint;
 import com.incon.connect.AppUtils;
@@ -19,7 +17,6 @@ import com.incon.connect.utils.Logger;
 import com.incon.connect.utils.PermissionUtils;
 import com.journeyapps.barcodescanner.BarcodeCallback;
 import com.journeyapps.barcodescanner.BarcodeResult;
-import com.journeyapps.barcodescanner.CompoundBarcodeView;
 
 import java.util.HashMap;
 import java.util.List;
@@ -31,9 +28,6 @@ public class QrcodeBarcodeScanActivity extends BaseActivity implements QrCodeBar
 
     private static final String TAG = QrcodeBarcodeScanActivity.class.getSimpleName();
     private ActivityQrcodeBarcodescanBinding binding;
-    private CompoundBarcodeView qrCodeScanView;
-    private ProgressBar progressBar;
-    private View reScanImageView;
 
 
     @Override
@@ -49,11 +43,9 @@ public class QrcodeBarcodeScanActivity extends BaseActivity implements QrCodeBar
     protected void onCreateView(Bundle saveInstanceState) {
         binding = DataBindingUtil.setContentView(this, getLayoutId());
         binding.setQrcodeScanActivity(this);
-        qrCodeScanView = (CompoundBarcodeView) findViewById(R.id.qrcode_scanner);
     }
 
     private void startQRScan() {
-
         PermissionUtils.getInstance().grantPermission(
                 this,
                 new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -65,13 +57,8 @@ public class QrcodeBarcodeScanActivity extends BaseActivity implements QrCodeBar
                                 Manifest.permission.CAMERA);
                         switch (storageStatus) {
                             case PermissionUtils.PERMISSION_GRANTED:
-
-                                if (qrCodeScanView != null) {
-                                    qrCodeScanView.decodeContinuous(qrcodeCallback);
-                                    resumeQRScan();
-                                    qrCodeScanView.decodeContinuous(qrcodeCallback);
-                                    //  startQRDisplayTimer();
-                                }
+                                binding.qrcodeScanner.resume();
+                                binding.qrcodeScanner.decodeContinuous(qrcodeCallback);
                                 break;
                             case PermissionUtils.PERMISSION_DENIED:
                                 Logger.v(TAG, "CAMERA :" + "denied");
@@ -87,21 +74,6 @@ public class QrcodeBarcodeScanActivity extends BaseActivity implements QrCodeBar
                 });
 
     }
-    private void reStartQRScan() {
-        if (qrCodeScanView != null) {
-            qrCodeScanView.decodeContinuous(qrcodeCallback);
-            qrCodeScanView.getViewFinder().setVisibility(View.VISIBLE);
-            reScanImageView.setVisibility(View.GONE);
-           // startQRDisplayTimer();
-            resumeQRScan();
-        }
-    }
-
-    private void resumeQRScan() {
-
-        startQRScan();
-
-    }
 
     public BarcodeCallback qrcodeCallback = new BarcodeCallback() {
         @Override
@@ -109,21 +81,7 @@ public class QrcodeBarcodeScanActivity extends BaseActivity implements QrCodeBar
             String output = result.getText();
             if (!TextUtils.isEmpty(output)) {
                 Log.d(TAG, "qrscan result: " + output);
-                if (output.contains("~")) {
-                    stopQRScan(false);
-                    progressBar.setVisibility(View.VISIBLE);
-                    String[] data = output.split("~");
-                    //setGenieMacAddress(data[1]);
-//                    startMqttReceiver(true);
-                   // subscirbeTo(getQrScanRecievingTopic());
-                   // sendMacAddressToGenie();
-                }
-                else {
-                    //invalid output
-                    progressBar.setVisibility(View.GONE);
-                    stopQRScan(false);
-                   // showInvalidOutputMessage();
-                }
+                navigateToPreviousScreen(output);
             }
         }
 
@@ -132,15 +90,21 @@ public class QrcodeBarcodeScanActivity extends BaseActivity implements QrCodeBar
         }
     };
 
-    private void stopQRScan(boolean b) {
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        startQRScan();
     }
 
 
     @Override
     public void onPause() {
         super.onPause();
+        if (android.os.Build.VERSION.SDK_INT < 23) {
+            binding.qrcodeScanner.pause();
+        }
     }
+
 
     @Override
     public void navigateToPreviousScreen(String qrCode) {

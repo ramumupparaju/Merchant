@@ -26,7 +26,6 @@
             <com.incon.connect.custom.view.CustomTextInputLayout
                 android:id="@+id/input_layout_model_number"
                 style="@style/Register_TextInputLayout"
-                android:layout_below="@id/input_layout_register_user_name"
                 android:hint="@string/action_modelno"
                 app:errorEnabled="true"
                 app:fontName="fonts/OpenSans-Regular.ttf"
