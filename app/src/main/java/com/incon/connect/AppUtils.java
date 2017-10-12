@@ -66,4 +66,6 @@ public class AppUtils {
         Gson gson = new GsonBuilder().create();
         return gson.fromJson(json, aClass);
     }
+
+
 }

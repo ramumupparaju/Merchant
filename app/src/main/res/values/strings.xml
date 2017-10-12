@@ -141,6 +141,7 @@
     <string name="progress_buy_request">Loading Buy Request...</string>
     <string name="progress_add_offer_merchant">Loading Add Offer Merchant...</string>
     <string name="progress_user_details">Fetching User Details...</string>
+    <string name="progress_qr_code_product">Asign QR Code To Product...</string>
     <string name="progress_warranty_registering">Registering warranty...</string>
     <string name="progress_add_new_model">Adding new model...</string>
     <string name="progress_product_details">Fetching product details...</string>
@@ -293,7 +294,8 @@
     <string name="add_offer_price">Price</string>
     <!-- screen titles -->
     <string name="title_history">History</string>
-    <string name="title_buy_requests">Buy requests</string>
+    <string name="title_buy_requests">Buy Requests</string>
+    <string name="title_assign_qr_code">Assign QR Code To Product</string>
     <string name="title_scan">Scan</string>
     <string name="title_warranty_register">Warranty Registration</string>
     <string name="title_add_new_model">New Model</string>

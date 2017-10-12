@@ -61,7 +61,11 @@ public interface AppServiceObservable {
     @GET("merchant/history/purchased/{userId}")
     Observable<List<PurchasedHistoryResponse>> purchasedApi(@Path("userId") int userId);
 
-     //    TODO Change purchased to interest
+    @POST("product/assign")
+    Observable<Object> assignQrCodeToProduct(@Body HashMap<String, String> qrCode);
+
+
+    //    TODO Change purchased to interest
     @GET("merchant/history/purchased/{userId}")
     Observable<List<InterestHistoryResponse>> interestApi(@Path("userId") int userId);
 
