@@ -139,6 +139,7 @@ public interface AppConstants {
         String STORE_POSTAL_CODE = "storePostalCode";
 
 
+        String IS_REGISTERED = "isRegistered";
         String LOGGED_IN = "isLoggedIn";
         String PUSH_TOKEN_STATUS = "pushTokenStatus";
         String ACCESS_TOKEN = "accesstoken";

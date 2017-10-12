@@ -11,6 +11,8 @@ import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.data.login.LoginDataManagerImpl;
 import com.incon.connect.dto.registration.Registration;
 import com.incon.connect.ui.BasePresenter;
+import com.incon.connect.ui.validateotp.ValidateOtpContract;
+import com.incon.connect.ui.validateotp.ValidateOtpPresenter;
 import com.incon.connect.utils.ErrorMsgUtil;
 
 import java.util.HashMap;
@@ -38,6 +40,7 @@ public class RegistrationStoreFragmentPresenter extends
 
     /**
      * Uploading user and store details to server
+     *
      * @param registrationBody
      */
     @Override
@@ -48,12 +51,14 @@ public class RegistrationStoreFragmentPresenter extends
             public void onNext(LoginResponse loginResponse) {
                 getView().uploadStoreLogo(loginResponse.getStore().getId());
             }
+
             @Override
             public void onError(Throwable e) {
                 getView().hideProgress();
                 Pair<Integer, String> errorDetails = ErrorMsgUtil.getErrorDetails(e);
                 getView().handleException(errorDetails);
             }
+
             @Override
             public void onComplete() {
             }
@@ -74,12 +79,14 @@ public class RegistrationStoreFragmentPresenter extends
                 getView().hideProgress();
                 getView().validateOTP();
             }
+
             @Override
             public void onError(Throwable e) {
                 getView().hideProgress();
                 Pair<Integer, String> errorDetails = ErrorMsgUtil.getErrorDetails(e);
                 getView().handleException(errorDetails);
             }
+
             @Override
             public void onComplete() {
                 getView().hideProgress();
@@ -92,27 +99,45 @@ public class RegistrationStoreFragmentPresenter extends
     @Override
     public void validateOTP(HashMap<String, String> verify) {
         getView().showProgress(appContext.getString(R.string.validating_code));
-        DisposableObserver<LoginResponse> observer = new DisposableObserver<LoginResponse>() {
-            @Override
-            public void onNext(LoginResponse loginResponse) {
-                // save login data to shared preferences
-                loginDataManagerImpl.saveLoginDataToPrefs(loginResponse);
-                getView().hideProgress();
-                getView().navigateToHomeScreen();
-            }
-            @Override
-            public void onError(Throwable e) {
-                getView().hideProgress();
-                Pair<Integer, String> errorDetails = ErrorMsgUtil.getErrorDetails(e);
-                getView().handleException(errorDetails);
-            }
-            @Override
-            public void onComplete() {
-                getView().hideProgress();
-            }
-        };
-        AppApiService.getInstance().validateOtp(verify).subscribe(observer);
-        addDisposable(observer);
+        ValidateOtpPresenter otpPresenter = new ValidateOtpPresenter();
+        otpPresenter.initialize(null);
+        otpPresenter.setView(otpView);
+        otpPresenter.validateOTP(verify);
+    }
+
+    ValidateOtpContract.View otpView = new ValidateOtpContract.View() {
+        @Override
+        public void validateOTP(LoginResponse loginResponse) {
+// save login data to shared preferences
+            loginDataManagerImpl.saveLoginDataToPrefs(loginResponse);
+            getView().hideProgress();
+            getView().navigateToHomeScreen();
+        }
+
+        @Override
+        public void showProgress(String message) {
+            getView().showProgress(message);
+        }
+
+        @Override
+        public void hideProgress() {
+            getView().hideProgress();
+        }
+
+        @Override
+        public void showErrorMessage(String errorMessage) {
+            getView().showErrorMessage(errorMessage);
+        }
+
+        @Override
+        public void handleException(Pair<Integer, String> error) {
+            getView().handleException(error);
+        }
+    };
+
+    public void saveMerchantInfo(LoginResponse loginResponse) {
+        // save login data to shared preferences
+        loginDataManagerImpl.saveLoginDataToPrefs(loginResponse);
     }
 
 }

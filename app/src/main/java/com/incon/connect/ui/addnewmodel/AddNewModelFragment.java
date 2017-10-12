@@ -10,6 +10,7 @@ import com.incon.connect.R;
 import com.incon.connect.databinding.FragmentAddNewModelBinding;
 import com.incon.connect.dto.addnewmodel.AddNewModel;
 import com.incon.connect.ui.BaseFragment;
+import com.incon.connect.ui.home.HomeActivity;
 import com.incon.connect.utils.SharedPrefsUtils;
 
 /**
@@ -41,6 +42,7 @@ public class AddNewModelFragment extends BaseFragment implements AddNewModelCont
             rootView = binding.getRoot();
             initViews();
         }
+        ((HomeActivity) getActivity()).setToolbarTitle(getString(R.string.title_add_new_model));
         return rootView;
     }
 

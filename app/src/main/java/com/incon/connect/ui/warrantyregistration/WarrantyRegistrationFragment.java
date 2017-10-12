@@ -1,5 +1,6 @@
 package com.incon.connect.ui.warrantyregistration;
 
+import android.app.Dialog;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 
+import com.incon.connect.AppUtils;
 import com.incon.connect.R;
 import com.incon.connect.apimodel.components.search.ModelSearchResponse;
 import com.incon.connect.callbacks.AlertDialogCallback;
@@ -50,7 +52,7 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
     private int selectedPosition;
     boolean isOtpVerified;
     private AppAlertDialog warrantyStatusDialog;
-    private AppOtpDialog dialog;
+    private AppOtpDialog userOtpDialog;
     private String enteredOtp;
     private boolean isSubmitClick = false;
 
@@ -72,10 +74,16 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
             warrantyRegistration = new WarrantyRegistration();
             binding.setWarrantyRegistration(warrantyRegistration);
             rootView = binding.getRoot();
-            initializeModelNumberAdapter(new ArrayList<ModelSearchResponse>());
+
+            initViews();
         }
 
+        ((HomeActivity) getActivity()).setToolbarTitle(getString(R.string.title_warranty_register));
         return rootView;
+    }
+
+    private void initViews() {
+        initializeModelNumberAdapter(new ArrayList<ModelSearchResponse>());
     }
 
     private void initializeModelNumberAdapter(List<ModelSearchResponse>
@@ -146,7 +154,8 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
     }
 
     @Override
-    public void validateOtp() {
+    public void validateUserOTP() {
+        dismissDialog(userOtpDialog);
         isOtpVerified = true;
         if (isSubmitClick) {
             warrantRegistrationPresenter.doWarrantyRegistrationApi(warrantyRegistration);
@@ -167,8 +176,8 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
     }
 
     public void onSubmitClick() {
+        isSubmitClick = true;
         if (isOtpVerified) {
-            isSubmitClick = true;
             warrantRegistrationPresenter.doWarrantyRegistrationApi(warrantyRegistration);
         } else {
             showOtpDialog();
@@ -177,7 +186,7 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
 
     private void showOtpDialog() {
         final String phoneNumber = "7799879990"; //todo remove later
-        dialog = new AppOtpDialog.AlertDialogBuilder(getActivity(), new
+        userOtpDialog = new AppOtpDialog.AlertDialogBuilder(getActivity(), new
                 TextAlertDialogCallback() {
                     @Override
                     public void enteredText(String otpString) {
@@ -186,6 +195,7 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
 
                     @Override
                     public void alertDialogCallback(byte dialogStatus) {
+                        AppUtils.hideSoftKeyboard(getActivity(), rootView);
                         switch (dialogStatus) {
                             case AlertDialogCallback.OK:
                                 if (TextUtils.isEmpty(enteredOtp)) {
@@ -196,10 +206,10 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
                                 verifyOTP.put(ApiRequestKeyConstants.BODY_MOBILE_NUMBER,
                                         phoneNumber);
                                 verifyOTP.put(ApiRequestKeyConstants.BODY_OTP, enteredOtp);
-                                warrantRegistrationPresenter.validateOTP(verifyOTP);
+                                warrantRegistrationPresenter.validateUserOTP(verifyOTP);
                                 break;
                             case AlertDialogCallback.CANCEL:
-                                dialog.dismiss();
+                                userOtpDialog.dismiss();
                                 break;
                             default:
                                 break;
@@ -207,7 +217,7 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
                     }
                 }).title(getString(R.string.dialog_verify_title, phoneNumber))
                 .build();
-        dialog.showDialog();
+        userOtpDialog.showDialog();
     }
 
     private void showWarrantySuccessfulRegistionDialog() {
@@ -228,15 +238,22 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
                 .button1Text(getString(R.string.action_ok))
                 .build();
         warrantyStatusDialog.showDialog();
-
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        dismissDialog(warrantyStatusDialog);
+        dismissDialog(userOtpDialog);
         if (observer != null) {
             observer.dispose();
         }
         warrantRegistrationPresenter.disposeAll();
+    }
+
+    private void dismissDialog(Dialog dialog) {
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+        }
     }
 }

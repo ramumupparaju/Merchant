@@ -23,6 +23,7 @@
 
     <uses-permission android:name="com.incon.connect.permission.MAPS_RECEIVE"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <!-- for showing current location -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
@@ -110,6 +111,13 @@
             android:name=".ui.qrcodescan.QrcodeBarcodeScanActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".ui.addoffer.AddOfferActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait">
+
+        </activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

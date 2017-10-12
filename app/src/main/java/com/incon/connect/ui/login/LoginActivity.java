@@ -11,10 +11,12 @@ import android.view.animation.AnimationUtils;
 
 import com.incon.connect.R;
 import com.incon.connect.apimodel.components.login.LoginResponse;
+import com.incon.connect.callbacks.AlertDialogCallback;
+import com.incon.connect.callbacks.TextAlertDialogCallback;
+import com.incon.connect.custom.view.AppOtpDialog;
 import com.incon.connect.databinding.ActivityLoginBinding;
 import com.incon.connect.dto.login.LoginUserData;
 import com.incon.connect.ui.BaseActivity;
-import com.incon.connect.ui.changepassword.ChangePasswordActivity;
 import com.incon.connect.ui.forgotpassword.ForgotPasswordActivity;
 import com.incon.connect.ui.home.HomeActivity;
 import com.incon.connect.ui.notifications.PushPresenter;
@@ -32,6 +34,8 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     private ActivityLoginBinding binding;
     private LoginPresenter loginPresenter;
+    private AppOtpDialog dialog;
+    private String enteredOtp;
 
     @Override
     protected int getLayoutId() {
@@ -60,6 +64,49 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
             binding.edittextPassword.requestFocus();
         }
         binding.setUser(loginUserData);
+
+        boolean isOtpVerifiedFailed = SharedPrefsUtils.loginProvider().getBooleanPreference(
+                LoginPrefs.IS_REGISTERED, false);
+        if (isOtpVerifiedFailed) {
+            showOtpDialog();
+        }
+
+    }
+
+    private void showOtpDialog() {
+        final String phoneNumber = SharedPrefsUtils.loginProvider().getStringPreference(
+                LoginPrefs.USER_PHONE_NUMBER);
+        dialog = new AppOtpDialog.AlertDialogBuilder(LoginActivity.this, new
+                TextAlertDialogCallback() {
+                    @Override
+                    public void enteredText(String otpString) {
+                        enteredOtp = otpString;
+                    }
+
+                    @Override
+                    public void alertDialogCallback(byte dialogStatus) {
+                        switch (dialogStatus) {
+                            case AlertDialogCallback.OK:
+                                if (TextUtils.isEmpty(enteredOtp)) {
+                                    showErrorMessage(getString(R.string.error_otp_req));
+                                    return;
+                                }
+                                HashMap<String, String> verifyOTP = new HashMap<>();
+                                verifyOTP.put(ApiRequestKeyConstants.BODY_MOBILE_NUMBER,
+                                        phoneNumber);
+                                verifyOTP.put(ApiRequestKeyConstants.BODY_OTP, enteredOtp);
+                                loginPresenter.validateOTP(verifyOTP);
+                                break;
+                            case AlertDialogCallback.CANCEL:
+                                dialog.dismiss();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }).title(getString(R.string.dialog_verify_title, phoneNumber))
+                .build();
+        dialog.showDialog();
     }
 
     @Override
@@ -87,14 +134,6 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(homeIntent);
         finish();
-    }
-
-    @Override
-    public void navigateToChangePassword() {
-        //removing entered password while navigating to changing password screen
-        binding.edittextPassword.setText("");
-        Intent changePasswordIntent = new Intent(this, ChangePasswordActivity.class);
-        startActivity(changePasswordIntent);
     }
 
     public void onLoginClick() {
