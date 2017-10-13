@@ -15,6 +15,7 @@ import com.incon.connect.apimodel.components.registration.SendOtpResponse;
 import com.incon.connect.custom.exception.NoConnectivityException;
 import com.incon.connect.dto.addnewmodel.AddNewModel;
 import com.incon.connect.dto.addoffer.AddOfferRequest;
+import com.incon.connect.dto.asignqrcode.AssignQrCode;
 import com.incon.connect.dto.login.LoginUserData;
 import com.incon.connect.apimodel.components.search.ModelSearchResponse;
 import com.incon.connect.dto.notifications.PushRegistrarBody;
@@ -98,7 +99,7 @@ public class AppApiService implements AppConstants {
         return addNetworkCheck(serviceInstance.validateOtp(verify));
     }
 
-    public Observable<Object> assignQrCodeToProduct(HashMap<String, String> qrCode) {
+    public Observable<Object> assignQrCodeToProduct(AssignQrCode qrCode) {
         return addNetworkCheck(serviceInstance.assignQrCodeToProduct(qrCode));
     }
 

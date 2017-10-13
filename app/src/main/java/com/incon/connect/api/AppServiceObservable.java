@@ -12,6 +12,7 @@ import com.incon.connect.apimodel.components.qrcodebaruser.UserInfoResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
 import com.incon.connect.dto.addnewmodel.AddNewModel;
 import com.incon.connect.dto.addoffer.AddOfferRequest;
+import com.incon.connect.dto.asignqrcode.AssignQrCode;
 import com.incon.connect.dto.login.LoginUserData;
 import com.incon.connect.apimodel.components.search.ModelSearchResponse;
 import com.incon.connect.dto.notifications.PushRegistrarBody;
@@ -62,7 +63,7 @@ public interface AppServiceObservable {
     Observable<List<PurchasedHistoryResponse>> purchasedApi(@Path("userId") int userId);
 
     @POST("product/assign")
-    Observable<Object> assignQrCodeToProduct(@Body HashMap<String, String> qrCode);
+    Observable<Object> assignQrCodeToProduct(@Body AssignQrCode qrCode);
 
 
     //    TODO Change purchased to interest

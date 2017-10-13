@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import com.incon.connect.AppUtils;
 import com.incon.connect.R;
 import com.incon.connect.databinding.FragmentProductAssignBinding;
+import com.incon.connect.dto.asignqrcode.AssignQrCode;
 import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.home.HomeActivity;
 /**
@@ -18,6 +19,7 @@ public class ProductAssignFragment extends BaseFragment implements ProductAssign
     private View rootView;
     private FragmentProductAssignBinding binding;
     private ProductAssignPresenter assignPresenter;
+    private AssignQrCode assignQrCode;
 
     @Override
     protected void initializePresenter() {
@@ -26,6 +28,13 @@ public class ProductAssignFragment extends BaseFragment implements ProductAssign
         setBasePresenter(assignPresenter);
     }
 
+
+    public void onClickSubmit() {
+
+        AssignQrCode assignQrCode = binding.getAssignQrCode();
+        assignPresenter.assignQrCodeToProduct(assignQrCode);
+
+    }
     @Override
     protected View onPrepareView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
@@ -33,9 +42,13 @@ public class ProductAssignFragment extends BaseFragment implements ProductAssign
             // handle events from here using android binding
             binding = DataBindingUtil.inflate(inflater, R.layout.fragment_product_assign,
                     container, false);
-            initViews();
+              assignQrCode = new AssignQrCode();
+            binding.setProductassignfragment(this);
+            binding.setAssignQrCode(assignQrCode);
 
             rootView = binding.getRoot();
+            initViews();
+
         }
         return rootView;
     }
@@ -47,8 +60,9 @@ public class ProductAssignFragment extends BaseFragment implements ProductAssign
 
     @Override
     public void productAssignQrCode(Object assignQrCodeResponse) {
-        if (assignQrCodeResponse.equals("true")) {
-            AppUtils.shortToast(getContext(), "Succes");
+        Boolean assignQrcodeResult = (Boolean) assignQrCodeResponse;
+        if (assignQrcodeResult) {
+            AppUtils.shortToast(getContext(), "Assigned SuccessFully");
         }
     }
 }
