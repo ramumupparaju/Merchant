@@ -73,6 +73,8 @@
 
     <!--settings screen-->
     <string name="action_settings">Settings</string>
+    <string name="action_update_user_profile">UpDateUserProfile</string>
+    <string name="action_update_store_profile">UpDateStoreProfile</string>
     <string name="app_version">App Version: </string>
     <!--scan tap fragment-->
 
