@@ -135,6 +135,8 @@
     <string name="error_postal_code_req">PostalCode is required</string>
 
     <!-- progress messages -->
+    <string name="progress_addoffer_merchant_fragment">Loading AddOffer Merchant Fragment..
+        .</string>
     <string name="progress_purchased_history">Loading Purchased History...</string>
     <string name="progress_interest_history">Loading Interest History...</string>
     <string name="progress_return_history">Loading Return History...</string>
@@ -294,8 +296,7 @@
     <string name="add_offer_price">Price</string>
     <!-- screen titles -->
     <string name="title_history">History</string>
-    <string name="title_buy_requests">Buy Requests</string>
-    <string name="title_assign_qr_code">Assign QR Code To Product</string>
+    <string name="title_buy_requests">Buy requests</string>
     <string name="title_scan">Scan</string>
     <string name="title_warranty_register">Warranty Registration</string>
     <string name="title_add_new_model">New Model</string>

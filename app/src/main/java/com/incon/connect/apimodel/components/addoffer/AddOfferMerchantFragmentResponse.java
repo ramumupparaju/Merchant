@@ -25,10 +25,10 @@ public class AddOfferMerchantFragmentResponse {
     private Integer offer;
     @SerializedName("fromDate")
     @Expose
-    private Integer fromDate;
+    private long fromDate;
     @SerializedName("toDate")
     @Expose
-    private Integer toDate;
+    private long toDate;
     @SerializedName("merchantId")
     @Expose
     private Integer merchantId;
@@ -90,24 +90,24 @@ public class AddOfferMerchantFragmentResponse {
         this.offer = offer;
     }
 
-    public Integer getFromDate() {
+    public Integer getMerchantId() {
+        return merchantId;
+    }
+
+    public long getFromDate() {
         return fromDate;
     }
 
-    public void setFromDate(Integer fromDate) {
+    public void setFromDate(long fromDate) {
         this.fromDate = fromDate;
     }
 
-    public Integer getToDate() {
+    public long getToDate() {
         return toDate;
     }
 
-    public void setToDate(Integer toDate) {
+    public void setToDate(long toDate) {
         this.toDate = toDate;
-    }
-
-    public Integer getMerchantId() {
-        return merchantId;
     }
 
     public void setMerchantId(Integer merchantId) {

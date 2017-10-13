@@ -6,7 +6,9 @@ import android.util.Pair;
 
 import com.incon.connect.ConnectApplication;
 import com.incon.connect.R;
+import com.incon.connect.api.AppApiService;
 import com.incon.connect.apimodel.components.addoffer.AddOfferMerchantFragmentResponse;
+import com.incon.connect.dto.addoffer.AddOfferRequest;
 import com.incon.connect.ui.BasePresenter;
 import com.incon.connect.utils.ErrorMsgUtil;
 
@@ -28,33 +30,36 @@ public class AddOfferMerchantPresenter extends BasePresenter<AddOfferMerchantCon
 
 
 
-   public void addOffer(int addOfferRequest) {
-       getView().showProgress(appContext.getString(R.string.progress_add_offer_merchant));
-       DisposableObserver<AddOfferMerchantFragmentResponse> observer = new
-               DisposableObserver<AddOfferMerchantFragmentResponse>() {
-           @Override
-           public void onNext(AddOfferMerchantFragmentResponse addOfferMerchantFragmentResponse) {
-               getView().loadAddOfferMerchant(addOfferMerchantFragmentResponse.getMerchantId());
+    public void addOffer(AddOfferRequest addOfferRequest) {
+        getView().showProgress(appContext.getString(R.string.progress_addoffer_merchant_fragment));
+        DisposableObserver<AddOfferMerchantFragmentResponse> observer = new
+                DisposableObserver<AddOfferMerchantFragmentResponse>() {
+                    @Override
+                    public void onNext(AddOfferMerchantFragmentResponse
+                                               addOfferMerchantFragmentResponse) {
+                        getView().hideProgress();
+                        getView().loadAddOfferMerchant(
+                                addOfferMerchantFragmentResponse);
 
-           }
+                    }
 
-           @Override
-           public void onError(Throwable e) {
-               getView().hideProgress();
-               Pair<Integer, String> errorDetails = ErrorMsgUtil.getErrorDetails(e);
-               getView().handleException(errorDetails);
+                    @Override
+                    public void onError(Throwable e) {
+                        getView().hideProgress();
+                        Pair<Integer, String> errorDetails = ErrorMsgUtil.getErrorDetails(e);
+                        getView().handleException(errorDetails);
 
-           }
+                    }
 
-           @Override
-           public void onComplete() {
+                    @Override
+                    public void onComplete() {
 
-           }
-       };
-      // AppApiService.getInstance().addOffer(addOfferRequest).subscribe(observer);
-       addDisposable(observer);
+                    }
+                };
+        AppApiService.getInstance().addOffer(addOfferRequest).subscribe(observer);
+        addDisposable(observer);
 
-   }
+    }
 
 
 }

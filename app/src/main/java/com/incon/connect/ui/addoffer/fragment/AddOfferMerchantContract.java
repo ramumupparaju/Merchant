@@ -1,5 +1,6 @@
 package com.incon.connect.ui.addoffer.fragment;
 
+import com.incon.connect.apimodel.components.addoffer.AddOfferMerchantFragmentResponse;
 import com.incon.connect.ui.BaseView;
 
 /**
@@ -8,7 +9,7 @@ import com.incon.connect.ui.BaseView;
 
 public interface AddOfferMerchantContract {
     interface View extends BaseView {
-        void loadAddOfferMerchant(int merchantId);
+        void loadAddOfferMerchant(AddOfferMerchantFragmentResponse merchantId);
     }
     interface Presenter {
 
