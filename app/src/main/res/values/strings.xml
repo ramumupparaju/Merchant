@@ -133,7 +133,7 @@
     <string name="error_postal_code_req">PostalCode is required</string>
 
     <!-- progress messages -->
-    <string name="progress_addoffer_merchant_fragment">Lodding AddOffer Merchant Fragment..
+    <string name="progress_addoffer_merchant_fragment">Loading AddOffer Merchant Fragment..
         .</string>
     <string name="progress_purchased_history">Loading Purchased History...</string>
     <string name="progress_interest_history">Loading Interest History...</string>

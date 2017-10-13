@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 
 import com.incon.connect.AppUtils;
@@ -50,6 +51,9 @@ public class AddOfferMerchantFragment extends BaseFragment implements
     private Animation shakeAnim;
     private AddOfferRequest addOfferRequest;
     private int merchantId;
+    private MaterialBetterSpinner brandSpinner;
+    private MaterialBetterSpinner divisionSpinner;
+    private MaterialBetterSpinner modelSpinner;
 
 
     @Override
@@ -78,6 +82,10 @@ public class AddOfferMerchantFragment extends BaseFragment implements
 
     public void onDateClick() {
         showDatePicker();
+    }
+    public void onSubmitClick() {
+        AddOfferRequest addOfferRequest = binding.getAddOfferRequest();
+        addOfferMerchantPresenter.addOffer(addOfferRequest);
     }
 
     private void showDatePicker() {
@@ -116,7 +124,7 @@ public class AddOfferMerchantFragment extends BaseFragment implements
 
                     binding.edittextStartOn.setText(strDt);
                     binding.edittextOfferExpires.setText(endDt);
-                 //   binding.edittextOfferExpires.setText(endDt);
+                    //   binding.edittextOfferExpires.setText(endDt);
                     String dobInYYYYMMDD = DateUtils.convertDateToOtherFormat(
                             selectedDateTime.getTime(), DateFormatterConstants.YYYY_MM_DD);
                     //TODO  Have to show Time Picker
@@ -126,14 +134,48 @@ public class AddOfferMerchantFragment extends BaseFragment implements
                     Pair<String, Integer> enddate = binding.getAddOfferRequest().
                             validateUserInfo((String) binding.edittextOfferExpires.getTag());*/
 
-                   // updateUiAfterValidation(startdate.first, startdate.second);
+                    // updateUiAfterValidation(startdate.first, startdate.second);
                 }
             };
 
     private void loadData() {
         shakeAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.shake);
+        loadBrandSpinnerData();
+        loadDivisionSpinnerData();
+        loadModelSpinnerData();
+
     }
 
+    private void loadModelSpinnerData() {
+        String[] genderTypeList = getResources().getStringArray(R.array.gender_options_list);
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),
+                R.layout.view_spinner, genderTypeList);
+        arrayAdapter.setDropDownViewResource(R.layout.view_spinner);
+        modelSpinner = binding.spinnerModel;
+        modelSpinner.setAdapter(arrayAdapter);
+    }
+    private void loadDivisionSpinnerData() {
+
+        String[] genderTypeList = getResources().getStringArray(R.array.gender_options_list);
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),
+                R.layout.view_spinner, genderTypeList);
+        arrayAdapter.setDropDownViewResource(R.layout.view_spinner);
+        divisionSpinner = binding.spinnerDivision;
+        divisionSpinner.setAdapter(arrayAdapter);
+    }
+
+    void loadBrandSpinnerData() {
+        String[] genderTypeList = getResources().getStringArray(R.array.gender_options_list);
+
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),
+                R.layout.view_spinner, genderTypeList);
+        arrayAdapter.setDropDownViewResource(R.layout.view_spinner);
+        brandSpinner = binding.spinnerBrand;
+        brandSpinner.setAdapter(arrayAdapter);
+
+    }
     private void updateUiAfterValidation(String tag, int validationId) {
 
         if (tag == null) {
@@ -162,9 +204,9 @@ public class AddOfferMerchantFragment extends BaseFragment implements
     private void initViews() {
         ((HomeActivity) getActivity()).setToolbarTitle(getString(R.string.title_offers));
 
-         merchantId = SharedPrefsUtils.loginProvider().getIntegerPreference(
+        merchantId = SharedPrefsUtils.loginProvider().getIntegerPreference(
                 LoginPrefs.USER_ID, DEFAULT_VALUE);
-
+/*
         AddOfferRequest addOfferRequest = new AddOfferRequest();
         addOfferRequest.setCustomerId("19");
         addOfferRequest.setMerchantId("2");
@@ -176,13 +218,13 @@ public class AddOfferMerchantFragment extends BaseFragment implements
         addOfferRequest.setPurchaseId("2");
         addOfferRequest.setFromDate("2017-10-07T20:02:03.725Z");
         addOfferRequest.setToDate("2017-10-27T20:02:03.725Z");
-        addOfferMerchantPresenter.addOffer(merchantId);
+        addOfferMerchantPresenter.addOffer(addOfferRequest);*/
 
     }
 
 
     @Override
-    public void loadAddOfferMerchant(int merchantId) {
-
+    public void loadAddOfferMerchant(AddOfferMerchantFragmentResponse merchantId) {
+        AppUtils.showSnackBar(rootView , merchantId.getModelNumber());
     }
 }
