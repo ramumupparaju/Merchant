@@ -29,7 +29,7 @@ public class AddOfferMerchantPresenter extends BasePresenter<AddOfferMerchantCon
 
 
    public void addOffer(int addOfferRequest) {
-       getView().showProgress(appContext.getString(R.string.progress_addoffer_merchant_fragment));
+       getView().showProgress(appContext.getString(R.string.progress_add_offer_merchant));
        DisposableObserver<AddOfferMerchantFragmentResponse> observer = new
                DisposableObserver<AddOfferMerchantFragmentResponse>() {
            @Override
