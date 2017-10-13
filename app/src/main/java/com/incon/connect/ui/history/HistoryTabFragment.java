@@ -15,6 +15,7 @@ import com.incon.connect.databinding.FragmentHistoryTabBinding;
 import com.incon.connect.databinding.ToolBarBinding;
 import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.history.adapter.HistoryTabPagerAdapter;
+import com.incon.connect.ui.home.HomeActivity;
 
 
 public class HistoryTabFragment extends BaseFragment {
@@ -47,6 +48,7 @@ public class HistoryTabFragment extends BaseFragment {
     }
 
     private void initViews() {
+        ((HomeActivity) getActivity()).setToolbarTitle(getString(R.string.title_history));
         initActionBar();
         initViewPager();
     }
