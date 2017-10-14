@@ -146,6 +146,10 @@ public class AppApiService implements AppConstants {
         return addNetworkCheck(serviceInstance.warrantyRegisterApi(warrantyRegistration));
     }
 
+    /* public Observable<Object> assignQrCodeToProduct(AssignQrCode qrCode) {
+        return addNetworkCheck(serviceInstance.assignQrCodeToProduct(qrCode));
+    }*/
+
     public Observable<Object> pushTokenApi(PushRegistrarBody pushRegistrarBody) {
         return addNetworkCheck(serviceInstance.pushTokenApi(pushRegistrarBody));
     }

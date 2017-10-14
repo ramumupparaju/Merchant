@@ -36,6 +36,7 @@
                     style="@style/Register_TextInputEditText"
                     android:maxLength="@integer/character_limit_100"
                     android:maxLines="1"
+                    android:text="@={warrantyRegistration.modelNumber}"
                     />
             </com.incon.connect.custom.view.CustomTextInputLayout>
 
@@ -54,11 +55,14 @@
                     style="@style/Add_new_model_TextInputEditText"
                     android:focusable="true"
                     android:imeOptions="actionNext"
-                    android:inputType="number"
                     android:maxLength="@integer/character_limit_45"
                     android:maxLines="1"
+                    android:text="@={warrantyRegistration.price}"
                     android:tag="1"
                     />
+
+
+
             </com.incon.connect.custom.view.CustomTextInputLayout>
 
             <!-- batch no -->
@@ -78,6 +82,7 @@
                     android:imeOptions="actionNext"
                     android:inputType="textCapWords"
                     android:maxLength="@integer/character_limit_45"
+                    android:text="@={warrantyRegistration.batchNumber}"
                     android:maxLines="1"
                     android:tag="1"
                     />
@@ -99,6 +104,7 @@
                     android:imeOptions="actionNext"
                     android:inputType="textCapWords"
                     android:maxLength="@integer/character_limit_45"
+                    android:text="@={warrantyRegistration.serialNumber}"
                     android:maxLines="1"
                     android:tag="1"
                     />

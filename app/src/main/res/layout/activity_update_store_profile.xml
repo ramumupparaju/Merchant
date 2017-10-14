@@ -4,7 +4,10 @@
 
     <data>
         <variable
-            name="upDateStoreProfile"
+            name="upDateUserProfile"
+            type="com.incon.connect.dto.update.UpDateUserProfile"/>
+        <variable
+            name="upDateStoreProfileActivity"
             type="com.incon.connect.ui.settings.update.UpDateStoreProfileActivity"/>
     </data>
 
@@ -23,11 +26,47 @@
                 layout="@layout/toolbar_update_profile">
 
             </include>
+            <!-- store information title text -->
+            <TextView
+                android:layout_below="@id/toolbar_edit_profile"
+                android:id="@+id/text_userinfo_title"
+                style="@style/BothWrap"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:text="@string/register_store_info_title"
+                android:textColor="@color/colorForgotPasswordText"
+                android:textSize="18sp"/>
+
+            <!-- Store information subtitle text -->
+            <TextView
+                android:id="@+id/text_userinfo_subtitle"
+                style="@style/BothWrap"
+                android:layout_below="@id/text_userinfo_title"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="2dp"
+                android:gravity="center"
+                android:text="@string/register_store_info_subtitle"
+                android:textColor="@color/colorForgotPasswordText"
+                android:textSize="12sp"/>
+
+            <!-- Store logo -->
+            <ImageView
+                android:id="@+id/store_logo_iv"
+                style="@style/BothWrap"
+                android:layout_below="@id/text_userinfo_subtitle"
+                android:layout_width="130dp"
+                android:layout_height="76dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="32dp"
+                android:contentDescription="@string/app_name"
+                android:onClick="@{() -> upDateStoreProfileActivity.openCameraToUpload()}"
+
+                app:srcCompat="@drawable/ic_im_showroom"/>
 
 
             <RelativeLayout
                 style="@style/BothMatch"
-                android:layout_below="@id/toolbar_edit_profile"
+                android:layout_below="@id/store_logo_iv"
                 android:layout_marginTop="30dp">
 
                 <!-- Name -->
@@ -47,6 +86,7 @@
                         android:inputType="textCapWords"
                         android:maxLength="@integer/character_limit_200"
                         android:maxLines="1"
+                        android:text="@={upDateUserProfile.storeName}"
                         android:tag="0"
                         />
                 </com.incon.connect.custom.view.CustomTextInputLayout>
@@ -66,9 +106,9 @@
                         style="@style/Register_TextInputEditText"
                         android:focusable="true"
                         android:imeOptions="actionNext"
-                        android:inputType="number"
                         android:maxLength="@integer/character_limit_45"
                         android:maxLines="1"
+                        android:text="@={upDateUserProfile.storePhoneNumber}"
                         android:tag="1"
                         />
                 </com.incon.connect.custom.view.CustomTextInputLayout>
@@ -87,6 +127,7 @@
                         android:id="@+id/edittext_up_date_category"
                         style="@style/Register_TextInputEditText"
                         android:enabled="false"
+                        android:text="@={upDateUserProfile.storeCategoryNames}"
                         android:tag="2"
                         />
                 </com.incon.connect.custom.view.CustomTextInputLayout>
@@ -101,6 +142,7 @@
                     android:layout_alignStart="@+id/input_layout_up_date_category"
                     android:layout_alignTop="@+id/input_layout_up_date_category"
                     android:background="@null"
+                    android:onClick="@{() -> upDateStoreProfileActivity.onCategoryClick()}"
                     />
 
 
@@ -118,6 +160,7 @@
                         android:id="@+id/edittext_up_date_address"
                         style="@style/Register_TextInputEditText"
                         android:enabled="false"
+                        android:text="@={upDateUserProfile.storeAddress}"
                         android:tag="3"
                         />
                 </com.incon.connect.custom.view.CustomTextInputLayout>
@@ -132,6 +175,7 @@
                     android:layout_alignStart="@+id/input_layout_up_date_address"
                     android:layout_alignTop="@+id/input_layout_up_date_address"
                     android:background="@null"
+                    android:onClick="@{() -> upDateStoreProfileActivity.onAddressClick()}"
                     />
 
                 <!-- Email ID -->
@@ -152,6 +196,7 @@
                         android:inputType="textEmailAddress"
                         android:maxLength="@integer/character_limit_200"
                         android:maxLines="1"
+                        android:text="@={upDateUserProfile.storeEmail}"
                         android:tag="4"
                         />
                 </com.incon.connect.custom.view.CustomTextInputLayout>
@@ -175,6 +220,7 @@
                         android:maxLength="@integer/character_limit_200"
                         android:maxLines="1"
                         android:tag="5"
+                        android:text="@={upDateUserProfile.storeGSTN}"
                         />
                 </com.incon.connect.custom.view.CustomTextInputLayout>
                 <Button
@@ -189,6 +235,7 @@
                     android:text="@string/add_new_submit"
                     android:visibility="gone"
                     android:textAllCaps="true"
+                    android:onClick="@{() -> upDateStoreProfileActivity.onSubmitClick()}"
                     android:textColor="@color/tueo_theme"
                     android:textSize="@dimen/text_size_13"/>
 
