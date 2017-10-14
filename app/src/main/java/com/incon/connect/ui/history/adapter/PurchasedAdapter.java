@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.incon.connect.AppConstants;
 import com.incon.connect.AppUtils;
 import com.incon.connect.BR;
 import com.incon.connect.R;
@@ -18,11 +19,11 @@ import java.util.List;
 
 /**
  * Created on 13 Jun 2017 4:05 PM.
- *
  */
 public class PurchasedAdapter extends RecyclerView.Adapter
-        <PurchasedAdapter.ViewHolder>  {
-    private List<PurchasedHistoryResponse> purchasedList = new ArrayList<>();
+        <PurchasedAdapter.ViewHolder> {
+    private List<PurchasedHistoryResponse> purchasedHistoryResponseList = new ArrayList<>();
+    private List<PurchasedHistoryResponse> filteredPurchasedList = new ArrayList<>();
     private IClickCallback clickCallback;
 
     @Override
@@ -35,23 +36,49 @@ public class PurchasedAdapter extends RecyclerView.Adapter
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        PurchasedHistoryResponse purchasedHistoryResponse = purchasedList.get(position);
+        PurchasedHistoryResponse purchasedHistoryResponse = filteredPurchasedList.get(position);
         holder.bind(purchasedHistoryResponse);
     }
 
     @Override
     public int getItemCount() {
-        return purchasedList.size();
+        return filteredPurchasedList.size();
     }
 
 
     public void setData(List<PurchasedHistoryResponse> purchasedHistoryResponseList) {
-        purchasedList = purchasedHistoryResponseList;
+        this.purchasedHistoryResponseList = purchasedHistoryResponseList;
+        filteredPurchasedList = purchasedHistoryResponseList;
+        notifyDataSetChanged();
+    }
+
+    public void SearchData(String searchableString, int searchType) {
+        filteredPurchasedList.clear();
+        switch (searchType) {
+            case AppConstants.FilterConstants.NAME:
+                for (PurchasedHistoryResponse purchasedHistoryResponse
+                        : purchasedHistoryResponseList) {
+                    if (purchasedHistoryResponse.getProductName().toLowerCase().startsWith(
+                            searchableString.toLowerCase())) {
+                        filteredPurchasedList.add(purchasedHistoryResponse);
+                    }
+                }
+                break;
+            case AppConstants.FilterConstants.BRAND:
+                for (PurchasedHistoryResponse purchasedHistoryResponse
+                        : purchasedHistoryResponseList) {
+                    if (purchasedHistoryResponse.getBrandName().toLowerCase().startsWith(
+                            searchableString.toLowerCase())) {
+                        filteredPurchasedList.add(purchasedHistoryResponse);
+                    }
+                }
+                break;
+        }
         notifyDataSetChanged();
     }
 
     public void clearData() {
-        purchasedList.clear();
+        filteredPurchasedList.clear();
         notifyDataSetChanged();
     }
 

@@ -16,9 +16,15 @@ public interface AppConstants {
     int VALIDATION_ZIPCODE_LENGTH = 5;
     String DELIMITOR = "-";
 
+    interface FilterConstants {
+        int NAME = 1;
+        int BRAND = 2;
+    }
+
     interface WarrantyRegistrationConstants {
         int MINIMUM_MODELNUMBER_TO_SEARCH = 3;
     }
+
     interface GoogleMapConstants {
         int GEOCODER_MAX_ADDRESS_RESULTS = 1;
         float DEFAULT_ZOOM_LEVEL = 12.0f;
@@ -103,7 +109,7 @@ public interface AppConstants {
 
     interface PushSubTypeConstants {
         String CONNECT_PUSH = "tueoPush";
-        String  PUSH_DEVICE_TYPE = "android";
+        String PUSH_DEVICE_TYPE = "android";
     }
 
 

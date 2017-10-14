@@ -1,13 +1,16 @@
 package com.incon.connect.ui.history;
 
+import android.content.res.AssetManager;
 import android.databinding.DataBindingUtil;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.incon.connect.AppConstants;
 import com.incon.connect.R;
 import com.incon.connect.custom.view.CustomViewPager;
 import com.incon.connect.databinding.CustomTabBinding;
@@ -15,13 +18,13 @@ import com.incon.connect.databinding.FragmentHistoryTabBinding;
 import com.incon.connect.databinding.ToolBarBinding;
 import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.history.adapter.HistoryTabPagerAdapter;
+import com.incon.connect.ui.history.base.BaseTabFragment;
 
 
-public class HistoryTabFragment extends BaseFragment {
+public class HistoryTabFragment extends BaseFragment implements View.OnClickListener {
 
     private static final String TAG = HistoryTabFragment.class.getSimpleName();
     private FragmentHistoryTabBinding binding;
-    private ToolBarBinding toolBarBinding;
     private View rootView;
     private Typeface defaultTypeFace;
     private Typeface selectedTypeFace;
@@ -47,22 +50,17 @@ public class HistoryTabFragment extends BaseFragment {
     }
 
     private void initViews() {
-        initActionBar();
         initViewPager();
+        binding.searchLayout.searchIconIv.setOnClickListener(this);
+        binding.searchLayout.searchIconIv.setOnClickListener(this);
     }
-
-
-    private void initActionBar() {
-    }
-
 
     private void initViewPager() {
 
-        defaultTypeFace = Typeface.createFromAsset(getActivity().getAssets(),
-                "fonts/OpenSans-Regular.ttf");
+        AssetManager assets = getActivity().getAssets();
+        defaultTypeFace = Typeface.createFromAsset(assets, "fonts/OpenSans-Regular.ttf");
 
-        selectedTypeFace = Typeface.createFromAsset(getActivity().getAssets(),
-                "fonts/OpenSans-Bold.ttf");
+        selectedTypeFace = Typeface.createFromAsset(assets, "fonts/OpenSans-Bold.ttf");
 
         tabTitles = getResources().getStringArray(R.array.history_tab);
 
@@ -74,8 +72,7 @@ public class HistoryTabFragment extends BaseFragment {
         changeTitleFont(0);
 
         //set up ViewPager
-        adapter = new HistoryTabPagerAdapter(
-                getFragmentManager(), tabLayout.getTabCount());
+        adapter = new HistoryTabPagerAdapter(getFragmentManager(), tabLayout.getTabCount());
         customViewPager.setAdapter(adapter);
 
         customViewPager.addOnPageChangeListener(
@@ -87,11 +84,12 @@ public class HistoryTabFragment extends BaseFragment {
                 int position = tab.getPosition();
                 customViewPager.setCurrentItem(position);
                 changeTitleFont(position);
-                changeToolbar(position);
             }
+
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
             }
+
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
 
@@ -99,26 +97,6 @@ public class HistoryTabFragment extends BaseFragment {
         });
 
     }
-
-    private void changeToolbar(int position) {
-        if (toolBarBinding == null) {
-            return;
-        }
-        switch (position) {
-            case 0:
-                toolBarBinding.toolbarLeftIv.setVisibility(View.VISIBLE);
-                toolBarBinding.toolbarRightIv.setVisibility(View.VISIBLE);
-                break;
-            case 1:
-            case 2:
-                toolBarBinding.toolbarLeftIv.setVisibility(View.GONE);
-                toolBarBinding.toolbarRightIv.setVisibility(View.VISIBLE);
-                break;
-            default:
-                break;
-        }
-    }
-
 
     private void changeTitleFont(int position) {
         for (int i = 0; i < tabTitles.length; i++) {
@@ -143,5 +121,18 @@ public class HistoryTabFragment extends BaseFragment {
     private CustomTabBinding getCustomTabView() {
         return DataBindingUtil.inflate(
                 LayoutInflater.from(getActivity()), R.layout.custom_tab, null, false);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.search_et:
+                int currentItem = binding.viewPager.getCurrentItem();
+                BaseTabFragment fragmentFromPosition = (BaseTabFragment) adapter.
+                        getFragmentFromPosition(currentItem);
+                fragmentFromPosition.onSearchClickListerner(binding.searchLayout.searchEt.getText
+                        ().toString(), FilterConstants.NAME);
+                break;
+        }
     }
 }

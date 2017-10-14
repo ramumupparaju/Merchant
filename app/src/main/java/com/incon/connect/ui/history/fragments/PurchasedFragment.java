@@ -19,6 +19,7 @@ import com.incon.connect.databinding.CustomBottomViewBinding;
 import com.incon.connect.databinding.FragmentPurchasedBinding;
 import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.history.adapter.PurchasedAdapter;
+import com.incon.connect.ui.history.base.BaseTabFragment;
 import com.incon.connect.utils.SharedPrefsUtils;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ import java.util.Random;
 /**
  * Created on 13 Jun 2017 4:01 PM.
  */
-public class PurchasedFragment extends BaseFragment implements PurchasedContract.View {
+public class PurchasedFragment extends BaseTabFragment implements PurchasedContract.View {
 
     private View rootView;
     private PurchasedPresenter purchasedPresenter;
@@ -177,5 +178,10 @@ public class PurchasedFragment extends BaseFragment implements PurchasedContract
         this.purchasedList = purchasedHistoryResponseList;
         purchasedAdapter.setData(purchasedList);
         dismissSwipeRefresh();
+    }
+
+    @Override
+    public void onSearchClickListerner(String searchableText, int searchType) {
+        purchasedAdapter.SearchData(searchableText, searchType);
     }
 }
