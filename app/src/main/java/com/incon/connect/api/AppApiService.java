@@ -12,11 +12,11 @@ import com.incon.connect.apimodel.components.history.purchased.ReturnHistoryResp
 import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.apimodel.components.qrcodebaruser.UserInfoResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
+import com.incon.connect.apimodel.components.search.ModelSearchResponse;
 import com.incon.connect.custom.exception.NoConnectivityException;
 import com.incon.connect.dto.addnewmodel.AddNewModel;
 import com.incon.connect.dto.addoffer.AddOfferRequest;
 import com.incon.connect.dto.login.LoginUserData;
-import com.incon.connect.apimodel.components.search.ModelSearchResponse;
 import com.incon.connect.dto.notifications.PushRegistrarBody;
 import com.incon.connect.dto.registration.Registration;
 import com.incon.connect.dto.warrantyregistration.WarrantyRegistration;
