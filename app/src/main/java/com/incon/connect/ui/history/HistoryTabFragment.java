@@ -5,17 +5,16 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.incon.connect.AppConstants;
+import com.incon.connect.AppUtils;
 import com.incon.connect.R;
 import com.incon.connect.custom.view.CustomViewPager;
 import com.incon.connect.databinding.CustomTabBinding;
 import com.incon.connect.databinding.FragmentHistoryTabBinding;
-import com.incon.connect.databinding.ToolBarBinding;
 import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.history.adapter.HistoryTabPagerAdapter;
 import com.incon.connect.ui.history.base.BaseTabFragment;
@@ -52,7 +51,7 @@ public class HistoryTabFragment extends BaseFragment implements View.OnClickList
     private void initViews() {
         initViewPager();
         binding.searchLayout.searchIconIv.setOnClickListener(this);
-        binding.searchLayout.searchIconIv.setOnClickListener(this);
+        binding.searchLayout.filterIconIv.setOnClickListener(this);
     }
 
     private void initViewPager() {
@@ -117,7 +116,6 @@ public class HistoryTabFragment extends BaseFragment implements View.OnClickList
         }
     }
 
-
     private CustomTabBinding getCustomTabView() {
         return DataBindingUtil.inflate(
                 LayoutInflater.from(getActivity()), R.layout.custom_tab, null, false);
@@ -126,13 +124,24 @@ public class HistoryTabFragment extends BaseFragment implements View.OnClickList
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.search_et:
+            case R.id.search_icon_iv:
                 int currentItem = binding.viewPager.getCurrentItem();
                 BaseTabFragment fragmentFromPosition = (BaseTabFragment) adapter.
                         getFragmentFromPosition(currentItem);
-                fragmentFromPosition.onSearchClickListerner(binding.searchLayout.searchEt.getText
-                        ().toString(), FilterConstants.NAME);
+                String searchableText = binding.searchLayout.searchEt.getText().toString();
+                int filterType;
+                if (TextUtils.isEmpty(searchableText)) {
+                    filterType = FilterConstants.NONE;
+                } else {
+                    filterType = FilterConstants.NAME;
+                }
+                fragmentFromPosition.onSearchClickListerner(searchableText, filterType);
                 break;
+            case R.id.filter_icon_iv:
+                AppUtils.showSnackBar(rootView, "have to show popup");
+                break;
+            default:
+                //do nothing
         }
     }
 }

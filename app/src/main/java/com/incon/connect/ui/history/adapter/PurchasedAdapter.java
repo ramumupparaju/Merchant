@@ -48,11 +48,11 @@ public class PurchasedAdapter extends RecyclerView.Adapter
 
     public void setData(List<PurchasedHistoryResponse> purchasedHistoryResponseList) {
         this.purchasedHistoryResponseList = purchasedHistoryResponseList;
-        filteredPurchasedList = purchasedHistoryResponseList;
+        filteredPurchasedList.addAll(purchasedHistoryResponseList);
         notifyDataSetChanged();
     }
 
-    public void SearchData(String searchableString, int searchType) {
+    public void searchData(String searchableString, int searchType) {
         filteredPurchasedList.clear();
         switch (searchType) {
             case AppConstants.FilterConstants.NAME:
@@ -73,6 +73,8 @@ public class PurchasedAdapter extends RecyclerView.Adapter
                     }
                 }
                 break;
+            default:
+                filteredPurchasedList.addAll(purchasedHistoryResponseList);
         }
         notifyDataSetChanged();
     }

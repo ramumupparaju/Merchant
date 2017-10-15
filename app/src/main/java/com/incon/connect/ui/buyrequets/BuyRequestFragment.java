@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +28,8 @@ import java.util.List;
  * Created on 13 Jun 2017 4:01 PM.
  *
  */
-public class BuyRequestFragment extends BaseFragment implements BuyRequestContract.View {
+public class BuyRequestFragment extends BaseFragment implements View.OnClickListener,
+        BuyRequestContract.View {
 
     private static final String TAG = BuyRequestFragment.class.getSimpleName();
     private FragmentBuyRequestBinding binding;
@@ -60,6 +62,9 @@ public class BuyRequestFragment extends BaseFragment implements BuyRequestContra
 
     private void initViews() {
         ((HomeActivity) getActivity()).setToolbarTitle(getString(R.string.title_buy_requests));
+
+        binding.searchLayout.searchIconIv.setOnClickListener(this);
+        binding.searchLayout.filterIconIv.setOnClickListener(this);
 
         binding.swiperefresh.setColorSchemeResources(R.color.colorPrimaryDark);
         binding.swiperefresh.setOnRefreshListener(onRefreshListener);
@@ -100,7 +105,6 @@ public class BuyRequestFragment extends BaseFragment implements BuyRequestContra
     private void dismissSwipeRefresh() {
         if (binding.swiperefresh.isRefreshing()) {
             binding.swiperefresh.setRefreshing(false);
-
         }
     }
 
@@ -116,5 +120,26 @@ public class BuyRequestFragment extends BaseFragment implements BuyRequestContra
         dismissSwipeRefresh();
 
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.search_icon_iv:
+                String searchableText = binding.searchLayout.searchEt.getText().toString();
+                int filterType;
+                if (TextUtils.isEmpty(searchableText)) {
+                    filterType = FilterConstants.NONE;
+                } else {
+                    filterType = FilterConstants.NAME;
+                }
+                buyRequestAdapter.searchData(searchableText, filterType);
+                break;
+            case R.id.filter_icon_iv:
+                AppUtils.showSnackBar(rootView, "have to show popup");
+                break;
+            default:
+                //do nothing
+        }
     }
 }

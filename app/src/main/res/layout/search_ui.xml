@@ -23,6 +23,7 @@
                 android:layout_marginLeft="@dimen/margin_10"
                 android:layout_weight="1"
                 android:background="@null"
+                android:maxLines="@integer/character_limit_1"
                 android:textColor="@color/black"/>
 
             <ImageView

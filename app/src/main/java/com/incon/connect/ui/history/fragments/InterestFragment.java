@@ -17,7 +17,6 @@ import com.incon.connect.callbacks.IClickCallback;
 import com.incon.connect.databinding.BottomSheetInterestBinding;
 import com.incon.connect.databinding.CustomBottomViewBinding;
 import com.incon.connect.databinding.FragmentInterestBinding;
-import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.history.adapter.InterestAdapter;
 import com.incon.connect.ui.history.base.BaseTabFragment;
 import com.incon.connect.utils.SharedPrefsUtils;

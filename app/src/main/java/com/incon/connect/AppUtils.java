@@ -36,6 +36,7 @@ public class AppUtils {
 
     public static void loadImageFromApi(ImageView imageView, String url) {
         RequestOptions requestOptions = new RequestOptions();
+        requestOptions.placeholder(R.drawable.btn_register_type_checked);
         requestOptions.error(R.drawable.btn_register_type_checked);
         Glide.with(imageView.getContext())
                 .setDefaultRequestOptions(requestOptions)

@@ -17,6 +17,7 @@ public interface AppConstants {
     String DELIMITOR = "-";
 
     interface FilterConstants {
+        int NONE = 0;
         int NAME = 1;
         int BRAND = 2;
     }

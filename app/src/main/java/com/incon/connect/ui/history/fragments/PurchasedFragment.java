@@ -11,13 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.incon.connect.AppUtils;
 import com.incon.connect.R;
 import com.incon.connect.apimodel.components.history.purchased.PurchasedHistoryResponse;
 import com.incon.connect.callbacks.IClickCallback;
 import com.incon.connect.databinding.BottomSheetPurchasedBinding;
 import com.incon.connect.databinding.CustomBottomViewBinding;
 import com.incon.connect.databinding.FragmentPurchasedBinding;
-import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.history.adapter.PurchasedAdapter;
 import com.incon.connect.ui.history.base.BaseTabFragment;
 import com.incon.connect.utils.SharedPrefsUtils;
@@ -182,6 +182,7 @@ public class PurchasedFragment extends BaseTabFragment implements PurchasedContr
 
     @Override
     public void onSearchClickListerner(String searchableText, int searchType) {
-        purchasedAdapter.SearchData(searchableText, searchType);
+        AppUtils.hideSoftKeyboard(getActivity(), rootView);
+        purchasedAdapter.searchData(searchableText, searchType);
     }
 }
