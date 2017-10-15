@@ -18,6 +18,7 @@ import com.incon.connect.databinding.FragmentHistoryTabBinding;
 import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.history.adapter.HistoryTabPagerAdapter;
 import com.incon.connect.ui.history.base.BaseTabFragment;
+import com.incon.connect.ui.home.HomeActivity;
 
 
 public class HistoryTabFragment extends BaseFragment implements View.OnClickListener {
@@ -49,6 +50,7 @@ public class HistoryTabFragment extends BaseFragment implements View.OnClickList
     }
 
     private void initViews() {
+        ((HomeActivity) getActivity()).setToolbarTitle(getString(R.string.title_history));
         initViewPager();
         binding.searchLayout.searchIconIv.setOnClickListener(this);
         binding.searchLayout.filterIconIv.setOnClickListener(this);

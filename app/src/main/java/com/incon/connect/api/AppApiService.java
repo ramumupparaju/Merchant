@@ -16,6 +16,7 @@ import com.incon.connect.apimodel.components.search.ModelSearchResponse;
 import com.incon.connect.custom.exception.NoConnectivityException;
 import com.incon.connect.dto.addnewmodel.AddNewModel;
 import com.incon.connect.dto.addoffer.AddOfferRequest;
+import com.incon.connect.dto.asignqrcode.AssignQrCode;
 import com.incon.connect.dto.login.LoginUserData;
 import com.incon.connect.dto.notifications.PushRegistrarBody;
 import com.incon.connect.dto.registration.Registration;
@@ -98,6 +99,10 @@ public class AppApiService implements AppConstants {
         return addNetworkCheck(serviceInstance.validateOtp(verify));
     }
 
+    public Observable<Object> assignQrCodeToProduct(AssignQrCode qrCode) {
+        return addNetworkCheck(serviceInstance.assignQrCodeToProduct(qrCode));
+    }
+
     public Observable<List<PurchasedHistoryResponse>> purchasedApi(int userId) {
         return addNetworkCheck(serviceInstance.purchasedApi(userId));
     }
@@ -140,6 +145,10 @@ public class AppApiService implements AppConstants {
     public Observable<Object> warrantyRegisterApi(WarrantyRegistration warrantyRegistration) {
         return addNetworkCheck(serviceInstance.warrantyRegisterApi(warrantyRegistration));
     }
+
+    /* public Observable<Object> assignQrCodeToProduct(AssignQrCode qrCode) {
+        return addNetworkCheck(serviceInstance.assignQrCodeToProduct(qrCode));
+    }*/
 
     public Observable<Object> pushTokenApi(PushRegistrarBody pushRegistrarBody) {
         return addNetworkCheck(serviceInstance.pushTokenApi(pushRegistrarBody));

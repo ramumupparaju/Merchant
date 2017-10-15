@@ -17,8 +17,10 @@ import com.incon.connect.databinding.ActivitySettingsBinding;
 import com.incon.connect.dto.settings.SettingsItem;
 import com.incon.connect.ui.BaseActivity;
 import com.incon.connect.ui.changepassword.ChangePasswordActivity;
-import com.incon.connect.ui.register.RegistrationActivity;
+import com.incon.connect.ui.home.HomeActivity;
 import com.incon.connect.ui.settings.adapters.SettingsAdapter;
+import com.incon.connect.ui.settings.update.UpDateStoreProfileActivity;
+import com.incon.connect.ui.settings.update.UpDateUserProfileActivity;
 import com.incon.connect.utils.SharedPrefsUtils;
 
 import java.util.ArrayList;
@@ -56,7 +58,8 @@ public class SettingsActivity extends BaseActivity implements SettingsContract.V
         binding.toolbarLeftIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                Intent backToHome = new Intent(SettingsActivity.this, HomeActivity.class);
+                startActivity(backToHome);
             }
         });
 
@@ -83,10 +86,10 @@ public class SettingsActivity extends BaseActivity implements SettingsContract.V
 
     private void prepareMenuData() {
 
-        int[] icons = {R.drawable.ic_menu_change_password,
-                R.drawable.ic_menu_store_location_on_map, R.drawable.ic_menu_bill_format,
-                R.drawable.ic_menu_timings, R.drawable.ic_menu_store_settings,
-                R.drawable.ic_menu_contact_details, R.drawable.ic_menu_account_settings,
+        int[] icons = {R.drawable.ic_menu_store_settings, R.drawable.ic_menu_change_password,
+                R.drawable.ic_menu_bill_format,
+                R.drawable.ic_menu_timings,
+                R.drawable.ic_menu_contact_details,
                 R.drawable.ic_menu_logout_svg };
         String[] menuTitles = getResources().getStringArray(R.array.side_menu_items_list);
 
@@ -122,17 +125,18 @@ public class SettingsActivity extends BaseActivity implements SettingsContract.V
     public void onClickPosition(int position) {
         switch (position) {
             case MenuConstants.PROFILE:
-                Intent userProfileIntent = new Intent(this, RegistrationActivity.class);
+                Intent userProfileIntent = new Intent(this, UpDateUserProfileActivity.class);
                 startActivity(userProfileIntent);
+                break;
+            case MenuConstants.STORESETTINGS:
+                Intent storeProfileIntent = new Intent(this, UpDateStoreProfileActivity.class);
+                startActivity(storeProfileIntent);
                 break;
             case MenuConstants.CHANGE_PWD:
                 Intent changePasswordIntent = new Intent(this, ChangePasswordActivity.class);
                 startActivity(changePasswordIntent);
                 break;
-            case MenuConstants.STORELOCATIONONMAP:
-                AppUtils.shortToast(SettingsActivity.this, getString(
-                        R.string.title_menu_store_location_on_map));
-                break;
+
             case MenuConstants.BILLFORMAT:
                 AppUtils.shortToast(SettingsActivity.this, getString(
                         R.string.title_menu_bill_format));
@@ -142,21 +146,11 @@ public class SettingsActivity extends BaseActivity implements SettingsContract.V
                         R.string.title_menu_timings));
                 break;
 
-            case MenuConstants.STORESETTINGS:
-                AppUtils.shortToast(SettingsActivity.this, getString(
-                        R.string.title_menu_store_settings));
-                break;
-
-
             case MenuConstants.CONTACTDETAILS:
                 AppUtils.shortToast(SettingsActivity.this, getString(
                         R.string.title_menu_contact_details));
                 break;
 
-            case MenuConstants.ACCOUNTSETTINGS:
-                AppUtils.shortToast(SettingsActivity.this, getString(
-                        R.string.title_menu_account_settings));
-                break;
             case MenuConstants.LOGOUT:
                 showLogoutDialog();
                 break;

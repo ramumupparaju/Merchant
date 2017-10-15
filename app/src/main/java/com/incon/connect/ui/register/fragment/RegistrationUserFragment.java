@@ -235,7 +235,6 @@ public class RegistrationUserFragment extends BaseFragment implements
                 };
 
         binding.edittextRegisterPhone.setOnEditorActionListener(onEditorActionListener);
-
         binding.edittextRegisterUserName.setOnFocusChangeListener(onFocusChangeListener);
         binding.edittextRegisterPhone.setOnFocusChangeListener(onFocusChangeListener);
         binding.edittextRegisterEmailid.setOnFocusChangeListener(onFocusChangeListener);

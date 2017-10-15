@@ -73,6 +73,8 @@
 
     <!--settings screen-->
     <string name="action_settings">Settings</string>
+    <string name="action_update_user_profile">UpDateUserProfile</string>
+    <string name="action_update_store_profile">UpDateStoreProfile</string>
     <string name="app_version">App Version: </string>
     <!--scan tap fragment-->
 
@@ -141,6 +143,7 @@
     <string name="progress_buy_request">Loading Buy Request...</string>
     <string name="progress_add_offer_merchant">Loading Add Offer Merchant...</string>
     <string name="progress_user_details">Fetching User Details...</string>
+    <string name="progress_qr_code_product">Asign QR Code To Product...</string>
     <string name="progress_warranty_registering">Registering warranty...</string>
     <string name="progress_add_new_model">Adding new model...</string>
     <string name="progress_product_details">Fetching product details...</string>
