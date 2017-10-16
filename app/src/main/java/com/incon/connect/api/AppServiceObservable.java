@@ -46,6 +46,9 @@ public interface AppServiceObservable {
     @GET("user/requestotp/{phoneNumber}/register")
     Observable<Object> registerRequestOtp(@Path("phoneNumber") String phoneNumber);
 
+    @GET("user/requestotp/{phoneNumber}/password")
+    Observable<Object> registerRequestPasswordOtp(@Path("phoneNumber") String phoneNumber);
+
     @Multipart
     @POST("merchant/logoupdate/{storeId}")
     Observable<Object> uploadStoreLogo(@Path("storeId") String storeId,

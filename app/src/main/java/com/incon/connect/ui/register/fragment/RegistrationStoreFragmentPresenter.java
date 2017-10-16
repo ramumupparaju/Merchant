@@ -130,6 +130,30 @@ public class RegistrationStoreFragmentPresenter extends
         addDisposable(observer);
     }
 
+    @Override
+    public void registerRequestPasswordOtp(String phoneNumber) {
+        getView().showProgress(appContext.getString(R.string.progress_resend));
+        DisposableObserver<Object> observer = new DisposableObserver<Object>() {
+            @Override
+            public void onNext(Object loginResponse) {
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                getView().hideProgress();
+                Pair<Integer, String> errorDetails = ErrorMsgUtil.getErrorDetails(e);
+                getView().handleException(errorDetails);
+            }
+
+            @Override
+            public void onComplete() {
+                getView().hideProgress();
+            }
+        };
+        AppApiService.getInstance().registerRequestPasswordOtp(phoneNumber).subscribe(observer);
+        addDisposable(observer);
+    }
+
     ValidateOtpContract.View otpView = new ValidateOtpContract.View() {
         @Override
         public void validateOTP(LoginResponse loginResponse) {

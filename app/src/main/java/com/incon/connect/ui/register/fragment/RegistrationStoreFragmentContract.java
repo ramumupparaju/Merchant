@@ -26,6 +26,7 @@ public class RegistrationStoreFragmentContract {
         void uploadStoreLogo(int storeId, MultipartBody.Part storeLogo);
         void validateOTP(HashMap<String, String> verify);
         void registerRequestOtp(String phoneNumber);
+        void registerRequestPasswordOtp(String phoneNumber);
     }
 
 }

@@ -77,7 +77,8 @@ public class ResetPasswordPromptActivity extends BaseActivity implements
                                 ResetPasswordPromptActivity.this.finish();
                                 break;
                             case TextAlertDialogCallback.RESEND_OTP:
-                                registrationStoreFragmentPresenter.registerRequestOtp(phoneNumber);
+                                registrationStoreFragmentPresenter.registerRequestPasswordOtp(
+                                        phoneNumber);
                                 break;
                             default:
                                 break;
@@ -120,6 +121,7 @@ public class ResetPasswordPromptActivity extends BaseActivity implements
                 ChangePasswordActivity.class);
         intent.putExtra(IntentConstants.FROM_FORGOT_PASSWORD_SCREEN, true);
         startActivity(intent);
+        finish();
     }
 
     @Override

@@ -92,6 +92,10 @@ public class AppApiService implements AppConstants {
         return addNetworkCheck(serviceInstance.registerRequestOtp(phoneNumber));
     }
 
+    public Observable<Object> registerRequestPasswordOtp(String phoneNumber) {
+        return addNetworkCheck(serviceInstance.registerRequestPasswordOtp(phoneNumber));
+    }
+
     public Observable<Object> uploadStoreLogo(int storeId, MultipartBody.Part storeLogo) {
         return addNetworkCheck(serviceInstance.uploadStoreLogo(String.valueOf(storeId), storeLogo));
     }
