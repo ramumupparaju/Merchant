@@ -43,7 +43,7 @@ public interface AppServiceObservable {
     @POST("merchant/register")
     Observable<LoginResponse> register(@Body Registration registrationBody);
 
-    @POST("user/requestotp/{phoneNumber}/register")
+    @GET("user/requestotp/{phoneNumber}/register")
     Observable<Object> registerRequestOtp(@Path("phoneNumber") String phoneNumber);
 
     @Multipart
@@ -107,6 +107,9 @@ public interface AppServiceObservable {
     @POST("warranty/validateotp")
     Observable<ValidateWarrantyOtpResponse> validateWarrantyOtp(@Body HashMap<String, String>
                                                                         verify);
+
+    @GET("warranty/requestotp/{phoneNumber}/register")
+    Observable<Object> warrantyRequestOtp(@Path("phoneNumber") String phoneNumber);
 
     @POST("registerPush")
     Observable<Object> pushTokenApi(@Body PushRegistrarBody pushRegistrarBody);

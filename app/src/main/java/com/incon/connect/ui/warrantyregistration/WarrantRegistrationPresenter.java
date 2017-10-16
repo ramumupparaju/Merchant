@@ -102,6 +102,34 @@ public class WarrantRegistrationPresenter extends BasePresenter<WarrantRegistrat
         otpPresenter.validateWarrantyOTP(verify);
     }
 
+    @Override
+    public void resendUserOTP(String phoneNumber) {
+        getView().showProgress(appContext.getString(R.string.progress_resend));
+        DisposableObserver<Object> observer = new
+                DisposableObserver<Object>() {
+                    @Override
+                    public void onNext(Object warrantyRegisteredResponse) {
+                        getView().warrantyRegistered(warrantyRegisteredResponse);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        WarrantRegistrationContract.View view = getView();
+                        view.hideProgress();
+                        Pair<Integer, String> errorDetails = ErrorMsgUtil.getErrorDetails(e);
+                        view.handleException(errorDetails);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        getView().hideProgress();
+                    }
+                };
+        AppApiService.getInstance().warrantyRequestOtp(phoneNumber).subscribe(observer);
+        addDisposable(observer);
+
+    }
+
     ValidateOtpContract.View otpView = new ValidateOtpContract.View() {
         @Override
         public void validateOTP(LoginResponse loginResponse) {

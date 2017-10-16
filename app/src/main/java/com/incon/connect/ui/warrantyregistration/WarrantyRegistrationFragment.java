@@ -211,6 +211,9 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
                             case AlertDialogCallback.CANCEL:
                                 userOtpDialog.dismiss();
                                 break;
+                            case TextAlertDialogCallback.RESEND_OTP:
+                                warrantRegistrationPresenter.resendUserOTP(phoneNumber);
+                                break;
                             default:
                                 break;
                         }

@@ -158,6 +158,10 @@ public class AppApiService implements AppConstants {
         return addNetworkCheck(serviceInstance.validateWarrantyOtp(verify));
     }
 
+    public Observable<Object> warrantyRequestOtp(String phoneNumber) {
+        return addNetworkCheck(serviceInstance.warrantyRequestOtp(phoneNumber));
+    }
+
     /* public Observable<Object> assignQrCodeToProduct(AssignQrCode qrCode) {
         return addNetworkCheck(serviceInstance.assignQrCodeToProduct(qrCode));
     }*/
