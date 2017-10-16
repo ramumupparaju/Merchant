@@ -10,6 +10,7 @@ import com.incon.connect.apimodel.components.history.purchased.ReturnHistoryResp
 import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.apimodel.components.qrcodebaruser.UserInfoResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
+import com.incon.connect.apimodel.components.validateotp.ValidateWarrantyOtpResponse;
 import com.incon.connect.dto.addnewmodel.AddNewModel;
 import com.incon.connect.dto.addoffer.AddOfferRequest;
 import com.incon.connect.dto.asignqrcode.AssignQrCode;
@@ -41,6 +42,9 @@ public interface AppServiceObservable {
 
     @POST("merchant/register")
     Observable<LoginResponse> register(@Body Registration registrationBody);
+
+    @POST("user/requestotp/{phoneNumber}/register")
+    Observable<Object> registerRequestOtp(@Path("phoneNumber") String phoneNumber);
 
     @Multipart
     @POST("merchant/logoupdate/{storeId}")
@@ -91,14 +95,18 @@ public interface AppServiceObservable {
 
     @GET("product/search/{modelNumber}")
     Observable<List<ModelSearchResponse>> modelNumberSearch(@Path("modelNumber")
-                                                                       String modelNumber);
+                                                                    String modelNumber);
 
     @POST("product/addnew/{merchantId}")
-    Observable<Object>  addingNewModel(@Path("merchantId") int merchantId, @Body AddNewModel
+    Observable<Object> addingNewModel(@Path("merchantId") int merchantId, @Body AddNewModel
             addNewModelBody);
 
     @POST("warranty/register")
-    Observable<Object>  warrantyRegisterApi(@Body WarrantyRegistration warrantyRegistration);
+    Observable<Object> warrantyRegisterApi(@Body WarrantyRegistration warrantyRegistration);
+
+    @POST("warranty/validateotp")
+    Observable<ValidateWarrantyOtpResponse> validateWarrantyOtp(@Body HashMap<String, String>
+                                                                        verify);
 
     @POST("registerPush")
     Observable<Object> pushTokenApi(@Body PushRegistrarBody pushRegistrarBody);

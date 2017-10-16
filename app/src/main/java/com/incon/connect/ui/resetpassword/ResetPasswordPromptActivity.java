@@ -76,6 +76,9 @@ public class ResetPasswordPromptActivity extends BaseActivity implements
                                 dialog.dismiss();
                                 ResetPasswordPromptActivity.this.finish();
                                 break;
+                            case TextAlertDialogCallback.RESEND_OTP:
+                                registrationStoreFragmentPresenter.registerRequestOtp(phoneNumber);
+                                break;
                             default:
                                 break;
                         }

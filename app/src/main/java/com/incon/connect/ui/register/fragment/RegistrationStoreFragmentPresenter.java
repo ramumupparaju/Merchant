@@ -8,6 +8,7 @@ import com.incon.connect.ConnectApplication;
 import com.incon.connect.R;
 import com.incon.connect.api.AppApiService;
 import com.incon.connect.apimodel.components.login.LoginResponse;
+import com.incon.connect.apimodel.components.validateotp.ValidateWarrantyOtpResponse;
 import com.incon.connect.data.login.LoginDataManagerImpl;
 import com.incon.connect.dto.registration.Registration;
 import com.incon.connect.ui.BasePresenter;
@@ -105,6 +106,30 @@ public class RegistrationStoreFragmentPresenter extends
         otpPresenter.validateOTP(verify);
     }
 
+    @Override
+    public void registerRequestOtp(String phoneNumber) {
+        getView().showProgress(appContext.getString(R.string.progress_resend));
+        DisposableObserver<Object> observer = new DisposableObserver<Object>() {
+            @Override
+            public void onNext(Object loginResponse) {
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                getView().hideProgress();
+                Pair<Integer, String> errorDetails = ErrorMsgUtil.getErrorDetails(e);
+                getView().handleException(errorDetails);
+            }
+
+            @Override
+            public void onComplete() {
+                getView().hideProgress();
+            }
+        };
+        AppApiService.getInstance().registerRequestOtp(phoneNumber).subscribe(observer);
+        addDisposable(observer);
+    }
+
     ValidateOtpContract.View otpView = new ValidateOtpContract.View() {
         @Override
         public void validateOTP(LoginResponse loginResponse) {
@@ -112,6 +137,11 @@ public class RegistrationStoreFragmentPresenter extends
             loginDataManagerImpl.saveLoginDataToPrefs(loginResponse);
             getView().hideProgress();
             getView().navigateToHomeScreen();
+        }
+
+        @Override
+        public void validateWarrantyOTP(ValidateWarrantyOtpResponse warrantyOtpResponse) {
+            //DO nothing
         }
 
         @Override

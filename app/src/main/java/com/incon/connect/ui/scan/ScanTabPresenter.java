@@ -34,23 +34,23 @@ public class ScanTabPresenter extends BasePresenter<ScanTabContract.View> implem
         getView().showProgress(appContext.getString(R.string.progress_user_details));
         DisposableObserver<UserInfoResponse> observer = new
                 DisposableObserver<UserInfoResponse>() {
-            @Override
-            public void onNext(UserInfoResponse userInfoResponse) {
-                getView().userInfo(userInfoResponse);
-            }
+                    @Override
+                    public void onNext(UserInfoResponse userInfoResponse) {
+                        getView().userInfo(userInfoResponse);
+                    }
 
-            @Override
-            public void onError(Throwable e) {
-                getView().hideProgress();
-                Pair<Integer, String> errorDetails = ErrorMsgUtil.getErrorDetails(e);
-                getView().handleException(errorDetails);
-            }
+                    @Override
+                    public void onError(Throwable e) {
+                        getView().hideProgress();
+                        Pair<Integer, String> errorDetails = ErrorMsgUtil.getErrorDetails(e);
+                        getView().handleException(errorDetails);
+                    }
 
-            @Override
-            public void onComplete() {
-                getView().hideProgress();
-            }
-        };
+                    @Override
+                    public void onComplete() {
+                        getView().hideProgress();
+                    }
+                };
         AppApiService.getInstance().userInfoUsingPhoneNumber(phoneNumber).subscribe(observer);
         addDisposable(observer);
     }

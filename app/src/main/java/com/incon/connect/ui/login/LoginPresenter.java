@@ -8,9 +8,12 @@ import com.incon.connect.ConnectApplication;
 import com.incon.connect.R;
 import com.incon.connect.api.AppApiService;
 import com.incon.connect.apimodel.components.login.LoginResponse;
+import com.incon.connect.apimodel.components.validateotp.ValidateWarrantyOtpResponse;
 import com.incon.connect.data.login.LoginDataManagerImpl;
 import com.incon.connect.dto.login.LoginUserData;
 import com.incon.connect.ui.BasePresenter;
+import com.incon.connect.ui.register.fragment.RegistrationStoreFragmentContract;
+import com.incon.connect.ui.register.fragment.RegistrationStoreFragmentPresenter;
 import com.incon.connect.ui.validateotp.ValidateOtpContract;
 import com.incon.connect.ui.validateotp.ValidateOtpPresenter;
 import com.incon.connect.utils.ErrorMsgUtil;
@@ -69,6 +72,59 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
         otpPresenter.validateOTP(verify);
     }
 
+    @Override
+    public void registerRequestOtp(String phoneNumber) {
+        RegistrationStoreFragmentPresenter registrationStoreFragmentPresenter =
+                new RegistrationStoreFragmentPresenter();
+        registrationStoreFragmentPresenter.initialize(null);
+        registrationStoreFragmentPresenter.setView(registrationView);
+        registrationStoreFragmentPresenter.registerRequestOtp(phoneNumber);
+    }
+
+    RegistrationStoreFragmentContract.View registrationView =
+            new RegistrationStoreFragmentContract.View() {
+
+                @Override
+                public void navigateToRegistrationActivityNext() {
+                    //DO nothing
+                }
+
+                @Override
+                public void navigateToHomeScreen() {
+                    //DO nothing
+                }
+
+                @Override
+                public void uploadStoreLogo(int storeId) {
+                    //DO nothing
+                }
+
+                @Override
+                public void validateOTP() {
+                    //DO nothing
+                }
+
+                @Override
+                public void showProgress(String message) {
+                    getView().showProgress(message);
+                }
+
+                @Override
+                public void hideProgress() {
+                    getView().hideProgress();
+                }
+
+                @Override
+                public void showErrorMessage(String errorMessage) {
+                    getView().showErrorMessage(errorMessage);
+                }
+
+                @Override
+                public void handleException(Pair<Integer, String> error) {
+                    getView().handleException(error);
+                }
+            };
+
     ValidateOtpContract.View otpView = new ValidateOtpContract.View() {
         @Override
         public void validateOTP(LoginResponse loginResponse) {
@@ -76,6 +132,11 @@ public class LoginPresenter extends BasePresenter<LoginContract.View> implements
             loginDataManagerImpl.saveLoginDataToPrefs(loginResponse);
             getView().hideProgress();
             getView().navigateToHomePage(loginResponse);
+        }
+
+        @Override
+        public void validateWarrantyOTP(ValidateWarrantyOtpResponse warrantyOtpResponse) {
+            //Do nothing
         }
 
         @Override

@@ -100,6 +100,9 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
                             case AlertDialogCallback.CANCEL:
                                 dialog.dismiss();
                                 break;
+                            case TextAlertDialogCallback.RESEND_OTP:
+                                loginPresenter.registerRequestOtp(phoneNumber);
+                                break;
                             default:
                                 break;
                         }

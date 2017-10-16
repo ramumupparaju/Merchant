@@ -424,6 +424,9 @@ public class RegistrationStoreFragment extends BaseFragment implements
                             case AlertDialogCallback.CANCEL:
                                 dialog.dismiss();
                                 break;
+                            case TextAlertDialogCallback.RESEND_OTP:
+                                registrationStoreFragmentPresenter.registerRequestOtp(phoneNumber);
+                                break;
                             default:
                                 break;
                         }

@@ -13,6 +13,7 @@ import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.apimodel.components.qrcodebaruser.UserInfoResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
 import com.incon.connect.apimodel.components.search.ModelSearchResponse;
+import com.incon.connect.apimodel.components.validateotp.ValidateWarrantyOtpResponse;
 import com.incon.connect.custom.exception.NoConnectivityException;
 import com.incon.connect.dto.addnewmodel.AddNewModel;
 import com.incon.connect.dto.addoffer.AddOfferRequest;
@@ -38,7 +39,7 @@ public class AppApiService implements AppConstants {
 
     private AppApiService() {
         ServiceGenerator serviceGenerator = new ServiceGenerator(BuildConfig.SERVICE_ENDPOINT);
-        serviceInstance = serviceGenerator.getTueoHealthService();
+        serviceInstance = serviceGenerator.getConnectService();
     }
 
     public static AppApiService getInstance() {
@@ -87,6 +88,10 @@ public class AppApiService implements AppConstants {
         return addNetworkCheck(serviceInstance.register(registrationBody));
     }
 
+    public Observable<Object> registerRequestOtp(String phoneNumber) {
+        return addNetworkCheck(serviceInstance.registerRequestOtp(phoneNumber));
+    }
+
     public Observable<Object> uploadStoreLogo(int storeId, MultipartBody.Part storeLogo) {
         return addNetworkCheck(serviceInstance.uploadStoreLogo(String.valueOf(storeId), storeLogo));
     }
@@ -106,9 +111,11 @@ public class AppApiService implements AppConstants {
     public Observable<List<PurchasedHistoryResponse>> purchasedApi(int userId) {
         return addNetworkCheck(serviceInstance.purchasedApi(userId));
     }
+
     public Observable<List<InterestHistoryResponse>> interestApi(int userId) {
         return addNetworkCheck(serviceInstance.interestApi(userId));
     }
+
     public Observable<List<ReturnHistoryResponse>> returnApi(int userId) {
         return addNetworkCheck(serviceInstance.returnApi(userId));
     }
@@ -117,7 +124,7 @@ public class AppApiService implements AppConstants {
         return addNetworkCheck(serviceInstance.buyRequestApi(userId));
     }
 
-     public Observable<AddOfferMerchantFragmentResponse> addOffer(AddOfferRequest addOfferRequest) {
+    public Observable<AddOfferMerchantFragmentResponse> addOffer(AddOfferRequest addOfferRequest) {
         return addNetworkCheck(serviceInstance.addOffer(addOfferRequest));
     }
 
@@ -144,6 +151,11 @@ public class AppApiService implements AppConstants {
 
     public Observable<Object> warrantyRegisterApi(WarrantyRegistration warrantyRegistration) {
         return addNetworkCheck(serviceInstance.warrantyRegisterApi(warrantyRegistration));
+    }
+
+    public Observable<ValidateWarrantyOtpResponse> validateWarrantyOtp(HashMap<String, String>
+                                                                                verify) {
+        return addNetworkCheck(serviceInstance.validateWarrantyOtp(verify));
     }
 
     /* public Observable<Object> assignQrCodeToProduct(AssignQrCode qrCode) {
