@@ -21,7 +21,7 @@ public class WarrantyRegistration extends BaseObservable {
     private Integer divisionId;
     @SerializedName("brandId")
     @Expose
-    private Integer brandId;
+    private String brandId;
     @SerializedName("price")
     @Expose
     private String price;
@@ -79,11 +79,11 @@ public class WarrantyRegistration extends BaseObservable {
         this.divisionId = divisionId;
     }
 
-    public Integer getBrandId() {
+    public String getBrandId() {
         return brandId;
     }
 
-    public void setBrandId(Integer brandId) {
+    public void setBrandId(String brandId) {
         this.brandId = brandId;
     }
 

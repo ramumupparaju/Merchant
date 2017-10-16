@@ -100,6 +100,10 @@ public interface AppServiceObservable {
     @POST("warranty/register")
     Observable<Object>  warrantyRegisterApi(@Body WarrantyRegistration warrantyRegistration);
 
+    @POST("user/newuser/{phoneNumber}")
+    Observable<UserInfoResponse> newUserRegistation(@Path("phoneNumber")
+                                                                      String phoneNumber);
+
     @POST("registerPush")
     Observable<Object> pushTokenApi(@Body PushRegistrarBody pushRegistrarBody);
 

@@ -57,20 +57,17 @@
             </com.incon.connect.custom.view.CustomTextInputLayout>
 
             <!-- used to resend password again-->
-            <TextView
+            <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/resend_otp_tv"
                 style="@style/BothWrap"
                 android:layout_alignParentEnd="true"
                 android:layout_below="@id/text_verify_title"
-                android:layout_marginEnd="13.dp"
-                android:layout_marginStart="@dimen/margin_0"
-                android:layout_marginTop="6dp"
-                android:background="@android:drawable/ic_menu_revert"
+                app:srcCompat="@drawable/ic_im_return"
                 android:gravity="bottom"
+                android:layout_margin="15dp"
                 android:paddingBottom="@dimen/margin_5"
-                android:paddingLeft="@dimen/margin_13"
                 android:paddingTop="@dimen/margin_20"
-                android:textSize="24sp"/>
+                />
 
             <!-- layout for bottom buttons -->
             <include

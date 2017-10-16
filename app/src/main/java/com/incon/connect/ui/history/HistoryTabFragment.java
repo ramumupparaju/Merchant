@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.incon.connect.AppUtils;
 import com.incon.connect.R;
 import com.incon.connect.custom.view.CustomViewPager;
 import com.incon.connect.databinding.CustomTabBinding;
@@ -140,10 +139,15 @@ public class HistoryTabFragment extends BaseFragment implements View.OnClickList
                 fragmentFromPosition.onSearchClickListerner(searchableText, filterType);
                 break;
             case R.id.filter_icon_iv:
-                AppUtils.showSnackBar(rootView, "have to show popup");
+                //AppUtils.showSnackBar(rootView, "have to show popup");
+                showFilterOptionsDialog();
                 break;
             default:
                 //do nothing
         }
+    }
+
+    private void showFilterOptionsDialog() {
+
     }
 }

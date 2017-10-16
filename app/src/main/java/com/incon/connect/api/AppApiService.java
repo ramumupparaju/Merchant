@@ -129,6 +129,9 @@ public class AppApiService implements AppConstants {
     public Observable<UserInfoResponse> userInfoUsingPhoneNumber(String phoneNumber) {
         return addNetworkCheck(serviceInstance.userInfoUsingPhoneNumber(phoneNumber));
     }
+    public Observable<UserInfoResponse> newUserRegistation(String phoneNumber) {
+        return addNetworkCheck(serviceInstance.newUserRegistation(phoneNumber));
+    }
 
     public Observable<Object> productInfoUsingQrCode(HashMap<String, String> qrCode) {
         return addNetworkCheck(serviceInstance.productInfoUsingQrCode(qrCode));
@@ -142,7 +145,7 @@ public class AppApiService implements AppConstants {
         return addNetworkCheck(serviceInstance.addingNewModel(merchantId, addNewModelBody));
     }
 
-    public Observable<Object> warrantyRegisterApi(WarrantyRegistration warrantyRegistration) {
+  public Observable<Object> warrantyRegisterApi(WarrantyRegistration warrantyRegistration) {
         return addNetworkCheck(serviceInstance.warrantyRegisterApi(warrantyRegistration));
     }
 

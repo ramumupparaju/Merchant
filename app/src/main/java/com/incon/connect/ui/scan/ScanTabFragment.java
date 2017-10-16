@@ -63,9 +63,9 @@ public class ScanTabFragment extends BaseFragment implements ScanTabContract.Vie
     public void onDoneClick() {
         String phoneNumber = binding.phoneNumberEt.getText().toString();
         if (ValidationUtils.isPhoneNumberValid(phoneNumber)) {
-            scanTabPresenter.userInfoUsingPhoneNumber(phoneNumber);
             binding.textMobilenumber.setText(phoneNumber);
             showUIType(SCAN_OPTIONS_UI);
+            scanTabPresenter.userInfoUsingPhoneNumber(phoneNumber);
         } else {
             showErrorMessage(getString(R.string.error_phone_min_digits));
         }

@@ -14,6 +14,14 @@
 
     </data>
 
+    <ScrollView
+        android:id="@+id/scrollview_user_info"
+        style="@style/BothMatch"
+        android:fadeScrollbars="false"
+        android:scrollbarSize="4dp"
+        android:scrollbarThumbVertical="@drawable/scrollbar"
+        android:scrollbars="vertical">
+
     <RelativeLayout
         style="@style/BothMatch"
         android:background="@color/white">
@@ -21,7 +29,8 @@
 
         <RelativeLayout
             style="@style/BothMatch"
-            android:layout_marginTop="30dp">
+            android:layout_marginTop="30dp"
+            >
 
             <!-- modelno -->
             <com.incon.connect.custom.view.CustomTextInputLayout
@@ -33,54 +42,80 @@
                 app:hintTextAppearance="@style/TextInputLayout_FloatingTextColor">
 
                 <android.support.design.widget.TextInputEditText
-                    android:id="@+id/edittext_model_number"
-                    style="@style/Add_new_model_TextInputEditText"
-                    android:focusable="true"
-                    android:imeOptions="actionNext"
-                    android:inputType="textCapWords"
-                    android:maxLength="@integer/character_limit_200"
-                    android:maxLines="1"
-                    android:tag="0"
-                    android:text="@={addNewModel.modelNumber}"/>
+                        android:id="@+id/edittext_model_number"
+                        style="@style/Add_new_model_TextInputEditText"
+                        android:focusable="true"
+                        android:imeOptions="actionNext"
+                        android:inputType="textCapWords"
+                        android:maxLength="@integer/character_limit_45"
+                        android:text="@={addNewModel.productModel}"
+                        android:maxLines="1"
+                        android:tag="1"
+                        />
 
             </com.incon.connect.custom.view.CustomTextInputLayout>
 
-            <!-- category-->
-            <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
-                android:id="@+id/spinner_category"
-                style="@style/spinnerItemStyle"
-                android:layout_below="@id/input_layout_model_number"
-                android:layout_marginBottom="@dimen/margin_24"
-                android:focusable="true"
-                android:hint="@string/add_new__category"
-                android:tag="2"
-                app:errorEnabled="true"
-                app:met_floatingLabel="highlight"
-                app:met_textColor="@color/colorForgotPasswordHintText"
-                app:met_textColorHint="@color/colorForgotPasswordHintText"/>
+
 
             <!-- division no -->
             <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
                 android:id="@+id/spinner_division"
                 style="@style/spinnerItemStyle"
-                android:layout_below="@id/spinner_category"
+                android:layout_below="@id/input_layout_model_number"
                 android:layout_marginBottom="@dimen/margin_24"
                 android:focusable="true"
                 android:hint="@string/add_new__division"
+                android:text="@={addNewModel.divisionId}"
                 android:tag="2"
                 app:errorEnabled="true"
                 app:met_floatingLabel="highlight"
                 app:met_textColor="@color/colorForgotPasswordHintText"
                 app:met_textColorHint="@color/colorForgotPasswordHintText"/>
 
+            <!--brand-->
+            <com.incon.connect.custom.view.CustomTextInputLayout
+                android:id="@+id/input_layout_brand"
+                style="@style/Add_new_model_TextInputLayout"
+                android:hint="@string/action_brand"
+                android:layout_below="@id/spinner_division"
+                app:errorEnabled="true"
+                app:fontName="fonts/OpenSans-Regular.ttf"
+                app:hintTextAppearance="@style/TextInputLayout_FloatingTextColor">
+
+                <com.incon.connect.custom.view.CustomAutoCompleteView
+                    android:id="@+id/edittext_brand"
+                    style="@style/Register_TextInputEditText"
+                    android:maxLength="@integer/character_limit_100"
+                    android:maxLines="1"
+                    android:text="@={addNewModel.productModel}"/>
+
+            </com.incon.connect.custom.view.CustomTextInputLayout>
+            <!-- category-->
+            <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                android:id="@+id/spinner_category"
+                style="@style/spinnerItemStyle"
+                android:layout_below="@id/input_layout_brand"
+                android:layout_marginBottom="@dimen/margin_24"
+                android:focusable="true"
+                android:hint="@string/add_new__category"
+                android:tag="2"
+                android:text="@={addNewModel.categoryId}"
+                app:errorEnabled="true"
+                app:met_floatingLabel="highlight"
+                app:met_textColor="@color/colorForgotPasswordHintText"
+                app:met_textColorHint="@color/colorForgotPasswordHintText"/>
+
+
+
             <!-- type -->
             <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
                 android:id="@+id/spinner_type"
                 style="@style/spinnerItemStyle"
-                android:layout_below="@id/spinner_division"
+                android:layout_below="@id/spinner_category"
                 android:layout_marginBottom="@dimen/margin_24"
                 android:focusable="true"
                 android:hint="@string/add_new__type"
+                android:text="@={addNewModel.divisionId}"
                 android:tag="2"
                 app:errorEnabled="true"
                 app:met_floatingLabel="highlight"
@@ -104,6 +139,7 @@
                     android:imeOptions="actionNext"
                     android:inputType="number"
                     android:maxLength="@integer/character_limit_45"
+                    android:text="@={addNewModel.price}"
                     android:maxLines="1"
                     android:tag="1"
                     />
@@ -129,6 +165,9 @@
         </RelativeLayout>
 
     </RelativeLayout>
+
+
+    </ScrollView>
 
 
 </layout>

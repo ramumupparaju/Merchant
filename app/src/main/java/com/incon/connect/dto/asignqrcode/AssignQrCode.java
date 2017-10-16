@@ -17,7 +17,7 @@ public class AssignQrCode {
     private String code;
     @SerializedName("price")
     @Expose
-    private Integer price;
+    private String price;
     @SerializedName("productId")
     @Expose
     private Integer productId;
@@ -41,11 +41,11 @@ public class AssignQrCode {
         this.code = code;
     }
 
-    public Integer getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(Integer price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 

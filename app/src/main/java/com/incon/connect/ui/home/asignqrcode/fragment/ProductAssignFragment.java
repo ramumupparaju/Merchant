@@ -29,7 +29,7 @@ public class ProductAssignFragment extends BaseFragment implements ProductAssign
     }
 
 
-    public void onClickSubmit() {
+    public void onSubmitClick() {
 
         AssignQrCode assignQrCode = binding.getAssignQrCode();
         assignPresenter.assignQrCodeToProduct(assignQrCode);
