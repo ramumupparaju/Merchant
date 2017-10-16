@@ -17,8 +17,8 @@ import com.incon.connect.callbacks.IClickCallback;
 import com.incon.connect.databinding.BottomSheetReturnBinding;
 import com.incon.connect.databinding.CustomBottomViewBinding;
 import com.incon.connect.databinding.FragmentReturnBinding;
-import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.history.adapter.ReturnAdapter;
+import com.incon.connect.ui.history.base.BaseTabFragment;
 import com.incon.connect.utils.SharedPrefsUtils;
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ import java.util.Random;
  * Created by PC on 10/2/2017.
  */
 
-public class ReturnFragment extends BaseFragment implements ReturnContract.View {
+public class ReturnFragment extends BaseTabFragment implements ReturnContract.View {
     private View rootView;
     private FragmentReturnBinding binding;
     private ReturnPresenter returnPresenter;
@@ -178,6 +178,11 @@ public class ReturnFragment extends BaseFragment implements ReturnContract.View 
         this.returnList = returnHistoryResponseList;
         returnAdapter.setData(returnList);
         dismissSwipeRefresh();
+
+    }
+
+    @Override
+    public void onSearchClickListerner(String searchableText, int searchType) {
 
     }
 }

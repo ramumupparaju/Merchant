@@ -246,4 +246,6 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         fragmentManager.executePendingTransactions();
         return fragment;
     }
+
+
 }

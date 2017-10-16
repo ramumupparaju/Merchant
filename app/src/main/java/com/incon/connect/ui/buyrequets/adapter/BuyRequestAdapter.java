@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.incon.connect.AppConstants;
 import com.incon.connect.AppUtils;
 import com.incon.connect.BR;
 import com.incon.connect.R;
@@ -18,10 +19,10 @@ import java.util.List;
 
 /**
  * Created on 13 Jun 2017 4:05 PM.
- *
  */
 public class BuyRequestAdapter extends RecyclerView.Adapter
-        <BuyRequestAdapter.ViewHolder>  {
+        <BuyRequestAdapter.ViewHolder> {
+    private List<BuyRequestResponse> filteredBuyRequestList = new ArrayList<>();
     private List<BuyRequestResponse> buyRequestList = new ArrayList<>();
     private IClickCallback clickCallback;
 
@@ -35,25 +36,51 @@ public class BuyRequestAdapter extends RecyclerView.Adapter
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        BuyRequestResponse purchasedResponse = buyRequestList.get(position);
-
-
+        BuyRequestResponse purchasedResponse = filteredBuyRequestList.get(position);
         holder.bind(purchasedResponse);
     }
 
     @Override
     public int getItemCount() {
-        return buyRequestList.size();
+        return filteredBuyRequestList.size();
     }
 
 
     public void setData(List<BuyRequestResponse> buyRequestResponseList) {
         buyRequestList = buyRequestResponseList;
+        filteredBuyRequestList.addAll(buyRequestResponseList);
+        notifyDataSetChanged();
+    }
+
+    public void searchData(String searchableString, int searchType) {
+        filteredBuyRequestList.clear();
+        switch (searchType) {
+            case AppConstants.FilterConstants.NAME:
+                for (BuyRequestResponse buyRequestResponse
+                        : buyRequestList) {
+                    if (buyRequestResponse.getProductName().toLowerCase().startsWith(
+                            searchableString.toLowerCase())) {
+                        filteredBuyRequestList.add(buyRequestResponse);
+                    }
+                }
+                break;
+            case AppConstants.FilterConstants.BRAND:
+                for (BuyRequestResponse buyRequestResponse
+                        : buyRequestList) {
+                    if (buyRequestResponse.getBrandName().toLowerCase().startsWith(
+                            searchableString.toLowerCase())) {
+                        filteredBuyRequestList.add(buyRequestResponse);
+                    }
+                }
+                break;
+            default:
+                filteredBuyRequestList.addAll(buyRequestList);
+        }
         notifyDataSetChanged();
     }
 
     public void clearData() {
-        buyRequestList.clear();
+        filteredBuyRequestList.clear();
         notifyDataSetChanged();
     }
 

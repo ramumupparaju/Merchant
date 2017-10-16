@@ -16,9 +16,16 @@ public interface AppConstants {
     int VALIDATION_ZIPCODE_LENGTH = 5;
     String DELIMITOR = "-";
 
+    interface FilterConstants {
+        int NONE = 0;
+        int NAME = 1;
+        int BRAND = 2;
+    }
+
     interface WarrantyRegistrationConstants {
         int MINIMUM_MODELNUMBER_TO_SEARCH = 3;
     }
+
     interface GoogleMapConstants {
         int GEOCODER_MAX_ADDRESS_RESULTS = 1;
         float DEFAULT_ZOOM_LEVEL = 12.0f;
@@ -97,13 +104,41 @@ public interface AppConstants {
         String FROM_FORGOT_PASSWORD_SCREEN = "fromForgotPasswordScreen";
     }
 
+
+    interface UpDateUserProfileValidation {
+        int NAME_REQ = 1;
+        int PHONE_REQ = 3;
+        int PHONE_MIN_DIGITS = 10;
+        int GENDER_REQ = 17;
+        int DOB_REQ = 13;
+        int EMAIL_REQ = 5;
+        int EMAIL_NOTVALID = 6;
+        int PASSWORD_REQ = 7;
+        int PASSWORD_PATTERN_REQ = 11;
+        int RE_ENTER_PASSWORD_REQ = 18;
+        int RE_ENTER_PASSWORD_DOES_NOT_MATCH = 19;
+        int DOB_FUTURE_DATE = 14;
+        int DOB_PERSON_LIMIT = 15;
+
+
+        int CATEGORY_REQ = 21;
+        int ADDRESS_REQ = 22;
+        int GSTN_REQ = 23;
+        int STORE_LOGO = 24;
+
+        int ZIPCODE_REQ = 9;
+        int ZIPCODE_INVALID = 12;
+        int TIMEZONE_REQ = 8;
+    }
+
+
     interface BundleConstants {
 
     }
 
     interface PushSubTypeConstants {
         String CONNECT_PUSH = "tueoPush";
-        String  PUSH_DEVICE_TYPE = "android";
+        String PUSH_DEVICE_TYPE = "android";
     }
 
 

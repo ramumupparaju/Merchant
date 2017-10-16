@@ -296,8 +296,7 @@
     <string name="add_offer_price">Price</string>
     <!-- screen titles -->
     <string name="title_history">History</string>
-    <string name="title_buy_requests">Buy Requests</string>
-    <string name="title_assign_qr_code">Assign QR Code To Product</string>
+    <string name="title_buy_requests">Buy requests</string>
     <string name="title_scan">Scan</string>
     <string name="title_warranty_register">Warranty Registration</string>
     <string name="title_add_new_model">New Model</string>

@@ -4,6 +4,9 @@
 
     <data>
         <variable
+            name="upDateUserProfile"
+            type="com.incon.connect.dto.update.UpDateUserProfile"/>
+        <variable
             name="upDateUserProfileActivity"
             type="com.incon.connect.ui.settings.update.UpDateUserProfileActivity"/>
 
@@ -23,10 +26,45 @@
                 layout="@layout/toolbar_update_profile">
 
             </include>
+            <ImageView
+                android:layout_below="@id/toolbar_edit_profile"
+                android:id="@+id/icon_connect"
+                style="@style/BothWrap"
+                android:layout_width="130dp"
+                android:layout_height="76dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@string/app_name"
+                app:srcCompat="@drawable/ic_connect_logo_svg"/>
+
+            <!-- user information title text -->
+            <TextView
+                android:id="@+id/text_userinfo_title"
+                style="@style/BothWrap"
+                android:layout_below="@id/icon_connect"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:text="@string/register_userinfo_title"
+                android:textColor="@color/colorForgotPasswordText"
+                android:textSize="18sp"/>
+
+            <!-- user information subtitle text -->
+            <TextView
+                android:id="@+id/text_userinfo_subtitle"
+                style="@style/BothWrap"
+                android:layout_below="@id/text_userinfo_title"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="2dp"
+                android:gravity="center"
+                android:text="@string/register_userinfo_subtitle"
+                android:textColor="@color/colorForgotPasswordText"
+                android:textSize="12sp"/>
+
 
             <RelativeLayout
+                android:layout_marginTop="20dp"
                 style="@style/BothMatch"
-                android:layout_below="@id/toolbar_edit_profile">
+                android:layout_below="@id/text_userinfo_subtitle">
 
                 <!-- Name -->
                 <com.incon.connect.custom.view.CustomTextInputLayout

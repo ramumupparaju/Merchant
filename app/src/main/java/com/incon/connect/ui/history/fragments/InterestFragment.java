@@ -17,8 +17,8 @@ import com.incon.connect.callbacks.IClickCallback;
 import com.incon.connect.databinding.BottomSheetInterestBinding;
 import com.incon.connect.databinding.CustomBottomViewBinding;
 import com.incon.connect.databinding.FragmentInterestBinding;
-import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.history.adapter.InterestAdapter;
+import com.incon.connect.ui.history.base.BaseTabFragment;
 import com.incon.connect.utils.SharedPrefsUtils;
 
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ import java.util.Random;
  * Created by PC on 10/2/2017.
  */
 
-public class InterestFragment extends BaseFragment implements InterestContract.View {
+public class InterestFragment extends BaseTabFragment implements InterestContract.View {
      private FragmentInterestBinding binding;
      private InterestPresenter interestPresenter;
      private List<InterestHistoryResponse> interestList;
@@ -179,4 +179,8 @@ public class InterestFragment extends BaseFragment implements InterestContract.V
     }
 
 
+    @Override
+    public void onSearchClickListerner(String searchableText, int searchType) {
+
+    }
 }
