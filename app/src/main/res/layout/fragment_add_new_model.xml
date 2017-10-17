@@ -55,13 +55,27 @@
 
             </com.incon.connect.custom.view.CustomTextInputLayout>
 
+            <!-- category-->
+            <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                android:id="@+id/spinner_category"
+                style="@style/spinnerItemStyle"
+                android:layout_below="@id/input_layout_model_number"
+                android:layout_marginBottom="@dimen/margin_24"
+                android:focusable="true"
+                android:hint="@string/add_new__category"
+                android:tag="2"
+                android:text="@={addNewModel.categoryId}"
+                app:errorEnabled="true"
+                app:met_floatingLabel="highlight"
+                app:met_textColor="@color/colorForgotPasswordHintText"
+                app:met_textColorHint="@color/colorForgotPasswordHintText"/>
 
 
             <!-- division no -->
             <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
                 android:id="@+id/spinner_division"
                 style="@style/spinnerItemStyle"
-                android:layout_below="@id/input_layout_model_number"
+                android:layout_below="@id/spinner_category"
                 android:layout_marginBottom="@dimen/margin_24"
                 android:focusable="true"
                 android:hint="@string/add_new__division"
@@ -71,6 +85,9 @@
                 app:met_floatingLabel="highlight"
                 app:met_textColor="@color/colorForgotPasswordHintText"
                 app:met_textColorHint="@color/colorForgotPasswordHintText"/>
+
+
+
 
             <!--brand-->
             <com.incon.connect.custom.view.CustomTextInputLayout
@@ -90,28 +107,13 @@
                     android:text="@={addNewModel.productModel}"/>
 
             </com.incon.connect.custom.view.CustomTextInputLayout>
-            <!-- category-->
-            <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
-                android:id="@+id/spinner_category"
-                style="@style/spinnerItemStyle"
-                android:layout_below="@id/input_layout_brand"
-                android:layout_marginBottom="@dimen/margin_24"
-                android:focusable="true"
-                android:hint="@string/add_new__category"
-                android:tag="2"
-                android:text="@={addNewModel.categoryId}"
-                app:errorEnabled="true"
-                app:met_floatingLabel="highlight"
-                app:met_textColor="@color/colorForgotPasswordHintText"
-                app:met_textColorHint="@color/colorForgotPasswordHintText"/>
-
 
 
             <!-- type -->
             <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
                 android:id="@+id/spinner_type"
                 style="@style/spinnerItemStyle"
-                android:layout_below="@id/spinner_category"
+                android:layout_below="@id/input_layout_brand"
                 android:layout_marginBottom="@dimen/margin_24"
                 android:focusable="true"
                 android:hint="@string/add_new__type"

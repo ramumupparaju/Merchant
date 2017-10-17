@@ -21,8 +21,7 @@ public class WarrantyRegistration extends BaseObservable implements Parcelable {
     @SerializedName("divisionId")
     @Expose
     private String divisionId;
-    private  transient String categoryName;
-    private transient String divisionName;
+
     @SerializedName("brandId")
     @Expose
     private String brandId;
@@ -50,6 +49,8 @@ public class WarrantyRegistration extends BaseObservable implements Parcelable {
     @SerializedName("invoiceNumber")
     @Expose
     private String invoiceNumber;
+    private  transient String categoryName;
+    private transient String divisionName;
 
     public String getMobileNumber() {
         return mobileNumber;

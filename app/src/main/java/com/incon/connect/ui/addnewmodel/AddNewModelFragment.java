@@ -8,12 +8,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 import com.incon.connect.R;
+import com.incon.connect.apimodel.components.fetchcategorie.FetchCategorie;
 import com.incon.connect.databinding.FragmentAddNewModelBinding;
 import com.incon.connect.dto.addnewmodel.AddNewModel;
 import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.home.HomeActivity;
 import com.incon.connect.utils.SharedPrefsUtils;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
+
+import java.util.List;
 
 /**
  * Created by PC on 10/4/2017.
@@ -27,6 +30,7 @@ public class AddNewModelFragment extends BaseFragment implements AddNewModelCont
     private MaterialBetterSpinner typeSpinner;
     private MaterialBetterSpinner divisionSpinner;
     private MaterialBetterSpinner categorySpinner;
+    private List<FetchCategorie> fetchCategorieList;
 
     @Override
     protected void initializePresenter() {
@@ -41,7 +45,7 @@ public class AddNewModelFragment extends BaseFragment implements AddNewModelCont
         if (rootView == null) {
             binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_add_new_model, container, false);
-            addNewModel = new AddNewModel();
+            addNewModel = getArguments().getParcelable(BundleConstants.ADD_NEW_MODEL_DATA);
             binding.setAddNewModel(addNewModel);
             binding.setAddNewModelFragment(this);
             rootView = binding.getRoot();
@@ -95,6 +99,9 @@ public class AddNewModelFragment extends BaseFragment implements AddNewModelCont
 
 
     private void initViews() {
+        FetchCategorie fetchCategorie = new FetchCategorie();
+        fetchCategorie.setId(fetchCategorie.getId());
+        fetchCategorie.setName(fetchCategorie.getName());
     }
 
     public void onSubmitClick() {

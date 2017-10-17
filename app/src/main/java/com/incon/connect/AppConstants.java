@@ -135,6 +135,7 @@ public interface AppConstants {
     interface BundleConstants {
         String SCANNED_QRCODE = "scannedQrcode";
         String WARRANTY_DATA = "warrantyData";
+        String ADD_NEW_MODEL_DATA = "addnewmodelData";
     }
 
     interface PushSubTypeConstants {
