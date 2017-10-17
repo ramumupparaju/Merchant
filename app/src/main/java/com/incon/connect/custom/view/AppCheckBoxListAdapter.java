@@ -2,6 +2,7 @@ package com.incon.connect.custom.view;
 
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +51,6 @@ public class AppCheckBoxListAdapter extends RecyclerView.Adapter
         for (CheckedModelSpinner checkedModelSpinner : spinnerArrayList) {
             checkedModelSpinner.setChecked(false);
         }
-        notifyDataSetChanged();
     }
 
     @Override
@@ -66,6 +66,9 @@ public class AppCheckBoxListAdapter extends RecyclerView.Adapter
                 stringBuilder.append(checkedModelSpinner.getName());
                 stringBuilder.append(AppConstants.COMMA_SEPARATOR);
             }
+        }
+        if (TextUtils.isEmpty(stringBuilder.toString())) {
+            return "";
         }
         int start = stringBuilder.length() - 1;
         return stringBuilder.toString().substring(0, start);
@@ -84,6 +87,7 @@ public class AppCheckBoxListAdapter extends RecyclerView.Adapter
 
         public void bind(CheckedModelSpinner checkedModelSpinner) {
             binding.setVariable(BR.model, checkedModelSpinner);
+
             binding.executePendingBindings();
         }
 

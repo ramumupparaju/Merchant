@@ -164,7 +164,8 @@ public class HistoryTabFragment extends BaseFragment implements View.OnClickList
             CheckedModelSpinner checkedModelSpinner = new CheckedModelSpinner();
             String name = filterName.toString();
             checkedModelSpinner.setName(name);
-            checkedModelSpinner.setChecked(selectedFilter.equalsIgnoreCase(name));
+            checkedModelSpinner.setChecked(selectedFilter != null
+                    && selectedFilter.equalsIgnoreCase(name));
             filterNamesList.add(checkedModelSpinner);
         }
         filterBySearchDialog = new AppCheckBoxListDialog.AlertDialogBuilder(getActivity(), new
@@ -188,7 +189,7 @@ public class HistoryTabFragment extends BaseFragment implements View.OnClickList
                                 break;
                         }
                     }
-                }).title("")
+                }).title(getString(R.string.action_filters))
                 .spinnerItems(filterNamesList)
                 .build();
         filterBySearchDialog.showDialog();
