@@ -52,7 +52,7 @@ public class PurchasedAdapter extends RecyclerView.Adapter
         notifyDataSetChanged();
     }
 
-    public void searchData(String searchableString, int searchType) {
+    public void searchData(String searchableString, String searchType) {
         filteredPurchasedList.clear();
         switch (searchType) {
             case AppConstants.FilterConstants.NAME:

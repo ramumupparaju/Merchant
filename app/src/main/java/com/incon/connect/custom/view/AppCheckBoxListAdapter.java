@@ -21,9 +21,14 @@ import java.util.List;
 public class AppCheckBoxListAdapter extends RecyclerView.Adapter
         <AppCheckBoxListAdapter.ViewHolder> {
     private List<CheckedModelSpinner> spinnerArrayList = new ArrayList<>();
+    private boolean isRadio = false;
 
     public AppCheckBoxListAdapter(List<CheckedModelSpinner> spinnerArrayList) {
         this.spinnerArrayList = spinnerArrayList;
+    }
+
+    public void setRadio(boolean radio) {
+        isRadio = radio;
     }
 
     @Override
@@ -38,6 +43,14 @@ public class AppCheckBoxListAdapter extends RecyclerView.Adapter
     public void onBindViewHolder(ViewHolder holder, int position) {
         CheckedModelSpinner purchasedResponse = spinnerArrayList.get(position);
         holder.bind(purchasedResponse);
+        clearSelection();
+    }
+
+    private void clearSelection() {
+        for (CheckedModelSpinner checkedModelSpinner : spinnerArrayList) {
+            checkedModelSpinner.setChecked(false);
+        }
+        notifyDataSetChanged();
     }
 
     @Override
@@ -76,6 +89,9 @@ public class AppCheckBoxListAdapter extends RecyclerView.Adapter
 
         @Override
         public void onClick(View v) {
+            if (isRadio) {
+                clearSelection();
+            }
             binding.checkboxSpinnerFormat.setChecked(!binding.checkboxSpinnerFormat.isChecked());
         }
 

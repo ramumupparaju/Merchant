@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -81,6 +80,10 @@ public class AppCheckBoxListDialog extends Dialog implements View.OnClickListene
             default:
                 break;
         }
+    }
+
+    public void setRadioType(boolean isRadio) {
+        listAdapter.setRadio(isRadio);
     }
 
     public static class AlertDialogBuilder {
