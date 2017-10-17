@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.incon.connect.R;
 import com.incon.connect.apimodel.components.qrcodebaruser.UserInfoResponse;
 import com.incon.connect.databinding.FragmentScanTabBinding;
+import com.incon.connect.dto.warrantyregistration.WarrantyRegistration;
 import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.home.HomeActivity;
 import com.incon.connect.ui.qrcodescan.QrcodeBarcodeScanActivity;
@@ -85,11 +86,6 @@ public class ScanTabFragment extends BaseFragment implements ScanTabContract.Vie
         }
     }
 
-    private void showProductInfoScreen() {
-        ((HomeActivity) getActivity()).replaceFragmentAndAddToStack(
-                ProductScanFragment.class, null);
-    }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -109,6 +105,12 @@ public class ScanTabFragment extends BaseFragment implements ScanTabContract.Vie
 
     @Override
     public void userInfo(UserInfoResponse userInfoResponse) {
-        showProductInfoScreen();
+        WarrantyRegistration warrantyRegistration = new WarrantyRegistration();
+        warrantyRegistration.setMobileNumber(userInfoResponse.getMsisdn());
+        warrantyRegistration.setCustomerId(String.valueOf(userInfoResponse.getId()));
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(BundleConstants.WARRANTY_DATA, warrantyRegistration);
+        ((HomeActivity) getActivity()).replaceFragmentAndAddToStack(
+                ProductScanFragment.class, bundle);
     }
 }

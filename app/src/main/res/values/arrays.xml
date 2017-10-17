@@ -24,6 +24,16 @@
         <item>Tap to view</item>
     </string-array>
 
+
+    <!-- selecting by search-->
+    <string-array
+        name="select_search">
+        <item>Brand</item>
+        <item>Name</item>
+    </string-array>
+
+
+
     <!-- Side MenuItems -->
     <string-array
         name="side_menu_items_list">

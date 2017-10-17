@@ -63,7 +63,7 @@
                     style="@style/Register_TextInputEditText"
                     android:maxLength="@integer/character_limit_100"
                     android:maxLines="1"
-                    android:text="@={warrantyRegistration.modelNumber}"
+                    android:text="@={warrantyRegistration.divisionName}"
                     />
             </com.incon.connect.custom.view.CustomTextInputLayout>
 
@@ -83,7 +83,7 @@
                     style="@style/Register_TextInputEditText"
                     android:maxLength="@integer/character_limit_100"
                     android:maxLines="1"
-                    android:text="@={warrantyRegistration.modelNumber}"
+                    android:text="@={warrantyRegistration.categoryName}"
                     />
             </com.incon.connect.custom.view.CustomTextInputLayout>
 

@@ -32,6 +32,9 @@ public class ModelSearchResponse {
     @SerializedName("category")
     @Expose
     private Category category;
+
+    private Division division;
+
     @SerializedName("type")
     @Expose
     private ModelType type;
@@ -59,6 +62,13 @@ public class ModelSearchResponse {
     @SerializedName("notes")
     @Expose
     private String notes;
+
+    public Division getDivision() {
+        return division;
+    }
+    public void setDivision(Division division) {
+        this.division = division;
+    }
 
     public Integer getId() {
         return id;
