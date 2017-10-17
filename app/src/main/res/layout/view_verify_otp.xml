@@ -30,6 +30,20 @@
                 android:textSize="15.4sp"
                 />
 
+
+            <!-- used to resend password again-->
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/resend_otp_tv"
+                style="@style/BothWrap"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@id/text_verify_title"
+                app:srcCompat="@drawable/ic_im_return"
+                android:layout_marginEnd="39dp"
+                android:layout_marginTop="6dp"
+                android:gravity="bottom"
+                android:paddingTop="@dimen/margin_20"
+                />
+
             <!-- verify title -->
             <com.incon.connect.custom.view.CustomTextInputLayout
                 android:id="@+id/input_layout_verify"
@@ -37,7 +51,7 @@
                 android:layout_below="@id/text_verify_title"
                 android:layout_marginStart="14dp"
                 android:layout_marginTop="10dp"
-                android:layout_toLeftOf="@+id/resend_otp_tv"
+                android:layout_toLeftOf="@id/resend_otp_tv"
                 android:hint="@string/register_verify_email_hint"
                 android:textColorHint="@color/colorForgotPasswordHintText"
                 app:errorEnabled="true"
@@ -55,19 +69,6 @@
                     android:textColor="@color/colorForgotPasswordHintText"
                     android:textSize="14sp"/>
             </com.incon.connect.custom.view.CustomTextInputLayout>
-
-            <!-- used to resend password again-->
-            <android.support.v7.widget.AppCompatImageView
-                android:id="@+id/resend_otp_tv"
-                style="@style/BothWrap"
-                android:layout_alignParentEnd="true"
-                android:layout_below="@id/text_verify_title"
-                app:srcCompat="@drawable/ic_im_return"
-                android:gravity="bottom"
-                android:layout_margin="15dp"
-                android:paddingBottom="@dimen/margin_5"
-                android:paddingTop="@dimen/margin_20"
-                />
 
             <!-- layout for bottom buttons -->
             <include
