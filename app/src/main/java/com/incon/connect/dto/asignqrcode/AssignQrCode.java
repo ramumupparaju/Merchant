@@ -20,7 +20,7 @@ public class AssignQrCode {
     private String price;
     @SerializedName("productId")
     @Expose
-    private Integer productId;
+    private String productId;
     @SerializedName("serialNo")
     @Expose
     private String serialNo;
@@ -49,11 +49,11 @@ public class AssignQrCode {
         this.price = price;
     }
 
-    public Integer getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(Integer productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 
