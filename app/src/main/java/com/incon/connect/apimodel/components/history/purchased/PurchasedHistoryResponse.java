@@ -61,6 +61,11 @@ public class PurchasedHistoryResponse extends BaseObservable {
     @SerializedName("productQrCode")
     @Expose
     private String productQrCode;
+    private transient boolean isSelected;
+
+    public boolean isSelected() {
+        return isSelected;
+    }
 
     public String getSerialNumber() {
         return serialNumber;
@@ -207,4 +212,7 @@ public class PurchasedHistoryResponse extends BaseObservable {
         this.productQrCode = productQrCode;
     }
 
+    public void setSelected(boolean isSelected) {
+        this.isSelected = isSelected;
+    }
 }

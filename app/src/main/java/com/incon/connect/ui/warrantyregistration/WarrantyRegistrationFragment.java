@@ -110,6 +110,11 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
                 selectedModelNumber = modelSearchResponseList.get(
                         selectedPosition).getModelNumber();
                 AppUtils.hideSoftKeyboard(getActivity(), rootView);
+                binding.inputLayoutBatchNo.setVisibility(View.VISIBLE);
+                binding.inputLayoutCategory.setVisibility(View.VISIBLE);
+                binding.inputLayoutDivision.setVisibility(View.VISIBLE);
+                binding.inputLayoutPrice.setVisibility(View.VISIBLE);
+                binding.inputLayoutSerialNo.setVisibility(View.VISIBLE);
             }
         });
     }

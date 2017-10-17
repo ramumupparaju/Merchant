@@ -26,9 +26,23 @@ public class AddNewModel extends BaseObservable implements Parcelable {
     @SerializedName("productModel")
     @Expose
     private String productModel;
+    @SerializedName("productBrand")
+    @Expose
+    private String productBrand;
 
     private  transient String categoryName;
     private transient String divisionName;
+
+    public AddNewModel() {
+    }
+
+    public String getProductBrand() {
+        return productBrand;
+    }
+
+    public void setProductBrand(String productBrand) {
+        this.productBrand = productBrand;
+    }
 
     public String getCategoryName() {
         return categoryName;

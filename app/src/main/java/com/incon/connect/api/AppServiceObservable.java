@@ -4,6 +4,7 @@ import com.incon.connect.apimodel.base.ApiBaseResponse;
 import com.incon.connect.apimodel.components.addoffer.AddOfferMerchantFragmentResponse;
 import com.incon.connect.apimodel.components.buyrequest.BuyRequestResponse;
 import com.incon.connect.apimodel.components.defaults.DefaultsResponse;
+import com.incon.connect.apimodel.components.fetchcategorie.FetchCategories;
 import com.incon.connect.apimodel.components.history.purchased.InterestHistoryResponse;
 import com.incon.connect.apimodel.components.history.purchased.PurchasedHistoryResponse;
 import com.incon.connect.apimodel.components.history.purchased.ReturnHistoryResponse;
@@ -102,8 +103,8 @@ public interface AppServiceObservable {
     Observable<List<ModelSearchResponse>> modelNumberSearch(@Path("modelNumber")
                                                                     String modelNumber);
 
-    @GET("product/addnew/{merchantId}")
-    Observable<Object> getCategories(@Path("merchantId") int merchantId);
+    @GET("merchant/getcategories/{merchantId}")
+    Observable<List<FetchCategories>> getCategories(@Path("merchantId") int merchantId);
 
     @POST("product/addnew/{merchantId}")
     Observable<Object> addingNewModel(@Path("merchantId") int merchantId, @Body AddNewModel

@@ -88,6 +88,13 @@ public class PurchasedAdapter extends RecyclerView.Adapter
         this.clickCallback = clickCallback;
     }
 
+    public void clearSelection() {
+        for (PurchasedHistoryResponse purchasedHistoryResponse : filteredPurchasedList) {
+            purchasedHistoryResponse.setSelected(false);
+        }
+        notifyDataSetChanged();
+    }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final ItemPurchasedFragmentBinding binding;
@@ -105,6 +112,7 @@ public class PurchasedAdapter extends RecyclerView.Adapter
                     .getProductLogoUrl());
             AppUtils.loadImageFromApi(binding.productImageImageview, purchasedHistoryResponse
                     .getProductImageUrl());
+            binding.layoutPurchsedItem.setSelected(purchasedHistoryResponse.isSelected());
             binding.executePendingBindings();
         }
 

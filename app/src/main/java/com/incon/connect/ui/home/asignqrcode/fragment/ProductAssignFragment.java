@@ -15,6 +15,7 @@ import com.incon.connect.custom.view.CustomAutoCompleteView;
 import com.incon.connect.databinding.FragmentProductAssignBinding;
 import com.incon.connect.dto.asignqrcode.AssignQrCode;
 import com.incon.connect.ui.BaseFragment;
+import com.incon.connect.ui.addnewmodel.AddNewModelFragment;
 import com.incon.connect.ui.home.HomeActivity;
 import com.incon.connect.ui.warrantyregistration.adapter.ModelSearchArrayAdapter;
 import com.jakewharton.rxbinding2.widget.RxTextView;
@@ -51,6 +52,11 @@ public class ProductAssignFragment extends BaseFragment implements ProductAssign
 
     public void onSubmitClick() {
         assignPresenter.assignQrCodeToProduct(assignQrCode);
+    }
+
+    public void onNewModelClick() {
+        ((HomeActivity) getActivity()).replaceFragmentAndAddToStack(
+                AddNewModelFragment.class, null);
     }
 
     @Override

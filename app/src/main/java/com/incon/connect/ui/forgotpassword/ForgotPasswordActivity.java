@@ -44,10 +44,13 @@ public class ForgotPasswordActivity extends BaseActivity implements ForgotPasswo
         binding = DataBindingUtil.setContentView(this, getLayoutId());
         buttonsBinding = binding.includeRegisterBottomButtons;
 
-        String phoneNumber = getIntent().getExtras().getString(IntentConstants.USER_PHONE_NUMBER);
-        if (phoneNumber != null && phoneNumber.length() > 0) {
-            binding.edittextUsername.setText(phoneNumber);
-            binding.edittextUsername.setSelection(phoneNumber.length());
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            String phoneNumber = bundle.getString(IntentConstants.USER_PHONE_NUMBER);
+            if (phoneNumber != null && phoneNumber.length() > 0) {
+                binding.edittextUsername.setText(phoneNumber);
+                binding.edittextUsername.setSelection(phoneNumber.length());
+            }
         }
 
         setBottomButtonViews();
