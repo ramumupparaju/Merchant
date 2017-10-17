@@ -52,7 +52,7 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
     private List<ModelSearchResponse> modelSearchResponseList;
     private String selectedModelNumber;
     private int selectedPosition;
-    boolean isOtpVerified = true;
+    boolean isOtpVerified;
     private AppAlertDialog warrantyStatusDialog;
     private AppOtpDialog userOtpDialog;
     private String enteredOtp;
