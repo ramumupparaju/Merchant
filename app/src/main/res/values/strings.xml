@@ -5,6 +5,7 @@
 
     <!-- api error messages -->
     <string name="error_network">Api failed due to NetworkErrorException</string>
+    <string name="error_message">Please Add New MOdel When Click On Below Button </string>
     <string name="error_socket">Unable to process your request. Please try again</string>
     <string name="error_no_connectivity">Looks like you are offline, please check internet
         connectivity</string>

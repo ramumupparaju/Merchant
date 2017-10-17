@@ -23,7 +23,7 @@ public interface AppConstants {
     }
 
     interface WarrantyRegistrationConstants {
-        int MINIMUM_MODELNUMBER_TO_SEARCH = 3;
+        int MINIMUM_MODELNUMBER_TO_SEARCH = 2;
     }
 
     interface GoogleMapConstants {
@@ -134,6 +134,7 @@ public interface AppConstants {
 
     interface BundleConstants {
 
+        String WARRANTY_DATA = "warrantyData";
     }
 
     interface PushSubTypeConstants {

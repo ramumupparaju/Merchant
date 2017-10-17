@@ -11,6 +11,8 @@ import android.widget.AdapterView;
 
 import com.incon.connect.AppUtils;
 import com.incon.connect.R;
+import com.incon.connect.apimodel.components.search.Category;
+import com.incon.connect.apimodel.components.search.Division;
 import com.incon.connect.apimodel.components.search.ModelSearchResponse;
 import com.incon.connect.callbacks.AlertDialogCallback;
 import com.incon.connect.callbacks.TextAlertDialogCallback;
@@ -47,15 +49,13 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
     private WarrantyRegistration warrantyRegistration;
 
     private ModelSearchArrayAdapter modelNumberAdapter;
-    private List<ModelSearchResponse> warrantyregistrationList;
+    private List<ModelSearchResponse> modelSearchResponseList;
     private String selectedModelNumber;
     private int selectedPosition;
     boolean isOtpVerified;
     private AppAlertDialog warrantyStatusDialog;
     private AppOtpDialog userOtpDialog;
     private String enteredOtp;
-    private boolean isSubmitClick = false;
-
 
     @Override
     protected void initializePresenter() {
@@ -71,7 +71,7 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
             binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_warranty_registration, container, false);
             binding.setFragment(this);
-            warrantyRegistration = new WarrantyRegistration();
+            warrantyRegistration = getArguments().getParcelable(BundleConstants.WARRANTY_DATA);
             binding.setWarrantyRegistration(warrantyRegistration);
             rootView = binding.getRoot();
 
@@ -88,7 +88,7 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
 
     private void initializeModelNumberAdapter(List<ModelSearchResponse>
                                                       modelNumberList) {
-        this.warrantyregistrationList = modelNumberList;
+        this.modelSearchResponseList = modelNumberList;
         modelNumberAdapter = new ModelSearchArrayAdapter(getContext(),
                 modelNumberList);
         binding.edittextModelNumber.setAdapter(modelNumberAdapter);
@@ -99,7 +99,15 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
             public void onItemClick(AdapterView<?> parent, View arg1, int pos,
                                     long id) {
                 selectedPosition = pos;
-                selectedModelNumber = warrantyregistrationList.get(
+                ModelSearchResponse modelSearchResponse = modelSearchResponseList.get(pos);
+                warrantyRegistration.setProductId(String.valueOf(modelSearchResponse.getId()));
+                Category category = modelSearchResponse.getCategory();
+                warrantyRegistration.setCategoryId(String.valueOf(category.getId()));
+                warrantyRegistration.setCategoryName(String.valueOf(category.getName()));
+                Division division = modelSearchResponse.getDivision();
+                warrantyRegistration.setDivisionId(String.valueOf(division.getId()));
+                warrantyRegistration.setDivisionName(String.valueOf(division.getName()));
+                selectedModelNumber = modelSearchResponseList.get(
                         selectedPosition).getModelNumber();
             }
         });
@@ -146,6 +154,9 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
         }
         initializeModelNumberAdapter(modelSearchResponseList);
         binding.edittextModelNumber.showDropDown();
+        if (modelSearchResponseList.size() == 0) {
+            showErrorMessage(getString(R.string.error_message));
+        }
     }
 
     @Override
@@ -157,26 +168,16 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
     public void validateUserOTP() {
         dismissDialog(userOtpDialog);
         isOtpVerified = true;
-        if (isSubmitClick) {
-            warrantRegistrationPresenter.doWarrantyRegistrationApi(warrantyRegistration);
-        } else {
-            ((HomeActivity) getActivity()).replaceFragmentAndAddToStack(
-                    AddNewModelFragment.class, null);
-        }
+        warrantRegistrationPresenter.doWarrantyRegistrationApi(warrantyRegistration);
     }
 
 
     public void onNewModelClick() {
-        if (isOtpVerified) {
-            ((HomeActivity) getActivity()).replaceFragmentAndAddToStack(
-                    AddNewModelFragment.class, null);
-        } else {
-            showOtpDialog();
-        }
+        ((HomeActivity) getActivity()).replaceFragmentAndAddToStack(
+                AddNewModelFragment.class, null);
     }
 
     public void onSubmitClick() {
-        isSubmitClick = true;
         if (isOtpVerified) {
             warrantRegistrationPresenter.doWarrantyRegistrationApi(warrantyRegistration);
         } else {
@@ -185,7 +186,7 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
     }
 
     private void showOtpDialog() {
-        final String phoneNumber = "7799879990"; //todo remove later
+        final String phoneNumber = warrantyRegistration.getMobileNumber();
         userOtpDialog = new AppOtpDialog.AlertDialogBuilder(getActivity(), new
                 TextAlertDialogCallback() {
                     @Override

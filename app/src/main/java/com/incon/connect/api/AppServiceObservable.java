@@ -111,7 +111,7 @@ public interface AppServiceObservable {
     Observable<ValidateWarrantyOtpResponse> validateWarrantyOtp(@Body HashMap<String, String>
                                                                         verify);
 
-    @GET("warranty/requestotp/{phoneNumber}/register")
+    @GET("warranty/requestotp/{phoneNumber}/password")
     Observable<Object> warrantyRequestOtp(@Path("phoneNumber") String phoneNumber);
 
     @POST("user/newuser/{phoneNumber}")
