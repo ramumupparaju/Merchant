@@ -102,7 +102,6 @@
                             android:id="@+id/edittext_password"
                             style="@style/MatchWrap"
                             fontPath="fonts/OpenSans-Regular.ttf"
-                            android:layout_below="@id/edittext_username"
                             android:imeOptions="actionDone"
                             android:inputType="textPassword"
                             android:maxLines="1"
