@@ -22,7 +22,6 @@
             style="@style/BothMatch"
             android:fadeScrollbars="false"
             android:scrollbarSize="4dp"
-            android:layout_marginBottom="100dp"
             android:scrollbarThumbVertical="@drawable/scrollbar"
             android:scrollbars="vertical">
 
@@ -163,12 +162,39 @@
 
             </com.incon.connect.custom.view.CustomTextInputLayout>
 
+
+            <!-- invoiceNumber -->
+            <com.incon.connect.custom.view.CustomTextInputLayout
+                android:id="@+id/input_layout_invoicenumber"
+                style="@style/Add_new_model_TextInputLayout"
+                android:layout_below="@id/input_layout_price"
+                android:hint="@string/add_new__invoiceNumber"
+                app:errorEnabled="true"
+                android:visibility="gone"
+                app:fontName="fonts/OpenSans-Regular.ttf"
+                app:hintTextAppearance="@style/TextInputLayout_FloatingTextColor">
+
+                <android.support.design.widget.TextInputEditText
+                    android:id="@+id/edittext_register_invoicenumber"
+                    style="@style/Add_new_model_TextInputEditText"
+                    android:focusable="true"
+                    android:imeOptions="actionNext"
+                    android:maxLength="@integer/character_limit_45"
+                    android:maxLines="1"
+                    android:text="@={warrantyRegistration.invoiceNumber}"
+                    android:tag="1"
+                    />
+
+            </com.incon.connect.custom.view.CustomTextInputLayout>
+
+
+
             <Button
                 android:layout_marginLeft="@dimen/margin_110"
                 android:id="@+id/button_submit"
                 style="@style/w150_wrap"
                 fontPath="fonts/OpenSans-Bold.ttf"
-                android:layout_below="@id/input_layout_price"
+                android:layout_below="@id/input_layout_invoicenumber"
                 android:layout_marginBottom="@dimen/margin_10"
                 android:layout_marginTop="@dimen/margin_10"
                 android:background="@drawable/btn_login_register_roundedcorner"
@@ -190,6 +216,8 @@
             android:layout_marginLeft="@dimen/margin_280"
             android:onClick="@{() -> fragment.onNewModelClick()}"
             app:srcCompat="@drawable/ic_im_add_new"/>
+
+
 
 
     </RelativeLayout>

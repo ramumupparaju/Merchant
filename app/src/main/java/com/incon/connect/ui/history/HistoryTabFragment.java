@@ -158,17 +158,14 @@ public class HistoryTabFragment extends BaseFragment implements View.OnClickList
         String selectedFilter = SharedPrefsUtils.cacheProvider().getStringPreference(
                 CachePrefs.FILTER_NAME);
         List<CheckedModelSpinner> filterNamesList = new ArrayList<>();
-        if (!TextUtils.isEmpty(selectedFilter)) {
-            CharSequence[] items = getResources().getStringArray(
-                    R.array.select_search);
-            for (CharSequence filterName : items) {
-                CheckedModelSpinner checkedModelSpinner = new CheckedModelSpinner();
-                String name = filterName.toString();
-                checkedModelSpinner.setName(name);
-                checkedModelSpinner.setChecked(selectedFilter.equalsIgnoreCase(name));
-                filterNamesList.add(checkedModelSpinner);
-            }
-
+        CharSequence[] items = getResources().getStringArray(
+                R.array.select_search);
+        for (CharSequence filterName : items) {
+            CheckedModelSpinner checkedModelSpinner = new CheckedModelSpinner();
+            String name = filterName.toString();
+            checkedModelSpinner.setName(name);
+            checkedModelSpinner.setChecked(selectedFilter.equalsIgnoreCase(name));
+            filterNamesList.add(checkedModelSpinner);
         }
         filterBySearchDialog = new AppCheckBoxListDialog.AlertDialogBuilder(getActivity(), new
                 TextAlertDialogCallback() {

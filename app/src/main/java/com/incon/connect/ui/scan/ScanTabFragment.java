@@ -110,7 +110,7 @@ public class ScanTabFragment extends BaseFragment implements ScanTabContract.Vie
         warrantyRegistration.setCustomerId(String.valueOf(userInfoResponse.getId()));
         Bundle bundle = new Bundle();
         bundle.putParcelable(BundleConstants.WARRANTY_DATA, warrantyRegistration);
-        ((HomeActivity) getActivity()).replaceFragmentAndAddToStack(
+        ((HomeActivity) getActivity()).replaceFragment(
                 ProductScanFragment.class, bundle);
     }
 }
