@@ -6,6 +6,7 @@ import com.incon.connect.apimodel.base.ApiBaseResponse;
 import com.incon.connect.apimodel.components.addoffer.AddOfferMerchantFragmentResponse;
 import com.incon.connect.apimodel.components.buyrequest.BuyRequestResponse;
 import com.incon.connect.apimodel.components.defaults.DefaultsResponse;
+import com.incon.connect.apimodel.components.fetchcategorie.FetchCategories;
 import com.incon.connect.apimodel.components.history.purchased.InterestHistoryResponse;
 import com.incon.connect.apimodel.components.history.purchased.PurchasedHistoryResponse;
 import com.incon.connect.apimodel.components.history.purchased.ReturnHistoryResponse;
@@ -153,7 +154,7 @@ public class AppApiService implements AppConstants {
         return addNetworkCheck(serviceInstance.modelNumberSearch(modelNumber));
     }
 
-    public Observable<Object> getCategories(int merchantId) {
+    public Observable<List<FetchCategories>> getCategories(int merchantId) {
         return addNetworkCheck(serviceInstance.getCategories(merchantId));
     }
 

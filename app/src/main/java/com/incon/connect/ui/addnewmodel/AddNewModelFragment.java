@@ -5,16 +5,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import com.incon.connect.R;
-import com.incon.connect.apimodel.components.fetchcategorie.FetchCategorie;
+import com.incon.connect.apimodel.components.fetchcategorie.Brand;
+import com.incon.connect.apimodel.components.fetchcategorie.FetchCategories;
+import com.incon.connect.apimodel.components.fetchcategorie.Division;
 import com.incon.connect.databinding.FragmentAddNewModelBinding;
 import com.incon.connect.dto.addnewmodel.AddNewModel;
 import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.home.HomeActivity;
 import com.incon.connect.utils.SharedPrefsUtils;
-import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
 import java.util.List;
 
@@ -27,10 +29,8 @@ public class AddNewModelFragment extends BaseFragment implements AddNewModelCont
     private View rootView;
     private AddNewModelPresenter addNewModelPresenter;
     private AddNewModel addNewModel;
-    private MaterialBetterSpinner typeSpinner;
-    private MaterialBetterSpinner divisionSpinner;
-    private MaterialBetterSpinner categorySpinner;
-    private List<FetchCategorie> fetchCategorieList;
+    private List<FetchCategories> fetchCategorieList;
+    private int categorySelectedPos, divisionSelectedPos, brandSelectedPos;
 
     @Override
     protected void initializePresenter() {
@@ -45,61 +45,97 @@ public class AddNewModelFragment extends BaseFragment implements AddNewModelCont
         if (rootView == null) {
             binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_add_new_model, container, false);
-            addNewModel = getArguments().getParcelable(BundleConstants.ADD_NEW_MODEL_DATA);
+            addNewModel = new AddNewModel();
             binding.setAddNewModel(addNewModel);
             binding.setAddNewModelFragment(this);
             rootView = binding.getRoot();
             initViews();
-            loadData();
+            addNewModelPresenter.getCategories(SharedPrefsUtils.loginProvider().
+                    getIntegerPreference(LoginPrefs.USER_ID, DEFAULT_VALUE));
         }
         ((HomeActivity) getActivity()).setToolbarTitle(getString(R.string.title_add_new_model));
         return rootView;
     }
 
-    private void loadData() {
-        loadDivisionSpinnerData();
-        loadCategorySpinnerData();
-        loadTypeSpinnerData();
-    }
-
     private void loadTypeSpinnerData() {
-
-        String[] genderTypeList = getResources().getStringArray(R.array.gender_options_list);
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),
-                R.layout.view_spinner, genderTypeList);
-        arrayAdapter.setDropDownViewResource(R.layout.view_spinner);
-        typeSpinner = binding.spinnerType;
-        typeSpinner.setAdapter(arrayAdapter);
 
     }
 
     private void loadCategorySpinnerData() {
-
-        String[] genderTypeList = getResources().getStringArray(R.array.gender_options_list);
-
+        String[] stringCategoryList = new String[fetchCategorieList.size()];
+        for (int i = 0; i < fetchCategorieList.size(); i++) {
+            stringCategoryList[i] = fetchCategorieList.get(i).getName();
+        }
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),
-                R.layout.view_spinner, genderTypeList);
+                R.layout.view_spinner, stringCategoryList);
         arrayAdapter.setDropDownViewResource(R.layout.view_spinner);
-        categorySpinner = binding.spinnerCategory;
-        categorySpinner.setAdapter(arrayAdapter);
-
+        binding.spinnerCategory.setAdapter(arrayAdapter);
+        binding.spinnerCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                categorySelectedPos = position;
+                FetchCategories fetchCategories = fetchCategorieList.get(categorySelectedPos);
+                addNewModel.setCategoryId(String.valueOf(fetchCategories.getId()));
+                loadDivisionSpinnerData(fetchCategories.getDivisions());
+            }
+        });
     }
 
-    private void loadDivisionSpinnerData() {
+    private void loadDivisionSpinnerData(List<Division> divisions) {
 
-        String[] genderTypeList = getResources().getStringArray(R.array.gender_options_list);
+        if (divisions.size() == 0) {
+            binding.spinnerDivision.setVisibility(View.GONE);
+            return;
+        }
 
+        binding.spinnerDivision.setVisibility(View.VISIBLE);
+        String[] stringDivisionList = new String[divisions.size()];
+        for (int i = 0; i < divisions.size(); i++) {
+            stringDivisionList[i] = divisions.get(i).getName();
+        }
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),
-                R.layout.view_spinner, genderTypeList);
+                R.layout.view_spinner, stringDivisionList);
         arrayAdapter.setDropDownViewResource(R.layout.view_spinner);
-        divisionSpinner = binding.spinnerDivision;
-        divisionSpinner.setAdapter(arrayAdapter);
+        binding.spinnerDivision.setAdapter(arrayAdapter);
+        binding.spinnerDivision.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                divisionSelectedPos = position;
+                FetchCategories fetchCategories = fetchCategorieList.get(categorySelectedPos);
+                Division divisions1 = fetchCategories.getDivisions().get(divisionSelectedPos);
+                addNewModel.setDivisionId(String.valueOf((divisions1.getId())));
+                loadBrandSpinnerData(divisions1.getBrands());
+            }
+        });
+    }
+
+    private void loadBrandSpinnerData(List<Brand> brandList) {
+
+        if (brandList.size() == 0) {
+            binding.spinnerBrand.setVisibility(View.GONE);
+            return;
+        }
+
+        binding.spinnerBrand.setVisibility(View.VISIBLE);
+        String[] stringDivisionList = new String[brandList.size()];
+        for (int i = 0; i < brandList.size(); i++) {
+            stringDivisionList[i] = brandList.get(i).getName();
+        }
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(),
+                R.layout.view_spinner, stringDivisionList);
+        arrayAdapter.setDropDownViewResource(R.layout.view_spinner);
+        binding.spinnerBrand.setAdapter(arrayAdapter);
+        binding.spinnerBrand.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //TODO have to select brand id
+            }
+        });
     }
 
 
     private void initViews() {
-        FetchCategorie fetchCategorie = new FetchCategorie();
+        FetchCategories fetchCategorie = new FetchCategories();
         fetchCategorie.setId(fetchCategorie.getId());
         fetchCategorie.setName(fetchCategorie.getName());
     }
@@ -112,5 +148,11 @@ public class AddNewModelFragment extends BaseFragment implements AddNewModelCont
     @Override
     public void addNewModel(Object o) {
 
+    }
+
+    @Override
+    public void loadCategoriesList(List<FetchCategories> categoriesList) {
+        fetchCategorieList = categoriesList;
+        loadCategorySpinnerData();
     }
 }

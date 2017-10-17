@@ -2,7 +2,6 @@ package com.incon.connect.apimodel.components.fetchcategorie;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.incon.connect.apimodel.components.search.Division;
 
 import java.util.List;
 
@@ -10,7 +9,7 @@ import java.util.List;
  * Created by PC on 10/17/2017.
  */
 
-public class FetchCategorie {
+public class FetchCategories {
 
     @SerializedName("id")
     @Expose
@@ -18,11 +17,6 @@ public class FetchCategorie {
     @SerializedName("name")
     @Expose
     private String name;
-    @SerializedName("divisions")
-    @Expose
-    private Division division;
-    private Brand brand;
-    private transient String divisionName;
 
     private List<Division> divisions = null;
 
