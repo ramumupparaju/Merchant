@@ -42,7 +42,8 @@
             android:layout_height="96dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/margin_20"
-            app:srcCompat="@drawable/ic_connect_logo_svg"/>
+            app:srcCompat="@drawable/ic_connect_logo_svg"
+            />
 
         <ScrollView
             android:layout_width="match_parent"

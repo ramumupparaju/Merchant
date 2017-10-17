@@ -114,6 +114,10 @@ public interface AppServiceObservable {
     @GET("warranty/requestotp/{phoneNumber}/register")
     Observable<Object> warrantyRequestOtp(@Path("phoneNumber") String phoneNumber);
 
+    @POST("user/newuser/{phoneNumber}")
+    Observable<UserInfoResponse> newUserRegistation(@Path("phoneNumber")
+                                                                      String phoneNumber);
+
     @POST("registerPush")
     Observable<Object> pushTokenApi(@Body PushRegistrarBody pushRegistrarBody);
 

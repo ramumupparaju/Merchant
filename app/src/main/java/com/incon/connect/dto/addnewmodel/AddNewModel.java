@@ -1,40 +1,76 @@
 package com.incon.connect.dto.addnewmodel;
 
 import android.databinding.BaseObservable;
-import android.databinding.Bindable;
+
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class AddNewModel extends BaseObservable {
+    @SerializedName("name")
+    @Expose
     private String name;
-    private String modelNumber;
+    @SerializedName("categoryId")
+    @Expose
+    private String categoryId;
+    @SerializedName("divisionId")
+    @Expose
+    private String divisionId;
+    @SerializedName("notes")
+    @Expose
+    private String notes;
+    @SerializedName("price")
+    @Expose
     private String price;
+    @SerializedName("productModel")
+    @Expose
+    private String productModel;
 
-    @Bindable
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-        notifyChange();
     }
 
-    @Bindable
-    public String getModelNumber() {
-        return modelNumber;
+    public String getCategoryId() {
+        return categoryId;
     }
 
-    public void setModelNumber(String modelNumber) {
-        this.modelNumber = modelNumber;
-        notifyChange();
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
     }
 
-    @Bindable
+    public String getDivisionId() {
+        return divisionId;
+    }
+
+    public void setDivisionId(String divisionId) {
+        this.divisionId = divisionId;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
     public String getPrice() {
         return price;
     }
 
     public void setPrice(String price) {
         this.price = price;
-        notifyChange();
     }
+
+    public String getProductModel() {
+        return productModel;
+    }
+
+    public void setProductModel(String productModel) {
+        this.productModel = productModel;
+    }
+
 }

@@ -253,6 +253,7 @@ public interface AppConstants {
         int NETWORK_ERROR = 1;
         int TIMEOUT = 2;
         int NO_NETWORK = 3;
+        String NEW_USER = "User not found for provided details";
     }
 
     interface MenuConstants {

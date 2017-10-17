@@ -69,7 +69,7 @@ public class WarrantRegistrationPresenter extends BasePresenter<WarrantRegistrat
     @Override
     public void doWarrantyRegistrationApi(WarrantyRegistration warrantyRegistration) {
         getView().showProgress(appContext.getString(R.string.progress_warranty_registering));
-        DisposableObserver<Object> observer = new
+       DisposableObserver<Object> observer = new
                 DisposableObserver<Object>() {
                     @Override
                     public void onNext(Object warrantyRegisteredResponse) {
@@ -91,6 +91,11 @@ public class WarrantRegistrationPresenter extends BasePresenter<WarrantRegistrat
                 };
         AppApiService.getInstance().warrantyRegisterApi(warrantyRegistration).subscribe(observer);
         addDisposable(observer);
+
+
+
+
+
     }
 
     @Override

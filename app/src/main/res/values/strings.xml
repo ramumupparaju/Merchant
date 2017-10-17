@@ -11,7 +11,10 @@
 
 
     <!--warrantyregistration-->
+    <string name="action_brand">Brand</string>
     <string name="action_modelno">Model No</string>
+    <string name="action_division">Division</string>
+    <string name="action_category">Category</string>
     <string name="action_price">Price :</string>
     <string name="action_batchno">Batch No :</string>
     <string name="action_serialno">Serial No :</string>

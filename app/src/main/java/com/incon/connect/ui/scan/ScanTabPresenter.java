@@ -30,13 +30,18 @@ public class ScanTabPresenter extends BasePresenter<ScanTabContract.View> implem
     }
 
     @Override
-    public void userInfoUsingPhoneNumber(String phoneNumber) {
+    public void userInfoUsingPhoneNumber(final String phoneNumber) {
         getView().showProgress(appContext.getString(R.string.progress_user_details));
         DisposableObserver<UserInfoResponse> observer = new
                 DisposableObserver<UserInfoResponse>() {
                     @Override
                     public void onNext(UserInfoResponse userInfoResponse) {
-                        getView().userInfo(userInfoResponse);
+                        if (userInfoResponse.getMsisdn() == null) {
+                            newUserRegistration(phoneNumber);
+                        } else {
+                            getView().hideProgress();
+                            getView().userInfo(userInfoResponse);
+                        }
                     }
 
                     @Override
@@ -48,10 +53,34 @@ public class ScanTabPresenter extends BasePresenter<ScanTabContract.View> implem
 
                     @Override
                     public void onComplete() {
-                        getView().hideProgress();
                     }
                 };
         AppApiService.getInstance().userInfoUsingPhoneNumber(phoneNumber).subscribe(observer);
+        addDisposable(observer);
+    }
+
+    @Override
+    public void newUserRegistration(String phoneNumber) {
+        DisposableObserver<UserInfoResponse> observer = new
+                DisposableObserver<UserInfoResponse>() {
+                    @Override
+                    public void onNext(UserInfoResponse userInfoResponse) {
+                            getView().hideProgress();
+                            getView().userInfo(userInfoResponse);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        getView().hideProgress();
+                        Pair<Integer, String> errorDetails = ErrorMsgUtil.getErrorDetails(e);
+                        getView().handleException(errorDetails);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                    }
+                };
+        AppApiService.getInstance().newUserRegistation(phoneNumber).subscribe(observer);
         addDisposable(observer);
     }
 
