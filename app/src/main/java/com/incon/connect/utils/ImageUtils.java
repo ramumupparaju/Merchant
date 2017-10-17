@@ -1,7 +1,6 @@
 package com.incon.connect.utils;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapShader;
@@ -125,7 +124,6 @@ public class ImageUtils {
         v.post(new Runnable() {
             @Override
             public void run() {
-                Logger.e("Width and Height", v.getWidth() + " :: " + v.getHeight());
                 b = Bitmap.createBitmap(
                         v.getMeasuredWidth(), v.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
                 Canvas c = new Canvas(b);
@@ -209,7 +207,7 @@ public class ImageUtils {
     }
 
     public static String getRealPathFromURI(Context context, Uri contentUri) {
-        Cursor cursor = null;
+        /*Cursor cursor = null;
         try {
             String[] proj = {MediaStore.MediaColumns.DATA};
             cursor = context.getContentResolver().query(contentUri, proj, null, null, null);
@@ -220,7 +218,9 @@ public class ImageUtils {
             if (cursor != null) {
                 cursor.close();
             }
-        }
+        }*/
+
+        return FileUtils.getPath(context, contentUri);
     }
 
     public static Bitmap decodeSampledBitmapFromResource(byte[] bytes, int reqWidth, int reqHeight)
@@ -420,8 +420,11 @@ public class ImageUtils {
 
         FileOutputStream out;
 
+        String filename = Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_DCIM) + "/" + UUID.randomUUID() + "_"
+                + System.currentTimeMillis() + ".jpg";
         try {
-            out = new FileOutputStream(filePath);
+            out = new FileOutputStream(filename);
 
 //          write the compressed bitmap at the destination specified by filename.
             scaledBitmap.compress(Bitmap.CompressFormat.JPEG, 80, out);
@@ -429,7 +432,7 @@ public class ImageUtils {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        return filePath;
+        return filename;
     }
 
     public static Bitmap writeTextOnDrawable(Context context, int drawableId, String text) {

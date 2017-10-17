@@ -7,6 +7,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
+import com.incon.connect.AppUtils;
 import com.incon.connect.BuildConfig;
 import com.incon.connect.R;
 import com.incon.connect.callbacks.AlertDialogCallback;
@@ -16,8 +17,11 @@ import com.incon.connect.databinding.ActivitySettingsBinding;
 import com.incon.connect.dto.settings.SettingsItem;
 import com.incon.connect.ui.BaseActivity;
 import com.incon.connect.ui.changepassword.ChangePasswordActivity;
-import com.incon.connect.ui.register.RegistrationActivity;
+import com.incon.connect.ui.home.HomeActivity;
 import com.incon.connect.ui.settings.adapters.SettingsAdapter;
+import com.incon.connect.ui.settings.update.UpDateStoreProfileActivity;
+import com.incon.connect.ui.settings.update.UpDateUserProfileActivity;
+import com.incon.connect.utils.SharedPrefsUtils;
 
 import java.util.ArrayList;
 
@@ -54,7 +58,8 @@ public class SettingsActivity extends BaseActivity implements SettingsContract.V
         binding.toolbarLeftIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                finish();
+                Intent backToHome = new Intent(SettingsActivity.this, HomeActivity.class);
+                startActivity(backToHome);
             }
         });
 
@@ -80,18 +85,19 @@ public class SettingsActivity extends BaseActivity implements SettingsContract.V
     }
 
     private void prepareMenuData() {
-        /*int[] icons = {R.drawable.ic_menu_patient_info_svg, R.drawable.ic_menu_physician_info_svg,
-                R.drawable.ic_menu_sensor_svg, R.drawable.ic_menu_faq_svg,
-                R.drawable.ic_menu_support_svg, R.drawable.ic_menu_change_password_svg,
-                R.drawable.ic_menu_logout_svg};*/
-        int[] icons = {R.drawable.ic_menu_patient_info_svg,
-                R.drawable.ic_menu_logout_svg};
+
+        int[] icons = {R.drawable.ic_menu_store_settings, R.drawable.ic_menu_change_password,
+                R.drawable.ic_menu_bill_format,
+                R.drawable.ic_menu_timings,
+                R.drawable.ic_menu_contact_details,
+                R.drawable.ic_menu_logout_svg };
         String[] menuTitles = getResources().getStringArray(R.array.side_menu_items_list);
 
         menuItems = new ArrayList<>();
         SettingsItem menuItemHeader = new SettingsItem();
         menuItemHeader.setRowType(SettingsAdapter.ROW_TYPE_HEADER);
-        menuItemHeader.setText("Test");
+        menuItemHeader.setText(SharedPrefsUtils.loginProvider().
+                getStringPreference(LoginPrefs.USER_NAME));
         menuItems.add(menuItemHeader);
         for (int menuPos = 0; menuPos < menuTitles.length; menuPos++) {
             SettingsItem menuItem = new SettingsItem();
@@ -107,25 +113,48 @@ public class SettingsActivity extends BaseActivity implements SettingsContract.V
         super.onResume();
         if (menuItems != null) {
             SettingsItem menuItemHeader = menuItems.get(0);
-            menuItemHeader.setText("Test");
+            menuItemHeader.setText(SharedPrefsUtils.loginProvider().
+                    getStringPreference(LoginPrefs.USER_NAME));
             menuAdapter.setData(menuItems);
         }
     }
+
+
 
     @Override
     public void onClickPosition(int position) {
         switch (position) {
             case MenuConstants.PROFILE:
-                Intent userProfileIntent = new Intent(this, RegistrationActivity.class);
+                Intent userProfileIntent = new Intent(this, UpDateUserProfileActivity.class);
                 startActivity(userProfileIntent);
+                break;
+            case MenuConstants.STORESETTINGS:
+                Intent storeProfileIntent = new Intent(this, UpDateStoreProfileActivity.class);
+                startActivity(storeProfileIntent);
                 break;
             case MenuConstants.CHANGE_PWD:
                 Intent changePasswordIntent = new Intent(this, ChangePasswordActivity.class);
                 startActivity(changePasswordIntent);
                 break;
+
+            case MenuConstants.BILLFORMAT:
+                AppUtils.shortToast(SettingsActivity.this, getString(
+                        R.string.title_menu_bill_format));
+                break;
+            case MenuConstants.TIMEINGS:
+                AppUtils.shortToast(SettingsActivity.this, getString(
+                        R.string.title_menu_timings));
+                break;
+
+            case MenuConstants.CONTACTDETAILS:
+                AppUtils.shortToast(SettingsActivity.this, getString(
+                        R.string.title_menu_contact_details));
+                break;
+
             case MenuConstants.LOGOUT:
                 showLogoutDialog();
                 break;
+
             default:
                 break;
         }

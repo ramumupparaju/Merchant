@@ -7,16 +7,40 @@
             name="activity"
             type="com.incon.connect.ui.home.HomeActivity"/>
     </data>
-
     <RelativeLayout
         style="@style/BothMatch">
+       <!-- <RelativeLayout
+            android:id="@+id/relative_scanactivity"
+            android:layout_above="@+id/bottom_navigation_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <include layout="@layout/activity_home_scan"/>
 
-        <!-- Tool bar Container-->
-        <FrameLayout
-            android:id="@+id/container_toolbar"
-            style="@style/MatchWrap"
-            android:layout_height="?attr/actionBarSize">
-        </FrameLayout>
+        </RelativeLayout>-->
+
+        <RelativeLayout
+            android:id="@+id/relative_toolbarandcontainer"
+            android:layout_above="@+id/bottom_navigation_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <!-- Tool bar Container-->
+            <FrameLayout
+                android:id="@+id/container_toolbar"
+                style="@style/MatchWrap"
+                android:layout_height="?attr/actionBarSize"
+                >
+            </FrameLayout>
+            <!-- Content Container -->
+            <FrameLayout
+                android:id="@+id/container"
+                style="@style/BothMatch"
+                android:background="@color/colorAccent"
+                android:layout_below="@id/container_toolbar">
+            </FrameLayout>
+
+
+        </RelativeLayout>
+
 
         <!-- Bottom Navigation view -->
         <com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx
@@ -26,17 +50,10 @@
             android:layout_alignParentBottom="true"
             android:background="@color/white"
             app:itemIconTint="@color/nav_item_selector_color"
-            app:itemTextColor="@color/text_forgotpassord_selector"
+            app:itemTextColor="@color/nav_item_selector_color"
             app:menu="@menu/menu_bottom_navigation" />
 
-        <!-- Content Container -->
-        <FrameLayout
-            android:id="@+id/container"
-            style="@style/BothMatch"
-            android:background="@color/colorAccent"
-            android:layout_above="@id/bottom_navigation_view"
-            android:layout_below="@id/container_toolbar">
-        </FrameLayout>
+
 
     </RelativeLayout>
 

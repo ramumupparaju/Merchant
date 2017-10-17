@@ -4,6 +4,8 @@ import android.content.Context;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 
+import com.incon.connect.ConnectApplication;
+
 import java.util.UUID;
 
 public class DeviceUtils {
@@ -18,6 +20,10 @@ public class DeviceUtils {
                 context.getResources().getDisplayMetrics());
     }
 
+    public static float convertPxToDp(int dp) {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
+                ConnectApplication.getAppContext().getResources().getDisplayMetrics());
+    }
     private static String uniqueID = null;
     private static final String PREF_UNIQUE_ID = "PREF_UNIQUE_ID";
 

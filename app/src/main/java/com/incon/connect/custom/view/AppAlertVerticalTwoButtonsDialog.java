@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.incon.connect.R;
 import com.incon.connect.callbacks.AlertDialogCallback;
-import com.incon.connect.utils.ScreenUtils;
+import com.incon.connect.utils.DeviceUtils;
 
 public class AppAlertVerticalTwoButtonsDialog extends Dialog implements View.OnClickListener {
     private final Context context;
@@ -68,10 +68,10 @@ public class AppAlertVerticalTwoButtonsDialog extends Dialog implements View.OnC
         if (buttonOrientation == LinearLayout.HORIZONTAL) {
             LinearLayout.LayoutParams layoutParams =
                     (LinearLayout.LayoutParams) mFirstButtonTextView.getLayoutParams();
-            layoutParams.setMargins(0, 0, (int) ScreenUtils.convertPxToDp(5), 0);
+            layoutParams.setMargins(0, 0, (int) DeviceUtils.convertPxToDp(5), 0);
              layoutParams =
                     (LinearLayout.LayoutParams) mSecondButtonTextView.getLayoutParams();
-            layoutParams.setMargins((int) ScreenUtils.convertPxToDp(5), 0, 0, 0);
+            layoutParams.setMargins((int) DeviceUtils.convertPxToDp(5), 0, 0, 0);
         }
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);

@@ -13,18 +13,18 @@ import com.incon.connect.databinding.ActivityForgotPasswordBinding;
 import com.incon.connect.databinding.ViewRegistrationBottomButtonsBinding;
 import com.incon.connect.ui.BaseActivity;
 import com.incon.connect.ui.resetpassword.ResetPasswordPromptActivity;
-import com.incon.connect.utils.Validator;
+import com.incon.connect.utils.ValidationUtils;
 
 import java.util.HashMap;
 
 public class ForgotPasswordActivity extends BaseActivity implements ForgotPasswordContract.View,
         View.OnClickListener {
 
-    ForgotPasswordPresenter forgotPasswordPresenter;
-    ActivityForgotPasswordBinding binding;
-    private ViewRegistrationBottomButtonsBinding buttonsBinding;
-
     private static final String TAG = ForgotPasswordActivity.class.getName();
+    private ForgotPasswordPresenter forgotPasswordPresenter;
+    private ActivityForgotPasswordBinding binding;
+
+    private ViewRegistrationBottomButtonsBinding buttonsBinding;
 
     @Override
     protected int getLayoutId() {
@@ -42,13 +42,15 @@ public class ForgotPasswordActivity extends BaseActivity implements ForgotPasswo
     protected void onCreateView(Bundle saveInstanceState) {
         // handle events from here using android binding
         binding = DataBindingUtil.setContentView(this, getLayoutId());
-
         buttonsBinding = binding.includeRegisterBottomButtons;
 
-        String emailId = getIntent().getExtras().getString("emailId");
-        if (emailId != null && emailId.length() > 0) {
-            binding.edittextUsername.setText(emailId);
-            binding.edittextUsername.setSelection(emailId.length());
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            String phoneNumber = bundle.getString(IntentConstants.USER_PHONE_NUMBER);
+            if (phoneNumber != null && phoneNumber.length() > 0) {
+                binding.edittextUsername.setText(phoneNumber);
+                binding.edittextUsername.setSelection(phoneNumber.length());
+            }
         }
 
         setBottomButtonViews();
@@ -56,45 +58,26 @@ public class ForgotPasswordActivity extends BaseActivity implements ForgotPasswo
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        forgotPasswordPresenter.disposeAll();
-    }
-
-    @Override
-    public void showProgress(String message) {
-        super.showProgress(message);
-    }
-
-    @Override
-    public void hideProgress() {
-        super.hideProgress();
-    }
-
-    @Override
-    public void showErrorMessage(String errorMessage) {
-        super.showErrorMessage(errorMessage);
-    }
-
-    @Override
     public void navigateToResetPromtPage() {
         Intent registrationIntent = new Intent(this, ResetPasswordPromptActivity.class);
+        registrationIntent.putExtra(IntentConstants.USER_PHONE_NUMBER, binding.edittextUsername
+                .getText().toString());
         startActivity(registrationIntent);
         finish();
     }
 
     @Override
-    public boolean validateEmail() {
+    public boolean validatePhoneNumber() {
         boolean isValid = true;
         binding.inputLayoutUsername.setError(null);
         Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
-        String email = binding.edittextUsername.getText().toString();
-        if (TextUtils.isEmpty(email)) {
-            binding.inputLayoutUsername.setError(getString(R.string.error_email_req));
+        String phoneNumber = binding.edittextUsername.getText().toString();
+        if (TextUtils.isEmpty(phoneNumber)) {
+            binding.inputLayoutUsername.setError(getString(R.string.error_phone_req));
             binding.inputLayoutUsername.startAnimation(shake);
             isValid = false;
-        } else if (!Validator.isValidEmail(email)) {
-            binding.inputLayoutUsername.setError(getString(R.string.error_email_notvalid));
+        } else if (!ValidationUtils.isPhoneNumberValid(phoneNumber)) {
+            binding.inputLayoutUsername.setError(getString(R.string.error_phone_min_digits));
             binding.inputLayoutUsername.startAnimation(shake);
             isValid = false;
         }
@@ -108,10 +91,10 @@ public class ForgotPasswordActivity extends BaseActivity implements ForgotPasswo
                 finish();
                 break;
             case R.id.button_right:
-                boolean validateMsg = validateEmail();
-                if (validateMsg) {
+                boolean validPhoneNumber = validatePhoneNumber();
+                if (validPhoneNumber) {
                     HashMap<String, String> emailMap = new HashMap<>();
-                    emailMap.put(ApiRequestKeyConstants.BODY_EMAIL,
+                    emailMap.put(ApiRequestKeyConstants.BODY_USER_ID,
                             binding.edittextUsername.getText().toString());
                     forgotPasswordPresenter.forgotPassword(emailMap);
                 }
@@ -129,6 +112,12 @@ public class ForgotPasswordActivity extends BaseActivity implements ForgotPasswo
     private void setButtonClickListeners() {
         buttonsBinding.buttonLeft.setOnClickListener(this);
         buttonsBinding.buttonRight.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        forgotPasswordPresenter.disposeAll();
     }
 
 }

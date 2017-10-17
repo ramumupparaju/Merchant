@@ -1,18 +1,24 @@
 package com.incon.connect.ui.changepassword;
 
+import android.content.ComponentName;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
+import android.support.v4.content.IntentCompat;
 import android.util.Pair;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
 import com.incon.connect.R;
+import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.custom.view.CustomTextInputLayout;
 import com.incon.connect.databinding.ActivityChangePasswordBinding;
 import com.incon.connect.dto.changepassword.Password;
 import com.incon.connect.ui.BaseActivity;
+import com.incon.connect.ui.home.HomeActivity;
+import com.incon.connect.utils.SharedPrefsUtils;
 
 import java.util.HashMap;
 
@@ -24,6 +30,7 @@ public class ChangePasswordActivity extends BaseActivity implements ChangePasswo
 
     private HashMap<Integer, String> errorMap;
     private Animation shakeAnim;
+    private boolean isFromForgotPasswordScreen;
 
 
     @Override
@@ -46,9 +53,9 @@ public class ChangePasswordActivity extends BaseActivity implements ChangePasswo
         binding.setPassword(password);
         binding.setActivity(this);
 
-        changePasswordPresenter.setChangePassword(password);
-
         shakeAnim = AnimationUtils.loadAnimation(this, R.anim.shake);
+        isFromForgotPasswordScreen = getIntent().getBooleanExtra(IntentConstants
+                .FROM_FORGOT_PASSWORD_SCREEN, false);
         loadValidationErrors();
         setFocusForViews();
     }
@@ -77,8 +84,8 @@ public class ChangePasswordActivity extends BaseActivity implements ChangePasswo
         public void onFocusChange(View view, boolean hasFocus) {
             Object fieldId = view.getTag();
             if (fieldId != null) {
-                Pair<String, Integer> validation = changePasswordPresenter
-                        .validateUserInfo((String) fieldId);
+                Pair<String, Integer> validation = binding.getPassword().
+                        validateUserInfo((String) fieldId);
                 if (!hasFocus) {
                     if (view instanceof TextInputEditText) {
                         TextInputEditText textInputEditText = (TextInputEditText) view;
@@ -112,7 +119,19 @@ public class ChangePasswordActivity extends BaseActivity implements ChangePasswo
     }
 
     @Override
-    public void navigateToLoginPage() {
+    public void navigateToLoginPage(LoginResponse loginResponse) {
+        if (isFromForgotPasswordScreen) { //if user comes to this screen using settings from
+            // toolbar simply finish else if user comes from forgotpassword screen navigate to
+            // home screen
+            Intent intent = new Intent(this,
+                    HomeActivity.class);
+            // This is a convenient way to make the proper Intent to launch and
+            // reset an application's task.
+            ComponentName cn = intent.getComponent();
+            Intent mainIntent = IntentCompat.makeRestartActivityTask(cn);
+            startActivity(mainIntent);
+
+        }
         finish();
     }
 
@@ -120,7 +139,7 @@ public class ChangePasswordActivity extends BaseActivity implements ChangePasswo
         binding.inputLayoutEnterNewpassword.setError(null);
         binding.inputLayoutConfirmPassword.setError(null);
 
-        Pair<String, Integer> validation = changePasswordPresenter.validateUserInfo(null);
+        Pair<String, Integer> validation = binding.getPassword().validateUserInfo(null);
         updateUiAfterValidation(validation.first, validation.second);
 
         return validation.second == VALIDATION_SUCCESS;
@@ -129,21 +148,21 @@ public class ChangePasswordActivity extends BaseActivity implements ChangePasswo
     public void onChangePasswordClick() {
         if (validateFields()) {
             HashMap<String, String> passwordMap = new HashMap<>();
+            passwordMap.put(ApiRequestKeyConstants.BODY_USER_ID,
+                    SharedPrefsUtils.loginProvider().getStringPreference(
+                            LoginPrefs.USER_PHONE_NUMBER));
             passwordMap.put(ApiRequestKeyConstants.BODY_PASSWORD,
                     binding.getPassword().getConfirmPassword());
-            changePasswordPresenter.resetPassword(passwordMap);
+            changePasswordPresenter.changePassword(passwordMap);
         }
     }
 
     private void updateUiAfterValidation(String tag, int validationId) {
-
         if (tag == null) {
             return;
         }
-
         View viewByTag = binding.getRoot().findViewWithTag(tag);
         setFieldError(viewByTag, validationId);
-
     }
 
     private void setFieldError(View view, int validationId) {

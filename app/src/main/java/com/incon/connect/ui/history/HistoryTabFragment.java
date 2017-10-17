@@ -1,32 +1,44 @@
 package com.incon.connect.ui.history;
 
+import android.content.res.AssetManager;
 import android.databinding.DataBindingUtil;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.incon.connect.R;
+import com.incon.connect.callbacks.AlertDialogCallback;
+import com.incon.connect.callbacks.TextAlertDialogCallback;
+import com.incon.connect.custom.view.AppCheckBoxListDialog;
 import com.incon.connect.custom.view.CustomViewPager;
 import com.incon.connect.databinding.CustomTabBinding;
 import com.incon.connect.databinding.FragmentHistoryTabBinding;
-import com.incon.connect.databinding.ToolBarBinding;
+import com.incon.connect.dto.dialog.CheckedModelSpinner;
 import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.history.adapter.HistoryTabPagerAdapter;
+import com.incon.connect.ui.history.base.BaseTabFragment;
+import com.incon.connect.ui.home.HomeActivity;
+import com.incon.connect.utils.SharedPrefsUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
-public class HistoryTabFragment extends BaseFragment {
+public class HistoryTabFragment extends BaseFragment implements View.OnClickListener {
 
     private static final String TAG = HistoryTabFragment.class.getSimpleName();
     private FragmentHistoryTabBinding binding;
-    private ToolBarBinding toolBarBinding;
     private View rootView;
     private Typeface defaultTypeFace;
     private Typeface selectedTypeFace;
     private String[] tabTitles;
     private HistoryTabPagerAdapter adapter;
+    private AppCheckBoxListDialog filterBySearchDialog;
+    private String filterType;
 
     @Override
     protected void initializePresenter() {
@@ -35,6 +47,7 @@ public class HistoryTabFragment extends BaseFragment {
     @Override
     protected View onPrepareView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
+
         if (rootView == null) {
             binding = DataBindingUtil.inflate(
                     inflater, R.layout.fragment_history_tab, container, false);
@@ -46,22 +59,18 @@ public class HistoryTabFragment extends BaseFragment {
     }
 
     private void initViews() {
-        initActionBar();
+        ((HomeActivity) getActivity()).setToolbarTitle(getString(R.string.title_history));
         initViewPager();
+        binding.searchLayout.searchIconIv.setOnClickListener(this);
+        binding.searchLayout.filterIconIv.setOnClickListener(this);
     }
-
-
-    private void initActionBar() {
-    }
-
 
     private void initViewPager() {
 
-        defaultTypeFace = Typeface.createFromAsset(getActivity().getAssets(),
-                "fonts/OpenSans-Regular.ttf");
+        AssetManager assets = getActivity().getAssets();
+        defaultTypeFace = Typeface.createFromAsset(assets, "fonts/OpenSans-Regular.ttf");
 
-        selectedTypeFace = Typeface.createFromAsset(getActivity().getAssets(),
-                "fonts/OpenSans-Bold.ttf");
+        selectedTypeFace = Typeface.createFromAsset(assets, "fonts/OpenSans-Bold.ttf");
 
         tabTitles = getResources().getStringArray(R.array.history_tab);
 
@@ -73,8 +82,7 @@ public class HistoryTabFragment extends BaseFragment {
         changeTitleFont(0);
 
         //set up ViewPager
-        adapter = new HistoryTabPagerAdapter(
-                getFragmentManager(), tabLayout.getTabCount());
+        adapter = new HistoryTabPagerAdapter(getFragmentManager(), tabLayout.getTabCount());
         customViewPager.setAdapter(adapter);
 
         customViewPager.addOnPageChangeListener(
@@ -86,11 +94,12 @@ public class HistoryTabFragment extends BaseFragment {
                 int position = tab.getPosition();
                 customViewPager.setCurrentItem(position);
                 changeTitleFont(position);
-                changeToolbar(position);
             }
+
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
             }
+
             @Override
             public void onTabReselected(TabLayout.Tab tab) {
 
@@ -98,26 +107,6 @@ public class HistoryTabFragment extends BaseFragment {
         });
 
     }
-
-    private void changeToolbar(int position) {
-        if (toolBarBinding == null) {
-            return;
-        }
-        switch (position) {
-            case 0:
-                toolBarBinding.toolbarLeftIv.setVisibility(View.VISIBLE);
-                toolBarBinding.toolbarRightIv.setVisibility(View.VISIBLE);
-                break;
-            case 1:
-            case 2:
-                toolBarBinding.toolbarLeftIv.setVisibility(View.GONE);
-                toolBarBinding.toolbarRightIv.setVisibility(View.VISIBLE);
-                break;
-            default:
-                break;
-        }
-    }
-
 
     private void changeTitleFont(int position) {
         for (int i = 0; i < tabTitles.length; i++) {
@@ -138,9 +127,75 @@ public class HistoryTabFragment extends BaseFragment {
         }
     }
 
-
     private CustomTabBinding getCustomTabView() {
         return DataBindingUtil.inflate(
                 LayoutInflater.from(getActivity()), R.layout.custom_tab, null, false);
     }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.search_icon_iv:
+                int currentItem = binding.viewPager.getCurrentItem();
+                BaseTabFragment fragmentFromPosition = (BaseTabFragment) adapter.
+                        getFragmentFromPosition(currentItem);
+                String searchableText = binding.searchLayout.searchEt.getText().toString();
+                if (TextUtils.isEmpty(searchableText)) {
+                    filterType = FilterConstants.NONE;
+                }
+                fragmentFromPosition.onSearchClickListerner(searchableText, filterType);
+                break;
+            case R.id.filter_icon_iv:
+                showFilterOptionsDialog();
+                break;
+            default:
+                //do nothing
+        }
+    }
+
+    private void showFilterOptionsDialog() {
+        //set previous selected categories as checked
+        String selectedFilter = SharedPrefsUtils.cacheProvider().getStringPreference(
+                CachePrefs.FILTER_NAME);
+        List<CheckedModelSpinner> filterNamesList = new ArrayList<>();
+        if (!TextUtils.isEmpty(selectedFilter)) {
+            CharSequence[] items = getResources().getStringArray(
+                    R.array.select_search);
+            for (CharSequence filterName : items) {
+                CheckedModelSpinner checkedModelSpinner = new CheckedModelSpinner();
+                String name = filterName.toString();
+                checkedModelSpinner.setName(name);
+                checkedModelSpinner.setChecked(selectedFilter.equalsIgnoreCase(name));
+                filterNamesList.add(checkedModelSpinner);
+            }
+
+        }
+        filterBySearchDialog = new AppCheckBoxListDialog.AlertDialogBuilder(getActivity(), new
+                TextAlertDialogCallback() {
+                    @Override
+                    public void enteredText(String filterName) {
+                        SharedPrefsUtils.cacheProvider().setStringPreference(
+                                CachePrefs.FILTER_NAME, filterName);
+                    }
+
+                    @Override
+                    public void alertDialogCallback(byte dialogStatus) {
+                        switch (dialogStatus) {
+                            case AlertDialogCallback.OK:
+                                filterBySearchDialog.dismiss();
+                                break;
+                            case AlertDialogCallback.CANCEL:
+                                filterBySearchDialog.dismiss();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }).title("")
+                .spinnerItems(filterNamesList)
+                .build();
+        filterBySearchDialog.showDialog();
+        filterBySearchDialog.setRadioType(true);
+    }
+
 }

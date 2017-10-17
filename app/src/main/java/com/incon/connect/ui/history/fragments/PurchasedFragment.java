@@ -1,60 +1,52 @@
 package com.incon.connect.ui.history.fragments;
 
+import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.incon.connect.AppUtils;
 import com.incon.connect.R;
-import com.incon.connect.apimodel.components.history.purchased.PurchasedResponse;
+import com.incon.connect.apimodel.components.history.purchased.PurchasedHistoryResponse;
 import com.incon.connect.callbacks.IClickCallback;
+import com.incon.connect.databinding.BottomSheetPurchasedBinding;
+import com.incon.connect.databinding.CustomBottomViewBinding;
 import com.incon.connect.databinding.FragmentPurchasedBinding;
-import com.incon.connect.databinding.ToolBarBinding;
-import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.history.adapter.PurchasedAdapter;
+import com.incon.connect.ui.history.base.BaseTabFragment;
+import com.incon.connect.utils.SharedPrefsUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 
 /**
  * Created on 13 Jun 2017 4:01 PM.
- *
  */
-public class PurchasedFragment extends BaseFragment implements PurchasedContract.View {
+public class PurchasedFragment extends BaseTabFragment implements PurchasedContract.View {
 
     private View rootView;
     private PurchasedPresenter purchasedPresenter;
     private FragmentPurchasedBinding binding;
-    private ToolBarBinding toolBarBinding;
     private PurchasedAdapter purchasedAdapter;
-    private List<PurchasedResponse> purchasedList;
+    private List<PurchasedHistoryResponse> purchasedList;
+    private int userId;
+    private BottomSheetDialog bottomSheetDialog;
+    private BottomSheetPurchasedBinding bottomSheetPurchasedBinding;
 
     @Override
     protected void initializePresenter() {
         purchasedPresenter = new PurchasedPresenter();
         purchasedPresenter.setView(this);
         setBasePresenter(purchasedPresenter);
-    }
-
-    protected void initializeToolBar() {
-        /*LayoutInflater layoutInflater = getActivity().getLayoutInflater();
-        toolBarBinding = DataBindingUtil.inflate(layoutInflater, R.layout.tool_bar, null, false);
-        ((HomeActivity) getActivity()).setSupportActionBar(toolBarBinding.toolbar);
-        toolBarBinding.toolbarTitleTv.setText(R.string.title_history);
-        toolBarBinding.toolbarLeftIv.setVisibility(View.GONE);
-        toolBarBinding.toolbarRightIv.setVisibility(View.VISIBLE);
-        toolBarBinding.toolbarLeftIv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            }
-        });
-
-        ((HomeActivity) getActivity()).replaceToolBar(toolBarBinding.toolbar);*/
     }
 
     @Override
@@ -65,10 +57,27 @@ public class PurchasedFragment extends BaseFragment implements PurchasedContract
             binding = DataBindingUtil.inflate(inflater, R.layout.fragment_purchased,
                     container, false);
 
+            loadBottomSheet();
             initViews();
             rootView = binding.getRoot();
         }
         return rootView;
+    }
+
+    private void loadBottomSheet() {
+        bottomSheetPurchasedBinding = DataBindingUtil.inflate(LayoutInflater.from(
+                getActivity()), R.layout.bottom_sheet_purchased, null, false);
+
+        bottomSheetDialog = new BottomSheetDialog(getActivity());
+        bottomSheetDialog.setContentView(bottomSheetPurchasedBinding.getRoot());
+        bottomSheetDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                purchasedAdapter.clearSelection();
+            }
+        });
+        /*dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(false);*/
     }
 
     private void initViews() {
@@ -88,16 +97,72 @@ public class PurchasedFragment extends BaseFragment implements PurchasedContract
         binding.purchasedRecyclerview.setAdapter(purchasedAdapter);
         binding.purchasedRecyclerview.setLayoutManager(linearLayoutManager);
 
-        addTestData();
+
+        userId = SharedPrefsUtils.loginProvider().getIntegerPreference(
+                LoginPrefs.USER_ID, DEFAULT_VALUE);
+        purchasedPresenter.purchased(userId);
     }
 
     private IClickCallback iClickCallback = new IClickCallback() {
         @Override
         public void onClickPosition(int position) {
-
-            showErrorMessage("Clicked :" + position);
+            //Todo have to get item from filter list
+            purchasedAdapter.clearSelection();
+            PurchasedHistoryResponse purchasedHistoryResponse = purchasedList.get(position);
+            purchasedHistoryResponse.setSelected(true);
+            purchasedAdapter.notifyDataSetChanged();
+            createBottomSheetView(position);
+            bottomSheetDialog.show();
+            bottomSheetDialog.onDetachedFromWindow();
         }
     };
+
+    private void createBottomSheetView(int position) {
+
+        bottomSheetPurchasedBinding.topRow.setVisibility(View.GONE);
+        bottomSheetPurchasedBinding.bottomRow.removeAllViews();
+//TODO have to create based on response
+        int noOfViews = new Random().nextInt(4);
+        for (int i = 0; i < noOfViews; i++) {
+            CustomBottomViewBinding customBottomView = getCustomBottomView();
+            customBottomView.viewTv.setText("position :" + i);
+            View bottomRootView = customBottomView.getRoot();
+            bottomRootView.setOnClickListener(bottomViewClickListener);
+            bottomSheetPurchasedBinding.bottomRow.addView(bottomRootView);
+        }
+    }
+
+    private View.OnClickListener bottomViewClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            bottomSheetPurchasedBinding.topRow.removeAllViews();
+            bottomSheetPurchasedBinding.topRow.setVisibility(View.VISIBLE);
+            TextView viewById = (TextView) view.findViewById(R.id.view_tv);
+            String bottomClickedText = viewById.getText().toString();
+            int noOfViews = new Random().nextInt(4);
+            for (int i = 0; i < noOfViews; i++) {
+                CustomBottomViewBinding customBottomView = getCustomBottomView();
+                customBottomView.viewTv.setText(bottomClickedText + i);
+                View topRootView = customBottomView.getRoot();
+                topRootView.setOnClickListener(topViewClickListener);
+                bottomSheetPurchasedBinding.topRow.addView(topRootView);
+            }
+        }
+    };
+
+    private View.OnClickListener topViewClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            TextView viewById = (TextView) view.findViewById(R.id.view_tv);
+            String topClickedText = viewById.getText().toString();
+            showErrorMessage(topClickedText);
+        }
+    };
+
+    private CustomBottomViewBinding getCustomBottomView() {
+        return DataBindingUtil.inflate(
+                LayoutInflater.from(getActivity()), R.layout.custom_bottom_view, null, false);
+    }
 
 
     private SwipeRefreshLayout.OnRefreshListener onRefreshListener =
@@ -105,25 +170,30 @@ public class PurchasedFragment extends BaseFragment implements PurchasedContract
                 @Override
                 public void onRefresh() {
                     purchasedAdapter.clearData();
-                    // Get alerts of account api
-                    addTestData();
+                    purchasedPresenter.purchased(userId);
                 }
             };
 
-    private void addTestData() {
-        for (int i = 0; i < 5; i++) {
-            PurchasedResponse taskResponse = new PurchasedResponse();
-            taskResponse.setId(i);
-            taskResponse.setPositionText();
-            purchasedList.add(taskResponse);
-        }
-        purchasedAdapter.setData(purchasedList);
-        dismissSwipeRefresh();
-    }
 
     private void dismissSwipeRefresh() {
         if (binding.swiperefresh.isRefreshing()) {
             binding.swiperefresh.setRefreshing(false);
         }
+    }
+
+    @Override
+    public void loadPurchasedHistory(List<PurchasedHistoryResponse> purchasedHistoryResponseList) {
+        if (purchasedHistoryResponseList == null) {
+            purchasedHistoryResponseList = new ArrayList<>();
+        }
+        this.purchasedList = purchasedHistoryResponseList;
+        purchasedAdapter.setData(purchasedList);
+        dismissSwipeRefresh();
+    }
+
+    @Override
+    public void onSearchClickListerner(String searchableText, String searchType) {
+        AppUtils.hideSoftKeyboard(getActivity(), rootView);
+        purchasedAdapter.searchData(searchableText, searchType);
     }
 }

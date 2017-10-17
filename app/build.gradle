@@ -102,19 +102,25 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
 
-    // retrofit
+    //MultiDex
     compile 'com.android.support:multidex:1.0.1'
+    // retrofit
     compile "com.squareup.retrofit2:retrofit:${retrofitVersion}"
     compile "com.squareup.retrofit2:converter-gson:${retrofitVersion}"
     compile "com.squareup.okhttp3:okhttp:${okhttpVersion}"
-    //MultiDex
-    compile 'com.android.support:multidex:1.0.1'
     //Android RX
     compile 'io.reactivex.rxjava2:rxjava:2.0.7'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
     // To handle events from our View/UI layer
     compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
+    // Firebase for push notifications
+    compile 'com.firebase:firebase-jobdispatcher:0.7.0'
+    compile "com.google.firebase:firebase-messaging:${googlePlayVersion}"
+    /*google maps*/
+    compile "com.google.android.gms:play-services-places:${googlePlayVersion}"
+    compile "com.google.android.gms:play-services-maps:${googlePlayVersion}"
+    compile "com.google.android.gms:play-services-location:${googlePlayVersion}"
     //Dagger
     compile "com.google.dagger:dagger:${daggerVersion}"
     annotationProcessor "com.google.dagger:dagger-compiler:${daggerVersion}"
@@ -122,12 +128,12 @@ dependencies {
     compile "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}"
     //Glide
     compile 'com.github.bumptech.glide:glide:4.0.0'
-    // qr code and bar code
-    compile 'me.dm7.barcodescanner:zxing:1.9'
+    //QR and Bar code scanner
+    compile 'me.dm7.barcodescanner:zxing:1.9.8'
+    // QR and Bar code scanner
+    compile 'com.journeyapps:zxing-android-embedded:3.3.0'
+    compile 'com.google.zxing:core:3.3.0'
 
-    // Firebase
-    compile 'com.firebase:firebase-jobdispatcher:0.7.0'
-    compile 'com.google.firebase:firebase-messaging:9.6.0'
     //Hockey analytics
     compile 'net.hockeyapp.android:HockeySDK:4.1.5'
     // Bottom navigation view

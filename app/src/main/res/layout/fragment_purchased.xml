@@ -1,10 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     >
+    <data>
+
+        <variable
+            name="purchasedFragment"
+            type="com.incon.connect.ui.history.fragments.PurchasedFragment"/>
+    </data>
 
     <RelativeLayout
         style="@style/BothMatch"
         android:background="@color/white">
+
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swiperefresh"

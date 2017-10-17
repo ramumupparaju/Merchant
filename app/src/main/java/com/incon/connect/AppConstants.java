@@ -5,52 +5,73 @@ import java.util.Locale;
 public interface AppConstants {
 
     String TERMS_CONDITIONS_URL = "https://www.google.co.in"; //TODO have to change
+    String WEB_IMAGE = "http";
+    String MULTIPART_FORM_DATA = "image/*";
+    String COMMA_SEPARATOR = ",";
+    int DEFAULT_VALUE = Integer.MIN_VALUE;
 
     String BUILD_FLAVOR = "moonz_dev";
     int VALIDATION_SUCCESS = 0;
     int VALIDATION_FAILURE = -1;
     int VALIDATION_ZIPCODE_LENGTH = 5;
     String DELIMITOR = "-";
-    int DEAULT_VALUE = Integer.MAX_VALUE;
 
-    interface SyncConstants {
-        int STATE_INCOMPLETE = 0;
-        int STATE_COMPLETED = 1;
+    interface FilterConstants {
+        String NONE = "none";
+        String NAME = "name";
+        String BRAND = "brand";
     }
+
+    interface WarrantyRegistrationConstants {
+        int MINIMUM_MODELNUMBER_TO_SEARCH = 2;
+    }
+
+    interface GoogleMapConstants {
+        int GEOCODER_MAX_ADDRESS_RESULTS = 1;
+        float DEFAULT_ZOOM_LEVEL = 12.0f;
+    }
+
+    interface HttpErrorCodeConstants {
+        int ERROR_UNAUTHORIZED = 401;
+        int ERROR_FORBIDDEN = 403; // pay load error
+    }
+
     interface LoginValidation {
-        int EMAIL_REQ = 1;
-        int EMAIL_NOTVALID = 2;
+        int PHONE_NUMBER_REQ = 1;
+        int PHONE_NUMBER_NOTVALID = 2;
         int PASSWORD_REQ = 3;
+    }
+
+    interface AgeConstants {
+        int USER_DOB = 16;
     }
 
     interface RegistrationValidation {
         int NAME_REQ = 1;
-        int FIRSTNAME_REQ = 1;
-        int LASTNAME_REQ = 2;
         int PHONE_REQ = 3;
-        int PHONE_TYPE_REQ = 4;
+        int PHONE_MIN_DIGITS = 10;
+        int GENDER_REQ = 17;
+        int DOB_REQ = 13;
         int EMAIL_REQ = 5;
         int EMAIL_NOTVALID = 6;
         int PASSWORD_REQ = 7;
-        int TIMEZONE_REQ = 8;
-        int ZIPCODE_REQ = 9;
-        int PHONE_MIN_DIGITS = 10;
         int PASSWORD_PATTERN_REQ = 11;
-        int ZIPCODE_INVALID = 12;
-        int DOB_REQ = 13;
-        int DOB_FUTURE_DATE = 14;
-        int DOB_PERSON_LIMIT = 15;
-        int DOB_CHILD_LIMIT = 16;
-        int GENDER_REQ = 17;
         int RE_ENTER_PASSWORD_REQ = 18;
         int RE_ENTER_PASSWORD_DOES_NOT_MATCH = 19;
-    }
+        int DOB_FUTURE_DATE = 14;
+        int DOB_PERSON_LIMIT = 15;
 
 
-    interface RoleConstants {
-        int ROLE_INDIVIDUAL = 0;
-        int ROLE_PARENT = 1;
+        int CATEGORY_REQ = 21;
+        int ADDRESS_REQ = 22;
+        int GSTN_REQ = 23;
+        int STORE_LOGO = 24;
+
+        int ZIPCODE_REQ = 9;
+        int ZIPCODE_INVALID = 12;
+        int TIMEZONE_REQ = 8;
     }
+
     interface PasswordValidation {
         int NEWPWD_REQ = 1;
         int NEWPWD_PATTERN_REQ = 11;
@@ -75,72 +96,101 @@ public interface AppConstants {
     }
 
     interface IntentConstants {
-        String EMAIL_ADDRESS = "emailAddress";
-        String ALERT_ID_KEY = "alertId";
-        String RESPOND_TO_ALERT_RESPONSE = "respondToAlertResponse";
-        String WRITE_REASON_RESULT = "writeReasonResult";
-        String ALERT_MESSAGE_RESPONSE = "alertMessageResponse";
-        String APPOINTMENT_ID = "appointmentId";
-        String APPOINTMENT_CREATED_DATE = "appointmentCreatedDate";
-        String APPOINTMENT_LAUNCHED_SCREEN = "appointmentLaunchedScreen";
-        String APPOINTMENT_CANCELLED = "appointmentCancelled";
-        String TOPIC_NAME = "topicName";
-        String TOPIC_EXTERNAL_ID = "topicExternalId";
-        String TOPIC_REVISION = "topicRevision";
-        String TOPIC_LANGUAGE = "topicLanguage";
-        String TOPIC_LIBRARY_ID = "topicLibraryId";
-        String TOPIC_READ = "topicRead";
-        String SURVEYS_OF_PATIENT_RESPONSE = "surveysOfPatientResponse";
-        String TAKE_NEW_SURVEY_RESPONSE = "newSurveyOfPatientResponse";
-        String CALCULATE_SCORE_RESPONSE = "calculateScoreResponse";
-        String PAST_SCORE_RESPONSE = "pastScoreResponse";
-        String POST_SURVEY_REQUEST_BODY = "postSurveyRequestBody";
-        String TAKE_NEW_SURVEY_LAUNCHED_FROM = "newSurveyLaunchedFrom";
-        String AAP_IMAGE_URI = "aapImageUri";
-        String PUSH_MESSAGE = "pushMessage";
-        String PUSH_TYPE = "pushType";
-        String PUSH_ALERT_ID = "pushAlertId";
+        String SCANNED_CODE = "scanedCode";
+        String USER_PHONE_NUMBER = "userPhoneNumber";
+        String IMAGE_PATH = "imagePath";
+        String ADDRESS_COMMA = "addressDetails";
+        String LOCATION_COMMA = "locationDetails";
+        String FROM_FORGOT_PASSWORD_SCREEN = "fromForgotPasswordScreen";
     }
+
+
+    interface UpDateUserProfileValidation {
+        int NAME_REQ = 1;
+        int PHONE_REQ = 3;
+        int PHONE_MIN_DIGITS = 10;
+        int GENDER_REQ = 17;
+        int DOB_REQ = 13;
+        int EMAIL_REQ = 5;
+        int EMAIL_NOTVALID = 6;
+        int PASSWORD_REQ = 7;
+        int PASSWORD_PATTERN_REQ = 11;
+        int RE_ENTER_PASSWORD_REQ = 18;
+        int RE_ENTER_PASSWORD_DOES_NOT_MATCH = 19;
+        int DOB_FUTURE_DATE = 14;
+        int DOB_PERSON_LIMIT = 15;
+
+
+        int CATEGORY_REQ = 21;
+        int ADDRESS_REQ = 22;
+        int GSTN_REQ = 23;
+        int STORE_LOGO = 24;
+
+        int ZIPCODE_REQ = 9;
+        int ZIPCODE_INVALID = 12;
+        int TIMEZONE_REQ = 8;
+    }
+
 
     interface BundleConstants {
-        String SELECTED_DATE = "selectedDate";
-        String SYMPTOM_DATA = "symptomDate";
-        String ALERT_CAMERA_IMAGE_PATH = "alertCameraImagePath";
+        String SCANNED_QRCODE = "scannedQrcode";
+        String WARRANTY_DATA = "warrantyData";
+        String ADD_NEW_MODEL_DATA = "addnewmodelData";
     }
 
+    interface PushSubTypeConstants {
+        String CONNECT_PUSH = "tueoPush";
+        String PUSH_DEVICE_TYPE = "android";
+    }
+
+
     interface CachePrefs {
-        String LEARNING_FIRST_TIME_HIT_BACK = "learningFirstTimeHitBack";
         String IS_ACCESS_CODE_VERIFIED = "isAccessCodeVerified";
         String IS_AAP_OFFLINE_IMAGE = "isAapOfflineImage";
         String EXTRACT_ZIP = "extractZip";
+        String FILTER_NAME = "filterName";
     }
 
     interface LoginPrefs {
-        String EMAIL_ID = "email_id";
+        //User details
+        String USER_ID = "userId";
+        String USER_NAME = "userName";
+        String USER_EMAIL_ID = "userEmailId";
+        String USER_PHONE_NUMBER = "userPhoneNumber";
+        String USER_DOB = "userDob";
+        String USER_GENDER = "userGender";
+        String USER_ADDRESS = "userAddress";
+        String USER_CITY = "userCity";
+        String USER_STATE = "userState";
+        String USER_POSTAL_CODE = "userPostalCode";
+
+        //store details
+        String STORE_ID = "storeId";
+        String STORE_NAME = "storeName";
+        String STORE_EMAIL_ID = "storeEmailId";
+        String STORE_PHONE_NUMBER = "storePhoneNumber";
+        String STORE_LOGO = "storeLogo";
+        String STORE_GSTN = "storeGstn";
+        String STORE_ADDRESS = "storeAddress";
+        String STORE_CITY = "storeCity";
+        String STORE_STATE = "storeState";
+        String STORE_POSTAL_CODE = "storePostalCode";
+
+
+        String IS_REGISTERED = "isRegistered";
+        String LOGGED_IN = "isLoggedIn";
         String PUSH_TOKEN_STATUS = "pushTokenStatus";
         String ACCESS_TOKEN = "accesstoken";
-        String S_THREE_SECRET_KEY = "s3SecretKey";
-        String S_THREE_ACCESS_KEY = "s3AccessKey";
-        String PATIENT_ID = "patientId";
-        String PATIENT_DOB = "patientDob";
-        String ACCOUNT_ID = "id";
-        String FIRST_NAME = "firstName";
-        String LAST_NAME = "lastName";
-        String PHONE_NUMBER = "phoneNumber";
-        String ADDRESS = "address";
-        String CITY = "city";
-        String STATE = "state";
-        String POSTAL_CODE = "postalCode";
-        String TIMEZONE_ID = "timezone_id";
-        String LOGGED_IN = "isLoggedIn";
-        String IS_REGISTERED = "isRegistered";
     }
 
     interface ApiRequestKeyConstants {
-        String BODY_FIRST_NAME = "firstName";
         String BODY_EMAIL = "email";
-        String BODY_PASSWORD = "password";
+        String BODY_USER_ID = "userid";
+        String BODY_PRODUCT_CODE = "code";
         String BODY_OTP = "otp";
+        String BODY_MOBILE_NUMBER = "mobileNumber";
+        String STORE_LOGO = "logo";
+        String BODY_PASSWORD = "password";
         String BODY_MODULE_ID = "moduleId";
         String HEADER_AUTHORIZATION = "Authorization";
         String HEADER_API_KEY = "api_key";
@@ -153,15 +203,14 @@ public interface AppConstants {
     interface RequestCodes {
         int TAKE_PHOTO = 100;
         int PICK_FROM_GALLERY = 101;
-        int ALERT_WRITE_REASON = 102;
-        int TOPIC_READ = 103;
+        int SEND_IMAGE_PATH = 102;
         int FORGOT_PASSWORD = 104;
-        int FRAGMENT_LOGSYMPTOMS = 105;
-        int LEARNING_TOPIC = 107;
-        int ALERT_ACTIVITIES = 108;
-        int REGISTRATION = 109;
         int CHANGE_EMAIL = 110;
         int TERMS_AND_CONDITIONS = 111;
+        int ADDRESS_LOCATION = 112;
+        int USER_PROFILE_SCAN = 113;
+        int PRODUCT_WARRANTY_SCAN = 114;
+        int PRODUCT_ASSIGN_SCAN = 115;
     }
 
     interface TimeConstants {
@@ -185,6 +234,7 @@ public interface AppConstants {
         String DD_SLASH_MM_SLASH_YYYY = "dd/MM/yyyy"; //14/07/2017
         //Mon, 10 Jul 2017 10:08:20 GM
         String DDMMMM_H_MMA = "ddMMMM, h:mma"; //14July, 2:30PM
+        String YYYY_MM_DD_SLASH = "yyyy/MM/dd"; //2017/01/15
         String YYYY_MM_DD = "yyyy-MM-dd"; //2017-01-15
         String MMMM_SPACE_DD = "MMMM dd"; // March 24 at 11:26am
         String HH_MM_A = "hh:mma"; // March 24 at 11:26am
@@ -206,17 +256,19 @@ public interface AppConstants {
         int NETWORK_ERROR = 1;
         int TIMEOUT = 2;
         int NO_NETWORK = 3;
+        String NEW_USER = "User not found for provided details";
     }
 
     interface MenuConstants {
         int PROFILE = 0;
-        int MONITORED_PERSON_INFO = 1;
-        int PHYSICIAN_INFO = 2;
-        int SENSOR = 3;
-        int FAQ = 4;
-        int SUPPORT = 5;
-        int CHANGE_PWD = 1;
-        int LOGOUT = 2;
+        int STORESETTINGS = 1;
+        int CHANGE_PWD = 2;
+        int BILLFORMAT = 3;
+        int TIMEINGS = 4;
+        int CONTACTDETAILS = 5;
+        int LOGOUT = 6;
+
+
     }
 
     interface ActivityResult {

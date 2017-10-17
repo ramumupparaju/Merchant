@@ -1,40 +1,54 @@
 package com.incon.connect.ui.register.fragment;
 
+import android.app.Activity;
+import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
+import android.text.TextUtils;
 import android.util.Pair;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
+import android.widget.TextView;
 
+import com.incon.connect.AppUtils;
 import com.incon.connect.R;
 import com.incon.connect.custom.view.CustomTextInputLayout;
 import com.incon.connect.databinding.FragmentRegistrationUserBinding;
-import com.incon.connect.dto.registration.Register;
+import com.incon.connect.dto.registration.Registration;
 import com.incon.connect.ui.BaseFragment;
+import com.incon.connect.ui.RegistrationMapActivity;
 import com.incon.connect.ui.register.RegistrationActivity;
+import com.incon.connect.utils.DateUtils;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
+
+import static com.incon.connect.AppConstants.DateFormatterConstants.MM_DD_YYYY;
 
 
 /**
  * Created on 13 Jun 2017 4:01 PM.
- *
  */
 public class RegistrationUserFragment extends BaseFragment implements
-        RegistrationUserStoreFragmentContract.View {
+        RegistrationUserFragmentContract.View {
 
     private RegistrationUserFragmentPresenter registrationUserInfoFragPresenter;
     private FragmentRegistrationUserBinding binding;
-    private Register register; // initialized from registration acticity
+    private Registration register; // initialized from registration acticity
     private Animation shakeAnim;
     private HashMap<Integer, String> errorMap;
     private MaterialBetterSpinner genderSpinner;
@@ -52,25 +66,100 @@ public class RegistrationUserFragment extends BaseFragment implements
                                  Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_registration_user, container, false);
-        View rootView = binding.getRoot();
+        binding.setUserFragment(this);
         //here data must be an instance of the registration class
-        register = ((RegistrationActivity) getActivity()).registrationPresenter.getRegister();
-
-        registrationUserInfoFragPresenter.registerUserInfo(register.getUserInfo());
+        register = ((RegistrationActivity) getActivity()).getRegistration();
         binding.setRegister(register);
+        View rootView = binding.getRoot();
 
-        shakeAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.shake);
-
-        loadGenderSpinnerData();
-        loadValidationErrors();
-        setFocusListenersForEditText();
+        loadData();
         return rootView;
     }
 
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case RequestCodes.ADDRESS_LOCATION:
+                    register.setUserAddress(data.getStringExtra(IntentConstants.ADDRESS_COMMA));
+                    register.setUserLocation(data.getStringExtra(IntentConstants.LOCATION_COMMA));
+                    break;
+                default:
+                    break;
+            }
+        }
+
+    }
+
+    private void loadData() {
+        shakeAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.shake);
+        loadGenderSpinnerData();
+        loadValidationErrors();
+        setFocusListenersForEditText();
+    }
+
+    public void onAddressClick() {
+        Intent addressIntent = new Intent(getActivity(), RegistrationMapActivity.class);
+        startActivityForResult(addressIntent, RequestCodes.ADDRESS_LOCATION);
+    }
+
+    public void onDobClick() {
+        showDatePicker();
+    }
+
+    private void showDatePicker() {
+        AppUtils.hideSoftKeyboard(getActivity(), getView());
+        Calendar cal = Calendar.getInstance(TimeZone.getDefault());
+
+
+        String dateOfBirth = register.getDateOfBirthToShow();
+        if (!TextUtils.isEmpty(dateOfBirth)) {
+            cal.setTimeInMillis(DateUtils.convertStringFormatToMillis(
+                    dateOfBirth, DateFormatterConstants.MM_DD_YYYY));
+        }
+
+        int customStyle = android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
+                ? R.style.DatePickerDialogTheme : android.R.style.Theme_DeviceDefault_Light_Dialog;
+        DatePickerDialog datePicker = new DatePickerDialog(getActivity(),
+                customStyle,
+                datePickerListener,
+                cal.get(Calendar.YEAR),
+                cal.get(Calendar.MONTH),
+                cal.get(Calendar.DAY_OF_MONTH));
+        datePicker.setCancelable(false);
+        datePicker.show();
+    }
+
+    // Date Listener
+    private DatePickerDialog.OnDateSetListener datePickerListener =
+            new DatePickerDialog.OnDateSetListener() {
+                // when dialog box is closed, below method will be called.
+                public void onDateSet(DatePicker view, int selectedYear,
+                                      int selectedMonth, int selectedDay) {
+                    Calendar selectedDateTime = Calendar.getInstance();
+                    selectedDateTime.set(selectedYear, selectedMonth, selectedDay);
+
+                    SimpleDateFormat simpleDate = new SimpleDateFormat(MM_DD_YYYY,
+                            Locale.getDefault());
+                    String strDt = simpleDate.format(selectedDateTime.getTime());
+                    binding.edittextRegisterDob.setText(strDt);
+                    String dobInYYYYMMDD = DateUtils.convertDateToOtherFormat(
+                            selectedDateTime.getTime(), DateFormatterConstants.YYYY_MM_DD);
+                    register.setDob(dobInYYYYMMDD);
+                    register.setDateOfBirthToShow(strDt);
+
+                    Pair<String, Integer> validate = binding.getRegister().
+                            validateUserInfo((String) binding.edittextRegisterDob.getTag());
+                    updateUiAfterValidation(validate.first, validate.second);
+                }
+            };
+
     void loadGenderSpinnerData() {
-        final List<String> genderTypeList = new ArrayList<>();
-        genderTypeList.add("Male");
-        genderTypeList.add("Female");
+        String[] genderTypeList = getResources().getStringArray(R.array.gender_options_list);
+
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),
                 R.layout.view_spinner, genderTypeList);
         arrayAdapter.setDropDownViewResource(R.layout.view_spinner);
@@ -91,6 +180,18 @@ public class RegistrationUserFragment extends BaseFragment implements
         errorMap.put(RegistrationValidation.PHONE_MIN_DIGITS,
                 getString(R.string.error_phone_min_digits));
 
+        errorMap.put(RegistrationValidation.GENDER_REQ,
+                getString(R.string.error_gender_req));
+
+        errorMap.put(RegistrationValidation.DOB_REQ,
+                getString(R.string.error_dob_req));
+
+        errorMap.put(RegistrationValidation.DOB_FUTURE_DATE,
+                getString(R.string.error_dob_futuredate));
+
+        errorMap.put(RegistrationValidation.DOB_PERSON_LIMIT,
+                getString(R.string.error_dob_patient_is_user));
+
         errorMap.put(RegistrationValidation.EMAIL_REQ,
                 getString(R.string.error_email_req));
 
@@ -109,31 +210,21 @@ public class RegistrationUserFragment extends BaseFragment implements
         errorMap.put(RegistrationValidation.RE_ENTER_PASSWORD_DOES_NOT_MATCH,
                 getString(R.string.error_re_enter_password_does_not_match));
 
-        errorMap.put(RegistrationValidation.GENDER_REQ,
-                getString(R.string.error_gender_req));
+        errorMap.put(RegistrationValidation.ADDRESS_REQ, getString(R.string.error_address_req));
 
     }
 
     private void setFocusListenersForEditText() {
 
-        /*TextView.OnEditorActionListener onEditorActionListener =
+        TextView.OnEditorActionListener onEditorActionListener =
                 new TextView.OnEditorActionListener() {
                     @Override
                     public boolean onEditorAction(TextView textView, int actionId, KeyEvent event) {
                         if (actionId == EditorInfo.IME_ACTION_NEXT) {
                             switch (textView.getId()) {
-                                case R.id.edittext_register_name:
-                                    binding.edittextRegisterPhone.requestFocus();
-                                    break;
-
                                 case R.id.edittext_register_phone:
-                                    binding.spinnerPhoneType.requestFocus();
-                                    binding.spinnerPhoneType.showDropDown();
-                                    break;
-
-                                case R.id.edittext_register_reenter_password:
-                                    binding.spinnerTimezone.requestFocus();
-                                    binding.spinnerTimezone.showDropDown();
+                                    binding.spinnerGender.requestFocus();
+                                    binding.spinnerGender.showDropDown();
                                     break;
 
                                 default:
@@ -144,13 +235,12 @@ public class RegistrationUserFragment extends BaseFragment implements
                 };
 
         binding.edittextRegisterPhone.setOnEditorActionListener(onEditorActionListener);
-        binding.edittextRegisterReenterPassword.setOnEditorActionListener(onEditorActionListener);*/
-
         binding.edittextRegisterUserName.setOnFocusChangeListener(onFocusChangeListener);
         binding.edittextRegisterPhone.setOnFocusChangeListener(onFocusChangeListener);
         binding.edittextRegisterEmailid.setOnFocusChangeListener(onFocusChangeListener);
         binding.edittextRegisterPassword.setOnFocusChangeListener(onFocusChangeListener);
         binding.edittextRegisterReenterPassword.setOnFocusChangeListener(onFocusChangeListener);
+        binding.edittextRegisterAddress.setOnFocusChangeListener(onFocusChangeListener);
     }
 
     View.OnFocusChangeListener onFocusChangeListener = new View.OnFocusChangeListener() {
@@ -159,8 +249,8 @@ public class RegistrationUserFragment extends BaseFragment implements
 
             Object fieldId = view.getTag();
             if (fieldId != null) {
-                Pair<String, Integer> validation = registrationUserInfoFragPresenter
-                        .validateUserInfo((String) fieldId);
+                Pair<String, Integer> validation = register.
+                        validateUserInfo((String) fieldId);
                 if (!hasFocus) {
                     if (view instanceof TextInputEditText) {
                         TextInputEditText textInputEditText = (TextInputEditText) view;
@@ -196,11 +286,7 @@ public class RegistrationUserFragment extends BaseFragment implements
 
         if (validationId != VALIDATION_SUCCESS) {
             view.startAnimation(shakeAnim);
-
-            // View needs a focus
-            view.requestFocus();
-            final Rect rect = new Rect(0, 0, view.getWidth(), view.getHeight());
-            view.requestRectangleOnScreen(rect, false);
+            ((RegistrationActivity) getActivity()).focusOnView(binding.scrollviewUserInfo, view);
         }
     }
 
@@ -209,26 +295,24 @@ public class RegistrationUserFragment extends BaseFragment implements
      * validate user , if all fields ok then call next screen
      */
     public void onClickNext() {
-        String genderText = genderSpinner.getText().toString();
-        /*for (RegistrationTimezone registrationTimezone : timezone) {
-            if (registrationTimezone.getName().equals(timeZoneText)) {
-                register.getRegistrationBody().setTimeZone(registrationTimezone.getId());
-            }
-        }*/
         if (validateFields()) {
             navigateToRegistrationActivityNext();
-        }
+        } /*else {
+            navigateToRegistrationActivityNext(); // TODO have to comment
+        }*/
     }
 
     private boolean validateFields() {
         binding.inputLayoutRegisterUserName.setError(null);
         binding.inputLayoutRegisterPhone.setError(null);
+        binding.spinnerGender.setError(null);
         binding.inputLayoutRegisterEmailid.setError(null);
         binding.inputLayoutRegisterPassword.setError(null);
-        binding.inputLayoutRegisterReenterPassword.setError(null);
-        binding.spinnerGender.setError(null);
+        binding.inputLayoutRegisterConfirmPassword.setError(null);
+        binding.inputLayoutRegisterAddress.setError(null);
 
-        Pair<String, Integer> validation = registrationUserInfoFragPresenter.validateUserInfo(null);
+        Pair<String, Integer> validation = binding.getRegister().
+                validateUserInfo(null);
         updateUiAfterValidation(validation.first, validation.second);
 
         return validation.second == VALIDATION_SUCCESS;

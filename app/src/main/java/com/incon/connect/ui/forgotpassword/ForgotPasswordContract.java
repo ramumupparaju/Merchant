@@ -8,7 +8,7 @@ public interface ForgotPasswordContract {
 
     interface View extends BaseView {
         void navigateToResetPromtPage();
-        boolean validateEmail();
+        boolean validatePhoneNumber();
     }
 
     interface Presenter {

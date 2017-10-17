@@ -1,5 +1,6 @@
 package com.incon.connect.ui.home;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -15,10 +16,16 @@ import com.incon.connect.R;
 import com.incon.connect.databinding.ActivityHomeBinding;
 import com.incon.connect.databinding.ToolBarBinding;
 import com.incon.connect.ui.BaseActivity;
-import com.incon.connect.ui.home.fragment.DummyFragment;
+import com.incon.connect.ui.addoffer.fragment.AddOfferMerchantFragment;
+import com.incon.connect.ui.buyrequets.BuyRequestFragment;
 import com.incon.connect.ui.history.HistoryTabFragment;
+import com.incon.connect.ui.home.asignqrcode.fragment.ProductAssignFragment;
+import com.incon.connect.ui.notifications.fragment.NotificationsFragment;
+import com.incon.connect.ui.qrcodescan.QrcodeBarcodeScanActivity;
+import com.incon.connect.ui.scan.ScanTabFragment;
 import com.incon.connect.ui.settings.SettingsActivity;
 import com.incon.connect.utils.DeviceUtils;
+import com.incon.connect.utils.SharedPrefsUtils;
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 
 import java.util.LinkedHashMap;
@@ -34,6 +41,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
     private View rootView;
     private HomePresenter homePresenter;
     private ActivityHomeBinding binding;
+    private ToolBarBinding toolBarBinding;
 
     private LinkedHashMap<Integer, Fragment> tabFragments = new LinkedHashMap<>();
 
@@ -56,23 +64,32 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
 
         rootView = binding.getRoot();
         disableAllAnimation(binding.bottomNavigationView);
-        binding.bottomNavigationView.setTextVisibility(false);
+        binding.bottomNavigationView.setTextVisibility(true);
         setBottomNavigationViewListeners();
         handleBottomViewOnKeyBoardUp();
 
         binding.bottomNavigationView.setCurrentItem(TAB_HISTORY);
+
+
+        //changed preference as otp verified
+        SharedPrefsUtils.loginProvider().setBooleanPreference(LoginPrefs.IS_REGISTERED, false);
 
         //hockey app update checking
 //        UpdateManager.register(this);
         initializeToolBar();
     }
 
+    public void setToolbarTitle(String title) {
+        toolBarBinding.toolbarTitleTv.setText(title);
+
+    }
+
     protected void initializeToolBar() {
         LayoutInflater layoutInflater = getLayoutInflater();
-        ToolBarBinding toolBarBinding = DataBindingUtil.inflate(layoutInflater,
+        toolBarBinding = DataBindingUtil.inflate(layoutInflater,
                 R.layout.tool_bar, null, false);
         setSupportActionBar(toolBarBinding.toolbar);
-        toolBarBinding.toolbarTitleTv.setText(R.string.title_history);
+        setToolbarTitle(getString(R.string.title_history));
 
         toolBarBinding.toolbarLeftIv.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,10 +101,40 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         toolBarBinding.toolbarRightIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showErrorMessage("right");
+                onAssignProductClick();
             }
         });
         replaceToolBar(toolBarBinding.toolbar);
+    }
+
+    public void onAssignProductClick() {
+        Intent intent = new Intent(this, QrcodeBarcodeScanActivity.class);
+        startActivityForResult(intent, RequestCodes.PRODUCT_ASSIGN_SCAN);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case RequestCodes.PRODUCT_ASSIGN_SCAN:
+                    if (data != null) {
+                        homePresenter.checkQrCodeValidity(
+                                data.getStringExtra(IntentConstants.SCANNED_CODE));
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
+    @Override
+    public void navigateToProductAssignScreen(String qrCode) {
+        Bundle bundle = new Bundle();
+        bundle.putString(BundleConstants.SCANNED_QRCODE, qrCode);
+        replaceFragmentAndAddToStack(
+                ProductAssignFragment.class, bundle);
     }
 
     public void replaceToolBar(View toolBarView) {
@@ -116,16 +163,16 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
                 aClass = HistoryTabFragment.class;
                 break;
             case R.id.action_buy_requests_favorites:
-                aClass = DummyFragment.class;
+                aClass = BuyRequestFragment.class;
                 break;
             case R.id.action_scan:
-                aClass = DummyFragment.class;
+                aClass = ScanTabFragment.class;
                 break;
             case R.id.action_offers_status:
-                aClass = DummyFragment.class;
+                aClass = AddOfferMerchantFragment.class;
                 break;
             case R.id.action_notifications:
-                aClass = DummyFragment.class;
+                aClass = NotificationsFragment.class;
                 break;
             default:
                 break;

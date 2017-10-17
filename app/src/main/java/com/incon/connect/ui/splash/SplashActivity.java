@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import com.incon.connect.MainActivity;
 import com.incon.connect.R;
 import com.incon.connect.ui.BaseActivity;
+import com.incon.connect.ui.home.HomeActivity;
 import com.incon.connect.ui.login.LoginActivity;
 import com.incon.connect.utils.SharedPrefsUtils;
 
@@ -17,6 +17,7 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
 
     private static final int SPLASH_DELAY = 2000;
     private static final String TAG = SplashActivity.class.getName();
+    private Handler handler;
 
     @Override
     protected int getLayoutId() {
@@ -46,21 +47,19 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
     }
 
     private void splashTimeout() {
-        Handler handler = new Handler();
+        handler = new Handler();
         Runnable splashRunnable = new Runnable() {
             @Override
             public void run() {
 
                 boolean isLoggedIn = SharedPrefsUtils.loginProvider().
                         getBooleanPreference(LOGGED_IN, false);
-
                 Intent intent;
                 if (isLoggedIn) {
-                    intent = new Intent(SplashActivity.this, MainActivity.class);
+                    intent = new Intent(SplashActivity.this, HomeActivity.class);
                 } else {
                     intent = new Intent(SplashActivity.this, LoginActivity.class);
                 }
-
                 startActivity(intent);
                 finish();
             }
@@ -68,5 +67,9 @@ public class SplashActivity extends BaseActivity implements SplashContract.View 
         handler.postDelayed(splashRunnable, SPLASH_DELAY);
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        handler.removeCallbacksAndMessages(null);
+    }
 }

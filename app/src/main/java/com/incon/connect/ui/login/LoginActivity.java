@@ -1,5 +1,6 @@
 package com.incon.connect.ui.login;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -10,29 +11,31 @@ import android.view.animation.AnimationUtils;
 
 import com.incon.connect.R;
 import com.incon.connect.apimodel.components.login.LoginResponse;
-import com.incon.connect.custom.view.AppAlertDialog;
-import com.incon.connect.custom.view.AppAlertVerticalTwoButtonsDialog;
+import com.incon.connect.callbacks.AlertDialogCallback;
+import com.incon.connect.callbacks.TextAlertDialogCallback;
+import com.incon.connect.custom.view.AppOtpDialog;
 import com.incon.connect.databinding.ActivityLoginBinding;
-import com.incon.connect.dto.login.User;
+import com.incon.connect.dto.login.LoginUserData;
 import com.incon.connect.ui.BaseActivity;
-import com.incon.connect.ui.changepassword.ChangePasswordActivity;
 import com.incon.connect.ui.forgotpassword.ForgotPasswordActivity;
 import com.incon.connect.ui.home.HomeActivity;
+import com.incon.connect.ui.notifications.PushPresenter;
 import com.incon.connect.ui.register.RegistrationActivity;
+import com.incon.connect.utils.Logger;
+import com.incon.connect.utils.PermissionUtils;
 import com.incon.connect.utils.SharedPrefsUtils;
 
-import static com.incon.connect.AppConstants.ActivityResult.IS_REGISTRATION_SUCCESS;
-import static com.incon.connect.AppConstants.RequestCodes.REGISTRATION;
+import java.util.HashMap;
 
 
 public class LoginActivity extends BaseActivity implements LoginContract.View {
 
-    private LoginPresenter loginPresenter;
-    private ActivityLoginBinding binding;
-
     private static final String TAG = LoginActivity.class.getName();
-    private AppAlertVerticalTwoButtonsDialog dialog;
-    private AppAlertDialog singleButtondialog;
+
+    private ActivityLoginBinding binding;
+    private LoginPresenter loginPresenter;
+    private AppOtpDialog dialog;
+    private String enteredOtp;
 
     @Override
     protected int getLayoutId() {
@@ -52,16 +55,61 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
         binding = DataBindingUtil.setContentView(this, getLayoutId());
         binding.setActivity(this);
 
-//        User user = new User();
-        User user = new User("7799879990", "test");
-        String emailId = SharedPrefsUtils.loginProvider().
-                getStringPreference(LoginPrefs.EMAIL_ID);
-        if (!TextUtils.isEmpty(emailId)) {
-            user.setEmail(emailId);
+//        LoginUserData loginUserData = new LoginUserData();
+        LoginUserData loginUserData = new LoginUserData("9966382224", "qwerty123");
+        String phoneNumberPreference = SharedPrefsUtils.loginProvider().
+                getStringPreference(LoginPrefs.USER_PHONE_NUMBER);
+        if (!TextUtils.isEmpty(phoneNumberPreference)) {
+            loginUserData.setPhoneNumber(phoneNumberPreference);
             binding.edittextPassword.requestFocus();
         }
-        binding.setUser(user);
+        binding.setUser(loginUserData);
 
+        boolean isOtpVerifiedFailed = SharedPrefsUtils.loginProvider().getBooleanPreference(
+                LoginPrefs.IS_REGISTERED, false);
+        if (isOtpVerifiedFailed) {
+            showOtpDialog();
+        }
+
+    }
+
+    private void showOtpDialog() {
+        final String phoneNumber = SharedPrefsUtils.loginProvider().getStringPreference(
+                LoginPrefs.USER_PHONE_NUMBER);
+        dialog = new AppOtpDialog.AlertDialogBuilder(LoginActivity.this, new
+                TextAlertDialogCallback() {
+                    @Override
+                    public void enteredText(String otpString) {
+                        enteredOtp = otpString;
+                    }
+
+                    @Override
+                    public void alertDialogCallback(byte dialogStatus) {
+                        switch (dialogStatus) {
+                            case AlertDialogCallback.OK:
+                                if (TextUtils.isEmpty(enteredOtp)) {
+                                    showErrorMessage(getString(R.string.error_otp_req));
+                                    return;
+                                }
+                                HashMap<String, String> verifyOTP = new HashMap<>();
+                                verifyOTP.put(ApiRequestKeyConstants.BODY_MOBILE_NUMBER,
+                                        phoneNumber);
+                                verifyOTP.put(ApiRequestKeyConstants.BODY_OTP, enteredOtp);
+                                loginPresenter.validateOTP(verifyOTP);
+                                break;
+                            case AlertDialogCallback.CANCEL:
+                                dialog.dismiss();
+                                break;
+                            case TextAlertDialogCallback.RESEND_OTP:
+                                loginPresenter.registerRequestOtp(phoneNumber);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }).title(getString(R.string.dialog_verify_title, phoneNumber))
+                .build();
+        dialog.showDialog();
     }
 
     @Override
@@ -77,53 +125,40 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
     @Override
     public void navigateToHomePage(LoginResponse loginResponse) {
-        /*if (loginResponse == null) {
+        if (loginResponse == null) {
             clearData();
             return;
         }
 
-        loginPresenter.saveLoginData(loginResponse);*/
-
-/*
         PushPresenter pushPresenter = new PushPresenter();
         pushPresenter.pushRegisterApi();
-*/
-        loginPresenter.setLoginStatus(true);
+
         Intent homeIntent = new Intent(this, HomeActivity.class);
         homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(homeIntent);
         finish();
     }
 
-    @Override
-    public void navigateToChangePassword() {
-        //removing entered password while navigating to changing password screen
-        binding.edittextPassword.setText("");
-        Intent changePasswordIntent = new Intent(this, ChangePasswordActivity.class);
-        startActivity(changePasswordIntent);
-    }
-
     public void onLoginClick() {
-
-        User user = binding.getUser();
-        int validationRes = user.validateLogin();
+        LoginUserData loginUserData = binding.getUser();
+        int validationRes = loginUserData.validateLogin();
 
         binding.inputLayoutUsername.setError(null);
         binding.inputLayoutPassword.setError(null);
         Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake);
         switch (validationRes) {
-            /*case LoginValidation.EMAIL_REQ:
-                binding.inputLayoutUsername.setError(getString(R.string.error_email_req));
+            case LoginValidation.PHONE_NUMBER_REQ:
+                binding.inputLayoutUsername.setError(getString(R.string.error_phone_req));
                 binding.inputLayoutUsername.startAnimation(shake);
                 break;
-            case LoginValidation.EMAIL_NOTVALID:
-                binding.inputLayoutUsername.setError(getString(R.string.error_email_notvalid));
+            case LoginValidation.PHONE_NUMBER_NOTVALID:
+                binding.inputLayoutUsername.setError(getString(R.string.error_phone_min_digits));
                 binding.inputLayoutUsername.startAnimation(shake);
                 break;
             case LoginValidation.PASSWORD_REQ:
                 binding.inputLayoutPassword.setError(getString(R.string.error_password_req));
                 binding.inputLayoutPassword.startAnimation(shake);
-                break;*/
+                break;
             default:
                 loginPresenter.doLogin(binding.getUser());
                 break;
@@ -131,21 +166,53 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
     }
 
     public void onRegisterClick() {
+        PermissionUtils.getInstance().grantPermission(LoginActivity.this,
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION},
+                new PermissionUtils.Callback() {
+                    @Override
+                    public void onFinish(HashMap<String, Integer> permissionsStatusMap) {
+                        int locationStatus = permissionsStatusMap.get(
+                                Manifest.permission.ACCESS_FINE_LOCATION);
+                        switch (locationStatus) {
+                            case PermissionUtils.PERMISSION_GRANTED:
+                                navigateToRegisterScreen();
+                                Logger.v(TAG, "location :" + "granted");
+                            case PermissionUtils.PERMISSION_DENIED:
+                                Logger.v(TAG, "location :" + "denied");
+                                break;
+                            case PermissionUtils.PERMISSION_DENIED_FOREVER:
+                                Logger.v(TAG, "location :" + "denied forever");
+                            default:
+                                showErrorMessage(getString(R.string.location_permission_msg));
+                                break;
+                        }
+                    }
+                });
+    }
+
+    private void navigateToRegisterScreen() {
         Intent registrationIntent = new Intent(this, RegistrationActivity.class);
-        String emailAddress = binding.edittextUsername.getText().toString();
-        if (!TextUtils.isEmpty(emailAddress)) {
-            registrationIntent.putExtra(IntentConstants.EMAIL_ADDRESS, emailAddress);
+        String phoneNumber = binding.edittextUsername.getText().toString();
+        if (!TextUtils.isEmpty(phoneNumber)) {
+            registrationIntent.putExtra(IntentConstants.USER_PHONE_NUMBER, phoneNumber);
         }
-        startActivityForResult(registrationIntent, REGISTRATION);
+        startActivity(registrationIntent);
         // donot finish current activity, since user may come back to login screen from registration
         // screens
+
     }
+
 
     public void onForgotPasswordClick() {
         Intent forgotPasswordIntent = new Intent(this, ForgotPasswordActivity.class);
-        forgotPasswordIntent.putExtra("emailId",
-                binding.edittextUsername.getEditableText().toString());
+        String phoneNumber = binding.edittextUsername.getText().toString();
+        if (!TextUtils.isEmpty(phoneNumber)) {
+            forgotPasswordIntent.putExtra(IntentConstants.USER_PHONE_NUMBER, phoneNumber);
+        }
         startActivityForResult(forgotPasswordIntent, RequestCodes.FORGOT_PASSWORD);
+        // donot finish current activity, since user may come back to login screen from registration
+        // screens
     }
 
     @Override
@@ -156,24 +223,6 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
                 case RequestCodes.FORGOT_PASSWORD:
                     binding.edittextPassword.setText("");
                     break;
-                case REGISTRATION:
-
-                    if (data != null) {
-                        boolean isRegistrationSuccess =
-                                data.getBooleanExtra(IS_REGISTRATION_SUCCESS, false);
-                        if (isRegistrationSuccess) {
-
-                            String email = SharedPrefsUtils.loginProvider().
-                                    getStringPreference(LoginPrefs.EMAIL_ID);
-                            binding.getUser().setEmail(email);
-                            binding.edittextUsername.setText(email);
-                        }
-                    }
-                    else {
-                        showErrorMessage(getString(R.string.error_no_connectivity));
-                    }
-                    break;
-
                 default:
                     break;
             }
