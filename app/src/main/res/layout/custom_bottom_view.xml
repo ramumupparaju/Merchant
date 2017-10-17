@@ -4,6 +4,7 @@
 
     <LinearLayout
         style="@style/zerowrap"
+        android:gravity="center"
         android:orientation="vertical">
 
         <ImageView

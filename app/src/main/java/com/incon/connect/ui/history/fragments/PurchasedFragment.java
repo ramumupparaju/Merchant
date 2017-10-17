@@ -1,5 +1,6 @@
 package com.incon.connect.ui.history.fragments;
 
+import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
@@ -69,6 +70,12 @@ public class PurchasedFragment extends BaseTabFragment implements PurchasedContr
 
         bottomSheetDialog = new BottomSheetDialog(getActivity());
         bottomSheetDialog.setContentView(bottomSheetPurchasedBinding.getRoot());
+        bottomSheetDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                purchasedAdapter.clearSelection();
+            }
+        });
         /*dialog.setCanceledOnTouchOutside(false);
         dialog.setCancelable(false);*/
     }
@@ -99,14 +106,18 @@ public class PurchasedFragment extends BaseTabFragment implements PurchasedContr
     private IClickCallback iClickCallback = new IClickCallback() {
         @Override
         public void onClickPosition(int position) {
+            //Todo have to get item from filter list
+            purchasedAdapter.clearSelection();
+            PurchasedHistoryResponse purchasedHistoryResponse = purchasedList.get(position);
+            purchasedHistoryResponse.setSelected(true);
+            purchasedAdapter.notifyDataSetChanged();
             createBottomSheetView(position);
             bottomSheetDialog.show();
+            bottomSheetDialog.onDetachedFromWindow();
         }
     };
 
     private void createBottomSheetView(int position) {
-
-        bottomSheetPurchasedBinding.sheetTitle.setText("item : " + position);
 
         bottomSheetPurchasedBinding.topRow.setVisibility(View.GONE);
         bottomSheetPurchasedBinding.bottomRow.removeAllViews();

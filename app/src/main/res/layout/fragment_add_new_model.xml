@@ -126,7 +126,6 @@
                     style="@style/Add_new_model_TextInputLayout"
                     android:layout_below="@id/spinner_type"
                     android:hint="@string/add_new__price"
-                    android:visibility="gone"
                     app:errorEnabled="true"
                     app:fontName="fonts/OpenSans-Regular.ttf"
                     app:hintTextAppearance="@style/TextInputLayout_FloatingTextColor">

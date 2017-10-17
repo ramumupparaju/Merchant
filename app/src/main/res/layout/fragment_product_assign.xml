@@ -3,6 +3,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="assignQrCode"
             type="com.incon.connect.dto.asignqrcode.AssignQrCode"/>
@@ -12,18 +13,18 @@
             type="com.incon.connect.ui.home.asignqrcode.fragment.ProductAssignFragment"/>
     </data>
 
-    <ScrollView
-        android:id="@+id/scrollview_user_info"
+
+    <RelativeLayout
         style="@style/BothMatch"
-        android:fadeScrollbars="false"
-        android:scrollbarSize="4dp"
-        android:scrollbarThumbVertical="@drawable/scrollbar"
-        android:scrollbars="vertical">
+        android:background="@color/white">
 
-        <RelativeLayout
+        <ScrollView
+            android:id="@+id/scrollview_user_info"
             style="@style/BothMatch"
-            android:background="@color/white">
-
+            android:fadeScrollbars="false"
+            android:scrollbarSize="4dp"
+            android:scrollbarThumbVertical="@drawable/scrollbar"
+            android:scrollbars="vertical">
 
             <RelativeLayout
                 style="@style/BothMatch"
@@ -156,13 +157,20 @@
                     android:textColor="@color/tueo_theme"
                     android:textSize="@dimen/text_size_13"/>
 
-
             </RelativeLayout>
 
-        </RelativeLayout>
+        </ScrollView>
 
+        <ImageView
+            android:id="@+id/ad_new_model_button"
+            style="@style/m50w50"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="@dimen/margin_280"
+            android:onClick="@{() -> productassignfragment.onNewModelClick()}"
+            app:srcCompat="@drawable/ic_im_add_new"/>
 
-    </ScrollView>
+    </RelativeLayout>
 
 
 </layout>

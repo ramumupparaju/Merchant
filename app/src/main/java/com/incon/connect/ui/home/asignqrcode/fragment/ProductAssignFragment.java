@@ -10,6 +10,7 @@ import com.incon.connect.R;
 import com.incon.connect.databinding.FragmentProductAssignBinding;
 import com.incon.connect.dto.asignqrcode.AssignQrCode;
 import com.incon.connect.ui.BaseFragment;
+import com.incon.connect.ui.addnewmodel.AddNewModelFragment;
 import com.incon.connect.ui.home.HomeActivity;
 /**
  * Created by PC on 10/6/2017.
@@ -34,6 +35,11 @@ public class ProductAssignFragment extends BaseFragment implements ProductAssign
         AssignQrCode assignQrCode = binding.getAssignQrCode();
         assignPresenter.assignQrCodeToProduct(assignQrCode);
 
+    }
+
+    public void onNewModelClick() {
+        ((HomeActivity) getActivity()).replaceFragmentAndAddToStack(
+                AddNewModelFragment.class, null);
     }
     @Override
     protected View onPrepareView(LayoutInflater inflater, ViewGroup container,
