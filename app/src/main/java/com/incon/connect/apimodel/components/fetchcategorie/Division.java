@@ -1,9 +1,15 @@
-package com.incon.connect.apimodel.components.search;
+package com.incon.connect.apimodel.components.fetchcategorie;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Category {
+import java.util.List;
+
+/**
+ * Created by PC on 10/17/2017.
+ */
+
+public class Division {
 
     @SerializedName("id")
     @Expose
@@ -11,9 +17,9 @@ public class Category {
     @SerializedName("name")
     @Expose
     private String name;
-    @SerializedName("type")
+    @SerializedName("brands")
     @Expose
-    private String type;
+    private List<Brand> brands = null;
 
     public Integer getId() {
         return id;
@@ -31,12 +37,12 @@ public class Category {
         this.name = name;
     }
 
-    public String getType() {
-        return type;
+    public List<Brand> getBrands() {
+        return brands;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setBrands(List<Brand> brands) {
+        this.brands = brands;
     }
 
 }

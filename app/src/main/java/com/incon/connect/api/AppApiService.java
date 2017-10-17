@@ -140,6 +140,7 @@ public class AppApiService implements AppConstants {
     public Observable<UserInfoResponse> userInfoUsingPhoneNumber(String phoneNumber) {
         return addNetworkCheck(serviceInstance.userInfoUsingPhoneNumber(phoneNumber));
     }
+
     public Observable<UserInfoResponse> newUserRegistation(String phoneNumber) {
         return addNetworkCheck(serviceInstance.newUserRegistation(phoneNumber));
     }
@@ -152,16 +153,20 @@ public class AppApiService implements AppConstants {
         return addNetworkCheck(serviceInstance.modelNumberSearch(modelNumber));
     }
 
+    public Observable<Object> getCategories(int merchantId) {
+        return addNetworkCheck(serviceInstance.getCategories(merchantId));
+    }
+
     public Observable<Object> addingNewModel(int merchantId, AddNewModel addNewModelBody) {
         return addNetworkCheck(serviceInstance.addingNewModel(merchantId, addNewModelBody));
     }
 
-  public Observable<Object> warrantyRegisterApi(WarrantyRegistration warrantyRegistration) {
+    public Observable<Object> warrantyRegisterApi(WarrantyRegistration warrantyRegistration) {
         return addNetworkCheck(serviceInstance.warrantyRegisterApi(warrantyRegistration));
     }
 
     public Observable<ValidateWarrantyOtpResponse> validateWarrantyOtp(HashMap<String, String>
-                                                                                verify) {
+                                                                               verify) {
         return addNetworkCheck(serviceInstance.validateWarrantyOtp(verify));
     }
 

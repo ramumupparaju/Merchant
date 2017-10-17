@@ -109,6 +109,7 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
                 warrantyRegistration.setDivisionName(String.valueOf(division.getName()));
                 selectedModelNumber = modelSearchResponseList.get(
                         selectedPosition).getModelNumber();
+                AppUtils.hideSoftKeyboard(getActivity(), rootView);
             }
         });
     }

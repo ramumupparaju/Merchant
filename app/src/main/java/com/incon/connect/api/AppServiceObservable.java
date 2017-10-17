@@ -100,6 +100,9 @@ public interface AppServiceObservable {
     Observable<List<ModelSearchResponse>> modelNumberSearch(@Path("modelNumber")
                                                                     String modelNumber);
 
+    @GET("product/addnew/{merchantId}")
+    Observable<Object> getCategories(@Path("merchantId") int merchantId);
+
     @POST("product/addnew/{merchantId}")
     Observable<Object> addingNewModel(@Path("merchantId") int merchantId, @Body AddNewModel
             addNewModelBody);
