@@ -39,9 +39,9 @@ public class CheckedModelSpinner extends BaseObservable {
     @Override
     public boolean equals(Object checkedModelSpinner) {
         if (checkedModelSpinner instanceof CheckedModelSpinner) {
-            CheckedModelSpinner symptomsData1 = ((CheckedModelSpinner) checkedModelSpinner);
-            if (symptomsData1 != null) {
-                return  (symptomsData1.getName().equalsIgnoreCase(name));
+            CheckedModelSpinner modelSpinner = ((CheckedModelSpinner) checkedModelSpinner);
+            if (modelSpinner != null) {
+                return  (modelSpinner.getName().equalsIgnoreCase(name));
             }
         }
         return false;

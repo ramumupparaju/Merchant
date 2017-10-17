@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.incon.connect.R;
+import com.incon.connect.callbacks.IClickCallback;
 import com.incon.connect.custom.view.CustomViewPager;
 import com.incon.connect.custom.view.FilterBySearchDialog;
 import com.incon.connect.databinding.CustomTabBinding;
@@ -31,6 +32,7 @@ public class HistoryTabFragment extends BaseFragment implements View.OnClickList
     private String[] tabTitles;
     private HistoryTabPagerAdapter adapter;
     private FilterBySearchDialog filterBySearch;
+    private int filterType;
 
     @Override
     protected void initializePresenter() {
@@ -132,11 +134,8 @@ public class HistoryTabFragment extends BaseFragment implements View.OnClickList
                 BaseTabFragment fragmentFromPosition = (BaseTabFragment) adapter.
                         getFragmentFromPosition(currentItem);
                 String searchableText = binding.searchLayout.searchEt.getText().toString();
-                int filterType;
                 if (TextUtils.isEmpty(searchableText)) {
                     filterType = FilterConstants.NONE;
-                } else {
-                    filterType = FilterConstants.NAME;
                 }
                 fragmentFromPosition.onSearchClickListerner(searchableText, filterType);
                 break;
@@ -149,7 +148,14 @@ public class HistoryTabFragment extends BaseFragment implements View.OnClickList
     }
 
     private void showFilterOptionsDialog() {
-        filterBySearch = new FilterBySearchDialog(getActivity());
+        filterBySearch = new FilterBySearchDialog(getActivity(), iClickCallback);
         filterBySearch.initDialogLayout();
     }
+
+    IClickCallback iClickCallback = new IClickCallback() {
+        @Override
+        public void onClickPosition(int position) {
+            filterType = position;
+        }
+    };
 }

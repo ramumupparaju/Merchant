@@ -22,7 +22,6 @@ public class AppCheckBoxListDialog extends Dialog implements View.OnClickListene
     private final TextAlertDialogCallback mAlertDialogCallback; // required
     //All final attributes
     private final String title; // required
-    private RecyclerView spinnerRecyclerView; // required
     private AppCheckBoxListAdapter listAdapter;
     private List<CheckedModelSpinner> spinnerList;
 
@@ -44,7 +43,6 @@ public class AppCheckBoxListDialog extends Dialog implements View.OnClickListene
         View contentView = binding.getRoot();
 
         binding.textCheckboxTitle.setText(title);
-        spinnerRecyclerView = binding.listRecyclerview;
         listAdapter = new AppCheckBoxListAdapter(spinnerList);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
        /* DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(
