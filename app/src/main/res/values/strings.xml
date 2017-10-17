@@ -224,6 +224,7 @@
     <string name="add_new__serial_no">Serial No</string>
     <string name="add_new__category">Category</string>
     <string name="add_new__division">Division</string>
+    <string name="add_new__invoiceNumber">InvoiceNumber</string>
     <string name="add_new__type">Type</string>
 
     <!-- Registration -->

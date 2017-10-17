@@ -52,7 +52,7 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
     private List<ModelSearchResponse> modelSearchResponseList;
     private String selectedModelNumber;
     private int selectedPosition;
-    boolean isOtpVerified;
+    boolean isOtpVerified = true;
     private AppAlertDialog warrantyStatusDialog;
     private AppOtpDialog userOtpDialog;
     private String enteredOtp;
@@ -115,6 +115,8 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
                 binding.inputLayoutDivision.setVisibility(View.VISIBLE);
                 binding.inputLayoutPrice.setVisibility(View.VISIBLE);
                 binding.inputLayoutSerialNo.setVisibility(View.VISIBLE);
+                binding.inputLayoutInvoicenumber.setVisibility(View.VISIBLE);
+
             }
         });
     }
@@ -238,6 +240,7 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
                         switch (dialogStatus) {
                             case AlertDialogCallback.OK:
                             case AlertDialogCallback.CANCEL:
+                                getActivity().onBackPressed();
                                 warrantyStatusDialog.dismiss();
                                 break;
                             default:
