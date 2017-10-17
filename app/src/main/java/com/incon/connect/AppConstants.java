@@ -133,7 +133,7 @@ public interface AppConstants {
 
 
     interface BundleConstants {
-
+        String SCANNED_QRCODE = "scannedQrcode";
     }
 
     interface PushSubTypeConstants {

@@ -146,6 +146,7 @@
     <string name="progress_buy_request">Loading Buy Request...</string>
     <string name="progress_add_offer_merchant">Loading Add Offer Merchant...</string>
     <string name="progress_user_details">Fetching User Details...</string>
+    <string name="progress_qr_code_validity">Validating qrcode...</string>
     <string name="progress_qr_code_product">Asign QR Code To Product...</string>
     <string name="progress_warranty_registering">Registering warranty...</string>
     <string name="progress_add_new_model">Adding new model...</string>

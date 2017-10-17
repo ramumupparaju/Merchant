@@ -112,6 +112,10 @@ public class AppApiService implements AppConstants {
         return addNetworkCheck(serviceInstance.assignQrCodeToProduct(qrCode));
     }
 
+    public Observable<Object> checkQrCodestatus(String qrCode) {
+        return addNetworkCheck(serviceInstance.checkQrCodestatus(qrCode));
+    }
+
     public Observable<List<PurchasedHistoryResponse>> purchasedApi(int userId) {
         return addNetworkCheck(serviceInstance.purchasedApi(userId));
     }

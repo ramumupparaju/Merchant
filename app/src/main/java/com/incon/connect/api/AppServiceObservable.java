@@ -66,12 +66,14 @@ public interface AppServiceObservable {
     @POST("merchant/changepassword")
     Observable<LoginResponse> changePassword(@Body HashMap<String, String> password);
 
+    @GET("product/checkqropnestatus/{qrCode}")
+    Observable<Object> checkQrCodestatus(@Path("qrCode") String qrCode);
+
     @GET("merchant/history/purchased/{userId}")
     Observable<List<PurchasedHistoryResponse>> purchasedApi(@Path("userId") int userId);
 
     @POST("product/assign")
     Observable<Object> assignQrCodeToProduct(@Body AssignQrCode qrCode);
-
 
     //    TODO Change purchased to interest
     @GET("merchant/history/purchased/{userId}")
@@ -116,7 +118,7 @@ public interface AppServiceObservable {
 
     @POST("user/newuser/{phoneNumber}")
     Observable<UserInfoResponse> newUserRegistation(@Path("phoneNumber")
-                                                                      String phoneNumber);
+                                                            String phoneNumber);
 
     @POST("registerPush")
     Observable<Object> pushTokenApi(@Body PushRegistrarBody pushRegistrarBody);
