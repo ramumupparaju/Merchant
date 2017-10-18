@@ -68,7 +68,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         setBottomNavigationViewListeners();
         handleBottomViewOnKeyBoardUp();
 
-        binding.bottomNavigationView.setCurrentItem(TAB_HISTORY);
+        binding.bottomNavigationView.setCurrentItem(TAB_SCAN);
 
 
         //changed preference as otp verified

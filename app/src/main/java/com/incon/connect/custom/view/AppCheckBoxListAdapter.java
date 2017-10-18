@@ -44,7 +44,6 @@ public class AppCheckBoxListAdapter extends RecyclerView.Adapter
     public void onBindViewHolder(ViewHolder holder, int position) {
         CheckedModelSpinner purchasedResponse = spinnerArrayList.get(position);
         holder.bind(purchasedResponse);
-        clearSelection();
     }
 
     private void clearSelection() {
