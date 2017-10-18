@@ -2,6 +2,7 @@ package com.incon.connect.custom.view;
 
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,9 +22,14 @@ import java.util.List;
 public class AppCheckBoxListAdapter extends RecyclerView.Adapter
         <AppCheckBoxListAdapter.ViewHolder> {
     private List<CheckedModelSpinner> spinnerArrayList = new ArrayList<>();
+    private boolean isRadio = false;
 
     public AppCheckBoxListAdapter(List<CheckedModelSpinner> spinnerArrayList) {
         this.spinnerArrayList = spinnerArrayList;
+    }
+
+    public void setRadio(boolean radio) {
+        isRadio = radio;
     }
 
     @Override
@@ -40,6 +46,12 @@ public class AppCheckBoxListAdapter extends RecyclerView.Adapter
         holder.bind(purchasedResponse);
     }
 
+    private void clearSelection() {
+        for (CheckedModelSpinner checkedModelSpinner : spinnerArrayList) {
+            checkedModelSpinner.setChecked(false);
+        }
+    }
+
     @Override
     public int getItemCount() {
         return spinnerArrayList.size();
@@ -53,6 +65,9 @@ public class AppCheckBoxListAdapter extends RecyclerView.Adapter
                 stringBuilder.append(checkedModelSpinner.getName());
                 stringBuilder.append(AppConstants.COMMA_SEPARATOR);
             }
+        }
+        if (TextUtils.isEmpty(stringBuilder.toString())) {
+            return "";
         }
         int start = stringBuilder.length() - 1;
         return stringBuilder.toString().substring(0, start);
@@ -71,11 +86,15 @@ public class AppCheckBoxListAdapter extends RecyclerView.Adapter
 
         public void bind(CheckedModelSpinner checkedModelSpinner) {
             binding.setVariable(BR.model, checkedModelSpinner);
+
             binding.executePendingBindings();
         }
 
         @Override
         public void onClick(View v) {
+            if (isRadio) {
+                clearSelection();
+            }
             binding.checkboxSpinnerFormat.setChecked(!binding.checkboxSpinnerFormat.isChecked());
         }
 

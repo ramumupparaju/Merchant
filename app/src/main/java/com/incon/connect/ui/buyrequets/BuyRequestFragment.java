@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -128,13 +127,13 @@ public class BuyRequestFragment extends BaseFragment implements View.OnClickList
             case R.id.search_icon_iv:
                 String searchableText = binding.searchLayout.searchEt.getText().toString();
                 int filterType;
-                if (TextUtils.isEmpty(searchableText)) {
+                /*if (TextUtils.isEmpty(searchableText)) {
                     filterType = FilterConstants.NONE;
                 } else {
                     filterType = FilterConstants.NAME;
                 }
                 buyRequestAdapter.searchData(searchableText, filterType);
-                break;
+                */break;
             case R.id.filter_icon_iv:
                 AppUtils.showSnackBar(rootView, "have to show popup");
                 break;

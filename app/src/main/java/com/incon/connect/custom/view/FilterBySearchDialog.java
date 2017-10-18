@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 
 import com.incon.connect.R;
+import com.incon.connect.callbacks.IClickCallback;
 
 /**
  * Created by PC on 10/17/2017.
@@ -11,10 +12,12 @@ import com.incon.connect.R;
 
 public class FilterBySearchDialog {
     private static final String TAG = FilterBySearchDialog.class.getSimpleName();
+    private IClickCallback iClickCallback;
     private Activity mActivity;
 
-    public FilterBySearchDialog(Activity activity) {
+    public FilterBySearchDialog(Activity activity, IClickCallback iClickCallback) {
         this.mActivity = activity;
+        this.iClickCallback = iClickCallback;
     }
 
 
@@ -30,8 +33,8 @@ public class FilterBySearchDialog {
         //builder.setTitle(getString(R.string.app_name));
         builder.setItems(items, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialogInterface, int item) {
+                iClickCallback.onClickPosition(item);
                 dialogInterface.dismiss();
-
             }
         });
         builder.setCancelable(true);

@@ -11,14 +11,21 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.incon.connect.R;
+import com.incon.connect.callbacks.AlertDialogCallback;
+import com.incon.connect.callbacks.TextAlertDialogCallback;
+import com.incon.connect.custom.view.AppCheckBoxListDialog;
 import com.incon.connect.custom.view.CustomViewPager;
-import com.incon.connect.custom.view.FilterBySearchDialog;
 import com.incon.connect.databinding.CustomTabBinding;
 import com.incon.connect.databinding.FragmentHistoryTabBinding;
+import com.incon.connect.dto.dialog.CheckedModelSpinner;
 import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.history.adapter.HistoryTabPagerAdapter;
 import com.incon.connect.ui.history.base.BaseTabFragment;
 import com.incon.connect.ui.home.HomeActivity;
+import com.incon.connect.utils.SharedPrefsUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class HistoryTabFragment extends BaseFragment implements View.OnClickListener {
@@ -30,7 +37,7 @@ public class HistoryTabFragment extends BaseFragment implements View.OnClickList
     private Typeface selectedTypeFace;
     private String[] tabTitles;
     private HistoryTabPagerAdapter adapter;
-    private FilterBySearchDialog filterBySearch;
+    private AppCheckBoxListDialog filterBySearchDialog;
 
     @Override
     protected void initializePresenter() {
@@ -132,11 +139,10 @@ public class HistoryTabFragment extends BaseFragment implements View.OnClickList
                 BaseTabFragment fragmentFromPosition = (BaseTabFragment) adapter.
                         getFragmentFromPosition(currentItem);
                 String searchableText = binding.searchLayout.searchEt.getText().toString();
-                int filterType;
-                if (TextUtils.isEmpty(searchableText)) {
+                String filterType = SharedPrefsUtils.cacheProvider().getStringPreference(
+                    CachePrefs.FILTER_NAME);
+                if (TextUtils.isEmpty(searchableText) || TextUtils.isEmpty(filterType)) {
                     filterType = FilterConstants.NONE;
-                } else {
-                    filterType = FilterConstants.NAME;
                 }
                 fragmentFromPosition.onSearchClickListerner(searchableText, filterType);
                 break;
@@ -149,7 +155,46 @@ public class HistoryTabFragment extends BaseFragment implements View.OnClickList
     }
 
     private void showFilterOptionsDialog() {
-        filterBySearch = new FilterBySearchDialog(getActivity());
-        filterBySearch.initDialogLayout();
+        //set previous selected categories as checked
+        String selectedFilter = SharedPrefsUtils.cacheProvider().getStringPreference(
+                CachePrefs.FILTER_NAME);
+        List<CheckedModelSpinner> filterNamesList = new ArrayList<>();
+        CharSequence[] items = getResources().getStringArray(
+                R.array.select_search);
+        for (CharSequence filterName : items) {
+            CheckedModelSpinner checkedModelSpinner = new CheckedModelSpinner();
+            String name = filterName.toString();
+            checkedModelSpinner.setName(name);
+            checkedModelSpinner.setChecked(selectedFilter != null
+                    && selectedFilter.equalsIgnoreCase(name));
+            filterNamesList.add(checkedModelSpinner);
+        }
+        filterBySearchDialog = new AppCheckBoxListDialog.AlertDialogBuilder(getActivity(), new
+                TextAlertDialogCallback() {
+                    @Override
+                    public void enteredText(String filterName) {
+                        SharedPrefsUtils.cacheProvider().setStringPreference(
+                                CachePrefs.FILTER_NAME, filterName);
+                    }
+
+                    @Override
+                    public void alertDialogCallback(byte dialogStatus) {
+                        switch (dialogStatus) {
+                            case AlertDialogCallback.OK:
+                                filterBySearchDialog.dismiss();
+                                break;
+                            case AlertDialogCallback.CANCEL:
+                                filterBySearchDialog.dismiss();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }).title(getString(R.string.action_filters))
+                .spinnerItems(filterNamesList)
+                .build();
+        filterBySearchDialog.showDialog();
+        filterBySearchDialog.setRadioType(true);
     }
+
 }

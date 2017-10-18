@@ -17,9 +17,9 @@ public interface AppConstants {
     String DELIMITOR = "-";
 
     interface FilterConstants {
-        int NONE = 0;
-        int NAME = 1;
-        int BRAND = 2;
+        String NONE = "none";
+        String NAME = "name";
+        String BRAND = "brand";
     }
 
     interface WarrantyRegistrationConstants {
@@ -148,6 +148,7 @@ public interface AppConstants {
         String IS_ACCESS_CODE_VERIFIED = "isAccessCodeVerified";
         String IS_AAP_OFFLINE_IMAGE = "isAapOfflineImage";
         String EXTRACT_ZIP = "extractZip";
+        String FILTER_NAME = "filterName";
     }
 
     interface LoginPrefs {

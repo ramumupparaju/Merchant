@@ -222,7 +222,7 @@ public class PurchasedFragment extends BaseTabFragment implements PurchasedContr
     }
 
     @Override
-    public void onSearchClickListerner(String searchableText, int searchType) {
+    public void onSearchClickListerner(String searchableText, String searchType) {
         AppUtils.hideSoftKeyboard(getActivity(), rootView);
         purchasedAdapter.searchData(searchableText, searchType);
     }
