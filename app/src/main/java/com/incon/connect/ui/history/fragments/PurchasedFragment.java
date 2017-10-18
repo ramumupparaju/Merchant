@@ -118,7 +118,7 @@ public class PurchasedFragment extends BaseTabFragment implements PurchasedContr
     private void createBottomSheetView(int position) {
 
         bottomSheetPurchasedBinding.topRow.setVisibility(View.GONE);
-        bottomSheetPurchasedBinding.bottomRow.removeAllViews();
+       // bottomSheetPurchasedBinding.bottomRow.removeAllViews();
 
         String[] bottomNames = new String[4];
         bottomNames[0] = "Customer";
