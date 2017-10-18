@@ -122,14 +122,22 @@ public class PurchasedFragment extends BaseTabFragment implements PurchasedContr
         bottomSheetPurchasedBinding.topRow.setVisibility(View.GONE);
         bottomSheetPurchasedBinding.bottomRow.removeAllViews();
 //TODO have to create based on response
-        int noOfViews = new Random().nextInt(4);
-        for (int i = 0; i < noOfViews; i++) {
+        int i = 4;
+
+       // int noOfViews = new Random().nextInt(4);
+        CustomBottomViewBinding customBottomView = getCustomBottomView();
+        customBottomView.viewTv.setText("position :" + i);
+        View bottomRootView = customBottomView.getRoot();
+        bottomRootView.setOnClickListener(bottomViewClickListener);
+        bottomSheetPurchasedBinding.bottomRow.addView(bottomRootView);
+
+       /* for (int i = 0; i < noOfViews; ) {
             CustomBottomViewBinding customBottomView = getCustomBottomView();
             customBottomView.viewTv.setText("position :" + i);
             View bottomRootView = customBottomView.getRoot();
             bottomRootView.setOnClickListener(bottomViewClickListener);
             bottomSheetPurchasedBinding.bottomRow.addView(bottomRootView);
-        }
+        }*/
     }
 
     private View.OnClickListener bottomViewClickListener = new View.OnClickListener() {
