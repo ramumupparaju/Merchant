@@ -339,6 +339,21 @@
         <item name="android:textColorHint">@color/colorForgotPasswordHintText</item>
     </style>
 
+
+
+
+    <!-- barcode-->
+
+
+    <style name="Warrenty_barcode" parent="@style/m50w50">
+        <item name="android:layout_alignParentEnd">true</item>
+        <item name="android:layout_marginEnd">@dimen/margin_10</item>
+        <item name="android:layout_marginTop">@dimen/margin_6</item>
+        <item name="android:gravity">bottom</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:paddingTop">@dimen/margin_20</item>
+    </style>
+
     <!-- Register -->
     <style name="Register_TextInputLayout" parent="@style/MatchWrap">
         <!--<item name="android:layout_marginTop">5dp</item>-->

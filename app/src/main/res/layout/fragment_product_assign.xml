@@ -34,8 +34,7 @@
                 <!-- modelno -->
                 <com.incon.connect.custom.view.CustomTextInputLayout
                     android:id="@+id/input_layout_model_number"
-                    style="@style/Add_new_model_TextInputLayout"
-                    android:layout_toLeftOf="@+id/im_barcode_model"
+                    style="@style/Register_TextInputLayout"
                     android:hint="@string/add_new__model_no"
                     app:errorEnabled="true"
                     app:fontName="fonts/OpenSans-Regular.ttf"
@@ -52,11 +51,77 @@
 
                 </com.incon.connect.custom.view.CustomTextInputLayout>
 
+                <!-- division no -->
+                <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                    android:id="@+id/spinner_division"
+                    style="@style/spinnerItemStyle"
+                    android:layout_below="@id/input_layout_model_number"
+                    android:layout_marginBottom="@dimen/margin_24"
+                    android:focusable="true"
+                    android:hint="@string/add_new__division"
+                    android:tag="2"
+                    android:text="@={assignQrCode.batchNo}"
+                    app:errorEnabled="true"
+                    app:met_floatingLabel="highlight"
+                    app:met_textColor="@color/colorForgotPasswordHintText"
+                    app:met_textColorHint="@color/colorForgotPasswordHintText"/>
+
+
+
+                <!-- category-->
+                <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                    android:id="@+id/spinner_category"
+                    style="@style/spinnerItemStyle"
+                    android:layout_below="@id/spinner_division"
+                    android:layout_marginBottom="@dimen/margin_24"
+                    android:focusable="true"
+                    android:hint="@string/add_new__category"
+                    android:tag="2"
+                    android:text="@={assignQrCode.batchNo}"
+                    app:errorEnabled="true"
+                    app:met_floatingLabel="highlight"
+                    app:met_textColor="@color/colorForgotPasswordHintText"
+                    app:met_textColorHint="@color/colorForgotPasswordHintText"/>
+
+                <!--brand-->
+                <com.incon.connect.custom.view.CustomTextInputLayout
+                    android:id="@+id/input_layout_brand"
+                    style="@style/Register_TextInputLayout"
+                    android:layout_below="@id/spinner_category"
+                    android:hint="@string/action_brand"
+                    app:errorEnabled="true"
+                    app:fontName="fonts/OpenSans-Regular.ttf"
+                    app:hintTextAppearance="@style/TextInputLayout_FloatingTextColor">
+
+                    <com.incon.connect.custom.view.CustomAutoCompleteView
+                        android:id="@+id/edittext_brand"
+                        style="@style/Register_TextInputEditText"
+                        android:maxLength="@integer/character_limit_100"
+                        android:maxLines="1"
+                        android:text="@={assignQrCode.batchNo}"/>
+
+
+                </com.incon.connect.custom.view.CustomTextInputLayout>
+                <!-- type -->
+                <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
+                    android:id="@+id/spinner_type"
+                    style="@style/spinnerItemStyle"
+                    android:layout_below="@id/input_layout_brand"
+                    android:layout_marginBottom="@dimen/margin_24"
+                    android:focusable="true"
+                    android:hint="@string/add_new__type"
+                    android:tag="2"
+                    android:text="@={assignQrCode.batchNo}"
+                    app:errorEnabled="true"
+                    app:met_floatingLabel="highlight"
+                    app:met_textColor="@color/colorForgotPasswordHintText"
+                    app:met_textColorHint="@color/colorForgotPasswordHintText"/>
+
                 <!--price-->
                 <com.incon.connect.custom.view.CustomTextInputLayout
                     android:id="@+id/input_layout_price"
                     style="@style/Register_TextInputLayout"
-                    android:layout_below="@id/input_layout_model_number"
+                    android:layout_below="@id/spinner_type"
                     android:hint="@string/add_new__price"
                     app:errorEnabled="true"
                     app:fontName="fonts/OpenSans-Regular.ttf"

@@ -1,6 +1,8 @@
 package com.incon.connect.ui.warrantyregistration;
 
+import android.app.Activity;
 import android.app.Dialog;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -24,6 +26,7 @@ import com.incon.connect.dto.warrantyregistration.WarrantyRegistration;
 import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.addnewmodel.AddNewModelFragment;
 import com.incon.connect.ui.home.HomeActivity;
+import com.incon.connect.ui.qrcodescan.QrcodeBarcodeScanActivity;
 import com.incon.connect.ui.warrantyregistration.adapter.ModelSearchArrayAdapter;
 import com.incon.connect.utils.SharedPrefsUtils;
 import com.jakewharton.rxbinding2.widget.RxTextView;
@@ -41,7 +44,7 @@ import io.reactivex.observers.DisposableObserver;
  * Created by PC on 9/28/2017.
  */
 public class WarrantyRegistrationFragment extends BaseFragment implements
-        WarrantRegistrationContract.View {
+        WarrantRegistrationContract.View, View.OnClickListener {
 
     private View rootView;
     private FragmentWarrantyRegistrationBinding binding;
@@ -88,6 +91,8 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
 
     private void initViews() {
         initializeModelNumberAdapter(new ArrayList<ModelSearchResponse>());
+        binding.imBarcodeSerialNo.setOnClickListener(this);
+        binding.imBarcodeBatch.setOnClickListener(this);
     }
 
     private void initializeModelNumberAdapter(List<ModelSearchResponse>
@@ -120,6 +125,8 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
                 binding.inputLayoutPrice.setVisibility(View.VISIBLE);
                 binding.inputLayoutSerialNo.setVisibility(View.VISIBLE);
                 binding.inputLayoutInvoicenumber.setVisibility(View.VISIBLE);
+                binding.imBarcodeSerialNo.setVisibility(View.VISIBLE);
+                binding.imBarcodeBatch.setVisibility(View.VISIBLE);
 
             }
         });
@@ -271,6 +278,54 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
     private void dismissDialog(Dialog dialog) {
         if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.im_barcode_serial_no: {
+                Intent intent = new Intent(getActivity(), QrcodeBarcodeScanActivity.class);
+                intent.putExtra(IntentConstants.SCANNED_TITLE, getString(
+                        R.string.title_warranty_serial_barcode));
+                startActivityForResult(intent, RequestCodes.SERIAL_NO_SCAN);
+            }
+            break;
+            case R.id.im_barcode_batch: {
+                Intent intent = new Intent(getActivity(), QrcodeBarcodeScanActivity.class);
+                intent.putExtra(IntentConstants.SCANNED_TITLE, getString(
+                        R.string.title_warranty_batch_barcode));
+                startActivityForResult(intent, RequestCodes.BATCH_NO_SCAN);
+            }
+            break;
+            default:
+                // do nothing
+                break;
+        }
+
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case RequestCodes.SERIAL_NO_SCAN:
+                    if (data != null) {
+                        binding.edittextSerialNo.setText(
+                                data.getStringExtra(IntentConstants.SCANNED_CODE));
+                    }
+                    break;
+                case RequestCodes.BATCH_NO_SCAN:
+                    if (data != null) {
+                        binding.edittextBatchNo.setText(
+                                data.getStringExtra(IntentConstants.SCANNED_CODE));
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }
