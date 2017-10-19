@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 
 import com.incon.connect.AppUtils;
@@ -87,6 +88,8 @@ public class ProductAssignFragment extends BaseFragment implements ProductAssign
     }
 
     private void initViews() {
+        shakeAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.shake);
+
         ((HomeActivity) getActivity()).setToolbarTitle(getString(R.string.
                 progress_qr_code_product));
         assignQrCode.setCode(getArguments().getString(BundleConstants.SCANNED_QRCODE));
