@@ -24,7 +24,7 @@
 
                 style="@style/m75w75"
                 android:layout_margin="25dp"
-                app:srcCompat="@drawable/ic_im_showroom"/>
+                app:srcCompat="@drawable/ic_showroom"/>
 
         </LinearLayout>
 
@@ -35,7 +35,7 @@
             <android.support.v7.widget.AppCompatImageView
                 style="@style/m75w75"
                 android:layout_margin="25dp"
-                app:srcCompat="@drawable/ic_im_showroom"
+                app:srcCompat="@drawable/ic_showroom"
                 />
 
         </LinearLayout>

@@ -36,6 +36,7 @@
                     android:id="@+id/input_layout_model_number"
                     style="@style/Add_new_model_TextInputLayout"
                     android:hint="@string/add_new__model_no"
+                    android:layout_toLeftOf="@+id/im_barcode_model"
                     app:errorEnabled="true"
                     app:fontName="fonts/OpenSans-Regular.ttf"
                     app:hintTextAppearance="@style/TextInputLayout_FloatingTextColor">
@@ -50,6 +51,19 @@
                         />
 
                 </com.incon.connect.custom.view.CustomTextInputLayout>
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/im_barcode_model"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginTop="6dp"
+                    android:gravity="bottom"
+                    android:paddingTop="@dimen/margin_20"
+                    app:srcCompat="@drawable/ic_barcode"
+                    />
+
 
 
                 <!-- division no -->
@@ -66,7 +80,6 @@
                     app:met_floatingLabel="highlight"
                     app:met_textColor="@color/colorForgotPasswordHintText"
                     app:met_textColorHint="@color/colorForgotPasswordHintText"/>
-
 
 
 
@@ -88,7 +101,7 @@
                 <!--brand-->
                 <com.incon.connect.custom.view.CustomTextInputLayout
                     android:id="@+id/input_layout_brand"
-                    style="@style/Add_new_model_TextInputLayout"
+                    style="@style/Register_TextInputLayout"
                     android:layout_below="@id/spinner_category"
                     android:hint="@string/action_brand"
                     app:errorEnabled="true"
@@ -122,7 +135,7 @@
                 <!--price-->
                 <com.incon.connect.custom.view.CustomTextInputLayout
                     android:id="@+id/input_layout_price"
-                    style="@style/Add_new_model_TextInputLayout"
+                    style="@style/Register_TextInputLayout"
                     android:layout_below="@id/spinner_type"
                     android:hint="@string/add_new__price"
                     app:errorEnabled="true"
@@ -169,7 +182,7 @@
             android:layout_marginBottom="15dp"
             android:layout_marginLeft="@dimen/margin_280"
             android:onClick="@{() -> productassignfragment.onNewModelClick()}"
-            app:srcCompat="@drawable/ic_im_add_new"/>
+            app:srcCompat="@drawable/ic_add_new"/>
 
     </RelativeLayout>
 

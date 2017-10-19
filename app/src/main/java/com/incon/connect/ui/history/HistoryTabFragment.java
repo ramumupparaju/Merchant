@@ -38,7 +38,6 @@ public class HistoryTabFragment extends BaseFragment implements View.OnClickList
     private String[] tabTitles;
     private HistoryTabPagerAdapter adapter;
     private AppCheckBoxListDialog filterBySearchDialog;
-    private String filterType;
 
     @Override
     protected void initializePresenter() {
@@ -140,7 +139,9 @@ public class HistoryTabFragment extends BaseFragment implements View.OnClickList
                 BaseTabFragment fragmentFromPosition = (BaseTabFragment) adapter.
                         getFragmentFromPosition(currentItem);
                 String searchableText = binding.searchLayout.searchEt.getText().toString();
-                if (TextUtils.isEmpty(searchableText)) {
+                String filterType = SharedPrefsUtils.cacheProvider().getStringPreference(
+                    CachePrefs.FILTER_NAME);
+                if (TextUtils.isEmpty(searchableText) || TextUtils.isEmpty(filterType)) {
                     filterType = FilterConstants.NONE;
                 }
                 fragmentFromPosition.onSearchClickListerner(searchableText, filterType);

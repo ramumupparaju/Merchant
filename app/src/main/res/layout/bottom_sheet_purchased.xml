@@ -4,14 +4,15 @@
 
     <LinearLayout
         style="@style/MatchWrap"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="@dimen/margin_10"
+        android:paddingBottom="@dimen/margin_10" >
 
         <LinearLayout
             android:id="@+id/top_row"
             style="@style/MatchWrap"
             android:orientation="horizontal"
-            android:visibility="gone"
-            >
+            android:visibility="gone">
 
         </LinearLayout>
 
