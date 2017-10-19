@@ -151,6 +151,7 @@
     <string name="error_city_req">City is required</string>
     <string name="error_postal_code_req">PostalCode is required</string>
     <string name="error_product_model">Model is required</string>
+    <string name="error_product_invalid_model">Invalid Model</string>
     <string name="error_product_price">Price is required</string>
     <string name="error_product_serial">Serial is required</string>
     <string name="error_product_batch">Batch is required</string>

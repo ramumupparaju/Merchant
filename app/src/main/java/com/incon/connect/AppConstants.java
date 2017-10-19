@@ -284,7 +284,8 @@ public interface AppConstants {
 
     interface ProductAssignValidation {
         int MODEL = 0;
-        int PRICE = 1;
+        int INVALID_MODEL = 1;
+        int PRICE = 2;
     }
 
     interface WarrantyregistationValidation {

@@ -71,12 +71,11 @@ public class AssignQrCode extends BaseObservable {
                     break;
                 }
             }
-        }
-        else {
-            fieldId =  validateFields(Integer.parseInt(tag), false);
+        } else {
+            fieldId = validateFields(Integer.parseInt(tag), false);
         }
 
-        return  new Pair<>(tag, fieldId);
+        return new Pair<>(tag, fieldId);
     }
 
     private int validateFields(int id, boolean emptyValidation) {
@@ -85,6 +84,8 @@ public class AssignQrCode extends BaseObservable {
                 boolean modelEmpty = TextUtils.isEmpty(productName);
                 if (emptyValidation && modelEmpty) {
                     return AppConstants.ProductAssignValidation.MODEL;
+                } else if (!modelEmpty && TextUtils.isEmpty(productId)) {
+                    return AppConstants.ProductAssignValidation.INVALID_MODEL;
                 }
                 break;
 

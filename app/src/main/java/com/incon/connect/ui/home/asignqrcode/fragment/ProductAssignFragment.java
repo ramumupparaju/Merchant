@@ -61,7 +61,6 @@ public class ProductAssignFragment extends BaseFragment implements ProductAssign
     public void onSubmitClick() {
         if (validateFields()) {
             assignPresenter.assignQrCodeToProduct(assignQrCode);
-
         }
     }
 
@@ -173,6 +172,8 @@ public class ProductAssignFragment extends BaseFragment implements ProductAssign
     private void loadValidationErrors() {
         errorMap = new HashMap<>();
         errorMap.put(ProductAssignValidation.MODEL, getString(R.string.error_product_model));
+        errorMap.put(ProductAssignValidation.INVALID_MODEL,
+                getString(R.string.error_product_model));
         errorMap.put(ProductAssignValidation.PRICE, getString(R.string.error_product_price));
 
     }
