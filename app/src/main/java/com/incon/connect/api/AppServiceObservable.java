@@ -10,6 +10,7 @@ import com.incon.connect.apimodel.components.history.purchased.PurchasedHistoryR
 import com.incon.connect.apimodel.components.history.purchased.ReturnHistoryResponse;
 import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.apimodel.components.qrcodebaruser.UserInfoResponse;
+import com.incon.connect.apimodel.components.qrcodeproduct.ProductInfoResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
 import com.incon.connect.apimodel.components.validateotp.ValidateWarrantyOtpResponse;
 import com.incon.connect.dto.addnewmodel.AddNewModel;
@@ -97,7 +98,7 @@ public interface AppServiceObservable {
     Observable<UserInfoResponse> userInfoUsingQrCode(@Path("qrCode") String qrCode);
 
     @POST("product/getproduct")
-    Observable<Object> productInfoUsingQrCode(@Body HashMap<String, String> qrCode);
+    Observable<ProductInfoResponse> productInfoUsingQrCode(@Body HashMap<String, String> qrCode);
 
     @GET("product/search/{modelNumber}")
     Observable<List<ModelSearchResponse>> modelNumberSearch(@Path("modelNumber")

@@ -60,6 +60,37 @@ public class ChangePasswordActivity extends BaseActivity implements ChangePasswo
         setFocusForViews();
     }
 
+    /**
+     * button click called from xml
+     */
+    public void onChangePasswordClick() {
+        if (validateFields()) {
+            HashMap<String, String> passwordMap = new HashMap<>();
+            passwordMap.put(ApiRequestKeyConstants.BODY_USER_ID,
+                    SharedPrefsUtils.loginProvider().getStringPreference(
+                            LoginPrefs.USER_PHONE_NUMBER));
+            passwordMap.put(ApiRequestKeyConstants.BODY_PASSWORD,
+                    binding.getPassword().getConfirmPassword());
+            changePasswordPresenter.changePassword(passwordMap);
+        }
+    }
+
+    @Override
+    public void navigateToLoginPage(LoginResponse loginResponse) {
+        if (isFromForgotPasswordScreen) { //if user comes to this screen using settings from
+            // toolbar simply finish else if user comes from forgotpassword screen navigate to
+            // home screen
+            Intent intent = new Intent(this,
+                    HomeActivity.class);
+            // This is a convenient way to make the proper Intent to launch and
+            // reset an application's task.
+            ComponentName cn = intent.getComponent();
+            Intent mainIntent = IntentCompat.makeRestartActivityTask(cn);
+            startActivity(mainIntent);
+        }
+        finish();
+    }
+
     private void loadValidationErrors() {
         errorMap = new HashMap<>();
         errorMap.put(PasswordValidation.NEWPWD_REQ, getString(R.string.error_newpwd_req));
@@ -97,43 +128,6 @@ public class ChangePasswordActivity extends BaseActivity implements ChangePasswo
         }
     };
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        changePasswordPresenter.disposeAll();
-    }
-
-    @Override
-    public void showProgress(String message) {
-        super.showProgress(message);
-    }
-
-    @Override
-    public void hideProgress() {
-        super.hideProgress();
-    }
-
-    @Override
-    public void showErrorMessage(String errorMessage) {
-        super.showErrorMessage(errorMessage);
-    }
-
-    @Override
-    public void navigateToLoginPage(LoginResponse loginResponse) {
-        if (isFromForgotPasswordScreen) { //if user comes to this screen using settings from
-            // toolbar simply finish else if user comes from forgotpassword screen navigate to
-            // home screen
-            Intent intent = new Intent(this,
-                    HomeActivity.class);
-            // This is a convenient way to make the proper Intent to launch and
-            // reset an application's task.
-            ComponentName cn = intent.getComponent();
-            Intent mainIntent = IntentCompat.makeRestartActivityTask(cn);
-            startActivity(mainIntent);
-
-        }
-        finish();
-    }
 
     private boolean validateFields() {
         binding.inputLayoutEnterNewpassword.setError(null);
@@ -143,18 +137,6 @@ public class ChangePasswordActivity extends BaseActivity implements ChangePasswo
         updateUiAfterValidation(validation.first, validation.second);
 
         return validation.second == VALIDATION_SUCCESS;
-    }
-
-    public void onChangePasswordClick() {
-        if (validateFields()) {
-            HashMap<String, String> passwordMap = new HashMap<>();
-            passwordMap.put(ApiRequestKeyConstants.BODY_USER_ID,
-                    SharedPrefsUtils.loginProvider().getStringPreference(
-                            LoginPrefs.USER_PHONE_NUMBER));
-            passwordMap.put(ApiRequestKeyConstants.BODY_PASSWORD,
-                    binding.getPassword().getConfirmPassword());
-            changePasswordPresenter.changePassword(passwordMap);
-        }
     }
 
     private void updateUiAfterValidation(String tag, int validationId) {
@@ -176,5 +158,11 @@ public class ChangePasswordActivity extends BaseActivity implements ChangePasswo
         if (validationId != VALIDATION_SUCCESS) {
             view.startAnimation(shakeAnim);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        changePasswordPresenter.disposeAll();
     }
 }

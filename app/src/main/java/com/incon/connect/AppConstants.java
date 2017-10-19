@@ -24,6 +24,7 @@ public interface AppConstants {
 
     interface WarrantyRegistrationConstants {
         int MINIMUM_MODELNUMBER_TO_SEARCH = 2;
+        String STATUS = "A";
     }
 
     interface GoogleMapConstants {

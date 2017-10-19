@@ -25,6 +25,7 @@ import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.addnewmodel.AddNewModelFragment;
 import com.incon.connect.ui.home.HomeActivity;
 import com.incon.connect.ui.warrantyregistration.adapter.ModelSearchArrayAdapter;
+import com.incon.connect.utils.SharedPrefsUtils;
 import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.jakewharton.rxbinding2.widget.TextViewAfterTextChangeEvent;
 
@@ -72,6 +73,9 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
                     inflater, R.layout.fragment_warranty_registration, container, false);
             binding.setFragment(this);
             warrantyRegistration = getArguments().getParcelable(BundleConstants.WARRANTY_DATA);
+            warrantyRegistration.setMerchantId(SharedPrefsUtils.loginProvider().
+                    getIntegerPreference(LoginPrefs.STORE_ID, DEFAULT_VALUE));
+            warrantyRegistration.setStatus(WarrantyRegistrationConstants.STATUS);
             binding.setWarrantyRegistration(warrantyRegistration);
             rootView = binding.getRoot();
 
@@ -100,12 +104,12 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
                                     long id) {
                 selectedPosition = pos;
                 ModelSearchResponse modelSearchResponse = modelSearchResponseList.get(pos);
-                warrantyRegistration.setProductId(String.valueOf(modelSearchResponse.getId()));
+                warrantyRegistration.setProductId(modelSearchResponse.getId());
                 Category category = modelSearchResponse.getCategory();
-                warrantyRegistration.setCategoryId(String.valueOf(category.getId()));
+                warrantyRegistration.setCategoryId(category.getId());
                 warrantyRegistration.setCategoryName(String.valueOf(category.getName()));
                 Division division = modelSearchResponse.getDivision();
-                warrantyRegistration.setDivisionId(String.valueOf(division.getId()));
+                warrantyRegistration.setDivisionId(division.getId());
                 warrantyRegistration.setDivisionName(String.valueOf(division.getName()));
                 selectedModelNumber = modelSearchResponseList.get(
                         selectedPosition).getModelNumber();
