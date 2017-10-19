@@ -67,7 +67,7 @@ public class ProductScanFragment extends BaseFragment implements ProductScanCont
     }
 
     public void onManualClick() {
-        ((HomeActivity) getActivity()).replaceFragmentAndAddToStack(
+        ((HomeActivity) getActivity()).replaceFragment(
                 WarrantyRegistrationFragment.class, getArguments());
     }
 
@@ -77,7 +77,7 @@ public class ProductScanFragment extends BaseFragment implements ProductScanCont
         WarrantyRegistration warrantyRegistration = arguments.getParcelable(
                 BundleConstants.WARRANTY_DATA);
         //TODO have to assign values
-        ((HomeActivity) getActivity()).replaceFragmentAndAddToStack(
+        ((HomeActivity) getActivity()).replaceFragment(
                 WarrantyRegistrationFragment.class, null);
     }
 }

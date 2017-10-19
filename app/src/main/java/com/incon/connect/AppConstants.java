@@ -212,6 +212,8 @@ public interface AppConstants {
         int USER_PROFILE_SCAN = 113;
         int PRODUCT_WARRANTY_SCAN = 114;
         int PRODUCT_ASSIGN_SCAN = 115;
+        int SERIAL_NO_SCAN = 116;
+        int BATCH_NO_SCAN = 117;
     }
 
     interface TimeConstants {

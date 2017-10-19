@@ -49,7 +49,7 @@ public class WarrantyRegistration extends BaseObservable implements Parcelable {
     @SerializedName("invoiceNumber")
     @Expose
     private String invoiceNumber;
-    private  transient String categoryName;
+    private transient String categoryName;
     private transient String divisionName;
 
     public String getMobileNumber() {
@@ -59,6 +59,7 @@ public class WarrantyRegistration extends BaseObservable implements Parcelable {
     public void setMobileNumber(String mobileNumber) {
         this.mobileNumber = mobileNumber;
     }
+
     public String getCategoryName() {
         return categoryName;
     }
@@ -246,14 +247,14 @@ public class WarrantyRegistration extends BaseObservable implements Parcelable {
     @SuppressWarnings("unused")
     public static final Parcelable.Creator<WarrantyRegistration> CREATOR = new
             Parcelable.Creator<WarrantyRegistration>() {
-        @Override
-        public WarrantyRegistration createFromParcel(Parcel in) {
-            return new WarrantyRegistration(in);
-        }
+                @Override
+                public WarrantyRegistration createFromParcel(Parcel in) {
+                    return new WarrantyRegistration(in);
+                }
 
-        @Override
-        public WarrantyRegistration[] newArray(int size) {
-            return new WarrantyRegistration[size];
-        }
-    };
+                @Override
+                public WarrantyRegistration[] newArray(int size) {
+                    return new WarrantyRegistration[size];
+                }
+            };
 }
