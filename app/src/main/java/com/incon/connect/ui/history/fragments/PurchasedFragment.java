@@ -22,7 +22,9 @@ import android.widget.TextView;
 import com.incon.connect.AppUtils;
 import com.incon.connect.R;
 import com.incon.connect.apimodel.components.history.purchased.PurchasedHistoryResponse;
+import com.incon.connect.callbacks.AlertDialogCallback;
 import com.incon.connect.callbacks.IClickCallback;
+import com.incon.connect.custom.view.AppAlertDialog;
 import com.incon.connect.databinding.BottomSheetPurchasedBinding;
 import com.incon.connect.databinding.CustomBottomViewBinding;
 import com.incon.connect.databinding.FragmentPurchasedBinding;
@@ -49,6 +51,8 @@ public class PurchasedFragment extends BaseTabFragment implements PurchasedContr
     private BottomSheetDialog bottomSheetDialog;
     private BottomSheetPurchasedBinding bottomSheetPurchasedBinding;
     private int position1;
+    private AppAlertDialog detailsDialog;
+
 
     @Override
     protected void initializePresenter() {
@@ -218,12 +222,36 @@ public class PurchasedFragment extends BaseTabFragment implements PurchasedContr
             } else if (tag == 1 && topClickedText.equals("Location")) {
                 onOpenLocation();
             } else if (tag == 0 && topClickedText.equals("Details")) {
-                onOpenAlert();
+                onOpenAlert(purchasedList.get(position1).getInformation());
+            } else if (tag == 1 && topClickedText.equals("Warranty")) {
+                onOpenAlert("Warrenty Info " + purchasedList.get(position1)
+                        .getWarrantyEndDate());
             }
+
         }
     };
 
-    private void onOpenAlert() {
+    private void onOpenAlert(String messageInfo) {
+            detailsDialog = new AppAlertDialog.AlertDialogBuilder(getActivity(), new
+                    AlertDialogCallback() {
+                        @Override
+                        public void alertDialogCallback(byte dialogStatus) {
+                            switch (dialogStatus) {
+                                case AlertDialogCallback.OK:
+                                    detailsDialog.dismiss();
+                                    break;
+                                case AlertDialogCallback.CANCEL:
+                                    getActivity().onBackPressed();
+                                    detailsDialog.dismiss();
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }).title(messageInfo)
+                    .button1Text(getString(R.string.action_ok))
+                    .build();
+            detailsDialog.showDialog();
     }
 
     private void onOpenLocation() {
