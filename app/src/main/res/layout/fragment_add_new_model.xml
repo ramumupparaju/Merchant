@@ -40,8 +40,8 @@
                     <com.incon.connect.custom.view.CustomTextInputLayout
                         android:id="@+id/input_layout_model_number"
                         style="@style/Add_new_model_TextInputLayout"
-                        android:hint="@string/add_new__model_no"
                         android:layout_toLeftOf="@+id/im_barcode_model"
+                        android:hint="@string/add_new__model_no"
                         app:errorEnabled="true"
                         app:fontName="fonts/OpenSans-Regular.ttf"
                         app:hintTextAppearance="@style/TextInputLayout_FloatingTextColor">
@@ -59,6 +59,7 @@
                             />
 
                     </com.incon.connect.custom.view.CustomTextInputLayout>
+
                     <android.support.v7.widget.AppCompatImageView
                         android:id="@+id/im_barcode_model"
                         android:layout_width="50dp"
@@ -70,11 +71,7 @@
                         android:paddingTop="@dimen/margin_20"
                         app:srcCompat="@drawable/ic_barcode"
                         />
-
-
                 </RelativeLayout>
-
-
 
 
                 <!-- category-->
@@ -87,7 +84,7 @@
                     android:hint="@string/add_new__category"
                     android:tag="2"
                     android:text="@={addNewModel.categoryId}"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:errorEnabled="true"
                     app:met_floatingLabel="highlight"
                     app:met_textColor="@color/colorForgotPasswordHintText"
