@@ -35,7 +35,12 @@ public interface AppConstants {
         int ERROR_UNAUTHORIZED = 401;
         int ERROR_FORBIDDEN = 403; // pay load error
     }
+    interface PushConstants {
 
+        String BUNDLE_TEXT = "text";
+        String BUNDLE_TITLE = "title";
+        String BUNDLE_EXTRAS = "extras";
+    }
     interface LoginValidation {
         int PHONE_NUMBER_REQ = 1;
         int PHONE_NUMBER_NOTVALID = 2;
