@@ -32,6 +32,7 @@
     <string name="action_or">OR</string>
     <string name="action_scanuid">Scan Customer UID</string>
     <string name="action_entermobilenumber">Enter Mobile Number</string>
+    <string name="title_user_qr_code">Place user qr code to scan</string>
 
        <!-- add offer -->
     <string name="add_an_offer_brand_hint">Brand</string>

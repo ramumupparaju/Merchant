@@ -96,6 +96,7 @@ public interface AppConstants {
     }
 
     interface IntentConstants {
+        String SCANNED_TITLE = "scannedTitle";
         String SCANNED_CODE = "scanedCode";
         String USER_PHONE_NUMBER = "userPhoneNumber";
         String IMAGE_PATH = "imagePath";
