@@ -56,7 +56,7 @@
                 <com.incon.connect.custom.view.CustomTextInputLayout
                     android:id="@+id/input_layout_price"
                     style="@style/Register_TextInputLayout"
-                    android:layout_below="@id/spinner_type"
+                    android:layout_below="@id/input_layout_model_number"
                     android:hint="@string/add_new__price"
                     app:errorEnabled="true"
                     app:fontName="fonts/OpenSans-Regular.ttf"
