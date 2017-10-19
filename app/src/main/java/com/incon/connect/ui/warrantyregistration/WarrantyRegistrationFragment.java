@@ -163,7 +163,7 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
         initializeModelNumberAdapter(modelSearchResponseList);
         binding.edittextModelNumber.showDropDown();
         if (modelSearchResponseList.size() == 0) {
-            showErrorMessage(getString(R.string.error_message));
+            showErrorMessage(getString(R.string.error_model_message));
         }
     }
 
