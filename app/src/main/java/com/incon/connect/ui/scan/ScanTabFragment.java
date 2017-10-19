@@ -15,7 +15,6 @@ import com.incon.connect.dto.warrantyregistration.WarrantyRegistration;
 import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.home.HomeActivity;
 import com.incon.connect.ui.qrcodescan.QrcodeBarcodeScanActivity;
-import com.incon.connect.utils.SharedPrefsUtils;
 import com.incon.connect.utils.ValidationUtils;
 
 
@@ -110,8 +109,6 @@ public class ScanTabFragment extends BaseFragment implements ScanTabContract.Vie
         WarrantyRegistration warrantyRegistration = new WarrantyRegistration();
         warrantyRegistration.setMobileNumber(userInfoResponse.getMsisdn());
         warrantyRegistration.setCustomerId(String.valueOf(userInfoResponse.getId()));
-        warrantyRegistration.setMerchantId(String.valueOf(SharedPrefsUtils.loginProvider().
-                getIntegerPreference(LoginPrefs.USER_ID, DEFAULT_VALUE)));
         Bundle bundle = new Bundle();
         bundle.putParcelable(BundleConstants.WARRANTY_DATA, warrantyRegistration);
         ((HomeActivity) getActivity()).replaceFragmentAndAddToStack(
