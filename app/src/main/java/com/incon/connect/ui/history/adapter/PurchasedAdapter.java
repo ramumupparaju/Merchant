@@ -57,7 +57,8 @@ public class PurchasedAdapter extends RecyclerView.Adapter
         if (searchType.equalsIgnoreCase(AppConstants.FilterConstants.NAME)) {
             for (PurchasedHistoryResponse purchasedHistoryResponse
                     : purchasedHistoryResponseList) {
-                if (purchasedHistoryResponse.getProductName().toLowerCase().startsWith(
+                if (purchasedHistoryResponse.getProductName() != null
+                        && purchasedHistoryResponse.getProductName().toLowerCase().startsWith(
                         searchableString.toLowerCase())) {
                     filteredPurchasedList.add(purchasedHistoryResponse);
                 }
@@ -65,7 +66,8 @@ public class PurchasedAdapter extends RecyclerView.Adapter
         } else if (searchType.equalsIgnoreCase(AppConstants.FilterConstants.BRAND)) {
             for (PurchasedHistoryResponse purchasedHistoryResponse
                     : purchasedHistoryResponseList) {
-                if (purchasedHistoryResponse.getBrandName().toLowerCase().startsWith(
+                if (purchasedHistoryResponse.getBrandName() != null && purchasedHistoryResponse
+                        .getBrandName().toLowerCase().startsWith(
                         searchableString.toLowerCase())) {
                     filteredPurchasedList.add(purchasedHistoryResponse);
                 }
