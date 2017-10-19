@@ -3,11 +3,13 @@ package com.incon.connect.fcm;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.incon.connect.AppConstants;
+import com.incon.connect.R;
 
 import java.util.Map;
 
@@ -44,16 +46,16 @@ public class ConnectFirebaseMessagingService extends FirebaseMessagingService
     private void processCustomMessage(Context context, Bundle bundle) {
         NotificationManager notificationManager = (NotificationManager)
                 context.getSystemService(NOTIFICATION_SERVICE);
-       /* String title = bundle.getString(BUNDLE_TITLE);
+        String title = bundle.getString(BUNDLE_TITLE);
         String message = bundle.getString(BUNDLE_TEXT);
         String extras = bundle.getString(BUNDLE_EXTRAS);
         NotificationCompat.Builder notification = new NotificationCompat
-        .Builder(context);
+                .Builder(context);
         notification.setAutoCancel(true)
                 .setContentText(message)
                 .setContentTitle(title)
-                .setSmallIcon(R.drawable.launcher_icon);
-        if (!TextUtils.isEmpty(extras)) {
+                .setSmallIcon(R.drawable.ic_connect_logo_svg);
+        /*if (!TextUtils.isEmpty(extras)) {
             try {
                 JSONObject extraJson = new JSONObject(extras);
                 if (null != extraJson && extraJson.length() > 0) {

@@ -194,6 +194,7 @@ public class PurchasedFragment extends BaseTabFragment implements PurchasedContr
                 CustomBottomViewBinding customBottomView = getCustomBottomView();
                 customBottomView.viewTv.setText(bottomOptions[i]);
                 View topRootView = customBottomView.getRoot();
+                topRootView.setTag(i);
                 topRootView.setOnClickListener(topViewClickListener);
                 linearLayout.addView(topRootView);
                 bottomSheetPurchasedBinding.topRow.addView(linearLayout, params);
@@ -207,6 +208,7 @@ public class PurchasedFragment extends BaseTabFragment implements PurchasedContr
             TextView viewById = (TextView) view.findViewById(R.id.view_tv);
             String topClickedText = viewById.getText().toString();
             showErrorMessage(topClickedText);
+            Integer tag = (Integer) view.getTag();
         }
     };
 
