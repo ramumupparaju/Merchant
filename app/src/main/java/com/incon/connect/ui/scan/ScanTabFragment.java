@@ -110,7 +110,7 @@ public class ScanTabFragment extends BaseFragment implements ScanTabContract.Vie
         WarrantyRegistration warrantyRegistration = new WarrantyRegistration();
         warrantyRegistration.setMobileNumber(userInfoResponse.getMsisdn());
         warrantyRegistration.setCustomerId(String.valueOf(userInfoResponse.getId()));
-        warrantyRegistration.setMerchantId(String.valueOf(SharedPrefsUtils.loginProvider().
+        warrantyRegistration.setMerchantId((SharedPrefsUtils.loginProvider().
                 getIntegerPreference(LoginPrefs.USER_ID, DEFAULT_VALUE)));
         Bundle bundle = new Bundle();
         bundle.putParcelable(BundleConstants.WARRANTY_DATA, warrantyRegistration);

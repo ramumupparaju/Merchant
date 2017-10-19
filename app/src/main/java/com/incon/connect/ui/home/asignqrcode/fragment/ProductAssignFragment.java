@@ -2,16 +2,20 @@ package com.incon.connect.ui.home.asignqrcode.fragment;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.text.TextUtils;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.AdapterView;
 
 import com.incon.connect.AppUtils;
 import com.incon.connect.R;
 import com.incon.connect.apimodel.components.search.ModelSearchResponse;
 import com.incon.connect.custom.view.CustomAutoCompleteView;
+import com.incon.connect.custom.view.CustomTextInputLayout;
 import com.incon.connect.databinding.FragmentProductAssignBinding;
 import com.incon.connect.dto.asignqrcode.AssignQrCode;
 import com.incon.connect.ui.BaseFragment;
@@ -22,6 +26,7 @@ import com.jakewharton.rxbinding2.widget.RxTextView;
 import com.jakewharton.rxbinding2.widget.TextViewAfterTextChangeEvent;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -42,6 +47,8 @@ public class ProductAssignFragment extends BaseFragment implements ProductAssign
     private int selectedPosition;
     private DisposableObserver<TextViewAfterTextChangeEvent> observer;
     private String selectedModelNumber;
+    private HashMap<Integer, String> errorMap;
+    private Animation shakeAnim;
 
     @Override
     protected void initializePresenter() {
@@ -51,7 +58,10 @@ public class ProductAssignFragment extends BaseFragment implements ProductAssign
     }
 
     public void onSubmitClick() {
-        assignPresenter.assignQrCodeToProduct(assignQrCode);
+        if (validateFields()) {
+            assignPresenter.assignQrCodeToProduct(assignQrCode);
+
+        }
     }
 
     public void onNewModelClick() {
@@ -81,6 +91,8 @@ public class ProductAssignFragment extends BaseFragment implements ProductAssign
                 progress_qr_code_product));
         assignQrCode.setCode(getArguments().getString(BundleConstants.SCANNED_QRCODE));
         initializeModelNumberAdapter(new ArrayList<ModelSearchResponse>());
+        loadValidationErrors();
+        setFocusForViews();
     }
 
     private void initializeModelNumberAdapter(List<ModelSearchResponse> modelNumberList) {
@@ -154,4 +166,67 @@ public class ProductAssignFragment extends BaseFragment implements ProductAssign
         AppUtils.shortToast(getContext(), getString(R.string.hint_product_assigned_success));
         getActivity().onBackPressed();
     }
+
+    private void loadValidationErrors() {
+        errorMap = new HashMap<>();
+        errorMap.put(ProductAssignValidation.MODEL, getString(R.string.error_product_model));
+        errorMap.put(ProductAssignValidation.PRICE, getString(R.string.error_product_price));
+
+    }
+
+    private void setFocusForViews() {
+        binding.edittextModelNumber.setOnFocusChangeListener(onFocusChangeListener);
+        binding.edittextModelPrice.setOnFocusChangeListener(onFocusChangeListener);
+    }
+
+    View.OnFocusChangeListener onFocusChangeListener = new View.OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View view, boolean hasFocus) {
+            Object fieldId = view.getTag();
+            if (fieldId != null) {
+                Pair<String, Integer> validation = binding.getAssignQrCode().
+                        validateProductModel((String) fieldId);
+                if (!hasFocus) {
+                    if (view instanceof TextInputEditText) {
+                        TextInputEditText textInputEditText = (TextInputEditText) view;
+                        textInputEditText.setText(textInputEditText.getText().toString().trim());
+                    }
+                    updateUiAfterValidation(validation.first, validation.second);
+                }
+            }
+        }
+    };
+
+
+    private boolean validateFields() {
+        binding.inputLayoutModelNumber.setError(null);
+        binding.inputLayoutModelPrice.setError(null);
+
+        Pair<String, Integer> validation = binding.getAssignQrCode().validateProductModel(null);
+        updateUiAfterValidation(validation.first, validation.second);
+
+        return validation.second == VALIDATION_SUCCESS;
+    }
+
+    private void updateUiAfterValidation(String tag, int validationId) {
+        if (tag == null) {
+            return;
+        }
+        View viewByTag = binding.getRoot().findViewWithTag(tag);
+        setFieldError(viewByTag, validationId);
+    }
+
+    private void setFieldError(View view, int validationId) {
+
+        if (view instanceof TextInputEditText) {
+            ((CustomTextInputLayout) view.getParent().getParent())
+                    .setError(validationId == VALIDATION_SUCCESS ? null
+                            : errorMap.get(validationId));
+        }
+
+        if (validationId != VALIDATION_SUCCESS) {
+            view.startAnimation(shakeAnim);
+        }
+    }
+
 }

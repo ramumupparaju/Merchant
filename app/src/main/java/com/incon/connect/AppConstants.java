@@ -275,6 +275,19 @@ public interface AppConstants {
 
     }
 
+    interface ProductAssignValidation {
+        int MODEL = 0;
+        int PRICE = 1;
+    }
+
+    interface WarrantyregistationValidation {
+        int MODEL = 0;
+        int SERIAL_NO = 1;
+        int BATCH_NO = 2;
+        int PRICE = 3;
+        int INVOICENUMBER = 4;
+    }
+
     interface ActivityResult {
         String IS_REGISTRATION_SUCCESS = "is_registration_success";
     }
