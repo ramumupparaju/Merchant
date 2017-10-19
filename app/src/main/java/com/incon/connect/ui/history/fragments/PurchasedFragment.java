@@ -7,9 +7,11 @@ import android.support.design.widget.BottomSheetDialog;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.incon.connect.AppUtils;
@@ -118,7 +120,7 @@ public class PurchasedFragment extends BaseTabFragment implements PurchasedContr
     private void createBottomSheetView(int position) {
 
         bottomSheetPurchasedBinding.topRow.setVisibility(View.GONE);
-       // bottomSheetPurchasedBinding.bottomRow.removeAllViews();
+        // bottomSheetPurchasedBinding.bottomRow.removeAllViews();
 
         String[] bottomNames = new String[4];
         bottomNames[0] = "Customer";
@@ -126,16 +128,28 @@ public class PurchasedFragment extends BaseTabFragment implements PurchasedContr
         bottomNames[2] = "Service/Support";
         bottomNames[3] = "Satus Update";
 
+
+        bottomSheetPurchasedBinding.bottomRow.removeAllViews();
         int length = bottomNames.length;
-        bottomSheetPurchasedBinding.bottomRow.setWeightSum(length);
+//        bottomSheetPurchasedBinding.bottomRow.setWeightSum(4.0f);
+        LinearLayout.LayoutParams params =
+                new LinearLayout.LayoutParams(
+                        0, ViewGroup.LayoutParams.WRAP_CONTENT, length);
+        params.setMargins(1, 1, 1, 1);
 //TODO have to remove hard codeings
         for (int i = 0; i < length; i++) {
+            LinearLayout linearLayout = new LinearLayout(getContext());
+            linearLayout.setWeightSum(1f);
+            linearLayout.setGravity(Gravity.CENTER);
+            /*LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                    0, ViewGroup.LayoutParams.WRAP_CONTENT, 4f);*/
             CustomBottomViewBinding customBottomView = getCustomBottomView();
             customBottomView.viewTv.setText(bottomNames[i]);
             View bottomRootView = customBottomView.getRoot();
             bottomRootView.setTag(i);
+            linearLayout.addView(bottomRootView);
             bottomRootView.setOnClickListener(bottomViewClickListener);
-            bottomSheetPurchasedBinding.bottomRow.addView(bottomRootView);
+            bottomSheetPurchasedBinding.bottomRow.addView(linearLayout, params);
         }
     }
 
@@ -157,25 +171,32 @@ public class PurchasedFragment extends BaseTabFragment implements PurchasedContr
                 bottomOptions[0] = "Call";
                 bottomOptions[1] = "Request Installation";
                 bottomOptions[2] = "Share Customer Location";
-            }
-            else {
+            } else {
                 bottomOptions = new String[4];
                 bottomOptions[0] = "Dispatches On";
                 bottomOptions[1] = "Dispatched";
                 bottomOptions[2] = "Delivered";
                 bottomOptions[3] = "Installed";
             }
-
-
             bottomSheetPurchasedBinding.topRow.removeAllViews();
+            int length1 = bottomOptions.length;
             bottomSheetPurchasedBinding.topRow.setVisibility(View.VISIBLE);
-            int length = bottomOptions.length;
+            int length = length1;
+            LinearLayout.LayoutParams params =
+                    new LinearLayout.LayoutParams(
+                            0,
+                            ViewGroup.LayoutParams.MATCH_PARENT, length);
+            params.setMargins(1, 1, 1, 1);
             for (int i = 0; i < length; i++) {
+                LinearLayout linearLayout = new LinearLayout(getContext());
+                linearLayout.setWeightSum(1f);
+                linearLayout.setGravity(Gravity.CENTER_HORIZONTAL);
                 CustomBottomViewBinding customBottomView = getCustomBottomView();
                 customBottomView.viewTv.setText(bottomOptions[i]);
                 View topRootView = customBottomView.getRoot();
                 topRootView.setOnClickListener(topViewClickListener);
-                bottomSheetPurchasedBinding.topRow.addView(topRootView);
+                linearLayout.addView(topRootView);
+                bottomSheetPurchasedBinding.topRow.addView(linearLayout, params);
             }
         }
     };
