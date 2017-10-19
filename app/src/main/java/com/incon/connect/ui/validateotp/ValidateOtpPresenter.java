@@ -7,6 +7,7 @@ import android.util.Pair;
 import com.incon.connect.ConnectApplication;
 import com.incon.connect.api.AppApiService;
 import com.incon.connect.apimodel.components.login.LoginResponse;
+import com.incon.connect.apimodel.components.validateotp.ValidateWarrantyOtpResponse;
 import com.incon.connect.ui.BasePresenter;
 import com.incon.connect.utils.ErrorMsgUtil;
 
@@ -38,18 +39,46 @@ public class ValidateOtpPresenter extends
                 getView().hideProgress();
                 getView().validateOTP(loginResponse);
             }
+
             @Override
             public void onError(Throwable e) {
                 getView().hideProgress();
                 Pair<Integer, String> errorDetails = ErrorMsgUtil.getErrorDetails(e);
                 getView().handleException(errorDetails);
             }
+
             @Override
             public void onComplete() {
                 getView().hideProgress();
             }
         };
         AppApiService.getInstance().validateOtp(verify).subscribe(observer);
+        addDisposable(observer);
+    }
+
+    @Override
+    public void validateWarrantyOTP(HashMap<String, String> verify) {
+        DisposableObserver<ValidateWarrantyOtpResponse> observer =
+                new DisposableObserver<ValidateWarrantyOtpResponse>() {
+                    @Override
+                    public void onNext(ValidateWarrantyOtpResponse loginResponse) {
+                        getView().hideProgress();
+                        getView().validateWarrantyOTP(loginResponse);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        getView().hideProgress();
+                        Pair<Integer, String> errorDetails = ErrorMsgUtil.getErrorDetails(e);
+                        getView().handleException(errorDetails);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        getView().hideProgress();
+                    }
+                };
+        AppApiService.getInstance().validateWarrantyOtp(verify).subscribe(observer);
         addDisposable(observer);
     }
 }

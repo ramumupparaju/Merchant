@@ -47,7 +47,7 @@ public class ValidationUtils {
 
 
     public static boolean isPhoneNumberValid(String phoneNumber) {
-        return phoneNumber.length() >= 6;
+        return phoneNumber.length() >= 10;
     }
 
     public static boolean isFutureDate(Calendar dobDate) {

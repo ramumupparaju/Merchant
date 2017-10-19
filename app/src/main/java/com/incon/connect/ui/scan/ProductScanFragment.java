@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.incon.connect.R;
 import com.incon.connect.databinding.FragmentProductScanBinding;
+import com.incon.connect.dto.warrantyregistration.WarrantyRegistration;
 import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.home.HomeActivity;
 import com.incon.connect.ui.qrcodescan.QrcodeBarcodeScanActivity;
@@ -67,12 +68,15 @@ public class ProductScanFragment extends BaseFragment implements ProductScanCont
 
     public void onManualClick() {
         ((HomeActivity) getActivity()).replaceFragmentAndAddToStack(
-                WarrantyRegistrationFragment.class, null);
+                WarrantyRegistrationFragment.class, getArguments());
     }
 
     @Override
     public void productInfo(Object productInfoResponse) {
-        //TODO open warranty registration screen with data instead of null
+        Bundle arguments = getArguments();
+        WarrantyRegistration warrantyRegistration = arguments.getParcelable(
+                BundleConstants.WARRANTY_DATA);
+        //TODO have to assign values
         ((HomeActivity) getActivity()).replaceFragmentAndAddToStack(
                 WarrantyRegistrationFragment.class, null);
     }

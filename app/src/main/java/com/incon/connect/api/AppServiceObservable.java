@@ -4,12 +4,14 @@ import com.incon.connect.apimodel.base.ApiBaseResponse;
 import com.incon.connect.apimodel.components.addoffer.AddOfferMerchantFragmentResponse;
 import com.incon.connect.apimodel.components.buyrequest.BuyRequestResponse;
 import com.incon.connect.apimodel.components.defaults.DefaultsResponse;
+import com.incon.connect.apimodel.components.fetchcategorie.FetchCategories;
 import com.incon.connect.apimodel.components.history.purchased.InterestHistoryResponse;
 import com.incon.connect.apimodel.components.history.purchased.PurchasedHistoryResponse;
 import com.incon.connect.apimodel.components.history.purchased.ReturnHistoryResponse;
 import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.apimodel.components.qrcodebaruser.UserInfoResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
+import com.incon.connect.apimodel.components.validateotp.ValidateWarrantyOtpResponse;
 import com.incon.connect.dto.addnewmodel.AddNewModel;
 import com.incon.connect.dto.addoffer.AddOfferRequest;
 import com.incon.connect.dto.asignqrcode.AssignQrCode;
@@ -42,6 +44,12 @@ public interface AppServiceObservable {
     @POST("merchant/register")
     Observable<LoginResponse> register(@Body Registration registrationBody);
 
+    @GET("user/requestotp/{phoneNumber}/register")
+    Observable<Object> registerRequestOtp(@Path("phoneNumber") String phoneNumber);
+
+    @GET("user/requestotp/{phoneNumber}/password")
+    Observable<Object> registerRequestPasswordOtp(@Path("phoneNumber") String phoneNumber);
+
     @Multipart
     @POST("merchant/logoupdate/{storeId}")
     Observable<Object> uploadStoreLogo(@Path("storeId") String storeId,
@@ -59,12 +67,14 @@ public interface AppServiceObservable {
     @POST("merchant/changepassword")
     Observable<LoginResponse> changePassword(@Body HashMap<String, String> password);
 
+    @GET("product/checkqropnestatus/{qrCode}")
+    Observable<Object> checkQrCodestatus(@Path("qrCode") String qrCode);
+
     @GET("merchant/history/purchased/{userId}")
     Observable<List<PurchasedHistoryResponse>> purchasedApi(@Path("userId") int userId);
 
     @POST("product/assign")
     Observable<Object> assignQrCodeToProduct(@Body AssignQrCode qrCode);
-
 
     //    TODO Change purchased to interest
     @GET("merchant/history/purchased/{userId}")
@@ -91,14 +101,28 @@ public interface AppServiceObservable {
 
     @GET("product/search/{modelNumber}")
     Observable<List<ModelSearchResponse>> modelNumberSearch(@Path("modelNumber")
-                                                                       String modelNumber);
+                                                                    String modelNumber);
+
+    @GET("merchant/getcategories/{merchantId}")
+    Observable<List<FetchCategories>> getCategories(@Path("merchantId") int merchantId);
 
     @POST("product/addnew/{merchantId}")
-    Observable<Object>  addingNewModel(@Path("merchantId") int merchantId, @Body AddNewModel
+    Observable<Object> addingNewModel(@Path("merchantId") int merchantId, @Body AddNewModel
             addNewModelBody);
 
     @POST("warranty/register")
-    Observable<Object>  warrantyRegisterApi(@Body WarrantyRegistration warrantyRegistration);
+    Observable<Object> warrantyRegisterApi(@Body WarrantyRegistration warrantyRegistration);
+
+    @POST("warranty/validateotp")
+    Observable<ValidateWarrantyOtpResponse> validateWarrantyOtp(@Body HashMap<String, String>
+                                                                        verify);
+
+    @GET("warranty/requestotp/{phoneNumber}/password")
+    Observable<Object> warrantyRequestOtp(@Path("phoneNumber") String phoneNumber);
+
+    @POST("user/newuser/{phoneNumber}")
+    Observable<UserInfoResponse> newUserRegistation(@Path("phoneNumber")
+                                                            String phoneNumber);
 
     @POST("registerPush")
     Observable<Object> pushTokenApi(@Body PushRegistrarBody pushRegistrarBody);

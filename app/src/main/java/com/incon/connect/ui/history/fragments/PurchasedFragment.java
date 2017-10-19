@@ -1,5 +1,6 @@
 package com.incon.connect.ui.history.fragments;
 
+import android.content.DialogInterface;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
@@ -24,7 +25,6 @@ import com.incon.connect.utils.SharedPrefsUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 
 /**
@@ -69,6 +69,12 @@ public class PurchasedFragment extends BaseTabFragment implements PurchasedContr
 
         bottomSheetDialog = new BottomSheetDialog(getActivity());
         bottomSheetDialog.setContentView(bottomSheetPurchasedBinding.getRoot());
+        bottomSheetDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                purchasedAdapter.clearSelection();
+            }
+        });
         /*dialog.setCanceledOnTouchOutside(false);
         dialog.setCancelable(false);*/
     }
@@ -99,6 +105,11 @@ public class PurchasedFragment extends BaseTabFragment implements PurchasedContr
     private IClickCallback iClickCallback = new IClickCallback() {
         @Override
         public void onClickPosition(int position) {
+            //Todo have to get item from filter list
+            purchasedAdapter.clearSelection();
+            PurchasedHistoryResponse purchasedHistoryResponse = purchasedList.get(position);
+            purchasedHistoryResponse.setSelected(true);
+            purchasedAdapter.notifyDataSetChanged();
             createBottomSheetView(position);
             bottomSheetDialog.show();
         }
@@ -106,16 +117,23 @@ public class PurchasedFragment extends BaseTabFragment implements PurchasedContr
 
     private void createBottomSheetView(int position) {
 
-        bottomSheetPurchasedBinding.sheetTitle.setText("item : " + position);
-
         bottomSheetPurchasedBinding.topRow.setVisibility(View.GONE);
-        bottomSheetPurchasedBinding.bottomRow.removeAllViews();
-//TODO have to create based on response
-        int noOfViews = new Random().nextInt(4);
-        for (int i = 0; i < noOfViews; i++) {
+       // bottomSheetPurchasedBinding.bottomRow.removeAllViews();
+
+        String[] bottomNames = new String[4];
+        bottomNames[0] = "Customer";
+        bottomNames[1] = "Product";
+        bottomNames[2] = "Service/Support";
+        bottomNames[3] = "Satus Update";
+
+        int length = bottomNames.length;
+        bottomSheetPurchasedBinding.bottomRow.setWeightSum(length);
+//TODO have to remove hard codeings
+        for (int i = 0; i < length; i++) {
             CustomBottomViewBinding customBottomView = getCustomBottomView();
-            customBottomView.viewTv.setText("position :" + i);
+            customBottomView.viewTv.setText(bottomNames[i]);
             View bottomRootView = customBottomView.getRoot();
+            bottomRootView.setTag(i);
             bottomRootView.setOnClickListener(bottomViewClickListener);
             bottomSheetPurchasedBinding.bottomRow.addView(bottomRootView);
         }
@@ -124,14 +142,37 @@ public class PurchasedFragment extends BaseTabFragment implements PurchasedContr
     private View.OnClickListener bottomViewClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            Integer tag = (Integer) view.getTag();
+            String[] bottomOptions;
+            if (tag == 0) {
+                bottomOptions = new String[2];
+                bottomOptions[0] = "Call";
+                bottomOptions[1] = "Location";
+            } else if (tag == 1) {
+                bottomOptions = new String[2];
+                bottomOptions[0] = "Details";
+                bottomOptions[1] = "Warranty";
+            } else if (tag == 2) {
+                bottomOptions = new String[3];
+                bottomOptions[0] = "Call";
+                bottomOptions[1] = "Request Installation";
+                bottomOptions[2] = "Share Customer Location";
+            }
+            else {
+                bottomOptions = new String[4];
+                bottomOptions[0] = "Dispatches On";
+                bottomOptions[1] = "Dispatched";
+                bottomOptions[2] = "Delivered";
+                bottomOptions[3] = "Installed";
+            }
+
+
             bottomSheetPurchasedBinding.topRow.removeAllViews();
             bottomSheetPurchasedBinding.topRow.setVisibility(View.VISIBLE);
-            TextView viewById = (TextView) view.findViewById(R.id.view_tv);
-            String bottomClickedText = viewById.getText().toString();
-            int noOfViews = new Random().nextInt(4);
-            for (int i = 0; i < noOfViews; i++) {
+            int length = bottomOptions.length;
+            for (int i = 0; i < length; i++) {
                 CustomBottomViewBinding customBottomView = getCustomBottomView();
-                customBottomView.viewTv.setText(bottomClickedText + i);
+                customBottomView.viewTv.setText(bottomOptions[i]);
                 View topRootView = customBottomView.getRoot();
                 topRootView.setOnClickListener(topViewClickListener);
                 bottomSheetPurchasedBinding.topRow.addView(topRootView);
@@ -181,7 +222,7 @@ public class PurchasedFragment extends BaseTabFragment implements PurchasedContr
     }
 
     @Override
-    public void onSearchClickListerner(String searchableText, int searchType) {
+    public void onSearchClickListerner(String searchableText, String searchType) {
         AppUtils.hideSoftKeyboard(getActivity(), rootView);
         purchasedAdapter.searchData(searchableText, searchType);
     }

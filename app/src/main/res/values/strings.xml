@@ -5,13 +5,18 @@
 
     <!-- api error messages -->
     <string name="error_network">Api failed due to NetworkErrorException</string>
+    <string name="error_message">Please Add New MOdel When Click On Below Button </string>
     <string name="error_socket">Unable to process your request. Please try again</string>
     <string name="error_no_connectivity">Looks like you are offline, please check internet
         connectivity</string>
 
 
     <!--warrantyregistration-->
+    <string name="action_filters">Filters</string>
+    <string name="action_brand">Brand</string>
     <string name="action_modelno">Model No</string>
+    <string name="action_division">Division</string>
+    <string name="action_category">Category</string>
     <string name="action_price">Price :</string>
     <string name="action_batchno">Batch No :</string>
     <string name="action_serialno">Serial No :</string>
@@ -143,13 +148,16 @@
     <string name="progress_buy_request">Loading Buy Request...</string>
     <string name="progress_add_offer_merchant">Loading Add Offer Merchant...</string>
     <string name="progress_user_details">Fetching User Details...</string>
+    <string name="progress_qr_code_validity">Validating qrcode...</string>
     <string name="progress_qr_code_product">Asign QR Code To Product...</string>
     <string name="progress_warranty_registering">Registering warranty...</string>
+    <string name="progress_categories">Fetching categories...</string>
     <string name="progress_add_new_model">Adding new model...</string>
     <string name="progress_product_details">Fetching product details...</string>
     <string name="progress_defaults">Fetching details...</string>
     <string name="progress_location">Loading location details...</string>
     <string name="progress_login">Logging in...</string>
+    <string name="progress_resend">Resending OTP...</string>
     <string name="progress_sendotp">Sending otp...</string>
     <string name="progress_verifycode">Verifying code...</string>
     <string name="progress_verifyemail">Verifying phoneNumber...</string>
@@ -217,6 +225,7 @@
     <string name="add_new__serial_no">Serial No</string>
     <string name="add_new__category">Category</string>
     <string name="add_new__division">Division</string>
+    <string name="add_new__invoiceNumber">InvoiceNumber</string>
     <string name="add_new__type">Type</string>
 
     <!-- Registration -->

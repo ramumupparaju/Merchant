@@ -21,5 +21,6 @@ public interface WarrantRegistrationContract {
         void doModelSearchApi(String modelNumberToSearch);
         void doWarrantyRegistrationApi(WarrantyRegistration warrantyRegistration);
         void validateUserOTP(HashMap<String, String> verifyOTP);
+        void resendUserOTP(String phoneNumber);
     }
 }

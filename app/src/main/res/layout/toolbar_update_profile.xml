@@ -52,7 +52,7 @@
                     android:layout_alignParentEnd="true"
                     android:paddingEnd="@dimen/margin_15"
                     android:paddingStart="@dimen/margin_15"
-                    app:srcCompat="@drawable/ic_im_edit_profile" />
+                    app:srcCompat="@drawable/ic_edit_profile" />
 
             </RelativeLayout>
 

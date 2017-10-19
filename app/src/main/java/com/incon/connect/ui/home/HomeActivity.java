@@ -68,7 +68,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         setBottomNavigationViewListeners();
         handleBottomViewOnKeyBoardUp();
 
-        binding.bottomNavigationView.setCurrentItem(TAB_HISTORY);
+        binding.bottomNavigationView.setCurrentItem(TAB_SCAN);
 
 
         //changed preference as otp verified
@@ -118,7 +118,10 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         if (resultCode == Activity.RESULT_OK) {
             switch (requestCode) {
                 case RequestCodes.PRODUCT_ASSIGN_SCAN:
-                    navigateToProductAssignScreen();
+                    if (data != null) {
+                        homePresenter.checkQrCodeValidity(
+                                data.getStringExtra(IntentConstants.SCANNED_CODE));
+                    }
                     break;
                 default:
                     break;
@@ -126,9 +129,12 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         }
     }
 
-    private void navigateToProductAssignScreen() {
+    @Override
+    public void navigateToProductAssignScreen(String qrCode) {
+        Bundle bundle = new Bundle();
+        bundle.putString(BundleConstants.SCANNED_QRCODE, qrCode);
         replaceFragmentAndAddToStack(
-                ProductAssignFragment.class, null);
+                ProductAssignFragment.class, bundle);
     }
 
     public void replaceToolBar(View toolBarView) {

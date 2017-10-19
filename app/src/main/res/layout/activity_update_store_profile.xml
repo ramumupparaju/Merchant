@@ -61,7 +61,7 @@
                 android:contentDescription="@string/app_name"
                 android:onClick="@{() -> upDateStoreProfileActivity.openCameraToUpload()}"
 
-                app:srcCompat="@drawable/ic_im_showroom"/>
+                app:srcCompat="@drawable/ic_showroom"/>
 
 
             <RelativeLayout

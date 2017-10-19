@@ -182,7 +182,7 @@ public class ReturnFragment extends BaseTabFragment implements ReturnContract.Vi
     }
 
     @Override
-    public void onSearchClickListerner(String searchableText, int searchType) {
+    public void onSearchClickListerner(String searchableText, String searchType) {
 
     }
 }

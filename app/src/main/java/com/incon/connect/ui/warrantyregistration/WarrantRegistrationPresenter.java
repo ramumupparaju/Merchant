@@ -11,8 +11,11 @@ import com.incon.connect.R;
 import com.incon.connect.api.AppApiService;
 import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.apimodel.components.search.ModelSearchResponse;
+import com.incon.connect.apimodel.components.validateotp.ValidateWarrantyOtpResponse;
 import com.incon.connect.dto.warrantyregistration.WarrantyRegistration;
 import com.incon.connect.ui.BasePresenter;
+import com.incon.connect.ui.validateotp.ValidateOtpContract;
+import com.incon.connect.ui.validateotp.ValidateOtpPresenter;
 import com.incon.connect.utils.ErrorMsgUtil;
 
 import java.util.HashMap;
@@ -66,7 +69,7 @@ public class WarrantRegistrationPresenter extends BasePresenter<WarrantRegistrat
     @Override
     public void doWarrantyRegistrationApi(WarrantyRegistration warrantyRegistration) {
         getView().showProgress(appContext.getString(R.string.progress_warranty_registering));
-        DisposableObserver<Object> observer = new
+       DisposableObserver<Object> observer = new
                 DisposableObserver<Object>() {
                     @Override
                     public void onNext(Object warrantyRegisteredResponse) {
@@ -88,31 +91,80 @@ public class WarrantRegistrationPresenter extends BasePresenter<WarrantRegistrat
                 };
         AppApiService.getInstance().warrantyRegisterApi(warrantyRegistration).subscribe(observer);
         addDisposable(observer);
+
+
+
+
+
     }
 
     @Override
     public void validateUserOTP(HashMap<String, String> verify) {
         getView().showProgress(appContext.getString(R.string.validating_code));
-        DisposableObserver<LoginResponse> observer = new DisposableObserver<LoginResponse>() {
-            @Override
-            public void onNext(LoginResponse loginResponse) {
-                WarrantRegistrationContract.View view = getView();
-                view.hideProgress();
-                view.validateUserOTP();
-            }
-            @Override
-            public void onError(Throwable e) {
-                WarrantRegistrationContract.View view = getView();
-                view.hideProgress();
-                Pair<Integer, String> errorDetails = ErrorMsgUtil.getErrorDetails(e);
-                view.handleException(errorDetails);
-            }
-            @Override
-            public void onComplete() {
-                getView().hideProgress();
-            }
-        };
-        AppApiService.getInstance().validateOtp(verify).subscribe(observer);
-        addDisposable(observer);
+        ValidateOtpPresenter otpPresenter = new ValidateOtpPresenter();
+        otpPresenter.initialize(null);
+        otpPresenter.setView(otpView);
+        otpPresenter.validateWarrantyOTP(verify);
     }
+
+    @Override
+    public void resendUserOTP(String phoneNumber) {
+        getView().showProgress(appContext.getString(R.string.progress_resend));
+        DisposableObserver<Object> observer = new
+                DisposableObserver<Object>() {
+                    @Override
+                    public void onNext(Object warrantyRegisteredResponse) {
+                        getView().warrantyRegistered(warrantyRegisteredResponse);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        WarrantRegistrationContract.View view = getView();
+                        view.hideProgress();
+                        Pair<Integer, String> errorDetails = ErrorMsgUtil.getErrorDetails(e);
+                        view.handleException(errorDetails);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        getView().hideProgress();
+                    }
+                };
+        AppApiService.getInstance().warrantyRequestOtp(phoneNumber).subscribe(observer);
+        addDisposable(observer);
+
+    }
+
+    ValidateOtpContract.View otpView = new ValidateOtpContract.View() {
+        @Override
+        public void validateOTP(LoginResponse loginResponse) {
+            //Do nothing
+        }
+
+        @Override
+        public void validateWarrantyOTP(ValidateWarrantyOtpResponse warrantyOtpResponse) {
+            getView().hideProgress();
+            //TODO have to save user data
+        }
+
+        @Override
+        public void showProgress(String message) {
+            getView().showProgress(message);
+        }
+
+        @Override
+        public void hideProgress() {
+            getView().hideProgress();
+        }
+
+        @Override
+        public void showErrorMessage(String errorMessage) {
+            getView().showErrorMessage(errorMessage);
+        }
+
+        @Override
+        public void handleException(Pair<Integer, String> error) {
+            getView().handleException(error);
+        }
+    };
 }

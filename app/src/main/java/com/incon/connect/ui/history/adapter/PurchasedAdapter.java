@@ -52,29 +52,26 @@ public class PurchasedAdapter extends RecyclerView.Adapter
         notifyDataSetChanged();
     }
 
-    public void searchData(String searchableString, int searchType) {
+    public void searchData(String searchableString, String searchType) {
         filteredPurchasedList.clear();
-        switch (searchType) {
-            case AppConstants.FilterConstants.NAME:
-                for (PurchasedHistoryResponse purchasedHistoryResponse
-                        : purchasedHistoryResponseList) {
-                    if (purchasedHistoryResponse.getProductName().toLowerCase().startsWith(
-                            searchableString.toLowerCase())) {
-                        filteredPurchasedList.add(purchasedHistoryResponse);
-                    }
+        if (searchType.equalsIgnoreCase(AppConstants.FilterConstants.NAME)) {
+            for (PurchasedHistoryResponse purchasedHistoryResponse
+                    : purchasedHistoryResponseList) {
+                if (purchasedHistoryResponse.getProductName().toLowerCase().startsWith(
+                        searchableString.toLowerCase())) {
+                    filteredPurchasedList.add(purchasedHistoryResponse);
                 }
-                break;
-            case AppConstants.FilterConstants.BRAND:
-                for (PurchasedHistoryResponse purchasedHistoryResponse
-                        : purchasedHistoryResponseList) {
-                    if (purchasedHistoryResponse.getBrandName().toLowerCase().startsWith(
-                            searchableString.toLowerCase())) {
-                        filteredPurchasedList.add(purchasedHistoryResponse);
-                    }
+            }
+        } else if (searchType.equalsIgnoreCase(AppConstants.FilterConstants.BRAND)) {
+            for (PurchasedHistoryResponse purchasedHistoryResponse
+                    : purchasedHistoryResponseList) {
+                if (purchasedHistoryResponse.getBrandName().toLowerCase().startsWith(
+                        searchableString.toLowerCase())) {
+                    filteredPurchasedList.add(purchasedHistoryResponse);
                 }
-                break;
-            default:
-                filteredPurchasedList.addAll(purchasedHistoryResponseList);
+            }
+        } else {
+            filteredPurchasedList.addAll(purchasedHistoryResponseList);
         }
         notifyDataSetChanged();
     }
@@ -86,6 +83,13 @@ public class PurchasedAdapter extends RecyclerView.Adapter
 
     public void setClickCallback(IClickCallback clickCallback) {
         this.clickCallback = clickCallback;
+    }
+
+    public void clearSelection() {
+        for (PurchasedHistoryResponse purchasedHistoryResponse : filteredPurchasedList) {
+            purchasedHistoryResponse.setSelected(false);
+        }
+        notifyDataSetChanged();
     }
 
 
@@ -105,6 +109,7 @@ public class PurchasedAdapter extends RecyclerView.Adapter
                     .getProductLogoUrl());
             AppUtils.loadImageFromApi(binding.productImageImageview, purchasedHistoryResponse
                     .getProductImageUrl());
+            binding.layoutPurchsedItem.setSelected(purchasedHistoryResponse.isSelected());
             binding.executePendingBindings();
         }
 

@@ -55,7 +55,8 @@
             android:id="@+id/phone_number_edit_layout"
             style="@style/BothMatch"
             android:clickable="true"
-            android:visibility="gone">
+            android:visibility="gone"
+            >
 
 
             <TextView

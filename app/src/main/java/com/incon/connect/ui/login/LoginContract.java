@@ -16,6 +16,7 @@ public interface LoginContract {
     interface Presenter {
         void doLogin(LoginUserData loginUserData);
         void validateOTP(HashMap<String, String> verify);
+        void registerRequestOtp(String phoneNumber);
     }
 
 }

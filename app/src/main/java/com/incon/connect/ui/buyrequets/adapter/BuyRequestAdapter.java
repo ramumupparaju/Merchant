@@ -52,7 +52,7 @@ public class BuyRequestAdapter extends RecyclerView.Adapter
         notifyDataSetChanged();
     }
 
-    public void searchData(String searchableString, int searchType) {
+    public void searchData(String searchableString, String searchType) {
         filteredBuyRequestList.clear();
         switch (searchType) {
             case AppConstants.FilterConstants.NAME:

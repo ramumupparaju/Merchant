@@ -1,11 +1,13 @@
 package com.incon.connect.dto.warrantyregistration;
 
 import android.databinding.BaseObservable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class WarrantyRegistration extends BaseObservable {
+public class WarrantyRegistration extends BaseObservable implements Parcelable {
 
     @SerializedName("mobileNumber")
     @Expose
@@ -15,13 +17,14 @@ public class WarrantyRegistration extends BaseObservable {
     private String modelNumber;
     @SerializedName("categoryId")
     @Expose
-    private Integer categoryId;
+    private String categoryId;
     @SerializedName("divisionId")
     @Expose
-    private Integer divisionId;
+    private String divisionId;
+
     @SerializedName("brandId")
     @Expose
-    private Integer brandId;
+    private String brandId;
     @SerializedName("price")
     @Expose
     private String price;
@@ -33,19 +36,21 @@ public class WarrantyRegistration extends BaseObservable {
     private String serialNumber;
     @SerializedName("merchantId")
     @Expose
-    private Integer merchantId;
+    private String merchantId;
     @SerializedName("productId")
     @Expose
-    private Integer productId;
+    private String productId;
     @SerializedName("customerId")
     @Expose
-    private Integer customerId;
+    private String customerId;
     @SerializedName("status")
     @Expose
     private String status;
     @SerializedName("invoiceNumber")
     @Expose
     private String invoiceNumber;
+    private  transient String categoryName;
+    private transient String divisionName;
 
     public String getMobileNumber() {
         return mobileNumber;
@@ -54,6 +59,23 @@ public class WarrantyRegistration extends BaseObservable {
     public void setMobileNumber(String mobileNumber) {
         this.mobileNumber = mobileNumber;
     }
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+        notifyChange();
+    }
+
+    public String getDivisionName() {
+        return divisionName;
+    }
+
+    public void setDivisionName(String divisionName) {
+        this.divisionName = divisionName;
+        notifyChange();
+    }
 
     public String getModelNumber() {
         return modelNumber;
@@ -61,29 +83,30 @@ public class WarrantyRegistration extends BaseObservable {
 
     public void setModelNumber(String modelNumber) {
         this.modelNumber = modelNumber;
+        notifyChange();
     }
 
-    public Integer getCategoryId() {
+    public String getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(Integer categoryId) {
+    public void setCategoryId(String categoryId) {
         this.categoryId = categoryId;
     }
 
-    public Integer getDivisionId() {
+    public String getDivisionId() {
         return divisionId;
     }
 
-    public void setDivisionId(Integer divisionId) {
+    public void setDivisionId(String divisionId) {
         this.divisionId = divisionId;
     }
 
-    public Integer getBrandId() {
+    public String getBrandId() {
         return brandId;
     }
 
-    public void setBrandId(Integer brandId) {
+    public void setBrandId(String brandId) {
         this.brandId = brandId;
     }
 
@@ -93,6 +116,7 @@ public class WarrantyRegistration extends BaseObservable {
 
     public void setPrice(String price) {
         this.price = price;
+        notifyChange();
     }
 
     public String getBatchNumber() {
@@ -101,6 +125,7 @@ public class WarrantyRegistration extends BaseObservable {
 
     public void setBatchNumber(String batchNumber) {
         this.batchNumber = batchNumber;
+        notifyChange();
     }
 
     public String getSerialNumber() {
@@ -109,29 +134,30 @@ public class WarrantyRegistration extends BaseObservable {
 
     public void setSerialNumber(String serialNumber) {
         this.serialNumber = serialNumber;
+        notifyChange();
     }
 
-    public Integer getMerchantId() {
+    public String getMerchantId() {
         return merchantId;
     }
 
-    public void setMerchantId(Integer merchantId) {
+    public void setMerchantId(String merchantId) {
         this.merchantId = merchantId;
     }
 
-    public Integer getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(Integer productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 
-    public Integer getCustomerId() {
+    public String getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(Integer customerId) {
+    public void setCustomerId(String customerId) {
         this.customerId = customerId;
     }
 
@@ -151,4 +177,83 @@ public class WarrantyRegistration extends BaseObservable {
         this.invoiceNumber = invoiceNumber;
     }
 
+    public WarrantyRegistration() {
+    }
+
+    protected WarrantyRegistration(Parcel in) {
+        mobileNumber = in.readString();
+        modelNumber = in.readString();
+        categoryId = in.readByte() == 0x00 ? null : in.readString();
+        divisionId = in.readByte() == 0x00 ? null : in.readString();
+        brandId = in.readString();
+        price = in.readString();
+        batchNumber = in.readString();
+        serialNumber = in.readString();
+        merchantId = in.readByte() == 0x00 ? null : in.readString();
+        productId = in.readByte() == 0x00 ? null : in.readString();
+        customerId = in.readByte() == 0x00 ? null : in.readString();
+        status = in.readString();
+        invoiceNumber = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mobileNumber);
+        dest.writeString(modelNumber);
+        if (categoryId == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeString(categoryId);
+        }
+        if (divisionId == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeString(divisionId);
+        }
+        dest.writeString(brandId);
+        dest.writeString(price);
+        dest.writeString(batchNumber);
+        dest.writeString(serialNumber);
+        if (merchantId == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeString(merchantId);
+        }
+        if (productId == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeString(productId);
+        }
+        if (customerId == null) {
+            dest.writeByte((byte) (0x00));
+        } else {
+            dest.writeByte((byte) (0x01));
+            dest.writeString(customerId);
+        }
+        dest.writeString(status);
+        dest.writeString(invoiceNumber);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<WarrantyRegistration> CREATOR = new
+            Parcelable.Creator<WarrantyRegistration>() {
+        @Override
+        public WarrantyRegistration createFromParcel(Parcel in) {
+            return new WarrantyRegistration(in);
+        }
+
+        @Override
+        public WarrantyRegistration[] newArray(int size) {
+            return new WarrantyRegistration[size];
+        }
+    };
 }

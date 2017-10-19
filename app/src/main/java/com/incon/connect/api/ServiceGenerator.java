@@ -26,7 +26,7 @@ public class ServiceGenerator {
 
     private static final String CONTENT_TYPE = "Content-ModelType";
     private static final String CONTENT_TYPE_VALUE = "application/json";
-    private AppServiceObservable tueoHealthService;
+    private AppServiceObservable connectService;
 
     private OkHttpClient.Builder okHttpBuilder;
     private Retrofit retrofit;
@@ -46,11 +46,11 @@ public class ServiceGenerator {
             okHttpBuilder.interceptors().add(logging);
         }
 
-        tueoHealthService = createService(AppServiceObservable.class, url);
+        connectService = createService(AppServiceObservable.class, url);
     }
 
-    public AppServiceObservable getTueoHealthService() {
-        return tueoHealthService;
+    public AppServiceObservable getConnectService() {
+        return connectService;
     }
 
     public <S> S createService(Class<S> serviceClass, String baseUrl) {

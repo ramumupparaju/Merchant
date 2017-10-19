@@ -1,7 +1,6 @@
 package com.incon.connect.ui.register.fragment;
 
 
-import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.dto.registration.Registration;
 import com.incon.connect.ui.BaseView;
 
@@ -26,7 +25,8 @@ public class RegistrationStoreFragmentContract {
         void register(Registration registrationBody);
         void uploadStoreLogo(int storeId, MultipartBody.Part storeLogo);
         void validateOTP(HashMap<String, String> verify);
-        void saveMerchantInfo(LoginResponse loginResponse);
+        void registerRequestOtp(String phoneNumber);
+        void registerRequestPasswordOtp(String phoneNumber);
     }
 
 }

@@ -17,13 +17,13 @@ public interface AppConstants {
     String DELIMITOR = "-";
 
     interface FilterConstants {
-        int NONE = 0;
-        int NAME = 1;
-        int BRAND = 2;
+        String NONE = "none";
+        String NAME = "name";
+        String BRAND = "brand";
     }
 
     interface WarrantyRegistrationConstants {
-        int MINIMUM_MODELNUMBER_TO_SEARCH = 3;
+        int MINIMUM_MODELNUMBER_TO_SEARCH = 2;
     }
 
     interface GoogleMapConstants {
@@ -133,7 +133,9 @@ public interface AppConstants {
 
 
     interface BundleConstants {
-
+        String SCANNED_QRCODE = "scannedQrcode";
+        String WARRANTY_DATA = "warrantyData";
+        String ADD_NEW_MODEL_DATA = "addnewmodelData";
     }
 
     interface PushSubTypeConstants {
@@ -146,6 +148,7 @@ public interface AppConstants {
         String IS_ACCESS_CODE_VERIFIED = "isAccessCodeVerified";
         String IS_AAP_OFFLINE_IMAGE = "isAapOfflineImage";
         String EXTRACT_ZIP = "extractZip";
+        String FILTER_NAME = "filterName";
     }
 
     interface LoginPrefs {
@@ -253,6 +256,7 @@ public interface AppConstants {
         int NETWORK_ERROR = 1;
         int TIMEOUT = 2;
         int NO_NETWORK = 3;
+        String NEW_USER = "User not found for provided details";
     }
 
     interface MenuConstants {

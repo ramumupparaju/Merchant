@@ -42,7 +42,8 @@
             android:layout_height="96dp"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/margin_20"
-            app:srcCompat="@drawable/ic_connect_logo_svg"/>
+            app:srcCompat="@drawable/ic_connect_logo_svg"
+            />
 
         <ScrollView
             android:layout_width="match_parent"
@@ -96,13 +97,13 @@
                         app:errorEnabled="true"
                         app:fontName="fonts/OpenSans-Regular.ttf"
                         app:hintTextAppearance="@style/TextInputLayout_FloatingTextColor"
-                        app:passwordToggleEnabled="true">
+                        app:passwordToggleEnabled="true"
+                        >
 
                         <android.support.design.widget.TextInputEditText
                             android:id="@+id/edittext_password"
                             style="@style/MatchWrap"
                             fontPath="fonts/OpenSans-Regular.ttf"
-                            android:layout_below="@id/edittext_username"
                             android:imeOptions="actionDone"
                             android:inputType="textPassword"
                             android:maxLines="1"

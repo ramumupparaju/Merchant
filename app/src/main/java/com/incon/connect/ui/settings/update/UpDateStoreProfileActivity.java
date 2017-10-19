@@ -1,6 +1,7 @@
 package com.incon.connect.ui.settings.update;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import com.incon.connect.custom.view.PickImageDialog;
 import com.incon.connect.custom.view.PickImageDialogInterface;
 import com.incon.connect.databinding.ActivityUpdateStoreProfileBinding;
 import com.incon.connect.dto.dialog.CheckedModelSpinner;
+import com.incon.connect.dto.update.UpDateUserProfile;
 import com.incon.connect.ui.BaseActivity;
 import com.incon.connect.ui.RegistrationMapActivity;
 import com.incon.connect.ui.settings.SettingsActivity;
@@ -34,6 +36,7 @@ public class UpDateStoreProfileActivity extends BaseActivity implements
     private AppCheckBoxListDialog categoryDialog;
     private String selectedFilePath = "";
     private List<CheckedModelSpinner> categorySpinnerList;
+    private UpDateUserProfile upDateUserProfile;
     private static final String TAG = UpDateStoreProfileActivity.class.getSimpleName();
     @Override
     protected int getLayoutId() {
@@ -182,4 +185,31 @@ public class UpDateStoreProfileActivity extends BaseActivity implements
                     selectedFilePath, binding.storeLogoIv);
         }
     };
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == Activity.RESULT_OK) {
+            switch (requestCode) {
+                case RequestCodes.TERMS_AND_CONDITIONS:
+                    //TODO need to cal api cal
+                    //callRegisterApi();
+                    break;
+                case RequestCodes.ADDRESS_LOCATION:
+                    upDateUserProfile.setStoreAddress(data.getStringExtra(
+                            IntentConstants.ADDRESS_COMMA));
+                    upDateUserProfile.setStoreLocation(data.getStringExtra(
+                            IntentConstants.LOCATION_COMMA));
+                    break;
+                default:
+                    pickImageDialog.onActivityResult(requestCode, resultCode, data);
+                    break;
+            }
+        }
+
+    }
 }
+
+
+

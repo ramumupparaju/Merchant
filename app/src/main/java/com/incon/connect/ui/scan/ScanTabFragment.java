@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.incon.connect.R;
 import com.incon.connect.apimodel.components.qrcodebaruser.UserInfoResponse;
 import com.incon.connect.databinding.FragmentScanTabBinding;
+import com.incon.connect.dto.warrantyregistration.WarrantyRegistration;
 import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.home.HomeActivity;
 import com.incon.connect.ui.qrcodescan.QrcodeBarcodeScanActivity;
@@ -63,9 +64,9 @@ public class ScanTabFragment extends BaseFragment implements ScanTabContract.Vie
     public void onDoneClick() {
         String phoneNumber = binding.phoneNumberEt.getText().toString();
         if (ValidationUtils.isPhoneNumberValid(phoneNumber)) {
-            scanTabPresenter.userInfoUsingPhoneNumber(phoneNumber);
             binding.textMobilenumber.setText(phoneNumber);
             showUIType(SCAN_OPTIONS_UI);
+            scanTabPresenter.userInfoUsingPhoneNumber(phoneNumber);
         } else {
             showErrorMessage(getString(R.string.error_phone_min_digits));
         }
@@ -83,11 +84,6 @@ public class ScanTabFragment extends BaseFragment implements ScanTabContract.Vie
             binding.scanUi.setVisibility(View.VISIBLE);
             binding.phoneNumberEditLayout.setVisibility(View.GONE);
         }
-    }
-
-    private void showProductInfoScreen() {
-        ((HomeActivity) getActivity()).replaceFragmentAndAddToStack(
-                ProductScanFragment.class, null);
     }
 
     @Override
@@ -109,6 +105,12 @@ public class ScanTabFragment extends BaseFragment implements ScanTabContract.Vie
 
     @Override
     public void userInfo(UserInfoResponse userInfoResponse) {
-        showProductInfoScreen();
+        WarrantyRegistration warrantyRegistration = new WarrantyRegistration();
+        warrantyRegistration.setMobileNumber(userInfoResponse.getMsisdn());
+        warrantyRegistration.setCustomerId(String.valueOf(userInfoResponse.getId()));
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(BundleConstants.WARRANTY_DATA, warrantyRegistration);
+        ((HomeActivity) getActivity()).replaceFragment(
+                ProductScanFragment.class, bundle);
     }
 }

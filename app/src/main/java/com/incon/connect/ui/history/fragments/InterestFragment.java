@@ -180,7 +180,7 @@ public class InterestFragment extends BaseTabFragment implements InterestContrac
 
 
     @Override
-    public void onSearchClickListerner(String searchableText, int searchType) {
+    public void onSearchClickListerner(String searchableText, String searchType) {
 
     }
 }
