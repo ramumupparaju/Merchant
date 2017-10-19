@@ -51,7 +51,7 @@ public class AddNewModelFragment extends BaseFragment implements AddNewModelCont
             rootView = binding.getRoot();
             initViews();
             addNewModelPresenter.getCategories(SharedPrefsUtils.loginProvider().
-                    getIntegerPreference(LoginPrefs.USER_ID, DEFAULT_VALUE));
+                    getIntegerPreference(LoginPrefs.STORE_ID, DEFAULT_VALUE));
         }
         ((HomeActivity) getActivity()).setToolbarTitle(getString(R.string.title_add_new_model));
         return rootView;

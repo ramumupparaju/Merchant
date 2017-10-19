@@ -47,7 +47,7 @@
                         style="@style/Register_TextInputEditText"
                         android:maxLength="@integer/character_limit_100"
                         android:maxLines="1"
-                        android:text="@={assignQrCode.batchNo}"
+                        android:text="@={assignQrCode.productName}"
                         />
 
                 </com.incon.connect.custom.view.CustomTextInputLayout>

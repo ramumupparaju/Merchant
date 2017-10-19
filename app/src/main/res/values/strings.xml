@@ -36,7 +36,10 @@
     <string name="action_entermobilenumber">Enter Mobile Number</string>
     <string name="title_user_qr_code">Place user qr code to scan</string>
 
-       <!-- add offer -->
+       <!--Assign product-->
+    <string name="hint_product_assigned_success">Assigned SuccessFully</string>
+
+     <!-- add offer -->
     <string name="add_an_offer_brand_hint">Brand</string>
     <string name="add_an_offer_division_hint">Division</string>
     <string name="add_an_offer_model_hint">Model</string>
