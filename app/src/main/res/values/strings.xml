@@ -28,6 +28,8 @@
     <string name="action_manual_entry">Manual Enter</string>
     <string name="dialog_warranty_registered_successfully">Warranty has been registered
         successfully</string>
+    <string name="action_product_status">Is product delivered</string>
+    <string name="action_description">Description</string>
 
     <!--product Assign-->
     <string name="title_assigned_successfully">Assigned SuccessFully</string>
@@ -148,6 +150,11 @@
     <string name="error_new_confirm_pwd_not_matched">Password mismatch</string>
     <string name="error_city_req">City is required</string>
     <string name="error_postal_code_req">PostalCode is required</string>
+    <string name="error_product_model">Model is required</string>
+    <string name="error_product_price">Price is required</string>
+    <string name="error_product_serial">Serial is required</string>
+    <string name="error_product_batch">Batch is required</string>
+    <string name="error_product_invoice_number">InvoiceNumber is required</string>
 
     <!-- progress messages -->
     <string name="progress_addoffer_merchant_fragment">Loading AddOffer Merchant Fragment..
@@ -237,6 +244,7 @@
     <string name="add_new__division">Division</string>
     <string name="add_new__invoiceNumber">InvoiceNumber</string>
     <string name="add_new__type">Type</string>
+    <string name="add_new_notes">Notes</string>
 
     <!-- Registration -->
     <string name="register_userinfo_title">User Information</string>

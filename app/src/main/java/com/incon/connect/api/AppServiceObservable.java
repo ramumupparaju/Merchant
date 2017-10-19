@@ -91,7 +91,7 @@ public interface AppServiceObservable {
     @POST("offers/addoffers")
     Observable<AddOfferMerchantFragmentResponse> addOffer(@Body AddOfferRequest addOfferRequest);
 
-    @GET("user/getuser/{phoneNumber}")
+    @GET("user/warranty/getuser/{phoneNumber}")
     Observable<UserInfoResponse> userInfoUsingPhoneNumber(@Path("phoneNumber") String phoneNumber);
 
     @GET("user/getuser/scan/{qrCode}/")

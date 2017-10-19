@@ -57,10 +57,6 @@ public class AddNewModelFragment extends BaseFragment implements AddNewModelCont
         return rootView;
     }
 
-    private void loadTypeSpinnerData() {
-
-    }
-
     private void loadCategorySpinnerData() {
         String[] stringCategoryList = new String[fetchCategorieList.size()];
         for (int i = 0; i < fetchCategorieList.size(); i++) {
@@ -115,7 +111,6 @@ public class AddNewModelFragment extends BaseFragment implements AddNewModelCont
             binding.spinnerBrand.setVisibility(View.GONE);
             return;
         }
-
         binding.spinnerBrand.setVisibility(View.VISIBLE);
         String[] stringDivisionList = new String[brandList.size()];
         for (int i = 0; i < brandList.size(); i++) {
@@ -147,7 +142,7 @@ public class AddNewModelFragment extends BaseFragment implements AddNewModelCont
 
     @Override
     public void addNewModel(Object o) {
-
+        getActivity().onBackPressed();
     }
 
     @Override

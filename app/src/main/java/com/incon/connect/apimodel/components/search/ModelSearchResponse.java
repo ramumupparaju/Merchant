@@ -49,7 +49,7 @@ public class ModelSearchResponse {
     private Object size;
     @SerializedName("price")
     @Expose
-    private Object price;
+    private String price;
     @SerializedName("item")
     @Expose
     private String item;
@@ -178,7 +178,7 @@ public class ModelSearchResponse {
         return price;
     }
 
-    public void setPrice(Object price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
