@@ -21,7 +21,7 @@ import java.util.Map;
  */
 public class ConnectFirebaseMessagingService extends FirebaseMessagingService
         implements AppConstants.PushConstants {
-    private final static String TAG = "RadarFirebase";
+    private final static String TAG = "ConnectFirebase";
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
