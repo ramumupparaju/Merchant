@@ -25,10 +25,10 @@ import com.incon.connect.apimodel.components.history.purchased.PurchasedHistoryR
 import com.incon.connect.callbacks.AlertDialogCallback;
 import com.incon.connect.callbacks.IClickCallback;
 import com.incon.connect.custom.view.AppAlertDialog;
+import com.incon.connect.custom.view.AppAlertDialogMap;
 import com.incon.connect.databinding.BottomSheetPurchasedBinding;
 import com.incon.connect.databinding.CustomBottomViewBinding;
 import com.incon.connect.databinding.FragmentPurchasedBinding;
-import com.incon.connect.ui.RegistrationMapActivity;
 import com.incon.connect.ui.history.adapter.PurchasedAdapter;
 import com.incon.connect.ui.history.base.BaseTabFragment;
 import com.incon.connect.utils.SharedPrefsUtils;
@@ -52,6 +52,7 @@ public class PurchasedFragment extends BaseTabFragment implements PurchasedContr
     private BottomSheetPurchasedBinding bottomSheetPurchasedBinding;
     private int position1;
     private AppAlertDialog detailsDialog;
+    private AppAlertDialogMap mapDialog;
 
 
     @Override
@@ -255,9 +256,22 @@ public class PurchasedFragment extends BaseTabFragment implements PurchasedContr
     }
 
     private void onOpenLocation() {
-            Intent addressIntent = new Intent(getActivity(),
-                    RegistrationMapActivity.class);
-            getActivity().startActivity(addressIntent);
+        mapDialog = new AppAlertDialogMap.AlertDialogBuilder(getActivity(), new
+                AlertDialogCallback() {
+                    @Override
+                    public void alertDialogCallback(byte dialogStatus) {
+                        switch (dialogStatus) {
+                            case AlertDialogCallback.CANCEL:
+                                mapDialog.dismiss();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }).title(getString(R.string.location_permission_msg))
+                .button2Text(getString(R.string.action_ok))
+                .build();
+        mapDialog.showDialog();
     }
 
     private void callPhoneNumber(String phoneNumber) {
