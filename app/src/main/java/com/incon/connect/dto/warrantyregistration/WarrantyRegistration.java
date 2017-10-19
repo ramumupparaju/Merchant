@@ -4,9 +4,12 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
+import android.util.Pair;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.incon.connect.AppConstants;
 
 public class WarrantyRegistration extends BaseObservable implements Parcelable {
 
@@ -293,4 +296,65 @@ public class WarrantyRegistration extends BaseObservable implements Parcelable {
                     return new WarrantyRegistration[size];
                 }
             };
+
+    public Pair<String, Integer> validateWarrantyRegistration(String tag) {
+
+        int fieldId = AppConstants.VALIDATION_FAILURE;
+        if (tag == null) {
+            for (int i = 0; i <= 1; i++) {
+                fieldId = validateFields(i, true);
+                if (fieldId != AppConstants.VALIDATION_SUCCESS) {
+                    tag = i + "";
+                    break;
+                }
+            }
+        }
+        else {
+            fieldId =  validateFields(Integer.parseInt(tag), false);
+        }
+
+        return  new Pair<>(tag, fieldId);
+    }
+
+    private int validateFields(int id, boolean emptyValidation) {
+        switch (id) {
+            case 0:
+                boolean modelEmpty = TextUtils.isEmpty(modelNumber);
+                if (emptyValidation && modelEmpty) {
+                    return AppConstants.WarrantyregistationValidation.MODEL;
+                }
+                break;
+            case 1:
+                boolean serialEmpty = TextUtils.isEmpty(serialNumber);
+                if (emptyValidation && serialEmpty) {
+                    return AppConstants.WarrantyregistationValidation.SERIAL_NO;
+                }
+                break;
+            case 2:
+                boolean batchEmpty = TextUtils.isEmpty(batchNumber);
+                if (emptyValidation && batchEmpty) {
+                    return AppConstants.WarrantyregistationValidation.BATCH_NO;
+                }
+                break;
+
+            case 3:
+                boolean priceEmpty = TextUtils.isEmpty(price);
+                if (emptyValidation && priceEmpty) {
+                    return AppConstants.WarrantyregistationValidation.PRICE;
+                }
+                break;
+
+            case 4:
+                boolean invoiceNumberEmpty = TextUtils.isEmpty(invoiceNumber);
+                if (emptyValidation && invoiceNumberEmpty) {
+                    return AppConstants.WarrantyregistationValidation.INVOICENUMBER;
+                }
+                break;
+
+
+            default:
+                return AppConstants.VALIDATION_SUCCESS;
+        }
+        return AppConstants.VALIDATION_SUCCESS;
+    }
 }

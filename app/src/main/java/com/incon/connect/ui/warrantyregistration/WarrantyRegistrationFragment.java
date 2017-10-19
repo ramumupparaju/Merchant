@@ -5,11 +5,15 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.text.TextUtils;
 import android.text.method.KeyListener;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 
 import com.incon.connect.AppUtils;
@@ -22,6 +26,7 @@ import com.incon.connect.callbacks.TextAlertDialogCallback;
 import com.incon.connect.custom.view.AppAlertDialog;
 import com.incon.connect.custom.view.AppOtpDialog;
 import com.incon.connect.custom.view.CustomAutoCompleteView;
+import com.incon.connect.custom.view.CustomTextInputLayout;
 import com.incon.connect.databinding.FragmentWarrantyRegistrationBinding;
 import com.incon.connect.dto.warrantyregistration.WarrantyRegistration;
 import com.incon.connect.ui.BaseFragment;
@@ -61,6 +66,8 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
     private AppAlertDialog warrantyStatusDialog;
     private AppOtpDialog userOtpDialog;
     private String enteredOtp;
+    private HashMap<Integer, String> errorMap;
+    private Animation shakeAnim;
     private KeyListener listener;
 
 
@@ -81,7 +88,6 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
             warrantyRegistration = getArguments().getParcelable(BundleConstants.WARRANTY_DATA);
             warrantyRegistration.setMerchantId(SharedPrefsUtils.loginProvider().
                     getIntegerPreference(LoginPrefs.USER_ID, DEFAULT_VALUE));
-            warrantyRegistration.setStatus(WarrantyRegistrationConstants.STATUS_PRODUCT_DELIVERED);
             binding.setWarrantyRegistration(warrantyRegistration);
             rootView = binding.getRoot();
 
@@ -93,6 +99,7 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
     }
 
     private void initViews() {
+        shakeAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.shake);
         listener = binding.edittextModelNumber.getKeyListener();
         if (warrantyRegistration.isFromProductScan()) {
             binding.edittextModelNumber.setKeyListener(null);
@@ -101,8 +108,11 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
             binding.edittextModelNumber.setKeyListener(listener);
             initializeModelNumberAdapter(new ArrayList<ModelSearchResponse>());
         }
+        initializeModelNumberAdapter(new ArrayList<ModelSearchResponse>());
         binding.imBarcodeSerialNo.setOnClickListener(this);
         binding.imBarcodeBatch.setOnClickListener(this);
+        loadValidationErrors();
+        setFocusForViews();
     }
 
     private void initializeModelNumberAdapter(List<ModelSearchResponse>
@@ -211,10 +221,12 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
     }
 
     public void onSubmitClick() {
-        if (isOtpVerified) {
-            callWarrantyApi();
-        } else {
-            showOtpDialog();
+        if (validateFields()) {
+            if (isOtpVerified) {
+                callWarrantyApi();
+            } else {
+                showOtpDialog();
+            }
         }
     }
 
@@ -351,4 +363,81 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
             }
         }
     }
+
+    private void loadValidationErrors() {
+        errorMap = new HashMap<>();
+        errorMap.put(WarrantyregistationValidation.MODEL, getString(R.string.error_product_model));
+        errorMap.put(WarrantyregistationValidation.SERIAL_NO, getString(
+                R.string.error_product_serial));
+        errorMap.put(WarrantyregistationValidation.BATCH_NO, getString(
+                R.string.error_product_batch));
+        errorMap.put(WarrantyregistationValidation.PRICE, getString(
+                R.string.error_product_price));
+        errorMap.put(WarrantyregistationValidation.INVOICENUMBER, getString(R.string
+                .error_product_invoice_number));
+
+    }
+
+    private void setFocusForViews() {
+        binding.edittextModelNumber.setOnFocusChangeListener(onFocusChangeListener);
+        binding.edittextSerialNo.setOnFocusChangeListener(onFocusChangeListener);
+        binding.edittextBatchNo.setOnFocusChangeListener(onFocusChangeListener);
+        binding.edittextPrice.setOnFocusChangeListener(onFocusChangeListener);
+        binding.edittextInvoicenumber.setOnFocusChangeListener(onFocusChangeListener);
+    }
+
+    View.OnFocusChangeListener onFocusChangeListener = new View.OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View view, boolean hasFocus) {
+            Object fieldId = view.getTag();
+            if (fieldId != null) {
+                Pair<String, Integer> validation = binding.getWarrantyRegistration().
+                        validateWarrantyRegistration((String) fieldId);
+                if (!hasFocus) {
+                    if (view instanceof TextInputEditText) {
+                        TextInputEditText textInputEditText = (TextInputEditText) view;
+                        textInputEditText.setText(textInputEditText.getText().toString().trim());
+                    }
+                    updateUiAfterValidation(validation.first, validation.second);
+                }
+            }
+        }
+    };
+
+
+    private boolean validateFields() {
+        binding.inputLayoutModelNumber.setError(null);
+        binding.inputLayoutSerialNo.setError(null);
+        binding.inputLayoutBatchNo.setError(null);
+        binding.inputLayoutPrice.setError(null);
+        binding.inputLayoutInvoicenumber.setError(null);
+
+        Pair<String, Integer> validation = binding.getWarrantyRegistration().
+                validateWarrantyRegistration(null);
+        updateUiAfterValidation(validation.first, validation.second);
+
+        return validation.second == VALIDATION_SUCCESS;
+    }
+
+    private void updateUiAfterValidation(String tag, int validationId) {
+        if (tag == null) {
+            return;
+        }
+        View viewByTag = binding.getRoot().findViewWithTag(tag);
+        setFieldError(viewByTag, validationId);
+    }
+
+    private void setFieldError(View view, int validationId) {
+
+        if (view instanceof TextInputEditText) {
+            ((CustomTextInputLayout) view.getParent().getParent())
+                    .setError(validationId == VALIDATION_SUCCESS ? null
+                            : errorMap.get(validationId));
+        }
+
+        if (validationId != VALIDATION_SUCCESS) {
+            view.startAnimation(shakeAnim);
+        }
+    }
+
 }
