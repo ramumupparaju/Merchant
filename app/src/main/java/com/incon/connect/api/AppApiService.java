@@ -12,6 +12,7 @@ import com.incon.connect.apimodel.components.history.purchased.PurchasedHistoryR
 import com.incon.connect.apimodel.components.history.purchased.ReturnHistoryResponse;
 import com.incon.connect.apimodel.components.login.LoginResponse;
 import com.incon.connect.apimodel.components.qrcodebaruser.UserInfoResponse;
+import com.incon.connect.apimodel.components.qrcodeproduct.ProductInfoResponse;
 import com.incon.connect.apimodel.components.registration.SendOtpResponse;
 import com.incon.connect.apimodel.components.search.ModelSearchResponse;
 import com.incon.connect.apimodel.components.validateotp.ValidateWarrantyOtpResponse;
@@ -150,7 +151,7 @@ public class AppApiService implements AppConstants {
         return addNetworkCheck(serviceInstance.newUserRegistation(phoneNumber));
     }
 
-    public Observable<Object> productInfoUsingQrCode(HashMap<String, String> qrCode) {
+    public Observable<ProductInfoResponse> productInfoUsingQrCode(HashMap<String, String> qrCode) {
         return addNetworkCheck(serviceInstance.productInfoUsingQrCode(qrCode));
     }
 

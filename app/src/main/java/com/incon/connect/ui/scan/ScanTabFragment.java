@@ -54,6 +54,7 @@ public class ScanTabFragment extends BaseFragment implements ScanTabContract.Vie
 
     public void onScanClick() {
         Intent intent = new Intent(getActivity(), QrcodeBarcodeScanActivity.class);
+        intent.putExtra(IntentConstants.SCANNED_TITLE, getString(R.string.title_user_qr_code));
         startActivityForResult(intent, RequestCodes.USER_PROFILE_SCAN);
     }
 
@@ -110,7 +111,7 @@ public class ScanTabFragment extends BaseFragment implements ScanTabContract.Vie
         warrantyRegistration.setCustomerId(String.valueOf(userInfoResponse.getId()));
         Bundle bundle = new Bundle();
         bundle.putParcelable(BundleConstants.WARRANTY_DATA, warrantyRegistration);
-        ((HomeActivity) getActivity()).replaceFragment(
+        ((HomeActivity) getActivity()).replaceFragmentAndAddToStack(
                 ProductScanFragment.class, bundle);
     }
 }

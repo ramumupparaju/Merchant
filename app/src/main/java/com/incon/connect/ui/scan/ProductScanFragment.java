@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.incon.connect.R;
+import com.incon.connect.apimodel.components.qrcodeproduct.ProductInfoResponse;
 import com.incon.connect.databinding.FragmentProductScanBinding;
 import com.incon.connect.dto.warrantyregistration.WarrantyRegistration;
 import com.incon.connect.ui.BaseFragment;
@@ -67,17 +68,24 @@ public class ProductScanFragment extends BaseFragment implements ProductScanCont
     }
 
     public void onManualClick() {
-        ((HomeActivity) getActivity()).replaceFragmentAndAddToStack(
+        ((HomeActivity) getActivity()).replaceFragment(
                 WarrantyRegistrationFragment.class, getArguments());
     }
 
     @Override
-    public void productInfo(Object productInfoResponse) {
+    public void productInfo(ProductInfoResponse productInfoResponse) {
         Bundle arguments = getArguments();
         WarrantyRegistration warrantyRegistration = arguments.getParcelable(
                 BundleConstants.WARRANTY_DATA);
-        //TODO have to assign values
-        ((HomeActivity) getActivity()).replaceFragmentAndAddToStack(
-                WarrantyRegistrationFragment.class, null);
+        warrantyRegistration.setCodeId(productInfoResponse.getCodeId());
+        warrantyRegistration.setProductId(productInfoResponse.getProductId());
+        warrantyRegistration.setModelNumber(productInfoResponse.getProductModel());
+        warrantyRegistration.setPrice(String.valueOf(productInfoResponse.getPrice()));
+        warrantyRegistration.setCategoryName(productInfoResponse.getCategory());
+        warrantyRegistration.setCategoryId(productInfoResponse.getCategoryId());
+        warrantyRegistration.setDivisionName(productInfoResponse.getDivision());
+        warrantyRegistration.setDivisionId(productInfoResponse.getDivisionId());
+        ((HomeActivity) getActivity()).replaceFragment(
+                WarrantyRegistrationFragment.class, arguments);
     }
 }

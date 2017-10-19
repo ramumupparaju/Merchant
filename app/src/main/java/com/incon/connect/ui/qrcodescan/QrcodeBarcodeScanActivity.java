@@ -43,6 +43,13 @@ public class QrcodeBarcodeScanActivity extends BaseActivity implements QrCodeBar
     protected void onCreateView(Bundle saveInstanceState) {
         binding = DataBindingUtil.setContentView(this, getLayoutId());
         binding.setQrcodeScanActivity(this);
+        initViews();
+    }
+
+    private void initViews() {
+        String scannedTile = getIntent().getStringExtra(IntentConstants.SCANNED_TITLE);
+        if (!TextUtils.isEmpty(scannedTile)) {
+        }
     }
 
     private void startQRScan() {
@@ -105,6 +112,14 @@ public class QrcodeBarcodeScanActivity extends BaseActivity implements QrCodeBar
         }
     }
 
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (binding.qrcodeScanner != null) {
+            binding.qrcodeScanner.pause();
+        }
+    }
 
     @Override
     public void navigateToPreviousScreen(String qrCode) {

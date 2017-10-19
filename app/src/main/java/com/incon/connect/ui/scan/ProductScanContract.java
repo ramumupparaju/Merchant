@@ -1,6 +1,7 @@
 package com.incon.connect.ui.scan;
 
 
+import com.incon.connect.apimodel.components.qrcodeproduct.ProductInfoResponse;
 import com.incon.connect.ui.BaseView;
 
 /**
@@ -10,7 +11,7 @@ import com.incon.connect.ui.BaseView;
 public interface ProductScanContract {
 
     interface View extends BaseView {
-        void productInfo(Object productInfoResponse);
+        void productInfo(ProductInfoResponse productInfoResponse);
     }
 
     interface Presenter {

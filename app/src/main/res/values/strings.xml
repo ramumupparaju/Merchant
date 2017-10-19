@@ -5,7 +5,9 @@
 
     <!-- api error messages -->
     <string name="error_network">Api failed due to NetworkErrorException</string>
-    <string name="error_message">Please Add New MOdel When Click On Below Button </string>
+    <string name="error_model_message">No models found, Please Add New Model by clicking on
+        the below Button
+    </string>
     <string name="error_socket">Unable to process your request. Please try again</string>
     <string name="error_no_connectivity">Looks like you are offline, please check internet
         connectivity</string>
@@ -27,13 +29,21 @@
     <string name="dialog_warranty_registered_successfully">Warranty has been registered
         successfully</string>
 
+    <!--product Assign-->
+    <string name="title_assigned_successfully">Assigned SuccessFully</string>
     <!--home_scanning activity-->
     <string name="action_enter_customer_phone_number">Enter customer phone number</string>
     <string name="action_or">OR</string>
     <string name="action_scanuid">Scan Customer UID</string>
     <string name="action_entermobilenumber">Enter Mobile Number</string>
+    <string name="title_user_qr_code">Place user qr code to scan</string>
+    <string name="title_warranty_serial_barcode">Place user  Serial no Barcode</string>
+    <string name="title_warranty_batch_barcode">Place user Batch no Barcode</string>
 
-       <!-- add offer -->
+       <!--Assign product-->
+    <string name="hint_product_assigned_success">Assigned SuccessFully</string>
+
+     <!-- add offer -->
     <string name="add_an_offer_brand_hint">Brand</string>
     <string name="add_an_offer_division_hint">Division</string>
     <string name="add_an_offer_model_hint">Model</string>

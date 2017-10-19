@@ -1,5 +1,8 @@
 package com.incon.connect.dto.asignqrcode;
 
+import android.databinding.BaseObservable;
+import android.databinding.Bindable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -7,11 +10,8 @@ import com.google.gson.annotations.SerializedName;
  * Created by PC on 10/12/2017.
  */
 
-public class AssignQrCode {
+public class AssignQrCode extends BaseObservable {
 
-    @SerializedName("batchNo")
-    @Expose
-    private String batchNo;
     @SerializedName("code")
     @Expose
     private String code;
@@ -21,16 +21,16 @@ public class AssignQrCode {
     @SerializedName("productId")
     @Expose
     private String productId;
-    @SerializedName("serialNo")
-    @Expose
-    private String serialNo;
+    private transient String productName;
 
-    public String getBatchNo() {
-        return batchNo;
+    @Bindable
+    public String getProductName() {
+        return productName;
     }
 
-    public void setBatchNo(String batchNo) {
-        this.batchNo = batchNo;
+    public void setProductName(String productName) {
+        this.productName = productName;
+        notifyChange();
     }
 
     public String getCode() {
@@ -55,14 +55,6 @@ public class AssignQrCode {
 
     public void setProductId(String productId) {
         this.productId = productId;
-    }
-
-    public String getSerialNo() {
-        return serialNo;
-    }
-
-    public void setSerialNo(String serialNo) {
-        this.serialNo = serialNo;
     }
 
 }

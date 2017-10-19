@@ -24,6 +24,7 @@ public interface AppConstants {
 
     interface WarrantyRegistrationConstants {
         int MINIMUM_MODELNUMBER_TO_SEARCH = 2;
+        String STATUS = "A";
     }
 
     interface GoogleMapConstants {
@@ -101,6 +102,7 @@ public interface AppConstants {
     }
 
     interface IntentConstants {
+        String SCANNED_TITLE = "scannedTitle";
         String SCANNED_CODE = "scanedCode";
         String USER_PHONE_NUMBER = "userPhoneNumber";
         String IMAGE_PATH = "imagePath";
@@ -216,6 +218,8 @@ public interface AppConstants {
         int USER_PROFILE_SCAN = 113;
         int PRODUCT_WARRANTY_SCAN = 114;
         int PRODUCT_ASSIGN_SCAN = 115;
+        int SERIAL_NO_SCAN = 116;
+        int BATCH_NO_SCAN = 117;
     }
 
     interface TimeConstants {

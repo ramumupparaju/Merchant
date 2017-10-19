@@ -145,15 +145,13 @@ public class ProductAssignFragment extends BaseFragment implements ProductAssign
         initializeModelNumberAdapter(modelSearchResponseList);
         binding.edittextModelNumber.showDropDown();
         if (modelSearchResponseList.size() == 0) {
-            showErrorMessage(getString(R.string.error_message));
+            showErrorMessage(getString(R.string.error_model_message));
         }
     }
 
     @Override
     public void productAssignQrCode(Object assignQrCodeResponse) {
-        Boolean assignQrcodeResult = (Boolean) assignQrCodeResponse;
-        if (assignQrcodeResult) {
-            AppUtils.shortToast(getContext(), "Assigned SuccessFully");
-        }
+        AppUtils.shortToast(getContext(), getString(R.string.hint_product_assigned_success));
+        getActivity().onBackPressed();
     }
 }

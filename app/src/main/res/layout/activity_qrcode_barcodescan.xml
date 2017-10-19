@@ -21,9 +21,8 @@
             />
 
         <TextView
-            android:id="@+id/text_qrcode_titel"
+            android:id="@+id/text_qrcode_title"
             style="@style/scanner_titel"
-
             />
     </RelativeLayout>
 

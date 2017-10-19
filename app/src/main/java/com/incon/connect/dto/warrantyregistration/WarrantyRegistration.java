@@ -17,10 +17,10 @@ public class WarrantyRegistration extends BaseObservable implements Parcelable {
     private String modelNumber;
     @SerializedName("categoryId")
     @Expose
-    private String categoryId;
+    private Integer categoryId;
     @SerializedName("divisionId")
     @Expose
-    private String divisionId;
+    private Integer divisionId;
 
     @SerializedName("brandId")
     @Expose
@@ -36,10 +36,10 @@ public class WarrantyRegistration extends BaseObservable implements Parcelable {
     private String serialNumber;
     @SerializedName("merchantId")
     @Expose
-    private String merchantId;
+    private Integer merchantId;
     @SerializedName("productId")
     @Expose
-    private String productId;
+    private Integer productId;
     @SerializedName("customerId")
     @Expose
     private String customerId;
@@ -49,8 +49,19 @@ public class WarrantyRegistration extends BaseObservable implements Parcelable {
     @SerializedName("invoiceNumber")
     @Expose
     private String invoiceNumber;
-    private  transient String categoryName;
+    @SerializedName("codeId")
+    @Expose
+    private int codeId;
+    private transient String categoryName;
     private transient String divisionName;
+
+    public int getCodeId() {
+        return codeId;
+    }
+
+    public void setCodeId(int codeId) {
+        this.codeId = codeId;
+    }
 
     public String getMobileNumber() {
         return mobileNumber;
@@ -59,6 +70,7 @@ public class WarrantyRegistration extends BaseObservable implements Parcelable {
     public void setMobileNumber(String mobileNumber) {
         this.mobileNumber = mobileNumber;
     }
+
     public String getCategoryName() {
         return categoryName;
     }
@@ -86,19 +98,19 @@ public class WarrantyRegistration extends BaseObservable implements Parcelable {
         notifyChange();
     }
 
-    public String getCategoryId() {
+    public Integer getCategoryId() {
         return categoryId;
     }
 
-    public void setCategoryId(String categoryId) {
+    public void setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
     }
 
-    public String getDivisionId() {
+    public Integer getDivisionId() {
         return divisionId;
     }
 
-    public void setDivisionId(String divisionId) {
+    public void setDivisionId(Integer divisionId) {
         this.divisionId = divisionId;
     }
 
@@ -137,19 +149,19 @@ public class WarrantyRegistration extends BaseObservable implements Parcelable {
         notifyChange();
     }
 
-    public String getMerchantId() {
+    public Integer getMerchantId() {
         return merchantId;
     }
 
-    public void setMerchantId(String merchantId) {
+    public void setMerchantId(Integer merchantId) {
         this.merchantId = merchantId;
     }
 
-    public String getProductId() {
+    public Integer getProductId() {
         return productId;
     }
 
-    public void setProductId(String productId) {
+    public void setProductId(Integer productId) {
         this.productId = productId;
     }
 
@@ -183,14 +195,14 @@ public class WarrantyRegistration extends BaseObservable implements Parcelable {
     protected WarrantyRegistration(Parcel in) {
         mobileNumber = in.readString();
         modelNumber = in.readString();
-        categoryId = in.readByte() == 0x00 ? null : in.readString();
-        divisionId = in.readByte() == 0x00 ? null : in.readString();
+        categoryId = in.readByte() == 0x00 ? null : in.readInt();
+        divisionId = in.readByte() == 0x00 ? null : in.readInt();
         brandId = in.readString();
         price = in.readString();
         batchNumber = in.readString();
         serialNumber = in.readString();
-        merchantId = in.readByte() == 0x00 ? null : in.readString();
-        productId = in.readByte() == 0x00 ? null : in.readString();
+        merchantId = in.readByte() == 0x00 ? null : in.readInt();
+        productId = in.readByte() == 0x00 ? null : in.readInt();
         customerId = in.readByte() == 0x00 ? null : in.readString();
         status = in.readString();
         invoiceNumber = in.readString();
@@ -209,13 +221,13 @@ public class WarrantyRegistration extends BaseObservable implements Parcelable {
             dest.writeByte((byte) (0x00));
         } else {
             dest.writeByte((byte) (0x01));
-            dest.writeString(categoryId);
+            dest.writeInt(categoryId);
         }
         if (divisionId == null) {
             dest.writeByte((byte) (0x00));
         } else {
             dest.writeByte((byte) (0x01));
-            dest.writeString(divisionId);
+            dest.writeInt(divisionId);
         }
         dest.writeString(brandId);
         dest.writeString(price);
@@ -225,13 +237,13 @@ public class WarrantyRegistration extends BaseObservable implements Parcelable {
             dest.writeByte((byte) (0x00));
         } else {
             dest.writeByte((byte) (0x01));
-            dest.writeString(merchantId);
+            dest.writeInt(merchantId);
         }
         if (productId == null) {
             dest.writeByte((byte) (0x00));
         } else {
             dest.writeByte((byte) (0x01));
-            dest.writeString(productId);
+            dest.writeInt(productId);
         }
         if (customerId == null) {
             dest.writeByte((byte) (0x00));
@@ -246,14 +258,14 @@ public class WarrantyRegistration extends BaseObservable implements Parcelable {
     @SuppressWarnings("unused")
     public static final Parcelable.Creator<WarrantyRegistration> CREATOR = new
             Parcelable.Creator<WarrantyRegistration>() {
-        @Override
-        public WarrantyRegistration createFromParcel(Parcel in) {
-            return new WarrantyRegistration(in);
-        }
+                @Override
+                public WarrantyRegistration createFromParcel(Parcel in) {
+                    return new WarrantyRegistration(in);
+                }
 
-        @Override
-        public WarrantyRegistration[] newArray(int size) {
-            return new WarrantyRegistration[size];
-        }
-    };
+                @Override
+                public WarrantyRegistration[] newArray(int size) {
+                    return new WarrantyRegistration[size];
+                }
+            };
 }
