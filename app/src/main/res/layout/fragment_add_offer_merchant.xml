@@ -11,6 +11,8 @@
         <variable
             name="addOfferMerchantFragment"
             type="com.incon.connect.ui.addoffer.fragment.AddOfferMerchantFragment"/>
+        <import type="android.view.View"/>
+
     </data>
 
     <RelativeLayout
@@ -118,7 +120,7 @@
                     android:layout_alignStart="@+id/input_layout_offer_start_on"
                     android:layout_alignTop="@+id/input_layout_offer_start_on"
                     android:background="@null"
-                    android:onClick="@{() -> addOfferMerchantFragment.onDateClick()}"
+                    android:onClick="@{(v) -> addOfferMerchantFragment.onDateClick(v)}"
                     />
 
                 <!-- offer expires date selecter-->
@@ -149,7 +151,7 @@
                     android:layout_alignStart="@+id/input_layout_offer_expires"
                     android:layout_alignTop="@+id/input_layout_offer_expires"
                     android:background="@null"
-                    android:onClick="@{() -> addOfferMerchantFragment.onDateClick()}"
+                    android:onClick="@{(v) -> addOfferMerchantFragment.onDateClick(v)}"
                     />
 
                 <!-- Scan start date selection -->
@@ -167,7 +169,7 @@
                         style="@style/Register_TextInputEditText"
                         android:enabled="false"
                         android:tag="6"
-                        android:text="@={addOfferRequest.fromDate}"/>
+                        android:text="@={addOfferRequest.scanStartDate}"/>
                 </com.incon.connect.custom.view.CustomTextInputLayout>
                 <!-- dummy view for Offers start date selection -->
                 <View
@@ -179,7 +181,7 @@
                     android:layout_alignStart="@+id/input_layout_scan_start_on"
                     android:layout_alignTop="@+id/input_layout_scan_start_on"
                     android:background="@null"
-                    android:onClick="@{() -> addOfferMerchantFragment.onDateClick()}"
+                    android:onClick="@{(v) -> addOfferMerchantFragment.onDateClick(v)}"
                     />
 
                 <!-- Scan  expires date selecter-->
@@ -197,7 +199,7 @@
                         style="@style/Register_TextInputEditText"
                         android:enabled="false"
                         android:tag="7"
-                        android:text="@={addOfferRequest.toDate}"
+                        android:text="@={addOfferRequest.scanEndDate}"
                         />
                 </com.incon.connect.custom.view.CustomTextInputLayout>
                 <!-- dummy view for Offers end date selection -->
@@ -210,7 +212,7 @@
                     android:layout_alignStart="@+id/input_layout_scan_expires"
                     android:layout_alignTop="@+id/input_layout_scan_expires"
                     android:background="@null"
-                    android:onClick="@{() -> addOfferMerchantFragment.onDateClick()}"
+                    android:onClick="@{(v) -> addOfferMerchantFragment.onDateClick(v)}"
                     />
                 <!-- add an offer -->
                 <com.incon.connect.custom.view.CustomTextInputLayout

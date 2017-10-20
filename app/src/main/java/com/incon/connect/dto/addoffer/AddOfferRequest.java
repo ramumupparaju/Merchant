@@ -1,6 +1,7 @@
 package com.incon.connect.dto.addoffer;
 
 import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 
 public class AddOfferRequest extends BaseObservable {
 
@@ -15,8 +16,30 @@ public class AddOfferRequest extends BaseObservable {
     private String productId;
     private String purchaseId;
     private String toDate;
+    private String scanStartDate;
+    private String scanEndDate;
 
     public AddOfferRequest() {
+    }
+
+    @Bindable
+    public String getScanStartDate() {
+        return scanStartDate;
+    }
+
+    public void setScanStartDate(String scanStartDate) {
+        this.scanStartDate = scanStartDate;
+        notifyChange();
+    }
+
+    @Bindable
+    public String getScanEndDate() {
+        return scanEndDate;
+    }
+
+    public void setScanEndDate(String scanEndDate) {
+        this.scanEndDate = scanEndDate;
+        notifyChange();
     }
 
     public AddOfferRequest(String brandId, String categoryId, String customerId,
@@ -68,12 +91,14 @@ public class AddOfferRequest extends BaseObservable {
         this.divisionId = divisionId;
     }
 
+    @Bindable
     public String getFromDate() {
         return fromDate;
     }
 
     public void setFromDate(String fromDate) {
         this.fromDate = fromDate;
+        notifyChange();
     }
 
     public String getMerchantId() {
@@ -116,12 +141,14 @@ public class AddOfferRequest extends BaseObservable {
         this.purchaseId = purchaseId;
     }
 
+    @Bindable
     public String getToDate() {
         return toDate;
     }
 
     public void setToDate(String toDate) {
         this.toDate = toDate;
+        notifyChange();
     }
 
 

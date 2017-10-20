@@ -20,6 +20,8 @@ import com.incon.connect.apimodel.components.addoffer.AddOfferMerchantFragmentRe
 import com.incon.connect.apimodel.components.fetchcategorie.Brand;
 import com.incon.connect.apimodel.components.fetchcategorie.Division;
 import com.incon.connect.apimodel.components.fetchcategorie.FetchCategories;
+import com.incon.connect.callbacks.DateDialogCallback;
+import com.incon.connect.custom.view.CustomDateListener;
 import com.incon.connect.custom.view.CustomTextInputLayout;
 import com.incon.connect.databinding.FragmentAddOfferMerchantBinding;
 import com.incon.connect.dto.addoffer.AddOfferRequest;
@@ -27,16 +29,12 @@ import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.home.HomeActivity;
 import com.incon.connect.utils.DateUtils;
 import com.incon.connect.utils.SharedPrefsUtils;
+import com.incon.connect.utils.ValidationUtils;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
-import java.util.TimeZone;
-
-import static com.incon.connect.AppConstants.DateFormatterConstants.MM_DD_YYYY;
 
 
 /**
@@ -82,34 +80,85 @@ public class AddOfferMerchantFragment extends BaseFragment implements
         }
         return rootView;
     }
-    public void onDateClick() {
-        showDatePicker();
+
+    public void onDateClick(View view) {
+        int dialogType = DateDialogConstants.ADD_OFFER_START_DATE;
+        switch (view.getId()) {
+            case R.id.view_date_expire:
+                dialogType = DateDialogConstants.ADD_OFFER_END_DATE;
+                break;
+            case R.id.view_offer_scan_start_on:
+                dialogType = DateDialogConstants.ADD_OFFER_SCAN_START_DATE;
+                break;
+            case R.id.view_scan_expire:
+                dialogType = DateDialogConstants.ADD_OFFER_SCAN_END_DATE;
+                break;
+            default:
+                //do nothing
+                break;
+        }
+        showDatePicker(Calendar.getInstance(), dialogType);
     }
 
     public void onSubmitClick() {
         AddOfferRequest addOfferRequest = binding.getAddOfferRequest();
         addOfferMerchantPresenter.addOffer(addOfferRequest);
     }
-    private void showDatePicker() {
+
+    private void showDatePicker(Calendar calendar, int dateDialogType) {
         AppUtils.hideSoftKeyboard(getActivity(), getView());
-        Calendar cal = Calendar.getInstance(TimeZone.getDefault());
-      /*  String dateOfBirth = addOfferRequest.getDateOfBirthToShow();
-        if (!TextUtils.isEmpty(dateOfBirth)) {
-            cal.setTimeInMillis(DateUtils.convertStringFormatToMillis(
-                    dateOfBirth, DateFormatterConstants.MM_DD_YYYY));
-        }*/
+        CustomDateListener customDateDialog = new CustomDateListener(dateDialogType,
+                dateDialogCallback);
         int customStyle = android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
                 ? R.style.DatePickerDialogTheme : android.R.style.Theme_DeviceDefault_Light_Dialog;
         DatePickerDialog datePicker = new DatePickerDialog(getActivity(),
                 customStyle,
-                datePickerListener,
-                cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH));
+                customDateDialog,
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH));
         datePicker.setCancelable(false);
         datePicker.show();
     }
-    private DatePickerDialog.OnDateSetListener datePickerListener =
+
+    DateDialogCallback dateDialogCallback = new DateDialogCallback() {
+        @Override
+        public void onDateSet(int dialogType, DatePicker view, int year,
+                              int month, int dayOfMonth) {
+            Calendar selectedDateTime = Calendar.getInstance();
+            selectedDateTime.set(year, month, dayOfMonth);
+            String formattedDate = DateUtils.convertMillsToDateString(DateFormatterConstants
+                    .DD_E_MMMM_YYYY, selectedDateTime.getTimeInMillis());
+            switch (dialogType) {
+                case DateDialogConstants.ADD_OFFER_START_DATE:
+                    binding.edittextStartOn.setText(formattedDate);
+                    break;
+                case DateDialogConstants.ADD_OFFER_END_DATE:
+                    if (!ValidationUtils.isFutureDate(selectedDateTime)) {
+                        showErrorMessage(getString(R.string.error_past_date));
+                        return;
+                    }
+                    binding.edittextOfferExpires.setText(formattedDate);
+                    break;
+                case DateDialogConstants.ADD_OFFER_SCAN_START_DATE:
+                    binding.edittextScanStartOn.setText(formattedDate);
+                    break;
+                case DateDialogConstants.ADD_OFFER_SCAN_END_DATE:
+                    if (ValidationUtils.isFutureDate(selectedDateTime)) {
+                        showErrorMessage(getString(R.string.error_dob_futuredate));
+                        return;
+                    }
+                    binding.edittextScanExpires.setText(formattedDate);
+                    break;
+                default:
+                    //do nothing
+                    break;
+            }
+        }
+    };
+
+    /*
+    private CustomDateListener datePickerListener =
             new DatePickerDialog.OnDateSetListener() {
                 // when dialog box is closed, below method will be called.
                 public void onDateSet(DatePicker view, int selectedYear,
@@ -132,19 +181,20 @@ public class AddOfferMerchantFragment extends BaseFragment implements
                     String dobInYYYYMMDD = DateUtils.convertDateToOtherFormat(
                             selectedDateTime.getTime(), DateFormatterConstants.YYYY_MM_DD);
                     //TODO  Have to show Time Picker
-/*
+*//*
                     Pair<String, Integer> startdate = binding.getAddOfferRequest().
                             validateUserInfo((String) binding.edittextAddAnOffer.getTag());
                     Pair<String, Integer> enddate = binding.getAddOfferRequest().
-                            validateUserInfo((String) binding.edittextOfferExpires.getTag());*/
+                            validateUserInfo((String) binding.edittextOfferExpires.getTag());*//*
 
                     // updateUiAfterValidation(startdate.first, startdate.second);
                 }
-            };
+            };*/
 
     private void loadData() {
         shakeAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.shake);
     }
+
     private void updateUiAfterValidation(String tag, int validationId) {
 
         if (tag == null) {
@@ -177,14 +227,17 @@ public class AddOfferMerchantFragment extends BaseFragment implements
         fetchCategorie.setId(fetchCategorie.getId());
         fetchCategorie.setName(fetchCategorie.getName());
     }
+
     @Override
     public void loadAddOfferMerchant(AddOfferMerchantFragmentResponse merchantId) {
         AppUtils.showSnackBar(rootView, merchantId.getModelNumber());
     }
+
     public void loadCategoriesList(List<FetchCategories> categoriesList) {
         fetchCategorieList = categoriesList;
         loadCategorySpinnerData();
     }
+
     private void loadCategorySpinnerData() {
         String[] stringCategoryList = new String[fetchCategorieList.size()];
         for (int i = 0; i < fetchCategorieList.size(); i++) {
@@ -208,6 +261,7 @@ public class AddOfferMerchantFragment extends BaseFragment implements
             }
         });
     }
+
     private void loadDivisionSpinnerData(List<Division> divisions) {
 
         if (divisions.size() == 0) {
@@ -235,6 +289,7 @@ public class AddOfferMerchantFragment extends BaseFragment implements
             }
         });
     }
+
     private void loadBrandSpinnerData(List<Brand> brandList) {
 
         if (brandList.size() == 0) {

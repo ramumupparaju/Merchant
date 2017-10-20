@@ -264,6 +264,12 @@ public interface AppConstants {
     }
 
 
+    interface DateDialogConstants {
+        int ADD_OFFER_START_DATE = 0;
+        int ADD_OFFER_END_DATE = 1;
+        int ADD_OFFER_SCAN_START_DATE = 2;
+        int ADD_OFFER_SCAN_END_DATE = 3;
+    }
     interface ErrorCodes {
         int UNKNOWN = 0;
         int NETWORK_ERROR = 1;

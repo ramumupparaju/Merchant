@@ -131,6 +131,7 @@
     <string name="error_dob_patient_is_user">You must be at least 16 years old to use the
         Connect application</string>
     <string name="error_dob_futuredate">You cannot select a future date</string>
+    <string name="error_past_date">You cannot select a past date</string>
     <string name="error_email_inuse">Email address already in use</string>
     <string name="error_zipcode_notvalid">Zipcode must be 5 or 9 digits</string>
     <string name="error_postalcode_notvalid">Postalcode must be 5 or 9 digits</string>
