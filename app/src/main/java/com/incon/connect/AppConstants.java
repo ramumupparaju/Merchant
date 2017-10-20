@@ -291,17 +291,17 @@ public interface AppConstants {
     }
 
     interface ProductAssignValidation {
-        int MODEL = 0;
-        int INVALID_MODEL = 1;
-        int PRICE = 2;
+        int MODEL = 1;
+        int INVALID_MODEL = 2;
+        int PRICE = 3;
     }
 
     interface WarrantyregistationValidation {
-        int MODEL = 0;
-        int SERIAL_NO = 1;
-        int BATCH_NO = 2;
-        int PRICE = 3;
-        int INVOICENUMBER = 4;
+        int MODEL = 1;
+        int SERIAL_NO = 2;
+        int BATCH_NO = 3;
+        int PRICE = 4;
+        int INVOICENUMBER = 5;
     }
 
     interface ActivityResult {

@@ -173,7 +173,7 @@ public class ProductAssignFragment extends BaseFragment implements ProductAssign
         errorMap = new HashMap<>();
         errorMap.put(ProductAssignValidation.MODEL, getString(R.string.error_product_model));
         errorMap.put(ProductAssignValidation.INVALID_MODEL,
-                getString(R.string.error_product_model));
+                getString(R.string.error_product_invalid_model));
         errorMap.put(ProductAssignValidation.PRICE, getString(R.string.error_product_price));
 
     }
