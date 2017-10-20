@@ -7,6 +7,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.text.TextUtils;
+import android.text.method.KeyListener;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,6 +68,8 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
     private String enteredOtp;
     private HashMap<Integer, String> errorMap;
     private Animation shakeAnim;
+    private KeyListener listener;
+
 
     @Override
     protected void initializePresenter() {
@@ -84,8 +87,7 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
             binding.setFragment(this);
             warrantyRegistration = getArguments().getParcelable(BundleConstants.WARRANTY_DATA);
             warrantyRegistration.setMerchantId(SharedPrefsUtils.loginProvider().
-                    getIntegerPreference(LoginPrefs.STORE_ID, DEFAULT_VALUE));
-            warrantyRegistration.setStatus(WarrantyRegistrationConstants.STATUS);
+                    getIntegerPreference(LoginPrefs.USER_ID, DEFAULT_VALUE));
             binding.setWarrantyRegistration(warrantyRegistration);
             rootView = binding.getRoot();
 
@@ -98,6 +100,14 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
 
     private void initViews() {
         shakeAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.shake);
+        listener = binding.edittextModelNumber.getKeyListener();
+        if (warrantyRegistration.isFromProductScan()) {
+            binding.edittextModelNumber.setKeyListener(null);
+            showViews(true);
+        } else {
+            binding.edittextModelNumber.setKeyListener(listener);
+            initializeModelNumberAdapter(new ArrayList<ModelSearchResponse>());
+        }
         initializeModelNumberAdapter(new ArrayList<ModelSearchResponse>());
         binding.imBarcodeSerialNo.setOnClickListener(this);
         binding.imBarcodeBatch.setOnClickListener(this);
@@ -128,18 +138,22 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
                 warrantyRegistration.setDivisionName(String.valueOf(division.getName()));
                 selectedModelNumber = modelSearchResponseList.get(
                         selectedPosition).getModelNumber();
+                warrantyRegistration.setPrice(String.valueOf(modelSearchResponse.getPrice()));
                 AppUtils.hideSoftKeyboard(getActivity(), rootView);
-                binding.inputLayoutBatchNo.setVisibility(View.VISIBLE);
-                binding.inputLayoutCategory.setVisibility(View.VISIBLE);
-                binding.inputLayoutDivision.setVisibility(View.VISIBLE);
-                binding.inputLayoutPrice.setVisibility(View.VISIBLE);
-                binding.inputLayoutSerialNo.setVisibility(View.VISIBLE);
-                binding.inputLayoutInvoicenumber.setVisibility(View.VISIBLE);
-                binding.imBarcodeSerialNo.setVisibility(View.VISIBLE);
-                binding.imBarcodeBatch.setVisibility(View.VISIBLE);
-
+                showViews(true);
             }
         });
+    }
+
+    private void showViews(boolean isShow) {
+        binding.inputLayoutBatchNo.setVisibility(View.VISIBLE);
+        binding.inputLayoutPrice.setVisibility(View.VISIBLE);
+        binding.inputLayoutSerialNo.setVisibility(View.VISIBLE);
+        binding.inputLayoutInvoicenumber.setVisibility(View.VISIBLE);
+        binding.imBarcodeSerialNo.setVisibility(View.VISIBLE);
+        binding.imBarcodeBatch.setVisibility(View.VISIBLE);
+        binding.inputLayoutDescription.setVisibility(View.VISIBLE);
+        binding.productStatus.setVisibility(View.VISIBLE);
     }
 
     private void setObservableForModelNumber(CustomAutoCompleteView edittextModelNumber) {
@@ -197,7 +211,7 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
     public void validateUserOTP() {
         dismissDialog(userOtpDialog);
         isOtpVerified = true;
-        warrantRegistrationPresenter.doWarrantyRegistrationApi(warrantyRegistration);
+        callWarrantyApi();
     }
 
 
@@ -207,17 +221,23 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
     }
 
     public void onSubmitClick() {
-
         if (validateFields()) {
-
             if (isOtpVerified) {
-                warrantRegistrationPresenter.doWarrantyRegistrationApi(warrantyRegistration);
+                callWarrantyApi();
             } else {
                 showOtpDialog();
             }
-
         }
+    }
 
+    private void callWarrantyApi() {
+        if (binding.productStatus.isChecked()) {
+            warrantyRegistration.setStatus(WarrantyRegistrationConstants.STATUS_PRODUCT_DELIVERED);
+        } else {
+            warrantyRegistration.setStatus(
+                    WarrantyRegistrationConstants.STATUS_PRODUCT_NOT_DELIVERED);
+        }
+        warrantRegistrationPresenter.doWarrantyRegistrationApi(warrantyRegistration);
     }
 
     private void showOtpDialog() {
@@ -320,7 +340,6 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
         }
 
     }
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

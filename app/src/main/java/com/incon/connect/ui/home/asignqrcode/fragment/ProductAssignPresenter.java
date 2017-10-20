@@ -38,6 +38,7 @@ public class ProductAssignPresenter extends BasePresenter<ProductAssignContract.
         DisposableObserver<Object> observer = new DisposableObserver<Object>() {
             @Override
             public void onNext(Object assignQrCodeResponse) {
+                getView().hideProgress();
                 getView().productAssignQrCode(assignQrCodeResponse);
             }
 
@@ -50,7 +51,6 @@ public class ProductAssignPresenter extends BasePresenter<ProductAssignContract.
 
             @Override
             public void onComplete() {
-                getView().hideProgress();
             }
         };
         AppApiService.getInstance().assignQrCodeToProduct(qrCode).subscribe(observer);

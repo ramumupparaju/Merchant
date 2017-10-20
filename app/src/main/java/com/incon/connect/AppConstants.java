@@ -24,7 +24,8 @@ public interface AppConstants {
 
     interface WarrantyRegistrationConstants {
         int MINIMUM_MODELNUMBER_TO_SEARCH = 2;
-        String STATUS = "A";
+        String STATUS_PRODUCT_DELIVERED = "D";
+        String STATUS_PRODUCT_NOT_DELIVERED = "P";
     }
 
     interface GoogleMapConstants {
@@ -35,6 +36,12 @@ public interface AppConstants {
     interface HttpErrorCodeConstants {
         int ERROR_UNAUTHORIZED = 401;
         int ERROR_FORBIDDEN = 403; // pay load error
+    }
+
+    interface PushConstants {
+        String BUNDLE_TEXT = "text";
+        String BUNDLE_TITLE = "title";
+        String BUNDLE_EXTRAS = "extras";
     }
 
     interface LoginValidation {
@@ -277,7 +284,8 @@ public interface AppConstants {
 
     interface ProductAssignValidation {
         int MODEL = 0;
-        int PRICE = 1;
+        int INVALID_MODEL = 1;
+        int PRICE = 2;
     }
 
     interface WarrantyregistationValidation {

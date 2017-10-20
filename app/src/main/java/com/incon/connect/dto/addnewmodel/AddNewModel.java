@@ -1,6 +1,7 @@
 package com.incon.connect.dto.addnewmodel;
 
 import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -30,7 +31,7 @@ public class AddNewModel extends BaseObservable implements Parcelable {
     @Expose
     private String productBrand;
 
-    private  transient String categoryName;
+    private transient String categoryName;
     private transient String divisionName;
 
     public AddNewModel() {
@@ -84,6 +85,7 @@ public class AddNewModel extends BaseObservable implements Parcelable {
         this.divisionId = divisionId;
     }
 
+    @Bindable
     public String getNotes() {
         return notes;
     }
@@ -140,14 +142,14 @@ public class AddNewModel extends BaseObservable implements Parcelable {
     @SuppressWarnings("unused")
     public static final Parcelable.Creator<AddNewModel> CREATOR = new
             Parcelable.Creator<AddNewModel>() {
-        @Override
-        public AddNewModel createFromParcel(Parcel in) {
-            return new AddNewModel(in);
-        }
+                @Override
+                public AddNewModel createFromParcel(Parcel in) {
+                    return new AddNewModel(in);
+                }
 
-        @Override
-        public AddNewModel[] newArray(int size) {
-            return new AddNewModel[size];
-        }
-    };
+                @Override
+                public AddNewModel[] newArray(int size) {
+                    return new AddNewModel[size];
+                }
+            };
 }

@@ -10,7 +10,7 @@
     <!--Writing files into sd card for capturing images-->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
     <!--
@@ -129,6 +129,18 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_map_key"/>
+
+        <service android:name="com.incon.connect.fcm.ConnectFirebaseMessagingService">
+            <intent-filter >
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <service android:name="com.incon.connect.fcm.ConnectFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
 
     </application>
 

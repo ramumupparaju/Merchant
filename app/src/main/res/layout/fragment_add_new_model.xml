@@ -27,41 +27,35 @@
             style="@style/BothMatch"
             android:background="@color/white">
 
-
             <LinearLayout
                 style="@style/BothMatch"
                 android:layout_marginTop="30dp"
                 android:orientation="vertical"
                 >
 
-                <RelativeLayout
-                    style="@style/BothMatch">
-                    <!-- modelno -->
-                    <com.incon.connect.custom.view.CustomTextInputLayout
-                        android:id="@+id/input_layout_model_number"
-                        style="@style/Register_TextInputLayout"
-                        android:hint="@string/add_new__model_no"
-                        app:errorEnabled="true"
-                        app:fontName="fonts/OpenSans-Regular.ttf"
-                        app:hintTextAppearance="@style/TextInputLayout_FloatingTextColor">
+                <!-- modelno -->
+                <com.incon.connect.custom.view.CustomTextInputLayout
+                    android:id="@+id/input_layout_model_number"
+                    style="@style/Register_TextInputLayout"
+                    android:layout_toLeftOf="@+id/im_barcode_model"
+                    android:hint="@string/add_new__model_no"
+                    app:errorEnabled="true"
+                    app:fontName="fonts/OpenSans-Regular.ttf"
+                    app:hintTextAppearance="@style/TextInputLayout_FloatingTextColor">
 
-                        <android.support.design.widget.TextInputEditText
-                            android:id="@+id/edittext_model_number"
-                            style="@style/Add_new_model_TextInputEditText"
-                            android:focusable="true"
-                            android:imeOptions="actionNext"
-                            android:inputType="textCapWords"
-                            android:maxLength="@integer/character_limit_45"
-                            android:maxLines="1"
-                            android:tag="1"
-                            android:text="@={addNewModel.productModel}"
-                            />
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/edittext_model_number"
+                        style="@style/Add_new_model_TextInputEditText"
+                        android:focusable="true"
+                        android:imeOptions="actionNext"
+                        android:inputType="textCapWords"
+                        android:maxLength="@integer/character_limit_45"
+                        android:maxLines="1"
+                        android:tag="1"
+                        android:text="@={addNewModel.productModel}"
+                        />
 
-                    </com.incon.connect.custom.view.CustomTextInputLayout>
-
-
-                </RelativeLayout>
-
+                </com.incon.connect.custom.view.CustomTextInputLayout>
 
                 <!-- category-->
                 <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
@@ -146,6 +140,28 @@
                         android:maxLines="1"
                         android:tag="1"
                         android:text="@={addNewModel.price}"
+                        />
+                </com.incon.connect.custom.view.CustomTextInputLayout>
+
+                <!--Notes-->
+                <com.incon.connect.custom.view.CustomTextInputLayout
+                    android:id="@+id/input_layout_notes"
+                    style="@style/Register_TextInputLayout"
+                    android:layout_below="@id/spinner_type"
+                    android:hint="@string/add_new_notes"
+                    app:errorEnabled="true"
+                    app:fontName="fonts/OpenSans-Regular.ttf"
+                    app:hintTextAppearance="@style/TextInputLayout_FloatingTextColor">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/edittext_notes"
+                        style="@style/Add_new_model_TextInputEditText"
+                        android:focusable="true"
+                        android:imeOptions="actionNext"
+                        android:maxLength="@integer/character_limit_45"
+                        android:maxLines="1"
+                        android:tag="1"
+                        android:text="@={addNewModel.notes}"
                         />
                 </com.incon.connect.custom.view.CustomTextInputLayout>
 

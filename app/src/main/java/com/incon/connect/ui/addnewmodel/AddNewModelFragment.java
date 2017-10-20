@@ -57,10 +57,6 @@ public class AddNewModelFragment extends BaseFragment implements AddNewModelCont
         return rootView;
     }
 
-    private void loadTypeSpinnerData() {
-
-    }
-
     private void loadCategorySpinnerData() {
         String[] stringCategoryList = new String[fetchCategorieList.size()];
         for (int i = 0; i < fetchCategorieList.size(); i++) {
@@ -73,10 +69,15 @@ public class AddNewModelFragment extends BaseFragment implements AddNewModelCont
         binding.spinnerCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                categorySelectedPos = position;
-                FetchCategories fetchCategories = fetchCategorieList.get(categorySelectedPos);
-                addNewModel.setCategoryId(String.valueOf(fetchCategories.getId()));
-                loadDivisionSpinnerData(fetchCategories.getDivisions());
+                if (categorySelectedPos != position) {
+                    FetchCategories fetchCategories = fetchCategorieList.get(position);
+                    addNewModel.setCategoryId(String.valueOf(fetchCategories.getId()));
+                    loadDivisionSpinnerData(fetchCategories.getDivisions());
+                    binding.spinnerDivision.setText("");
+                    categorySelectedPos = position;
+                    binding.spinnerBrand.setVisibility(View.GONE);
+                }
+
             }
         });
     }
@@ -115,7 +116,6 @@ public class AddNewModelFragment extends BaseFragment implements AddNewModelCont
             binding.spinnerBrand.setVisibility(View.GONE);
             return;
         }
-
         binding.spinnerBrand.setVisibility(View.VISIBLE);
         String[] stringDivisionList = new String[brandList.size()];
         for (int i = 0; i < brandList.size(); i++) {
@@ -147,7 +147,7 @@ public class AddNewModelFragment extends BaseFragment implements AddNewModelCont
 
     @Override
     public void addNewModel(Object o) {
-
+        getActivity().onBackPressed();
     }
 
     @Override

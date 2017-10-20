@@ -77,6 +77,7 @@ public class ProductScanFragment extends BaseFragment implements ProductScanCont
         Bundle arguments = getArguments();
         WarrantyRegistration warrantyRegistration = arguments.getParcelable(
                 BundleConstants.WARRANTY_DATA);
+        warrantyRegistration.setFromProductScan(true);
         warrantyRegistration.setCodeId(productInfoResponse.getCodeId());
         warrantyRegistration.setProductId(productInfoResponse.getProductId());
         warrantyRegistration.setModelNumber(productInfoResponse.getProductModel());

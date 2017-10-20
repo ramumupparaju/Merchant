@@ -1,6 +1,7 @@
 package com.incon.connect.dto.warrantyregistration;
 
 import android.databinding.BaseObservable;
+import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
@@ -55,8 +56,32 @@ public class WarrantyRegistration extends BaseObservable implements Parcelable {
     @SerializedName("codeId")
     @Expose
     private int codeId;
+    @SerializedName("information")
+    @Expose
+    private String description;
     private transient String categoryName;
     private transient String divisionName;
+    private transient boolean isFromProductScan = false;
+
+
+    @Bindable
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+        notifyChange();
+    }
+
+    @Bindable
+    public boolean isFromProductScan() {
+        return isFromProductScan;
+    }
+
+    public void setFromProductScan(boolean fromProductScan) {
+        isFromProductScan = fromProductScan;
+    }
 
     public int getCodeId() {
         return codeId;

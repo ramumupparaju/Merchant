@@ -50,7 +50,7 @@
                 </com.incon.connect.custom.view.CustomTextInputLayout>
 
                 <!-- division-->
-                <com.incon.connect.custom.view.CustomTextInputLayout
+                <!--<com.incon.connect.custom.view.CustomTextInputLayout
                     android:id="@+id/input_layout_division"
                     style="@style/Register_TextInputLayout"
                     android:layout_below="@id/input_layout_model_number"
@@ -70,7 +70,7 @@
                 </com.incon.connect.custom.view.CustomTextInputLayout>
 
 
-                <!-- category-->
+                &lt;!&ndash; category&ndash;&gt;
                 <com.incon.connect.custom.view.CustomTextInputLayout
                     android:id="@+id/input_layout_category"
                     style="@style/Register_TextInputLayout"
@@ -88,13 +88,13 @@
                         android:maxLines="1"
                         android:text="@={warrantyRegistration.categoryName}"
                         />
-                </com.incon.connect.custom.view.CustomTextInputLayout>
+                </com.incon.connect.custom.view.CustomTextInputLayout>-->
 
                 <!-- serial no -->
                 <com.incon.connect.custom.view.CustomTextInputLayout
                     android:id="@+id/input_layout_serial_no"
                     style="@style/Add_new_model_TextInputLayout"
-                    android:layout_below="@id/input_layout_category"
+                    android:layout_below="@id/input_layout_model_number"
                     android:layout_toLeftOf="@+id/im_barcode_serial_no"
                     android:hint="@string/add_new__serial_no"
                     android:visibility="gone"
@@ -119,10 +119,9 @@
                 <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/im_barcode_serial_no"
                     style="@style/Warrenty_barcode"
+                    android:layout_below="@id/input_layout_model_number"
                     app:srcCompat="@drawable/ic_barcode"
-                    android:layout_below="@id/input_layout_category"
                     />
-
 
                 <!-- batch no -->
                 <com.incon.connect.custom.view.CustomTextInputLayout
@@ -154,8 +153,8 @@
                 <android.support.v7.widget.AppCompatImageView
                     android:id="@+id/im_barcode_batch"
                     style="@style/Warrenty_barcode"
-                 app:srcCompat="@drawable/ic_barcode"
                     android:layout_below="@id/input_layout_serial_no"
+                    app:srcCompat="@drawable/ic_barcode"
                     />
 
                 <!-- price -->
@@ -208,12 +207,45 @@
 
                 </com.incon.connect.custom.view.CustomTextInputLayout>
 
+                <!-- Description -->
+                <com.incon.connect.custom.view.CustomTextInputLayout
+                    android:id="@+id/input_layout_description"
+                    style="@style/Register_TextInputLayout"
+                    android:layout_below="@id/input_layout_invoicenumber"
+                    android:hint="@string/action_description"
+                    android:visibility="gone"
+                    app:errorEnabled="true"
+                    app:fontName="fonts/OpenSans-Regular.ttf"
+                    app:hintTextAppearance="@style/TextInputLayout_FloatingTextColor">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/edittext_description"
+                        style="@style/Add_new_model_TextInputEditText"
+                        android:focusable="true"
+                        android:imeOptions="actionNext"
+                        android:maxLength="@integer/character_limit_45"
+                        android:maxLines="1"
+                        android:tag="1"
+                        android:text="@={warrantyRegistration.description}"
+                        />
+
+                </com.incon.connect.custom.view.CustomTextInputLayout>
+
+                <CheckBox
+                    android:id="@+id/product_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/input_layout_description"
+                    android:layout_centerHorizontal="true"
+                    android:checked="true"
+                    android:text="@string/action_product_status"
+                    android:visibility="gone"/>
 
                 <Button
                     android:id="@+id/button_submit"
                     style="@style/w150_wrap"
                     fontPath="fonts/OpenSans-Bold.ttf"
-                    android:layout_below="@id/input_layout_invoicenumber"
+                    android:layout_below="@id/product_status"
                     android:layout_marginBottom="@dimen/margin_10"
                     android:layout_marginLeft="@dimen/margin_110"
                     android:layout_marginTop="@dimen/margin_10"

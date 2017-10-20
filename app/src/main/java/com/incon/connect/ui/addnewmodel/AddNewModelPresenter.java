@@ -65,6 +65,7 @@ public class AddNewModelPresenter extends BasePresenter<AddNewModelContract.View
                 DisposableObserver<Object>() {
                     @Override
                     public void onNext(Object addNewModelResponse) {
+                        getView().hideProgress();
                         getView().addNewModel(addNewModelResponse);
                     }
 
@@ -77,7 +78,6 @@ public class AddNewModelPresenter extends BasePresenter<AddNewModelContract.View
 
                     @Override
                     public void onComplete() {
-                        getView().hideProgress();
                     }
                 };
         AppApiService.getInstance().addingNewModel(merchantId, addNewModel).subscribe(observer);

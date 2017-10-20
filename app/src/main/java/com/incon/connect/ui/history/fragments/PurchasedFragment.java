@@ -1,9 +1,14 @@
 package com.incon.connect.ui.history.fragments;
 
+import android.Manifest;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,7 +22,10 @@ import android.widget.TextView;
 import com.incon.connect.AppUtils;
 import com.incon.connect.R;
 import com.incon.connect.apimodel.components.history.purchased.PurchasedHistoryResponse;
+import com.incon.connect.callbacks.AlertDialogCallback;
 import com.incon.connect.callbacks.IClickCallback;
+import com.incon.connect.custom.view.AppAlertDialog;
+import com.incon.connect.custom.view.AppAlertDialogMap;
 import com.incon.connect.databinding.BottomSheetPurchasedBinding;
 import com.incon.connect.databinding.CustomBottomViewBinding;
 import com.incon.connect.databinding.FragmentPurchasedBinding;
@@ -42,6 +50,10 @@ public class PurchasedFragment extends BaseTabFragment implements PurchasedContr
     private int userId;
     private BottomSheetDialog bottomSheetDialog;
     private BottomSheetPurchasedBinding bottomSheetPurchasedBinding;
+    private int position1;
+    private AppAlertDialog detailsDialog;
+    private AppAlertDialogMap mapDialog;
+
 
     @Override
     protected void initializePresenter() {
@@ -118,7 +130,7 @@ public class PurchasedFragment extends BaseTabFragment implements PurchasedContr
     };
 
     private void createBottomSheetView(int position) {
-
+        position1 = position;
         bottomSheetPurchasedBinding.topRow.setVisibility(View.GONE);
         // bottomSheetPurchasedBinding.bottomRow.removeAllViews();
 
@@ -131,7 +143,6 @@ public class PurchasedFragment extends BaseTabFragment implements PurchasedContr
 
         bottomSheetPurchasedBinding.bottomRow.removeAllViews();
         int length = bottomNames.length;
-//        bottomSheetPurchasedBinding.bottomRow.setWeightSum(4.0f);
         LinearLayout.LayoutParams params =
                 new LinearLayout.LayoutParams(
                         0, ViewGroup.LayoutParams.WRAP_CONTENT, length);
@@ -141,8 +152,6 @@ public class PurchasedFragment extends BaseTabFragment implements PurchasedContr
             LinearLayout linearLayout = new LinearLayout(getContext());
             linearLayout.setWeightSum(1f);
             linearLayout.setGravity(Gravity.CENTER);
-            /*LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                    0, ViewGroup.LayoutParams.WRAP_CONTENT, 4f);*/
             CustomBottomViewBinding customBottomView = getCustomBottomView();
             customBottomView.viewTv.setText(bottomNames[i]);
             View bottomRootView = customBottomView.getRoot();
@@ -194,6 +203,7 @@ public class PurchasedFragment extends BaseTabFragment implements PurchasedContr
                 CustomBottomViewBinding customBottomView = getCustomBottomView();
                 customBottomView.viewTv.setText(bottomOptions[i]);
                 View topRootView = customBottomView.getRoot();
+                topRootView.setTag(i);
                 topRootView.setOnClickListener(topViewClickListener);
                 linearLayout.addView(topRootView);
                 bottomSheetPurchasedBinding.topRow.addView(linearLayout, params);
@@ -207,8 +217,79 @@ public class PurchasedFragment extends BaseTabFragment implements PurchasedContr
             TextView viewById = (TextView) view.findViewById(R.id.view_tv);
             String topClickedText = viewById.getText().toString();
             showErrorMessage(topClickedText);
+            Integer tag = (Integer) view.getTag();
+            if (tag == 0 && topClickedText.equals("Call")) {
+                callPhoneNumber(purchasedList.get(position1).getMobileNumber());
+            } else if (tag == 1 && topClickedText.equals("Location")) {
+                onOpenLocation();
+            } else if (tag == 0 && topClickedText.equals("Details")) {
+                onOpenAlert(purchasedList.get(position1).getInformation());
+            } else if (tag == 1 && topClickedText.equals("Warranty")) {
+                onOpenAlert("Warrenty Info " + purchasedList.get(position1)
+                        .getWarrantyEndDate());
+            }
+
         }
     };
+
+    private void onOpenAlert(String messageInfo) {
+            detailsDialog = new AppAlertDialog.AlertDialogBuilder(getActivity(), new
+                    AlertDialogCallback() {
+                        @Override
+                        public void alertDialogCallback(byte dialogStatus) {
+                            switch (dialogStatus) {
+                                case AlertDialogCallback.OK:
+                                    detailsDialog.dismiss();
+                                    break;
+                                case AlertDialogCallback.CANCEL:
+                                    getActivity().onBackPressed();
+                                    detailsDialog.dismiss();
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
+                    }).title(messageInfo)
+                    .button1Text(getString(R.string.action_ok))
+                    .build();
+            detailsDialog.showDialog();
+    }
+
+    private void onOpenLocation() {
+        mapDialog = new AppAlertDialogMap.AlertDialogBuilder(getActivity(), new
+                AlertDialogCallback() {
+                    @Override
+                    public void alertDialogCallback(byte dialogStatus) {
+                        switch (dialogStatus) {
+                            case AlertDialogCallback.CANCEL:
+                                mapDialog.dismiss();
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }).title(getString(R.string.location_permission_msg))
+                .button2Text(getString(R.string.action_ok))
+                .build();
+        mapDialog.showDialog();
+    }
+
+    private void callPhoneNumber(String phoneNumber) {
+        Intent intent = new Intent(Intent.ACTION_CALL,
+                Uri.parse("tel:" + phoneNumber));
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE)
+                != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        getActivity().startActivity(intent);
+    }
 
     private CustomBottomViewBinding getCustomBottomView() {
         return DataBindingUtil.inflate(
