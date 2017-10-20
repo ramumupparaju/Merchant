@@ -226,6 +226,10 @@ public class ProductAssignFragment extends BaseFragment implements ProductAssign
             ((CustomTextInputLayout) view.getParent().getParent())
                     .setError(validationId == VALIDATION_SUCCESS ? null
                             : errorMap.get(validationId));
+        } else if (view instanceof CustomAutoCompleteView) {
+            ((CustomTextInputLayout) view.getParent().getParent())
+                    .setError(validationId == VALIDATION_SUCCESS ? null
+                            : errorMap.get(validationId));
         }
 
         if (validationId != VALIDATION_SUCCESS) {
