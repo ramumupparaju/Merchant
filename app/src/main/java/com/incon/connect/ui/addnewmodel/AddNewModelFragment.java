@@ -69,10 +69,15 @@ public class AddNewModelFragment extends BaseFragment implements AddNewModelCont
         binding.spinnerCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                categorySelectedPos = position;
-                FetchCategories fetchCategories = fetchCategorieList.get(categorySelectedPos);
-                addNewModel.setCategoryId(String.valueOf(fetchCategories.getId()));
-                loadDivisionSpinnerData(fetchCategories.getDivisions());
+                if (categorySelectedPos != position) {
+                    FetchCategories fetchCategories = fetchCategorieList.get(position);
+                    addNewModel.setCategoryId(String.valueOf(fetchCategories.getId()));
+                    loadDivisionSpinnerData(fetchCategories.getDivisions());
+                    binding.spinnerDivision.setText("");
+                    categorySelectedPos = position;
+                    binding.spinnerBrand.setVisibility(View.GONE);
+                }
+
             }
         });
     }
