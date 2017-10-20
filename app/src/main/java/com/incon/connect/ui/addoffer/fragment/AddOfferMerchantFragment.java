@@ -10,12 +10,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 
 import com.incon.connect.AppUtils;
 import com.incon.connect.R;
 import com.incon.connect.apimodel.components.addoffer.AddOfferMerchantFragmentResponse;
+import com.incon.connect.apimodel.components.fetchcategorie.Brand;
+import com.incon.connect.apimodel.components.fetchcategorie.Division;
+import com.incon.connect.apimodel.components.fetchcategorie.FetchCategories;
 import com.incon.connect.custom.view.CustomTextInputLayout;
 import com.incon.connect.databinding.FragmentAddOfferMerchantBinding;
 import com.incon.connect.dto.addoffer.AddOfferRequest;
@@ -37,7 +41,6 @@ import static com.incon.connect.AppConstants.DateFormatterConstants.MM_DD_YYYY;
 
 /**
  * Created on 13 Jun 2017 4:01 PM.
- *
  */
 public class AddOfferMerchantFragment extends BaseFragment implements
         AddOfferMerchantContract.View {
@@ -46,14 +49,13 @@ public class AddOfferMerchantFragment extends BaseFragment implements
     private FragmentAddOfferMerchantBinding binding;
     private View rootView;
     private List<AddOfferMerchantFragmentResponse> addOfferMerchantList;
+    private List<FetchCategories> fetchCategorieList;
     private AddOfferMerchantPresenter addOfferMerchantPresenter;
     private HashMap<Integer, String> errorMap;
     private Animation shakeAnim;
     private AddOfferRequest addOfferRequest;
     private int merchantId;
-    private MaterialBetterSpinner brandSpinner;
-    private MaterialBetterSpinner divisionSpinner;
-    private MaterialBetterSpinner modelSpinner;
+    private int categorySelectedPos, divisionSelectedPos, brandSelectedPos;
 
 
     @Override
@@ -73,31 +75,29 @@ public class AddOfferMerchantFragment extends BaseFragment implements
             binding.setAddOfferRequest(addOfferRequest);
             binding.setAddOfferMerchantFragment(this);
             rootView = binding.getRoot();
+            addOfferMerchantPresenter.getCategories(SharedPrefsUtils.loginProvider().
+                    getIntegerPreference(LoginPrefs.STORE_ID, DEFAULT_VALUE));
             initViews();
             loadData();
         }
-
         return rootView;
     }
-
     public void onDateClick() {
         showDatePicker();
     }
+
     public void onSubmitClick() {
         AddOfferRequest addOfferRequest = binding.getAddOfferRequest();
         addOfferMerchantPresenter.addOffer(addOfferRequest);
     }
-
     private void showDatePicker() {
         AppUtils.hideSoftKeyboard(getActivity(), getView());
         Calendar cal = Calendar.getInstance(TimeZone.getDefault());
-
       /*  String dateOfBirth = addOfferRequest.getDateOfBirthToShow();
         if (!TextUtils.isEmpty(dateOfBirth)) {
             cal.setTimeInMillis(DateUtils.convertStringFormatToMillis(
                     dateOfBirth, DateFormatterConstants.MM_DD_YYYY));
         }*/
-
         int customStyle = android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
                 ? R.style.DatePickerDialogTheme : android.R.style.Theme_DeviceDefault_Light_Dialog;
         DatePickerDialog datePicker = new DatePickerDialog(getActivity(),
@@ -121,10 +121,14 @@ public class AddOfferMerchantFragment extends BaseFragment implements
                             Locale.getDefault());
                     String strDt = simpleDate.format(selectedDateTime.getTime());
                     String endDt = simpleDate.format(selectedDateTime.getTime());
+                    String scanStartDt = simpleDate.format(selectedDateTime.getTime());
+                    String scanEdndDt = simpleDate.format(selectedDateTime.getTime());
 
                     binding.edittextStartOn.setText(strDt);
                     binding.edittextOfferExpires.setText(endDt);
-                    //   binding.edittextOfferExpires.setText(endDt);
+                    binding.edittextScanStartOn.setText(scanStartDt);
+                    binding.edittextScanExpires.setText(scanEdndDt);
+
                     String dobInYYYYMMDD = DateUtils.convertDateToOtherFormat(
                             selectedDateTime.getTime(), DateFormatterConstants.YYYY_MM_DD);
                     //TODO  Have to show Time Picker
@@ -140,41 +144,6 @@ public class AddOfferMerchantFragment extends BaseFragment implements
 
     private void loadData() {
         shakeAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.shake);
-        loadBrandSpinnerData();
-        loadDivisionSpinnerData();
-        loadModelSpinnerData();
-
-    }
-
-    private void loadModelSpinnerData() {
-        String[] genderTypeList = getResources().getStringArray(R.array.gender_options_list);
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),
-                R.layout.view_spinner, genderTypeList);
-        arrayAdapter.setDropDownViewResource(R.layout.view_spinner);
-        modelSpinner = binding.spinnerModel;
-        modelSpinner.setAdapter(arrayAdapter);
-    }
-    private void loadDivisionSpinnerData() {
-
-        String[] genderTypeList = getResources().getStringArray(R.array.gender_options_list);
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),
-                R.layout.view_spinner, genderTypeList);
-        arrayAdapter.setDropDownViewResource(R.layout.view_spinner);
-        divisionSpinner = binding.spinnerDivision;
-        divisionSpinner.setAdapter(arrayAdapter);
-    }
-
-    void loadBrandSpinnerData() {
-        String[] genderTypeList = getResources().getStringArray(R.array.gender_options_list);
-
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),
-                R.layout.view_spinner, genderTypeList);
-        arrayAdapter.setDropDownViewResource(R.layout.view_spinner);
-        brandSpinner = binding.spinnerBrand;
-        brandSpinner.setAdapter(arrayAdapter);
-
     }
     private void updateUiAfterValidation(String tag, int validationId) {
 
@@ -184,7 +153,6 @@ public class AddOfferMerchantFragment extends BaseFragment implements
 
         View viewByTag = binding.getRoot().findViewWithTag(tag);
         setFieldError(viewByTag, validationId);
-
     }
 
     private void setFieldError(View view, int validationId) {
@@ -199,32 +167,94 @@ public class AddOfferMerchantFragment extends BaseFragment implements
         }
     }
 
-
-
     private void initViews() {
         ((HomeActivity) getActivity()).setToolbarTitle(getString(R.string.title_offers));
 
         merchantId = SharedPrefsUtils.loginProvider().getIntegerPreference(
                 LoginPrefs.USER_ID, DEFAULT_VALUE);
-/*
-        AddOfferRequest addOfferRequest = new AddOfferRequest();
-        addOfferRequest.setCustomerId("19");
-        addOfferRequest.setMerchantId("2");
-        addOfferRequest.setBrandId("1");
-        addOfferRequest.setCategoryId("5");
-        addOfferRequest.setModelNumber("MODEL3321");
-        addOfferRequest.setOffer("20");
-        addOfferRequest.setProductId("34");
-        addOfferRequest.setPurchaseId("2");
-        addOfferRequest.setFromDate("2017-10-07T20:02:03.725Z");
-        addOfferRequest.setToDate("2017-10-27T20:02:03.725Z");
-        addOfferMerchantPresenter.addOffer(addOfferRequest);*/
 
+        FetchCategories fetchCategorie = new FetchCategories();
+        fetchCategorie.setId(fetchCategorie.getId());
+        fetchCategorie.setName(fetchCategorie.getName());
     }
-
-
     @Override
     public void loadAddOfferMerchant(AddOfferMerchantFragmentResponse merchantId) {
-        AppUtils.showSnackBar(rootView , merchantId.getModelNumber());
+        AppUtils.showSnackBar(rootView, merchantId.getModelNumber());
+    }
+    public void loadCategoriesList(List<FetchCategories> categoriesList) {
+        fetchCategorieList = categoriesList;
+        loadCategorySpinnerData();
+    }
+    private void loadCategorySpinnerData() {
+        String[] stringCategoryList = new String[fetchCategorieList.size()];
+        for (int i = 0; i < fetchCategorieList.size(); i++) {
+            stringCategoryList[i] = fetchCategorieList.get(i).getName();
+        }
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),
+                R.layout.view_spinner, stringCategoryList);
+        arrayAdapter.setDropDownViewResource(R.layout.view_spinner);
+        binding.spinnerCategory.setAdapter(arrayAdapter);
+        binding.spinnerCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (categorySelectedPos != position) {
+                    FetchCategories fetchCategories = fetchCategorieList.get(position);
+                    addOfferRequest.setCategoryId(String.valueOf(fetchCategories.getId()));
+                    loadDivisionSpinnerData(fetchCategories.getDivisions());
+                    binding.spinnerDivision.setText("");
+                    categorySelectedPos = position;
+                    binding.spinnerBrand.setVisibility(View.GONE);
+                }
+            }
+        });
+    }
+    private void loadDivisionSpinnerData(List<Division> divisions) {
+
+        if (divisions.size() == 0) {
+            binding.spinnerDivision.setVisibility(View.GONE);
+            return;
+        }
+
+        binding.spinnerDivision.setVisibility(View.VISIBLE);
+        String[] stringDivisionList = new String[divisions.size()];
+        for (int i = 0; i < divisions.size(); i++) {
+            stringDivisionList[i] = divisions.get(i).getName();
+        }
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),
+                R.layout.view_spinner, stringDivisionList);
+        arrayAdapter.setDropDownViewResource(R.layout.view_spinner);
+        binding.spinnerDivision.setAdapter(arrayAdapter);
+        binding.spinnerDivision.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                divisionSelectedPos = position;
+                FetchCategories fetchCategories = fetchCategorieList.get(categorySelectedPos);
+                Division divisions1 = fetchCategories.getDivisions().get(divisionSelectedPos);
+                addOfferRequest.setDivisionId(String.valueOf((divisions1.getId())));
+                loadBrandSpinnerData(divisions1.getBrands());
+            }
+        });
+    }
+    private void loadBrandSpinnerData(List<Brand> brandList) {
+
+        if (brandList.size() == 0) {
+            binding.spinnerBrand.setVisibility(View.GONE);
+            return;
+        }
+        binding.spinnerBrand.setVisibility(View.VISIBLE);
+        String[] stringDivisionList = new String[brandList.size()];
+        for (int i = 0; i < brandList.size(); i++) {
+            stringDivisionList[i] = brandList.get(i).getName();
+        }
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getActivity(),
+                R.layout.view_spinner, stringDivisionList);
+        arrayAdapter.setDropDownViewResource(R.layout.view_spinner);
+        binding.spinnerBrand.setAdapter(arrayAdapter);
+        binding.spinnerBrand.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //TODO have to select brand id
+            }
+        });
     }
 }

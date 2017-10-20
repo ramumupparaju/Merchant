@@ -52,6 +52,8 @@
     <string name="add_an_offer_on_mrp_hint">Add An Offer On MRP: %</string>
     <string name="add_an_offer_date_hint">Offer Start On</string>
     <string name="offer_expires_hint">Offer Expires On</string>
+    <string name="scan_start_date_hint">Scan Start Date</string>
+    <string name="scan_end_date_hint">Scan End Date</string>
 
     <!-- actions -->
     <string name="action_changepassword">CHANGE PASSWORD</string>
