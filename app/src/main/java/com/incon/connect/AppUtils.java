@@ -1,7 +1,10 @@
 package com.incon.connect;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.design.widget.Snackbar;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
@@ -20,6 +23,14 @@ public class AppUtils {
 
     public static void longToast(Context context, String toastMessage) {
         Toast.makeText(context, toastMessage, Toast.LENGTH_LONG).show();
+    }
+
+    public static void callPhoneNumber(Context context, String phoneNumber) {
+        if (!TextUtils.isEmpty(phoneNumber)) {
+            Uri number = Uri.parse("tel:" + phoneNumber);
+            Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
+            context.startActivity(callIntent);
+        }
     }
 
     public static void showSnackBar(View view, String message) {

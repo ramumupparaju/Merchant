@@ -45,6 +45,10 @@ public class PurchasedAdapter extends RecyclerView.Adapter
         return filteredPurchasedList.size();
     }
 
+    public PurchasedHistoryResponse getItemFromPosition(int position) {
+        return filteredPurchasedList.get(position);
+    }
+
 
     public void setData(List<PurchasedHistoryResponse> purchasedHistoryResponseList) {
         this.purchasedHistoryResponseList = purchasedHistoryResponseList;
@@ -68,7 +72,7 @@ public class PurchasedAdapter extends RecyclerView.Adapter
                     : purchasedHistoryResponseList) {
                 if (purchasedHistoryResponse.getBrandName() != null && purchasedHistoryResponse
                         .getBrandName().toLowerCase().startsWith(
-                        searchableString.toLowerCase())) {
+                                searchableString.toLowerCase())) {
                     filteredPurchasedList.add(purchasedHistoryResponse);
                 }
             }

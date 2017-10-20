@@ -7,20 +7,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.incon.connect.R;
 import com.incon.connect.callbacks.AlertDialogCallback;
 
-public class AppAlertDialogMap extends Dialog implements View.OnClickListener , OnMapReadyCallback {
+import static com.incon.connect.AppConstants.DEFAULT_GOOGLE_MAP_ZOOM_LEVEL;
+
+public class AppAlertDialogMap extends Dialog implements View.OnClickListener, OnMapReadyCallback {
     private final Context context;
     //All final attributes
-    private final String title; // optional
-    private final String content; // optional
-    private final String button1text; // required
     private final String button2text; // required
+    private final LatLng location;
     private final AlertDialogCallback mAlertDialogCallback; // required
+    private final String address;
 
     /**
      * @param builder
@@ -28,10 +36,9 @@ public class AppAlertDialogMap extends Dialog implements View.OnClickListener , 
     private AppAlertDialogMap(AlertDialogBuilder builder) {
         super(builder.context);
         this.context = builder.context;
-        this.title = builder.title;
-        this.content = builder.content;
-        this.button1text = builder.button1Text;
         this.button2text = builder.button2Text;
+        this.location = builder.location;
+        this.address = builder.address;
         this.mAlertDialogCallback = builder.callback;
     }
 
@@ -39,6 +46,13 @@ public class AppAlertDialogMap extends Dialog implements View.OnClickListener , 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
         View contentView = inflater.inflate(R.layout.dialog_map_app, null);
+
+
+        MapView mapView = (MapView) contentView.findViewById(R.id.map_monitor);
+        mapView.getMapAsync(this);
+
+        TextView addressTv = (TextView) contentView.findViewById(R.id.view_address);
+        addressTv.setText(address);
         Button mSecondButtonTextView = (Button) contentView.findViewById(R.id.dialog_second_button);
         if (!TextUtils.isEmpty(button2text)) {
             mSecondButtonTextView.setText(button2text);
@@ -73,44 +87,39 @@ public class AppAlertDialogMap extends Dialog implements View.OnClickListener , 
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(location).icon(BitmapDescriptorFactory.defaultMarker(
+                BitmapDescriptorFactory.HUE_GREEN));
+        googleMap.addMarker(markerOptions);
 
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        builder.include(location);
+        LatLngBounds bounds = builder.build();
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(
+                bounds, DEFAULT_GOOGLE_MAP_ZOOM_LEVEL));
     }
 
     public static class AlertDialogBuilder {
 
         private final Context context;
         private final AlertDialogCallback callback;
-        private String title;
-        private String content;
-        private String button1Text;
         private String button2Text;
+        private LatLng location;
+        private String address;
 
         public AlertDialogBuilder(Context context, AlertDialogCallback callback) {
             this.context = context;
             this.callback = callback;
         }
 
-        public AlertDialogBuilder title(String title) {
-            this.title = title;
-            return this;
-        }
-
-        public AlertDialogBuilder content(String content) {
-            this.content = content;
-            return this;
-        }
-
-        public AlertDialogBuilder button1Text(String button1Text) {
-            this.button1Text = button1Text;
+        public AlertDialogBuilder location(LatLng location, String address) {
+            this.location = location;
+            this.address = address;
             return this;
         }
 
         public AlertDialogBuilder button2Text(String button2Text) {
             this.button2Text = button2Text;
-            return this;
-        }
-
-        public AlertDialogBuilder downloadPreferenceHint(String downloadPreferenceHint) {
             return this;
         }
 

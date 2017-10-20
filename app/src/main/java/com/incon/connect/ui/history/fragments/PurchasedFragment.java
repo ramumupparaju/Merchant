@@ -1,17 +1,14 @@
 package com.incon.connect.ui.history.fragments;
 
-import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialog;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,8 +26,10 @@ import com.incon.connect.custom.view.AppAlertDialogMap;
 import com.incon.connect.databinding.BottomSheetPurchasedBinding;
 import com.incon.connect.databinding.CustomBottomViewBinding;
 import com.incon.connect.databinding.FragmentPurchasedBinding;
+import com.incon.connect.ui.RegistrationMapActivity;
 import com.incon.connect.ui.history.adapter.PurchasedAdapter;
 import com.incon.connect.ui.history.base.BaseTabFragment;
+import com.incon.connect.utils.DateUtils;
 import com.incon.connect.utils.SharedPrefsUtils;
 
 import java.util.ArrayList;
@@ -46,11 +45,10 @@ public class PurchasedFragment extends BaseTabFragment implements PurchasedContr
     private PurchasedPresenter purchasedPresenter;
     private FragmentPurchasedBinding binding;
     private PurchasedAdapter purchasedAdapter;
-    private List<PurchasedHistoryResponse> purchasedList;
     private int userId;
     private BottomSheetDialog bottomSheetDialog;
     private BottomSheetPurchasedBinding bottomSheetPurchasedBinding;
-    private int position1;
+    private int productSelectedPosition;
     private AppAlertDialog detailsDialog;
     private AppAlertDialogMap mapDialog;
 
@@ -98,9 +96,7 @@ public class PurchasedFragment extends BaseTabFragment implements PurchasedContr
         binding.swiperefresh.setColorSchemeResources(R.color.colorPrimaryDark);
         binding.swiperefresh.setOnRefreshListener(onRefreshListener);
 
-        purchasedList = new ArrayList<>();
         purchasedAdapter = new PurchasedAdapter();
-        purchasedAdapter.setData(purchasedList);
         purchasedAdapter.setClickCallback(iClickCallback);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
@@ -119,9 +115,9 @@ public class PurchasedFragment extends BaseTabFragment implements PurchasedContr
     private IClickCallback iClickCallback = new IClickCallback() {
         @Override
         public void onClickPosition(int position) {
-            //Todo have to get item from filter list
             purchasedAdapter.clearSelection();
-            PurchasedHistoryResponse purchasedHistoryResponse = purchasedList.get(position);
+            PurchasedHistoryResponse purchasedHistoryResponse = purchasedAdapter.
+                    getItemFromPosition(position);
             purchasedHistoryResponse.setSelected(true);
             purchasedAdapter.notifyDataSetChanged();
             createBottomSheetView(position);
@@ -130,7 +126,7 @@ public class PurchasedFragment extends BaseTabFragment implements PurchasedContr
     };
 
     private void createBottomSheetView(int position) {
-        position1 = position;
+        productSelectedPosition = position;
         bottomSheetPurchasedBinding.topRow.setVisibility(View.GONE);
         // bottomSheetPurchasedBinding.bottomRow.removeAllViews();
 
@@ -139,7 +135,6 @@ public class PurchasedFragment extends BaseTabFragment implements PurchasedContr
         bottomNames[1] = "Product";
         bottomNames[2] = "Service/Support";
         bottomNames[3] = "Satus Update";
-
 
         bottomSheetPurchasedBinding.bottomRow.removeAllViews();
         int length = bottomNames.length;
@@ -218,44 +213,59 @@ public class PurchasedFragment extends BaseTabFragment implements PurchasedContr
             String topClickedText = viewById.getText().toString();
             showErrorMessage(topClickedText);
             Integer tag = (Integer) view.getTag();
+            PurchasedHistoryResponse itemFromPosition = purchasedAdapter.getItemFromPosition(
+                    productSelectedPosition);
             if (tag == 0 && topClickedText.equals("Call")) {
-                callPhoneNumber(purchasedList.get(position1).getMobileNumber());
+                callPhoneNumber(itemFromPosition.getMobileNumber());
             } else if (tag == 1 && topClickedText.equals("Location")) {
-                onOpenLocation();
+                showLocationDialog();
             } else if (tag == 0 && topClickedText.equals("Details")) {
-                onOpenAlert(purchasedList.get(position1).getInformation());
+                onOpenAlert(itemFromPosition.getInformation());
             } else if (tag == 1 && topClickedText.equals("Warranty")) {
-                onOpenAlert("Warrenty Info " + purchasedList.get(position1)
-                        .getWarrantyEndDate());
+                String dateString = getString(R.string.hint_warranty_date,
+                        DateUtils.convertMillisToStringFormat(
+                                Long.parseLong(itemFromPosition.getWarrantyEndDate()),
+                                DateFormatterConstants.DD_E_MMMM_YYYY));
+                onOpenAlert(dateString);
             }
 
         }
     };
 
     private void onOpenAlert(String messageInfo) {
-            detailsDialog = new AppAlertDialog.AlertDialogBuilder(getActivity(), new
-                    AlertDialogCallback() {
-                        @Override
-                        public void alertDialogCallback(byte dialogStatus) {
-                            switch (dialogStatus) {
-                                case AlertDialogCallback.OK:
-                                    detailsDialog.dismiss();
-                                    break;
-                                case AlertDialogCallback.CANCEL:
-                                    getActivity().onBackPressed();
-                                    detailsDialog.dismiss();
-                                    break;
-                                default:
-                                    break;
-                            }
+        detailsDialog = new AppAlertDialog.AlertDialogBuilder(getActivity(), new
+                AlertDialogCallback() {
+                    @Override
+                    public void alertDialogCallback(byte dialogStatus) {
+                        switch (dialogStatus) {
+                            case AlertDialogCallback.OK:
+                                detailsDialog.dismiss();
+                                break;
+                            case AlertDialogCallback.CANCEL:
+                                detailsDialog.dismiss();
+                                break;
+                            default:
+                                break;
                         }
-                    }).title(messageInfo)
-                    .button1Text(getString(R.string.action_ok))
-                    .build();
-            detailsDialog.showDialog();
+                    }
+                }).title(messageInfo)
+                .button1Text(getString(R.string.action_ok))
+                .build();
+        detailsDialog.showDialog();
     }
 
-    private void onOpenLocation() {
+    private void showLocationDialog() {
+        PurchasedHistoryResponse itemFromPosition = purchasedAdapter.getItemFromPosition(
+                productSelectedPosition);
+
+        if (TextUtils.isEmpty(itemFromPosition.getLocation())) {
+            AppUtils.shortToast(getActivity(), getString(R.string.error_location));
+            return;
+        }
+        /*String[] splitLocation = itemFromPosition.getLocation().split(
+        AppConstants.COMMA_SEPARATOR);
+        LatLng latLng = new LatLng(Double.parseDouble(splitLocation[0]), Double.parseDouble(
+                splitLocation[1]));
         mapDialog = new AppAlertDialogMap.AlertDialogBuilder(getActivity(), new
                 AlertDialogCallback() {
                     @Override
@@ -268,27 +278,20 @@ public class PurchasedFragment extends BaseTabFragment implements PurchasedContr
                                 break;
                         }
                     }
-                }).title(getString(R.string.location_permission_msg))
+                })
+                .location(latLng, itemFromPosition.getAddress())
                 .button2Text(getString(R.string.action_ok))
                 .build();
-        mapDialog.showDialog();
+        mapDialog.showDialog();*/
+
+        Intent addressIntent = new Intent(getActivity(), RegistrationMapActivity.class);
+        addressIntent.putExtra(IntentConstants.LOCATION_COMMA, itemFromPosition.getLocation());
+        addressIntent.putExtra(IntentConstants.ADDRESS_COMMA, itemFromPosition.getAddress());
+        startActivity(addressIntent);
     }
 
     private void callPhoneNumber(String phoneNumber) {
-        Intent intent = new Intent(Intent.ACTION_CALL,
-                Uri.parse("tel:" + phoneNumber));
-        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE)
-                != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        getActivity().startActivity(intent);
+        AppUtils.callPhoneNumber(getActivity(), phoneNumber);
     }
 
     private CustomBottomViewBinding getCustomBottomView() {
@@ -318,8 +321,7 @@ public class PurchasedFragment extends BaseTabFragment implements PurchasedContr
         if (purchasedHistoryResponseList == null) {
             purchasedHistoryResponseList = new ArrayList<>();
         }
-        this.purchasedList = purchasedHistoryResponseList;
-        purchasedAdapter.setData(purchasedList);
+        purchasedAdapter.setData(purchasedHistoryResponseList);
         dismissSwipeRefresh();
     }
 

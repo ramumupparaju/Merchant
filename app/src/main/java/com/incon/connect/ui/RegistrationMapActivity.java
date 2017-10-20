@@ -59,6 +59,14 @@ public class RegistrationMapActivity extends BaseActivity implements OnMapReadyC
         getSupportFragmentManager().beginTransaction().add(R.id.map_monitor, mapFragment).commit();
         mapFragment.getMapAsync(this);
 
+        Intent intent = getIntent();
+        if (intent != null) {
+            String[] splitLocation = intent.getStringExtra(IntentConstants.LOCATION_COMMA).split(
+                    COMMA_SEPARATOR);
+            locationAddress = new LatLng(Double.parseDouble(splitLocation[0]), Double.parseDouble(
+                    splitLocation[1]));
+            binding.buttonOk.setText(getString(R.string.action_ok));
+        }
         addZipcodeWatcher();
     }
 
@@ -149,8 +157,11 @@ public class RegistrationMapActivity extends BaseActivity implements OnMapReadyC
     public void onMapReady(GoogleMap googleMap) {
         if (mGoogleMap == null) {
             mGoogleMap = googleMap;
-            new DeviceLocation(this, iLocationCallbacks);
-
+            if (locationAddress != null) {
+                displayMarker(locationAddress, true);
+            } else {
+                new DeviceLocation(this, iLocationCallbacks);
+            }
             /*UiSettings googlemapSettings = mGoogleMap.getUiSettings();
             googlemapSettings.setZoomControlsEnabled(true);
             googlemapSettings.setMyLocationButtonEnabled(true);

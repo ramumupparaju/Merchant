@@ -59,7 +59,7 @@
                 <TextView
                     style="@style/BothWrap"
                     android:layout_marginTop="@dimen/margin_7"
-                    android:text="11/10/2017"
+                    android:text="@{purchasedHistoryResponse.productName}"
                     android:textColor="@color/ebony_clay"
                     android:textSize="10.4sp"
                     />
@@ -67,7 +67,7 @@
                 <TextView
                     style="@style/BothWrap"
                     android:layout_marginTop="@dimen/margin_15"
-                    android:text="@{purchasedHistoryResponse.productName}"
+                    android:text="@{purchasedHistoryResponse.price}"
                     android:textColor="@color/ebony_clay"
                     android:textSize="12.4sp"
                     />
@@ -75,7 +75,7 @@
                 <TextView
                     style="@style/BothWrap"
                     android:layout_marginTop="@dimen/margin_12"
-                    android:text="@{purchasedHistoryResponse.brandName}"
+                    android:text="@{purchasedHistoryResponse.mobileNumber}"
                     android:textColor="@color/ebony_clay"
                     android:textSize="12.4sp"
                     />

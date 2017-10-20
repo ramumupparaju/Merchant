@@ -224,7 +224,6 @@
                         android:focusable="true"
                         android:imeOptions="actionNext"
                         android:maxLength="@integer/character_limit_45"
-                        android:maxLines="1"
                         android:tag="1"
                         android:text="@={warrantyRegistration.description}"
                         />

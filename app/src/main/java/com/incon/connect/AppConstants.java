@@ -15,6 +15,8 @@ public interface AppConstants {
     int VALIDATION_FAILURE = -1;
     int VALIDATION_ZIPCODE_LENGTH = 5;
     String DELIMITOR = "-";
+    int DEFAULT_GOOGLE_MAP_ZOOM_LEVEL = 16;
+
 
     interface FilterConstants {
         String NONE = "none";
