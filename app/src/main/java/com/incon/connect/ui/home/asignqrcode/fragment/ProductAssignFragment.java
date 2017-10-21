@@ -116,6 +116,8 @@ public class ProductAssignFragment extends BaseFragment implements ProductAssign
                 assignQrCode.setProductId(String.valueOf(modelSearchResponse.getId()));
                 selectedModelNumber = modelSearchResponseList.get(
                         selectedPosition).getModelNumber();
+                assignQrCode.setDescription(modelSearchResponse.getInformation());
+                binding.adNewModelButton.setVisibility(View.GONE);
             }
         });
 

@@ -32,7 +32,7 @@ public class AddNewModelFragment extends BaseFragment implements AddNewModelCont
     private AddNewModel addNewModel;
     private List<FetchCategories> fetchCategorieList;
     private List<Division> fetchDivisionList;
-    private int categorySelectedPos, divisionSelectedPos, brandSelectedPos;
+    private int categorySelectedPos, divisionSelectedPos;
 
     @Override
     protected void initializePresenter() {

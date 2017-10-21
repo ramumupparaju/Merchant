@@ -146,6 +146,8 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
                 warrantyRegistration.setDescription(modelSearchResponse.getInformation());
                 AppUtils.hideSoftKeyboard(getActivity(), rootView);
                 showViews(true);
+
+                binding.adNewModelButton.setVisibility(View.GONE);
             }
         });
     }

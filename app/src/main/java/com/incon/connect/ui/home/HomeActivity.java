@@ -78,7 +78,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         //hockey app update checking
 //        UpdateManager.register(this);
         initializeToolBar();
-       // getSupportFragmentManager().addOnBackStackChangedListener(backStackChangedListener);
+        getSupportFragmentManager().addOnBackStackChangedListener(backStackChangedListener);
 
     }
 
@@ -112,12 +112,12 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
 
     private FragmentManager.OnBackStackChangedListener backStackChangedListener =
             new FragmentManager.OnBackStackChangedListener() {
-        public void onBackStackChanged() {
-            BaseFragment currentFragment = (BaseFragment) getSupportFragmentManager().
-                    findFragmentById(R.id.container);
-            currentFragment.setTitle();
-        }
-    };
+                public void onBackStackChanged() {
+                    BaseFragment currentFragment = (BaseFragment) getSupportFragmentManager().
+                            findFragmentById(R.id.container);
+                    currentFragment.setTitle();
+                }
+            };
 
 
     public void onAssignProductClick() {

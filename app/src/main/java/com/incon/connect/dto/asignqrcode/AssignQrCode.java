@@ -24,6 +24,7 @@ public class AssignQrCode extends BaseObservable {
     @SerializedName("productId")
     @Expose
     private String productId;
+    private transient String description;
     private transient String productName;
 
     @Bindable
@@ -33,6 +34,15 @@ public class AssignQrCode extends BaseObservable {
 
     public void setProductName(String productName) {
         this.productName = productName;
+        notifyChange();
+    }
+    @Bindable
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
         notifyChange();
     }
 
