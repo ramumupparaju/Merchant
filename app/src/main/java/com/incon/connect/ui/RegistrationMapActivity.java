@@ -61,11 +61,13 @@ public class RegistrationMapActivity extends BaseActivity implements OnMapReadyC
 
         Intent intent = getIntent();
         if (intent != null) {
-            String[] splitLocation = intent.getStringExtra(IntentConstants.LOCATION_COMMA).split(
-                    COMMA_SEPARATOR);
-            locationAddress = new LatLng(Double.parseDouble(splitLocation[0]), Double.parseDouble(
-                    splitLocation[1]));
-            binding.buttonOk.setText(getString(R.string.action_ok));
+            String stringExtra = intent.getStringExtra(IntentConstants.LOCATION_COMMA);
+            if (!TextUtils.isEmpty(stringExtra)) {
+                String[] splitLocation = stringExtra.split(COMMA_SEPARATOR);
+                locationAddress = new LatLng(Double.parseDouble(
+                        splitLocation[0]), Double.parseDouble(splitLocation[1]));
+                binding.buttonOk.setText(getString(R.string.action_ok));
+            }
         }
         addZipcodeWatcher();
     }
