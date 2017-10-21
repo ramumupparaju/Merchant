@@ -89,10 +89,10 @@ public class AddNewModelFragment extends BaseFragment implements AddNewModelCont
 
     private void loadDivisionSpinnerData(List<Division> divisions) {
 
-       /* if (divisions.size() == 0) {
+        if (divisions.size() == 0) {
             binding.spinnerDivision.setVisibility(View.GONE);
             return;
-        }*/
+        }
 
         binding.spinnerDivision.setVisibility(View.VISIBLE);
         String[] stringDivisionList = new String[divisions.size()];

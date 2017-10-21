@@ -14,6 +14,7 @@ import com.incon.connect.ui.BaseActivity;
 import com.incon.connect.ui.changepassword.ChangePasswordActivity;
 import com.incon.connect.ui.register.fragment.RegistrationStoreFragmentContract;
 import com.incon.connect.ui.register.fragment.RegistrationStoreFragmentPresenter;
+import com.incon.connect.utils.SharedPrefsUtils;
 
 import java.util.HashMap;
 
@@ -46,6 +47,12 @@ public class ResetPasswordPromptActivity extends BaseActivity implements
         binding = DataBindingUtil.setContentView(this, getLayoutId());
         binding.setResetPasswordPrompt(this);
         phoneNumber = getIntent().getStringExtra(IntentConstants.USER_PHONE_NUMBER);
+
+
+        //make it as registration done but not verified otp
+        SharedPrefsUtils.loginProvider().setBooleanPreference(LoginPrefs.IS_FORGOT_PASSWORD, true);
+        SharedPrefsUtils.loginProvider().setStringPreference(LoginPrefs.USER_PHONE_NUMBER,
+                phoneNumber);
         showOtpDialog();
     }
 

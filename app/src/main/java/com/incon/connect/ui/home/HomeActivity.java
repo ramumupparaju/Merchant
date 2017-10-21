@@ -75,6 +75,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
 
         //changed preference as otp verified
         SharedPrefsUtils.loginProvider().setBooleanPreference(LoginPrefs.IS_REGISTERED, false);
+        SharedPrefsUtils.loginProvider().setBooleanPreference(LoginPrefs.IS_FORGOT_PASSWORD, false);
 
         //hockey app update checking
 //        UpdateManager.register(this);

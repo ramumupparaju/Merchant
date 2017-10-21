@@ -21,6 +21,7 @@ import com.incon.connect.ui.forgotpassword.ForgotPasswordActivity;
 import com.incon.connect.ui.home.HomeActivity;
 import com.incon.connect.ui.notifications.PushPresenter;
 import com.incon.connect.ui.register.RegistrationActivity;
+import com.incon.connect.ui.resetpassword.ResetPasswordPromptActivity;
 import com.incon.connect.utils.Logger;
 import com.incon.connect.utils.PermissionUtils;
 import com.incon.connect.utils.SharedPrefsUtils;
@@ -67,8 +68,16 @@ public class LoginActivity extends BaseActivity implements LoginContract.View {
 
         boolean isOtpVerifiedFailed = SharedPrefsUtils.loginProvider().getBooleanPreference(
                 LoginPrefs.IS_REGISTERED, false);
+        boolean isForgotOtpVerifiedFailed = SharedPrefsUtils.loginProvider().getBooleanPreference(
+                LoginPrefs.IS_FORGOT_PASSWORD, false);
         if (isOtpVerifiedFailed) {
             showOtpDialog();
+        } else if (isForgotOtpVerifiedFailed) {
+            final String phoneNumber = SharedPrefsUtils.loginProvider().getStringPreference(
+                    LoginPrefs.USER_PHONE_NUMBER);
+            Intent registrationIntent = new Intent(this, ResetPasswordPromptActivity.class);
+            registrationIntent.putExtra(IntentConstants.USER_PHONE_NUMBER, phoneNumber);
+            startActivity(registrationIntent);
         }
 
     }

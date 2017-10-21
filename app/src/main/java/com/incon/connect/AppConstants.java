@@ -189,6 +189,7 @@ public interface AppConstants {
 
 
         String IS_REGISTERED = "isRegistered";
+        String IS_FORGOT_PASSWORD = "isForgotPassword";
         String LOGGED_IN = "isLoggedIn";
         String PUSH_TOKEN_STATUS = "pushTokenStatus";
         String ACCESS_TOKEN = "accesstoken";
