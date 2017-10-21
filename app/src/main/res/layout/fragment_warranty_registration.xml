@@ -28,9 +28,10 @@
             android:scrollbars="vertical">
 
 
-            <RelativeLayout
+            <LinearLayout
                 style="@style/BothMatch"
-                android:layout_marginTop="@dimen/margin_30">
+                android:layout_marginTop="@dimen/margin_30"
+                android:orientation="vertical">
 
                 <!-- modelno -->
                 <com.incon.connect.custom.view.CustomTextInputLayout
@@ -66,6 +67,8 @@
                         style="@style/Add_new_model_TextInputEditText"
                         android:focusable="true"
                         android:imeOptions="actionNext"
+                        android:tag="1"
+                        android:scrollHorizontally="false"
                         android:inputType="textMultiLine"
                         android:scrollHorizontally="false"
                         android:tag="1"
@@ -244,6 +247,7 @@
                     android:layout_below="@id/input_layout_invoicenumber"
                     android:layout_centerHorizontal="true"
                     android:checked="true"
+                    android:layout_gravity="center"
                     android:text="@string/action_product_status"
                     android:visibility="gone" />
 
@@ -262,7 +266,7 @@
                     android:textColor="@color/tueo_theme"
                     android:textSize="@dimen/text_size_13" />
 
-            </RelativeLayout>
+            </LinearLayout>
 
         </ScrollView>
 
