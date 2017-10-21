@@ -18,6 +18,7 @@ import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.home.HomeActivity;
 import com.incon.connect.utils.SharedPrefsUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,6 +31,7 @@ public class AddNewModelFragment extends BaseFragment implements AddNewModelCont
     private AddNewModelPresenter addNewModelPresenter;
     private AddNewModel addNewModel;
     private List<FetchCategories> fetchCategorieList;
+    private List<Division> fetchDivisionList;
     private int categorySelectedPos, divisionSelectedPos, brandSelectedPos;
 
     @Override
@@ -89,10 +91,10 @@ public class AddNewModelFragment extends BaseFragment implements AddNewModelCont
 
     private void loadDivisionSpinnerData(List<Division> divisions) {
 
-        if (divisions.size() == 0) {
+       /* if (divisions.size() == 0) {
             binding.spinnerDivision.setVisibility(View.GONE);
             return;
-        }
+        }*/
 
         binding.spinnerDivision.setVisibility(View.VISIBLE);
         String[] stringDivisionList = new String[divisions.size()];
@@ -106,11 +108,14 @@ public class AddNewModelFragment extends BaseFragment implements AddNewModelCont
         binding.spinnerDivision.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                divisionSelectedPos = position;
-                FetchCategories fetchCategories = fetchCategorieList.get(categorySelectedPos);
-                Division divisions1 = fetchCategories.getDivisions().get(divisionSelectedPos);
-                addNewModel.setDivisionId(String.valueOf((divisions1.getId())));
-                loadBrandSpinnerData(divisions1.getBrands());
+                if (divisionSelectedPos != position) {
+                    divisionSelectedPos = position;
+                    FetchCategories fetchCategories = fetchCategorieList.get(categorySelectedPos);
+                    Division divisions1 = fetchCategories.getDivisions().get(divisionSelectedPos);
+                    addNewModel.setDivisionId(String.valueOf((divisions1.getId())));
+                    loadBrandSpinnerData(divisions1.getBrands());
+                    binding.spinnerBrand.setText("");
+                }
             }
         });
     }
@@ -140,9 +145,7 @@ public class AddNewModelFragment extends BaseFragment implements AddNewModelCont
 
 
     private void initViews() {
-        FetchCategories fetchCategorie = new FetchCategories();
-        fetchCategorie.setId(fetchCategorie.getId());
-        fetchCategorie.setName(fetchCategorie.getName());
+        fetchDivisionList = new ArrayList<>();
     }
 
     public void onSubmitClick() {
@@ -158,6 +161,12 @@ public class AddNewModelFragment extends BaseFragment implements AddNewModelCont
     @Override
     public void loadCategoriesList(List<FetchCategories> categoriesList) {
         fetchCategorieList = categoriesList;
-        loadCategorySpinnerData();
+
+        for (FetchCategories fetchCategories : fetchCategorieList) {
+            List<Division> divisions = fetchCategories.getDivisions();
+            if (divisions != null)
+                fetchDivisionList.addAll(divisions);
+        }
+        loadDivisionSpinnerData(fetchDivisionList);
     }
 }

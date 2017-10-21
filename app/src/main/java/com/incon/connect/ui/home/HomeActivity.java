@@ -106,6 +106,7 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
                 onAssignProductClick();
             }
         });
+        replaceToolBar(toolBarBinding.toolbar);
 
     }
 
