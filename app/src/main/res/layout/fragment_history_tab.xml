@@ -1,5 +1,5 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/main_container"
@@ -15,8 +15,7 @@
                 style="@style/MatchWrap"
                 android:fitsSystemWindows="true"
                 app:contentScrim="?attr/colorPrimary"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-                >
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -35,22 +34,8 @@
                         app:tabIndicatorColor="@color/denim"
                         app:tabMode="fixed"
                         app:tabSelectedTextColor="@color/white"
-                        app:tabTextColor="@color/white"/>
+                        app:tabTextColor="@color/white" />
 
-                    <include
-                        android:id="@+id/search_layout"
-                        layout="@layout/search_ui"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/tab_layout"
-                        />
-
-                    <include
-                        layout="@layout/item_list_header"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/search_layout"
-                        />
 
                 </RelativeLayout>
 
@@ -58,14 +43,34 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <com.incon.connect.custom.view.CustomViewPager
-            android:id="@+id/view_pager"
-            style="@style/BothMatch"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            app:swipeable="false"
-            app:tabGravity="fill"
-            app:tabMode="fixed">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/appbar"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        </com.incon.connect.custom.view.CustomViewPager>
+            <include
+                android:id="@+id/search_layout"
+                layout="@layout/search_ui"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <include
+                layout="@layout/item_list_header"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/search_layout" />
+
+            <com.incon.connect.custom.view.CustomViewPager
+                android:id="@+id/view_pager"
+                style="@style/BothMatch"
+                app:swipeable="false"
+                app:tabGravity="fill"
+                app:tabMode="fixed">
+
+            </com.incon.connect.custom.view.CustomViewPager>
+
+        </LinearLayout>
     </android.support.design.widget.CoordinatorLayout>
 </layout>
