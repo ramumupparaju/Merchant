@@ -33,6 +33,11 @@ public class ProductScanFragment extends BaseFragment implements ProductScanCont
     }
 
     @Override
+    public void setTitle() {
+        // do nothing
+    }
+
+    @Override
     protected View onPrepareView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
         if (rootView == null) {
@@ -41,6 +46,7 @@ public class ProductScanFragment extends BaseFragment implements ProductScanCont
             binding.setProductscanfragment(this);
             rootView = binding.getRoot();
         }
+        setTitle();
         return rootView;
     }
 

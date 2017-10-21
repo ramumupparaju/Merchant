@@ -36,6 +36,11 @@ public class ScanTabFragment extends BaseFragment implements ScanTabContract.Vie
     }
 
     @Override
+    public void setTitle() {
+        ((HomeActivity) getActivity()).setToolbarTitle(getString(R.string.title_scan));
+    }
+
+    @Override
     protected View onPrepareView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
         if (rootView == null) {
@@ -45,11 +50,11 @@ public class ScanTabFragment extends BaseFragment implements ScanTabContract.Vie
             rootView = binding.getRoot();
             initViews();
         }
+        setTitle();
         return rootView;
     }
 
     public void initViews() {
-        ((HomeActivity) getActivity()).setToolbarTitle(getString(R.string.title_scan));
     }
 
     public void onScanClick() {

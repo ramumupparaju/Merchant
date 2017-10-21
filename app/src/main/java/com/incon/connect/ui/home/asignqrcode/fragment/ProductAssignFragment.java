@@ -58,6 +58,12 @@ public class ProductAssignFragment extends BaseFragment implements ProductAssign
         setBasePresenter(assignPresenter);
     }
 
+    @Override
+    public void setTitle() {
+        ((HomeActivity) getActivity()).setToolbarTitle(getString(R.string.
+                progress_qr_code_product));
+    }
+
     public void onSubmitClick() {
         if (validateFields()) {
             assignPresenter.assignQrCodeToProduct(assignQrCode);
@@ -83,14 +89,12 @@ public class ProductAssignFragment extends BaseFragment implements ProductAssign
             rootView = binding.getRoot();
             initViews();
         }
+        setTitle();
         return rootView;
     }
 
     private void initViews() {
         shakeAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.shake);
-
-        ((HomeActivity) getActivity()).setToolbarTitle(getString(R.string.
-                progress_qr_code_product));
         assignQrCode.setCode(getArguments().getString(BundleConstants.SCANNED_QRCODE));
         initializeModelNumberAdapter(new ArrayList<ModelSearchResponse>());
         loadValidationErrors();

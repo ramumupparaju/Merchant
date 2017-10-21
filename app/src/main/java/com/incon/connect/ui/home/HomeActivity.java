@@ -78,11 +78,12 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
         //hockey app update checking
 //        UpdateManager.register(this);
         initializeToolBar();
+       // getSupportFragmentManager().addOnBackStackChangedListener(backStackChangedListener);
+
     }
 
     public void setToolbarTitle(String title) {
         toolBarBinding.toolbarTitleTv.setText(title);
-
     }
 
     protected void initializeToolBar() {
@@ -105,10 +106,10 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
             }
         });
 
-        getSupportFragmentManager().addOnBackStackChangedListener(backStackChangedListener);
     }
 
-    private FragmentManager.OnBackStackChangedListener backStackChangedListener = new FragmentManager.OnBackStackChangedListener() {
+    private FragmentManager.OnBackStackChangedListener backStackChangedListener =
+            new FragmentManager.OnBackStackChangedListener() {
         public void onBackStackChanged() {
             BaseFragment currentFragment = (BaseFragment) getSupportFragmentManager().
                     findFragmentById(R.id.container);

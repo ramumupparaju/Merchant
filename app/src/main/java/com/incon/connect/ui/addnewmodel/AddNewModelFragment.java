@@ -40,6 +40,11 @@ public class AddNewModelFragment extends BaseFragment implements AddNewModelCont
     }
 
     @Override
+    public void setTitle() {
+        ((HomeActivity) getActivity()).setToolbarTitle(getString(R.string.title_add_new_model));
+    }
+
+    @Override
     protected View onPrepareView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
         if (rootView == null) {
@@ -53,7 +58,7 @@ public class AddNewModelFragment extends BaseFragment implements AddNewModelCont
             addNewModelPresenter.getCategories(SharedPrefsUtils.loginProvider().
                     getIntegerPreference(LoginPrefs.STORE_ID, DEFAULT_VALUE));
         }
-        ((HomeActivity) getActivity()).setToolbarTitle(getString(R.string.title_add_new_model));
+        setTitle();
         return rootView;
     }
 

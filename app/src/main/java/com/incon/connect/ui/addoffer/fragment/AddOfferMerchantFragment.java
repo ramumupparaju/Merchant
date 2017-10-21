@@ -64,6 +64,11 @@ public class AddOfferMerchantFragment extends BaseFragment implements
     }
 
     @Override
+    public void setTitle() {
+        ((HomeActivity) getActivity()).setToolbarTitle(getString(R.string.title_offers));
+    }
+
+    @Override
     protected View onPrepareView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
         if (rootView == null) {
@@ -78,6 +83,7 @@ public class AddOfferMerchantFragment extends BaseFragment implements
             initViews();
             loadData();
         }
+        setTitle();
         return rootView;
     }
 
@@ -218,7 +224,6 @@ public class AddOfferMerchantFragment extends BaseFragment implements
     }
 
     private void initViews() {
-        ((HomeActivity) getActivity()).setToolbarTitle(getString(R.string.title_offers));
 
         merchantId = SharedPrefsUtils.loginProvider().getIntegerPreference(
                 LoginPrefs.USER_ID, DEFAULT_VALUE);

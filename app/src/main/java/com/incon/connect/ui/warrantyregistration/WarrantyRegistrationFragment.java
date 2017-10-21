@@ -79,6 +79,11 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
     }
 
     @Override
+    public void setTitle() {
+        ((HomeActivity) getActivity()).setToolbarTitle(getString(R.string.title_warranty_register));
+    }
+
+    @Override
     protected View onPrepareView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
         if (rootView == null) {
@@ -93,8 +98,7 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
 
             initViews();
         }
-
-        ((HomeActivity) getActivity()).setToolbarTitle(getString(R.string.title_warranty_register));
+        setTitle();
         return rootView;
     }
 
