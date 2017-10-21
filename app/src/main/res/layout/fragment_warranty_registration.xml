@@ -28,7 +28,8 @@
 
 
             <RelativeLayout
-                style="@style/BothMatch">
+                style="@style/BothMatch"
+                android:layout_marginTop="@dimen/margin_30">
 
                 <!-- modelno -->
                 <com.incon.connect.custom.view.CustomTextInputLayout
