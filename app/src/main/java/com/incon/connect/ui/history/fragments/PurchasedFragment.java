@@ -194,29 +194,33 @@ public class PurchasedFragment extends BaseTabFragment implements PurchasedContr
                 topDrawables[0] = R.drawable.ic_option_details;
                 topDrawables[1] = R.drawable.ic_option_warranty;
             } else if (tag == 2) {
-                bottomOptions = new String[3];
+                bottomOptions = new String[0];
+                topDrawables = new int[0];
+                /*bottomOptions = new String[3];
+                topDrawables = new int[3];
                 bottomOptions[0] = "Call";
                 bottomOptions[1] = "Request Installation";
                 bottomOptions[2] = "Share Customer Location";
 
 
-                topDrawables = new int[3];
                 topDrawables[0] = R.drawable.ic_option_call;
                 topDrawables[1] = R.drawable.ic_option_accept_request;
-                topDrawables[2] = R.drawable.ic_option_location;
+                topDrawables[2] = R.drawable.ic_option_location;*/
             } else {
-                bottomOptions = new String[4];
+                bottomOptions = new String[0];
+                topDrawables = new int[0];
+                /*bottomOptions = new String[4];
+                topDrawables = new int[4];
                 bottomOptions[0] = "Dispatches On";
                 bottomOptions[1] = "Dispatched";
                 bottomOptions[2] = "Delivered";
                 bottomOptions[3] = "Installed";
 
 
-                topDrawables = new int[4];
                 topDrawables[0] = R.drawable.ic_option_delivery_status;
                 topDrawables[1] = R.drawable.ic_option_delivery_status;
                 topDrawables[2] = R.drawable.ic_option_delivery_status;
-                topDrawables[3] = R.drawable.ic_option_delivery_status;
+                topDrawables[3] = R.drawable.ic_option_delivery_status;*/
             }
             bottomSheetPurchasedBinding.topRow.removeAllViews();
             int length1 = bottomOptions.length;
