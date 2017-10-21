@@ -97,7 +97,6 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(HomeActivity.this, SettingsActivity.class));
-
             }
         });
         toolBarBinding.toolbarRightIv.setOnClickListener(new View.OnClickListener() {

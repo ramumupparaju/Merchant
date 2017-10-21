@@ -40,15 +40,45 @@
                 style="@style/BothWrap"
                 android:layout_alignStart="@+id/text_scanuid"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/margin_60"
+                android:layout_marginTop="@dimen/margin_30"
                 android:text="@string/action_or"/>
 
-            <TextView
-                android:id="@+id/text_mobilenumber"
-                style="@style/enter_mobilenumber"
+
+            <!--phone number-->
+            <LinearLayout
+                style="@style/MatchWrap"
+                android:layout_marginLeft="@dimen/margin_30"
+                android:layout_marginRight="@dimen/margin_30"
+                android:layout_marginTop="@dimen/margin_30"
                 android:background="@drawable/bg_edittext"
-                android:onClick="@{() -> scanning.onPhoneNumberClick()}"
-                />
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="@dimen/margin_10">
+
+                <EditText
+                    android:id="@+id/edittext_mobile_number"
+                    style="@style/MatchWrap"
+                    android:layout_marginLeft="@dimen/margin_10"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:focusable="true"
+                    android:hint="@string/action_enter_customer_phone_number"
+                    android:imeOptions="actionDone"
+                    android:inputType="phone"
+                    android:maxLines="@integer/character_limit_1"
+                    android:textColor="@color/black"/>
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/phone_number_done_iv"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:onClick="@{()->scanning.onDoneClick()}"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    app:srcCompat="@drawable/ic_right_arrow"/>
+
+            </LinearLayout>
+
         </LinearLayout>
 
         <RelativeLayout

@@ -4,9 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.TextView;
 
 import com.incon.connect.R;
 import com.incon.connect.apimodel.components.qrcodebaruser.UserInfoResponse;
@@ -55,6 +58,17 @@ public class ScanTabFragment extends BaseFragment implements ScanTabContract.Vie
     }
 
     public void initViews() {
+        binding.edittextMobileNumber.setOnEditorActionListener(
+                new TextView.OnEditorActionListener() {
+                    @Override
+                    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                        if (actionId == EditorInfo.IME_ACTION_DONE) {
+                            onDoneClick();
+                            return true;
+                        }
+                        return false;
+                    }
+                });
     }
 
     public void onScanClick() {
@@ -68,10 +82,10 @@ public class ScanTabFragment extends BaseFragment implements ScanTabContract.Vie
     }
 
     public void onDoneClick() {
-        String phoneNumber = binding.phoneNumberEt.getText().toString();
+        String phoneNumber = binding.edittextMobileNumber.getText().toString();
         if (ValidationUtils.isPhoneNumberValid(phoneNumber)) {
-            binding.textMobilenumber.setText(phoneNumber);
-            showUIType(SCAN_OPTIONS_UI);
+            /*binding.textMobilenumber.setText(phoneNumber);
+            showUIType(SCAN_OPTIONS_UI);*/
             scanTabPresenter.userInfoUsingPhoneNumber(phoneNumber);
         } else {
             showErrorMessage(getString(R.string.error_phone_min_digits));
