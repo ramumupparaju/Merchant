@@ -31,13 +31,9 @@ import com.incon.connect.ui.register.RegistrationActivity;
 import com.incon.connect.utils.DateUtils;
 import com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.TimeZone;
-
-import static com.incon.connect.AppConstants.DateFormatterConstants.MM_DD_YYYY;
 
 
 /**
@@ -148,14 +144,9 @@ public class RegistrationUserFragment extends BaseFragment implements
                     Calendar selectedDateTime = Calendar.getInstance();
                     selectedDateTime.set(selectedYear, selectedMonth, selectedDay);
 
-                    SimpleDateFormat simpleDate = new SimpleDateFormat(MM_DD_YYYY,
-                            Locale.getDefault());
-                    String strDt = simpleDate.format(selectedDateTime.getTime());
-                    binding.edittextRegisterDob.setText(strDt);
-                    String dobInYYYYMMDD = DateUtils.convertDateToOtherFormat(
-                            selectedDateTime.getTime(), DateFormatterConstants.YYYY_MM_DD);
-                    register.setDob(dobInYYYYMMDD);
-                    register.setDateOfBirthToShow(strDt);
+                    String dobInMMDDYYYY = DateUtils.convertDateToOtherFormat(
+                            selectedDateTime.getTime(), DateFormatterConstants.MM_DD_YYYY);
+                    register.setDateOfBirthToShow(dobInMMDDYYYY);
 
                     Pair<String, Integer> validate = binding.getRegister().
                             validateUserInfo((String) binding.edittextRegisterDob.getTag());

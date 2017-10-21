@@ -153,7 +153,7 @@ public class Registration extends BaseObservable {
         this.dateOfBirthToShow = dateOfBirthToShow;
         dob = DateUtils.convertDateToAnotherFormat(dateOfBirthToShow, AppConstants
                 .DateFormatterConstants.MM_DD_YYYY, AppConstants.DateFormatterConstants
-                .YYYY_MM_DD_SLASH);
+                .MM_DD_YYYY);
         notifyChange();
     }
 
