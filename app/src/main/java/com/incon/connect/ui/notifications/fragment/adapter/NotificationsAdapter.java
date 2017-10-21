@@ -11,7 +11,6 @@ import com.incon.connect.R;
 import com.incon.connect.apimodel.components.notifications.NotificationsResponse;
 import com.incon.connect.callbacks.IClickCallback;
 import com.incon.connect.databinding.ItemNotificationsFragmentBinding;
-import com.incon.connect.utils.DateUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,9 +71,9 @@ public class NotificationsAdapter extends RecyclerView.Adapter
 
         public void bind(NotificationsResponse topCourse) {
             binding.setVariable(BR.notificationsResponse, topCourse);
-            binding.textTaskTime.setText(DateUtils.formatTimeDay(System.currentTimeMillis()
+            /*binding.textTaskTime.setText(DateUtils.formatTimeDay(System.currentTimeMillis()
                     - topCourse.getId() * 1000));
-            binding.executePendingBindings();
+            */binding.executePendingBindings();
         }
 
         @Override
