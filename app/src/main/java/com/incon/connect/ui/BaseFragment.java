@@ -16,6 +16,7 @@ public abstract class BaseFragment extends Fragment implements BaseView, AppCons
     private View v;
 
     protected abstract void initializePresenter();
+    public abstract void setTitle();
 
     public boolean doRefresh;
 
