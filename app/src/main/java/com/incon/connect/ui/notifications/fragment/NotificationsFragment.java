@@ -37,9 +37,15 @@ public class NotificationsFragment extends BaseFragment {
     private BottomSheetNotificationsBinding bottomSheetNotificationsBinding;
 
     private BottomSheetDialog bottomSheetDialog;
+
     @Override
     protected void initializePresenter() {
 
+    }
+
+    @Override
+    public void setTitle() {
+        ((HomeActivity) getActivity()).setToolbarTitle(getString(R.string.title_notifications));
     }
 
     @Override
@@ -55,6 +61,7 @@ public class NotificationsFragment extends BaseFragment {
             initViews();
             rootView = binding.getRoot();
         }
+        setTitle();
         return rootView;
     }
 
@@ -69,7 +76,6 @@ public class NotificationsFragment extends BaseFragment {
     }
 
     private void initViews() {
-        ((HomeActivity) getActivity()).setToolbarTitle(getString(R.string.title_notifications));
         binding.swiperefresh.setColorSchemeResources(R.color.colorPrimaryDark);
         binding.swiperefresh.setOnRefreshListener(onRefreshListener);
 

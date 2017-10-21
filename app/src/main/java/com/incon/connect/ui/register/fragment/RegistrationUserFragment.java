@@ -62,6 +62,11 @@ public class RegistrationUserFragment extends BaseFragment implements
     }
 
     @Override
+    public void setTitle() {
+        // do nothing
+    }
+
+    @Override
     protected View onPrepareView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(
@@ -73,6 +78,7 @@ public class RegistrationUserFragment extends BaseFragment implements
         View rootView = binding.getRoot();
 
         loadData();
+        setTitle();
         return rootView;
     }
 

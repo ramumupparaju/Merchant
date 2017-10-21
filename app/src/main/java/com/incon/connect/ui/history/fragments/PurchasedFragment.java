@@ -61,6 +61,11 @@ public class PurchasedFragment extends BaseTabFragment implements PurchasedContr
     }
 
     @Override
+    public void setTitle() {
+        //do nothing
+    }
+
+    @Override
     protected View onPrepareView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
         if (rootView == null) {
@@ -72,6 +77,7 @@ public class PurchasedFragment extends BaseTabFragment implements PurchasedContr
             initViews();
             rootView = binding.getRoot();
         }
+        setTitle();
         return rootView;
     }
 

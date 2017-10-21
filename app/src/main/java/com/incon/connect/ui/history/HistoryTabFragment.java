@@ -44,6 +44,11 @@ public class HistoryTabFragment extends BaseFragment implements View.OnClickList
     }
 
     @Override
+    public void setTitle() {
+        ((HomeActivity) getActivity()).setToolbarTitle(getString(R.string.title_history));
+    }
+
+    @Override
     protected View onPrepareView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
 
@@ -53,12 +58,12 @@ public class HistoryTabFragment extends BaseFragment implements View.OnClickList
             rootView = binding.getRoot();
             initViews();
         }
+        setTitle();
 
         return rootView;
     }
 
     private void initViews() {
-        ((HomeActivity) getActivity()).setToolbarTitle(getString(R.string.title_history));
         initViewPager();
         binding.searchLayout.searchIconIv.setOnClickListener(this);
         binding.searchLayout.filterIconIv.setOnClickListener(this);

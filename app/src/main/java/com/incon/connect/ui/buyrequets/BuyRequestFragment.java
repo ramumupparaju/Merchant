@@ -25,7 +25,6 @@ import java.util.List;
 
 /**
  * Created on 13 Jun 2017 4:01 PM.
- *
  */
 public class BuyRequestFragment extends BaseFragment implements View.OnClickListener,
         BuyRequestContract.View {
@@ -36,7 +35,7 @@ public class BuyRequestFragment extends BaseFragment implements View.OnClickList
     private BuyRequestAdapter buyRequestAdapter;
     private BuyRequestPresenter buyRequestPresenter;
     private int userId;
-     private List<BuyRequestResponse> buyRequestList;
+    private List<BuyRequestResponse> buyRequestList;
 
     @Override
     protected void initializePresenter() {
@@ -44,6 +43,11 @@ public class BuyRequestFragment extends BaseFragment implements View.OnClickList
         buyRequestPresenter.setView(this);
         setBasePresenter(buyRequestPresenter);
 
+    }
+
+    @Override
+    public void setTitle() {
+        ((HomeActivity) getActivity()).setToolbarTitle(getString(R.string.title_buy_requests));
     }
 
     @Override
@@ -55,12 +59,11 @@ public class BuyRequestFragment extends BaseFragment implements View.OnClickList
             rootView = binding.getRoot();
             initViews();
         }
-
+        setTitle();
         return rootView;
     }
 
     private void initViews() {
-        ((HomeActivity) getActivity()).setToolbarTitle(getString(R.string.title_buy_requests));
 
         binding.searchLayout.searchIconIv.setOnClickListener(this);
         binding.searchLayout.filterIconIv.setOnClickListener(this);
@@ -84,6 +87,7 @@ public class BuyRequestFragment extends BaseFragment implements View.OnClickList
                 LoginPrefs.USER_ID, DEFAULT_VALUE);
         buyRequestPresenter.buyRequest(userId);
     }
+
     private SwipeRefreshLayout.OnRefreshListener onRefreshListener =
             new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
@@ -97,7 +101,7 @@ public class BuyRequestFragment extends BaseFragment implements View.OnClickList
     private IClickCallback iClickCallback = new IClickCallback() {
         @Override
         public void onClickPosition(int position) {
-            AppUtils.showSnackBar(getView() , "Accepted" + position);
+            AppUtils.showSnackBar(getView(), "Accepted" + position);
         }
     };
 
@@ -133,7 +137,8 @@ public class BuyRequestFragment extends BaseFragment implements View.OnClickList
                     filterType = FilterConstants.NAME;
                 }
                 buyRequestAdapter.searchData(searchableText, filterType);
-                */break;
+                */
+                break;
             case R.id.filter_icon_iv:
                 AppUtils.showSnackBar(rootView, "have to show popup");
                 break;

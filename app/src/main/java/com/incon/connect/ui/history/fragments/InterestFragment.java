@@ -49,6 +49,12 @@ public class InterestFragment extends BaseTabFragment implements InterestContrac
     }
 
     @Override
+    public void setTitle() {
+        //do nothing
+
+    }
+
+    @Override
     protected View onPrepareView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
         if (rootView == null) {
@@ -60,6 +66,7 @@ public class InterestFragment extends BaseTabFragment implements InterestContrac
 
             rootView = binding.getRoot();
         }
+        setTitle();
         return rootView;
     }
 
