@@ -24,6 +24,10 @@ public class AddNewModel extends BaseObservable implements Parcelable {
     @SerializedName("price")
     @Expose
     private String price;
+
+    @SerializedName("mrpPrice")
+    @Expose
+    private String mrpPrice;
     @SerializedName("productModel")
     @Expose
     private String productModel;
@@ -38,6 +42,15 @@ public class AddNewModel extends BaseObservable implements Parcelable {
 
     public AddNewModel() {
     }
+
+    public String getMrpPrice() {
+        return mrpPrice;
+    }
+
+    public void setMrpPrice(String mrpPrice) {
+        this.mrpPrice = mrpPrice;
+    }
+
     @Bindable
     public String getDescription() {
         return description;

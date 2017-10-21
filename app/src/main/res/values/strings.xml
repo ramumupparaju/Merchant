@@ -242,6 +242,7 @@
     <string name="add_new_submit">SUBMIT</string>
     <string name="add_new__model_no">Model No</string>
     <string name="add_new__price">Price </string>
+    <string name="add_new__mrp_price">MRP Price </string>
     <string name="add_new__batch_no">Batch No</string>
     <string name="add_new__serial_no">Serial No</string>
     <string name="add_new__category">Category</string>

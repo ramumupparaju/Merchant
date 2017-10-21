@@ -21,11 +21,22 @@ public class AssignQrCode extends BaseObservable {
     @SerializedName("price")
     @Expose
     private String price;
+    @SerializedName("mrpPrice")
+    @Expose
+    private String mrpPrice;
     @SerializedName("productId")
     @Expose
     private String productId;
     private transient String description;
     private transient String productName;
+
+    public String getMrpPrice() {
+        return mrpPrice;
+    }
+
+    public void setMrpPrice(String mrpPrice) {
+        this.mrpPrice = mrpPrice;
+    }
 
     @Bindable
     public String getProductName() {

@@ -32,6 +32,9 @@ public class WarrantyRegistration extends BaseObservable implements Parcelable {
     @SerializedName("price")
     @Expose
     private String price;
+    @SerializedName("mrpPrice")
+    @Expose
+    private String mrpPrice;
     @SerializedName("batchNumber")
     @Expose
     private String batchNumber;
@@ -62,6 +65,14 @@ public class WarrantyRegistration extends BaseObservable implements Parcelable {
     private transient String categoryName;
     private transient String divisionName;
     private transient boolean isFromProductScan = false;
+
+    public String getMrpPrice() {
+        return mrpPrice;
+    }
+
+    public void setMrpPrice(String mrpPrice) {
+        this.mrpPrice = mrpPrice;
+    }
 
 
     @Bindable

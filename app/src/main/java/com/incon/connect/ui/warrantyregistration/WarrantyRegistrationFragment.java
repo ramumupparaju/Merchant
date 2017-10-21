@@ -196,7 +196,7 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
         binding.inputLayoutSerialNo.setVisibility(View.VISIBLE);
         binding.inputLayoutInvoicenumber.setVisibility(View.VISIBLE);
         binding.inputLayoutDescription.setVisibility(View.VISIBLE);
-        binding.productStatus.setVisibility(View.VISIBLE);
+        binding.inputLayoutMrpPrice.setVisibility(View.VISIBLE);
     }
 
     private void setObservableForModelNumber(CustomAutoCompleteView edittextModelNumber) {
