@@ -85,7 +85,7 @@ public class AssignQrCode extends BaseObservable {
 
         int fieldId = AppConstants.VALIDATION_FAILURE;
         if (tag == null) {
-            for (int i = 0; i <= 1; i++) {
+            for (int i = 0; i <= 3; i++) {
                 fieldId = validateFields(i, true);
                 if (fieldId != AppConstants.VALIDATION_SUCCESS) {
                     tag = i + "";
@@ -111,6 +111,18 @@ public class AssignQrCode extends BaseObservable {
                 break;
 
             case 1:
+                boolean descEmpty = TextUtils.isEmpty(description);
+                if (emptyValidation && descEmpty) {
+                    return AppConstants.ProductAssignValidation.DESCRIPTION;
+                }
+                break;
+            case 2:
+                boolean mrpPriceEmpty = TextUtils.isEmpty(mrpPrice);
+                if (emptyValidation && mrpPriceEmpty) {
+                    return AppConstants.ProductAssignValidation.MRP_PRICE;
+                }
+                break;
+            case 3:
                 boolean priceEmpty = TextUtils.isEmpty(price);
                 if (emptyValidation && priceEmpty) {
                     return AppConstants.ProductAssignValidation.PRICE;

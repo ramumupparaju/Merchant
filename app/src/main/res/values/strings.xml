@@ -156,6 +156,8 @@
     <string name="error_product_model">Model is required</string>
     <string name="error_product_invalid_model">Invalid Model</string>
     <string name="error_product_price">Price is required</string>
+    <string name="error_product_mrp_price">MRP Price is required</string>
+    <string name="error_product_description">Description is required</string>
     <string name="error_product_serial">Serial is required</string>
     <string name="error_product_batch">Batch is required</string>
     <string name="error_product_invoice_number">InvoiceNumber is required</string>

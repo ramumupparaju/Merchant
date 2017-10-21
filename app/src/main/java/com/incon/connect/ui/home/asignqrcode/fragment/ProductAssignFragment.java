@@ -180,6 +180,10 @@ public class ProductAssignFragment extends BaseFragment implements ProductAssign
         errorMap.put(ProductAssignValidation.MODEL, getString(R.string.error_product_model));
         errorMap.put(ProductAssignValidation.INVALID_MODEL,
                 getString(R.string.error_product_invalid_model));
+        errorMap.put(ProductAssignValidation.DESCRIPTION, getString(
+                R.string.error_product_description));
+        errorMap.put(ProductAssignValidation.MRP_PRICE, getString(
+                R.string.error_product_mrp_price));
         errorMap.put(ProductAssignValidation.PRICE, getString(R.string.error_product_price));
 
     }
@@ -187,6 +191,8 @@ public class ProductAssignFragment extends BaseFragment implements ProductAssign
     private void setFocusForViews() {
         binding.edittextModelNumber.setOnFocusChangeListener(onFocusChangeListener);
         binding.edittextModelPrice.setOnFocusChangeListener(onFocusChangeListener);
+        binding.edittextDescription.setOnFocusChangeListener(onFocusChangeListener);
+        binding.edittextMrpPrice.setOnFocusChangeListener(onFocusChangeListener);
     }
 
     View.OnFocusChangeListener onFocusChangeListener = new View.OnFocusChangeListener() {
@@ -210,7 +216,9 @@ public class ProductAssignFragment extends BaseFragment implements ProductAssign
 
     private boolean validateFields() {
         binding.inputLayoutModelNumber.setError(null);
+        binding.inputLayoutDescription.setError(null);
         binding.inputLayoutModelPrice.setError(null);
+        binding.inputLayoutMrpPrice.setError(null);
 
         Pair<String, Integer> validation = binding.getAssignQrCode().validateProductModel(null);
         updateUiAfterValidation(validation.first, validation.second);

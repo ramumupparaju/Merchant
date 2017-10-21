@@ -88,7 +88,7 @@
                         android:inputType="number"
                         android:maxLength="@integer/character_limit_45"
                         android:maxLines="1"
-                        android:tag="3"
+                        android:tag="2"
                         android:text="@={assignQrCode.mrpPrice}"
                         />
 
@@ -113,7 +113,7 @@
                         android:inputType="number"
                         android:maxLength="@integer/character_limit_45"
                         android:maxLines="1"
-                        android:tag="1"
+                        android:tag="3"
                         android:text="@={assignQrCode.price}" />
                 </com.incon.connect.custom.view.CustomTextInputLayout>
 
