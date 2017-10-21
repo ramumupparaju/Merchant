@@ -63,7 +63,7 @@ public class ScanTabFragment extends BaseFragment implements ScanTabContract.Vie
     }
 
     public void onDoneClick() {
-        String phoneNumber = binding.phoneNumberEt.getText().toString();
+        String phoneNumber = binding.edittextMobileNumber.getText().toString();
         if (ValidationUtils.isPhoneNumberValid(phoneNumber)) {
             binding.textMobilenumber.setText(phoneNumber);
             showUIType(SCAN_OPTIONS_UI);
