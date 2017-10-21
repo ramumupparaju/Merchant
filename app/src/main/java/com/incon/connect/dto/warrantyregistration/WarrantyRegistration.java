@@ -46,7 +46,7 @@ public class WarrantyRegistration extends BaseObservable implements Parcelable {
     private Integer merchantId;
     @SerializedName("productId")
     @Expose
-    private Integer productId;
+    private String productId;
     @SerializedName("customerId")
     @Expose
     private String customerId;
@@ -196,11 +196,11 @@ public class WarrantyRegistration extends BaseObservable implements Parcelable {
         this.merchantId = merchantId;
     }
 
-    public Integer getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(Integer productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
     }
 
@@ -241,7 +241,7 @@ public class WarrantyRegistration extends BaseObservable implements Parcelable {
         batchNumber = in.readString();
         serialNumber = in.readString();
         merchantId = in.readByte() == 0x00 ? null : in.readInt();
-        productId = in.readByte() == 0x00 ? null : in.readInt();
+        productId = in.readByte() == 0x00 ? null : in.readString();
         customerId = in.readByte() == 0x00 ? null : in.readString();
         status = in.readString();
         invoiceNumber = in.readString();
@@ -282,7 +282,7 @@ public class WarrantyRegistration extends BaseObservable implements Parcelable {
             dest.writeByte((byte) (0x00));
         } else {
             dest.writeByte((byte) (0x01));
-            dest.writeInt(productId);
+            dest.writeString(productId);
         }
         if (customerId == null) {
             dest.writeByte((byte) (0x00));
@@ -312,7 +312,7 @@ public class WarrantyRegistration extends BaseObservable implements Parcelable {
 
         int fieldId = AppConstants.VALIDATION_FAILURE;
         if (tag == null) {
-            for (int i = 0; i <= 1; i++) {
+            for (int i = 0; i <= 6; i++) {
                 fieldId = validateFields(i, true);
                 if (fieldId != AppConstants.VALIDATION_SUCCESS) {
                     tag = i + "";
@@ -333,29 +333,45 @@ public class WarrantyRegistration extends BaseObservable implements Parcelable {
                 boolean modelEmpty = TextUtils.isEmpty(modelNumber);
                 if (emptyValidation && modelEmpty) {
                     return AppConstants.WarrantyregistationValidation.MODEL;
+                } else if (!modelEmpty && TextUtils.isEmpty(productId)) {
+                    return AppConstants.ProductAssignValidation.INVALID_MODEL;
                 }
                 break;
             case 1:
+                boolean descEmpty = TextUtils.isEmpty(description);
+                if (emptyValidation && descEmpty) {
+                    return AppConstants.WarrantyregistationValidation.DESCRIPTION;
+                }
+                break;
+            case 2:
                 boolean serialEmpty = TextUtils.isEmpty(serialNumber);
                 if (emptyValidation && serialEmpty) {
                     return AppConstants.WarrantyregistationValidation.SERIAL_NO;
                 }
                 break;
-            case 2:
+            case 3:
                 boolean batchEmpty = TextUtils.isEmpty(batchNumber);
                 if (emptyValidation && batchEmpty) {
                     return AppConstants.WarrantyregistationValidation.BATCH_NO;
                 }
                 break;
 
-            case 3:
+            case 4:
+                boolean mprPriceEmpty = TextUtils.isEmpty(mrpPrice);
+                if (emptyValidation && mprPriceEmpty) {
+                    return AppConstants.WarrantyregistationValidation.MRP_PRICE;
+                }
+                break;
+
+            case 5:
                 boolean priceEmpty = TextUtils.isEmpty(price);
                 if (emptyValidation && priceEmpty) {
                     return AppConstants.WarrantyregistationValidation.PRICE;
                 }
                 break;
 
-            case 4:
+
+            case 6:
                 boolean invoiceNumberEmpty = TextUtils.isEmpty(invoiceNumber);
                 if (emptyValidation && invoiceNumberEmpty) {
                     return AppConstants.WarrantyregistationValidation.INVOICENUMBER;

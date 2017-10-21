@@ -302,10 +302,23 @@ public interface AppConstants {
 
     interface WarrantyregistationValidation {
         int MODEL = 1;
-        int SERIAL_NO = 2;
-        int BATCH_NO = 3;
-        int PRICE = 4;
-        int INVOICENUMBER = 5;
+        int INVALID_MODEL = 2;
+        int DESCRIPTION = 3;
+        int SERIAL_NO = 4;
+        int BATCH_NO = 5;
+        int MRP_PRICE = 6;
+        int PRICE = 7;
+        int INVOICENUMBER = 8;
+    }
+    interface AddNewModelValidation {
+        int MODEL = 1;
+        int INVALID_MODEL = 2;
+        int CATEGORY = 3;
+        int DIVISION = 4;
+        int BRAND = 5;
+        int MRP_PRICE = 6;
+        int PRICE = 7;
+        int NOTE = 8;
     }
 
     interface ActivityResult {

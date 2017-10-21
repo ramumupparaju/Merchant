@@ -171,7 +171,7 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
                                     long id) {
                 selectedPosition = pos;
                 ModelSearchResponse modelSearchResponse = modelSearchResponseList.get(pos);
-                warrantyRegistration.setProductId(modelSearchResponse.getId());
+                warrantyRegistration.setProductId(String.valueOf(modelSearchResponse.getId()));
                 Category category = modelSearchResponse.getCategory();
                 warrantyRegistration.setCategoryId(category.getId());
                 warrantyRegistration.setCategoryName(String.valueOf(category.getName()));
@@ -410,10 +410,16 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
     private void loadValidationErrors() {
         errorMap = new HashMap<>();
         errorMap.put(WarrantyregistationValidation.MODEL, getString(R.string.error_product_model));
+        errorMap.put(WarrantyregistationValidation.INVALID_MODEL,
+                getString(R.string.error_product_invalid_model));
+        errorMap.put(WarrantyregistationValidation.DESCRIPTION, getString(
+                R.string.error_product_description));
         errorMap.put(WarrantyregistationValidation.SERIAL_NO, getString(
                 R.string.error_product_serial));
         errorMap.put(WarrantyregistationValidation.BATCH_NO, getString(
                 R.string.error_product_batch));
+        errorMap.put(WarrantyregistationValidation.MRP_PRICE, getString(
+                R.string.error_product_mrp_price));
         errorMap.put(WarrantyregistationValidation.PRICE, getString(
                 R.string.error_product_price));
         errorMap.put(WarrantyregistationValidation.INVOICENUMBER, getString(R.string
@@ -423,8 +429,10 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
 
     private void setFocusForViews() {
         binding.edittextModelNumber.setOnFocusChangeListener(onFocusChangeListener);
+        binding.edittextDescription.setOnFocusChangeListener(onFocusChangeListener);
         binding.edittextSerialNo.setOnFocusChangeListener(onFocusChangeListener);
         binding.edittextBatchNo.setOnFocusChangeListener(onFocusChangeListener);
+        binding.edittextMrpPrice.setOnFocusChangeListener(onFocusChangeListener);
         binding.edittextPrice.setOnFocusChangeListener(onFocusChangeListener);
         binding.edittextInvoicenumber.setOnFocusChangeListener(onFocusChangeListener);
     }
@@ -450,8 +458,10 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
 
     private boolean validateFields() {
         binding.inputLayoutModelNumber.setError(null);
+        binding.inputLayoutDescription.setError(null);
         binding.inputLayoutSerialNo.setError(null);
         binding.inputLayoutBatchNo.setError(null);
+        binding.inputLayoutMrpPrice.setError(null);
         binding.inputLayoutPrice.setError(null);
         binding.inputLayoutInvoicenumber.setError(null);
 

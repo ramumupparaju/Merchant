@@ -50,7 +50,7 @@
                         android:inputType="textCapWords"
                         android:maxLength="@integer/character_limit_45"
                         android:maxLines="1"
-                        android:tag="1"
+                        android:tag="0"
                         android:text="@={addNewModel.productModel}" />
 
                 </com.incon.connect.custom.view.CustomTextInputLayout>
@@ -73,7 +73,7 @@
                         android:imeOptions="actionNext"
                         android:inputType="textMultiLine"
                         android:scrollHorizontally="false"
-                        android:tag="2"
+                        android:tag="1"
                         android:text="@={addNewModel.description}" />
 
                 </com.incon.connect.custom.view.CustomTextInputLayout>
@@ -86,7 +86,7 @@
                     android:layout_marginBottom="@dimen/margin_24"
                     android:focusable="true"
                     android:hint="@string/add_new__category"
-                    android:tag="3"
+                    android:tag="2"
                     android:text="@={addNewModel.categoryId}"
                     android:visibility="visible"
                     app:errorEnabled="true"
@@ -102,7 +102,7 @@
                     android:layout_marginBottom="@dimen/margin_24"
                     android:focusable="true"
                     android:hint="@string/add_new__division"
-                    android:tag="4"
+                    android:tag="3"
                     android:text="@={addNewModel.divisionId}"
                     android:visibility="gone"
                     app:errorEnabled="true"
@@ -118,7 +118,7 @@
                     android:layout_marginBottom="@dimen/margin_24"
                     android:focusable="true"
                     android:hint="@string/action_brand"
-                    android:tag="5"
+                    android:tag="4"
                     android:text="@={addNewModel.productBrand}"
                     android:visibility="gone"
                     app:errorEnabled="true"
@@ -133,7 +133,7 @@
                     android:layout_marginBottom="@dimen/margin_24"
                     android:focusable="true"
                     android:hint="@string/add_new__type"
-                    android:tag="6"
+                    android:tag="5"
                     android:text="@={addNewModel.divisionId}"
                     android:visibility="gone"
                     app:errorEnabled="true"
@@ -159,7 +159,7 @@
                         android:inputType="number"
                         android:maxLength="@integer/character_limit_45"
                         android:maxLines="1"
-                        android:tag="7"
+                        android:tag="6"
                         android:text="@={addNewModel.mrpPrice}"
                         />
 
@@ -184,7 +184,7 @@
                         android:inputType="number"
                         android:maxLength="@integer/character_limit_45"
                         android:maxLines="1"
-                        android:tag="8"
+                        android:tag="7"
                         android:text="@={addNewModel.price}" />
                 </com.incon.connect.custom.view.CustomTextInputLayout>
 
@@ -205,7 +205,7 @@
                         android:imeOptions="actionNext"
                         android:maxLength="@integer/character_limit_45"
                         android:maxLines="1"
-                        android:tag="9"
+                        android:tag="8"
                         android:text="@={addNewModel.notes}" />
                 </com.incon.connect.custom.view.CustomTextInputLayout>
 

@@ -135,7 +135,7 @@
                         android:inputType="textCapWords"
                         android:maxLength="@integer/character_limit_45"
                         android:maxLines="1"
-                        android:tag="1"
+                        android:tag="2"
                         android:text="@={warrantyRegistration.serialNumber}" />
 
                 </com.incon.connect.custom.view.CustomTextInputLayout>
@@ -160,7 +160,7 @@
                         android:inputType="textCapWords"
                         android:maxLength="@integer/character_limit_45"
                         android:maxLines="1"
-                        android:tag="2"
+                        android:tag="3"
                         android:text="@={warrantyRegistration.batchNumber}" />
                 </com.incon.connect.custom.view.CustomTextInputLayout>
 
@@ -184,7 +184,7 @@
                         android:inputType="number"
                         android:maxLength="@integer/character_limit_45"
                         android:maxLines="1"
-                        android:tag="3"
+                        android:tag="4"
                         android:text="@={warrantyRegistration.mrpPrice}"
                         />
 
@@ -209,7 +209,7 @@
                         android:inputType="number"
                         android:maxLength="@integer/character_limit_45"
                         android:maxLines="1"
-                        android:tag="4"
+                        android:tag="5"
                         android:text="@={warrantyRegistration.price}" />
 
                 </com.incon.connect.custom.view.CustomTextInputLayout>
@@ -233,7 +233,7 @@
                         android:imeOptions="actionNext"
                         android:maxLength="@integer/character_limit_45"
                         android:maxLines="1"
-                        android:tag="5"
+                        android:tag="6"
                         android:text="@={warrantyRegistration.invoiceNumber}" />
 
                 </com.incon.connect.custom.view.CustomTextInputLayout>

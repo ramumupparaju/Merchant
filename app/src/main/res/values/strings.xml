@@ -161,6 +161,10 @@
     <string name="error_product_serial">Serial is required</string>
     <string name="error_product_batch">Batch is required</string>
     <string name="error_product_invoice_number">InvoiceNumber is required</string>
+    <string name="error_product_category">Category is required</string>
+    <string name="error_product_division">Division is required</string>
+    <string name="error_product_brand">Brand is required</string>
+    <string name="error_product_notes">Notes is required</string>
 
     <!-- progress messages -->
     <string name="progress_addoffer_merchant_fragment">Loading AddOffer Merchant Fragment..

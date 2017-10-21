@@ -4,9 +4,12 @@ import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
+import android.util.Pair;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.incon.connect.AppConstants;
 
 public class AddNewModel extends BaseObservable implements Parcelable {
     @SerializedName("name")
@@ -34,13 +37,22 @@ public class AddNewModel extends BaseObservable implements Parcelable {
     @SerializedName("productBrand")
     @Expose
     private String productBrand;
+
     @SerializedName("information")
     @Expose
+    private String productId;
     private String description;
     private transient String categoryName;
     private transient String divisionName;
 
     public AddNewModel() {
+    }
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
     }
 
     public String getMrpPrice() {
@@ -176,4 +188,81 @@ public class AddNewModel extends BaseObservable implements Parcelable {
                     return new AddNewModel[size];
                 }
             };
+    public Pair<String, Integer> validateAddNewModel(String tag) {
+
+        int fieldId = AppConstants.VALIDATION_FAILURE;
+        if (tag == null) {
+            for (int i = 0; i <= 6; i++) {
+                fieldId = validateFields(i, true);
+                if (fieldId != AppConstants.VALIDATION_SUCCESS) {
+                    tag = i + "";
+                    break;
+                }
+            }
+        }
+        else {
+            fieldId =  validateFields(Integer.parseInt(tag), false);
+        }
+
+        return  new Pair<>(tag, fieldId);
+    }
+
+    private int validateFields(int id, boolean emptyValidation) {
+        switch (id) {
+            case 0:
+                boolean modelEmpty = TextUtils.isEmpty(productModel);
+                if (emptyValidation && modelEmpty) {
+                    return AppConstants.AddNewModelValidation.MODEL;
+                } else if (!modelEmpty && TextUtils.isEmpty(productId)) {
+                    return AppConstants.ProductAssignValidation.INVALID_MODEL;
+                }
+                break;
+
+            case 2:
+                boolean categoryEmpty = TextUtils.isEmpty(categoryName);
+                if (emptyValidation && categoryEmpty) {
+                    return AppConstants.AddNewModelValidation.CATEGORY;
+                }
+                break;
+            case 3:
+                boolean divisionEmpty = TextUtils.isEmpty(divisionName);
+                if (emptyValidation && divisionEmpty) {
+                    return AppConstants.AddNewModelValidation.DIVISION;
+                }
+                break;
+
+            case 4:
+                boolean brandEmpty = TextUtils.isEmpty(productBrand);
+                if (emptyValidation && brandEmpty) {
+                    return AppConstants.AddNewModelValidation.BRAND;
+                }
+                break;
+
+            case 5:
+                boolean mrpPriceEmpty = TextUtils.isEmpty(mrpPrice);
+                if (emptyValidation && mrpPriceEmpty) {
+                    return AppConstants.AddNewModelValidation.MRP_PRICE;
+                }
+                break;
+
+
+            case 6:
+                boolean priceEmpty = TextUtils.isEmpty(price);
+                if (emptyValidation && priceEmpty) {
+                    return AppConstants.AddNewModelValidation.PRICE;
+                }
+                break;
+            case 7:
+                boolean notesEmpty = TextUtils.isEmpty(notes);
+                if (emptyValidation && notesEmpty) {
+                    return AppConstants.AddNewModelValidation.NOTE;
+                }
+                break;
+
+
+            default:
+                return AppConstants.VALIDATION_SUCCESS;
+        }
+        return AppConstants.VALIDATION_SUCCESS;
+    }
 }
