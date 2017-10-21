@@ -67,8 +67,6 @@
                         style="@style/Add_new_model_TextInputEditText"
                         android:focusable="true"
                         android:imeOptions="actionNext"
-                        android:tag="1"
-                        android:scrollHorizontally="false"
                         android:inputType="textMultiLine"
                         android:scrollHorizontally="false"
                         android:tag="1"

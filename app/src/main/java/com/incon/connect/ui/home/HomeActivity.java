@@ -23,6 +23,7 @@ import com.incon.connect.ui.buyrequets.BuyRequestFragment;
 import com.incon.connect.ui.history.HistoryTabFragment;
 import com.incon.connect.ui.home.asignqrcode.fragment.ProductAssignFragment;
 import com.incon.connect.ui.notifications.fragment.NotificationsFragment;
+import com.incon.connect.ui.qrcodescan.QrcodeBarcodeScanActivity;
 import com.incon.connect.ui.scan.ScanTabFragment;
 import com.incon.connect.ui.settings.SettingsActivity;
 import com.incon.connect.utils.DeviceUtils;
@@ -121,12 +122,12 @@ public class HomeActivity extends BaseActivity implements HomeContract.View {
 
     public void onAssignProductClick() {
         //TODO need to change uncomment
-        Bundle bundle = new Bundle();
+       /* Bundle bundle = new Bundle();
         bundle.putString(BundleConstants.SCANNED_QRCODE, "1-45-1507817691174");
         replaceFragmentAndAddToStack(
-                ProductAssignFragment.class, bundle);
-        /*Intent intent = new Intent(this, QrcodeBarcodeScanActivity.class);
-        startActivityForResult(intent, RequestCodes.PRODUCT_ASSIGN_SCAN);*/
+                ProductAssignFragment.class, bundle);*/
+        Intent intent = new Intent(this, QrcodeBarcodeScanActivity.class);
+        startActivityForResult(intent, RequestCodes.PRODUCT_ASSIGN_SCAN);
     }
 
     @Override
