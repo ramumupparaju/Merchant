@@ -18,7 +18,6 @@ import com.incon.connect.ui.BaseFragment;
 import com.incon.connect.ui.home.HomeActivity;
 import com.incon.connect.utils.SharedPrefsUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,7 +30,6 @@ public class AddNewModelFragment extends BaseFragment implements AddNewModelCont
     private AddNewModelPresenter addNewModelPresenter;
     private AddNewModel addNewModel;
     private List<FetchCategories> fetchCategorieList;
-    private List<Division> fetchDivisionList;
     private int categorySelectedPos, divisionSelectedPos;
 
     @Override
@@ -145,7 +143,6 @@ public class AddNewModelFragment extends BaseFragment implements AddNewModelCont
 
 
     private void initViews() {
-        fetchDivisionList = new ArrayList<>();
     }
 
     public void onSubmitClick() {
@@ -161,12 +158,6 @@ public class AddNewModelFragment extends BaseFragment implements AddNewModelCont
     @Override
     public void loadCategoriesList(List<FetchCategories> categoriesList) {
         fetchCategorieList = categoriesList;
-
-        for (FetchCategories fetchCategories : fetchCategorieList) {
-            List<Division> divisions = fetchCategories.getDivisions();
-            if (divisions != null)
-                fetchDivisionList.addAll(divisions);
-        }
-        loadDivisionSpinnerData(fetchDivisionList);
+        loadCategorySpinnerData();
     }
 }

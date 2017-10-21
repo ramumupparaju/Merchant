@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="addNewModel"
-            type="com.incon.connect.dto.addnewmodel.AddNewModel"/>
+            type="com.incon.connect.dto.addnewmodel.AddNewModel" />
 
         <variable
             name="addNewModelFragment"
-            type="com.incon.connect.ui.addnewmodel.AddNewModelFragment"/>
+            type="com.incon.connect.ui.addnewmodel.AddNewModelFragment" />
 
     </data>
 
@@ -30,8 +30,7 @@
             <LinearLayout
                 style="@style/BothMatch"
                 android:layout_marginTop="30dp"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical">
 
                 <!-- modelno -->
                 <com.incon.connect.custom.view.CustomTextInputLayout
@@ -52,8 +51,7 @@
                         android:maxLength="@integer/character_limit_45"
                         android:maxLines="1"
                         android:tag="1"
-                        android:text="@={addNewModel.productModel}"
-                        />
+                        android:text="@={addNewModel.productModel}" />
 
                 </com.incon.connect.custom.view.CustomTextInputLayout>
 
@@ -63,6 +61,7 @@
                     style="@style/Register_TextInputLayout"
                     android:layout_below="@id/input_layout_model_number"
                     android:hint="@string/action_description"
+                    android:visibility="gone"
                     app:errorEnabled="true"
                     app:fontName="fonts/OpenSans-Regular.ttf"
                     app:hintTextAppearance="@style/TextInputLayout_FloatingTextColor">
@@ -72,11 +71,10 @@
                         style="@style/Add_new_model_TextInputEditText"
                         android:focusable="true"
                         android:imeOptions="actionNext"
-                        android:tag="1"
-                        android:scrollHorizontally="false"
                         android:inputType="textMultiLine"
-                        android:text="@={addNewModel.description}"
-                        />
+                        android:scrollHorizontally="false"
+                        android:tag="1"
+                        android:text="@={addNewModel.description}" />
 
                 </com.incon.connect.custom.view.CustomTextInputLayout>
 
@@ -90,11 +88,11 @@
                     android:hint="@string/add_new__category"
                     android:tag="2"
                     android:text="@={addNewModel.categoryId}"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     app:errorEnabled="true"
                     app:met_floatingLabel="highlight"
                     app:met_textColor="@color/colorForgotPasswordHintText"
-                    app:met_textColorHint="@color/colorForgotPasswordHintText"/>
+                    app:met_textColorHint="@color/colorForgotPasswordHintText" />
 
                 <!-- division no -->
                 <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
@@ -110,7 +108,7 @@
                     app:errorEnabled="true"
                     app:met_floatingLabel="highlight"
                     app:met_textColor="@color/colorForgotPasswordHintText"
-                    app:met_textColorHint="@color/colorForgotPasswordHintText"/>
+                    app:met_textColorHint="@color/colorForgotPasswordHintText" />
 
                 <!--brand-->
                 <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
@@ -126,7 +124,7 @@
                     app:errorEnabled="true"
                     app:met_floatingLabel="highlight"
                     app:met_textColor="@color/colorForgotPasswordHintText"
-                    app:met_textColorHint="@color/colorForgotPasswordHintText"/>
+                    app:met_textColorHint="@color/colorForgotPasswordHintText" />
 
                 <!-- type -->
                 <com.weiwangcn.betterspinner.library.material.MaterialBetterSpinner
@@ -141,7 +139,7 @@
                     app:errorEnabled="true"
                     app:met_floatingLabel="highlight"
                     app:met_textColor="@color/colorForgotPasswordHintText"
-                    app:met_textColorHint="@color/colorForgotPasswordHintText"/>
+                    app:met_textColorHint="@color/colorForgotPasswordHintText" />
 
                 <!--price-->
                 <com.incon.connect.custom.view.CustomTextInputLayout
@@ -162,8 +160,7 @@
                         android:maxLength="@integer/character_limit_45"
                         android:maxLines="1"
                         android:tag="1"
-                        android:text="@={addNewModel.price}"
-                        />
+                        android:text="@={addNewModel.price}" />
                 </com.incon.connect.custom.view.CustomTextInputLayout>
 
                 <!--Notes-->
@@ -184,8 +181,7 @@
                         android:maxLength="@integer/character_limit_45"
                         android:maxLines="1"
                         android:tag="1"
-                        android:text="@={addNewModel.notes}"
-                        />
+                        android:text="@={addNewModel.notes}" />
                 </com.incon.connect.custom.view.CustomTextInputLayout>
 
                 <!--submit-->
@@ -202,7 +198,7 @@
                     android:text="@string/add_new_submit"
                     android:textAllCaps="true"
                     android:textColor="@color/tueo_theme"
-                    android:textSize="@dimen/text_size_13"/>
+                    android:textSize="@dimen/text_size_13" />
 
 
             </LinearLayout>
