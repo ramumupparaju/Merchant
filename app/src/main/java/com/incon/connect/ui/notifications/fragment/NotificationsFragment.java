@@ -58,7 +58,7 @@ public class NotificationsFragment extends BaseFragment {
 
 
             loadBottomSheet();
-            initViews();
+           // initViews();
             rootView = binding.getRoot();
         }
         setTitle();
@@ -97,7 +97,7 @@ public class NotificationsFragment extends BaseFragment {
     private IClickCallback iClickCallback = new IClickCallback() {
         @Override
         public void onClickPosition(int position) {
-            createBottomSheetView(position);
+            //createBottomSheetView(position);
             bottomSheetDialog.show();
         }
     };
