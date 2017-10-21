@@ -10,7 +10,8 @@
     </data>
 
     <RelativeLayout
-        style="@style/MatchWrap"
+        style="@style/BothMatch"
+        android:gravity="center"
         android:background="@drawable/list_ripple_effect"
         android:minHeight="70dp"
         android:paddingBottom="@dimen/margin_15"
@@ -18,34 +19,15 @@
         android:paddingRight="@dimen/margin_5"
         android:paddingTop="@dimen/margin_15">
 
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/task_iv"
-            style="@style/BothWrap"
-            android:layout_centerVertical="true"
-            android:layout_margin="@dimen/margin_5"
-            app:srcCompat="@drawable/ic_dashboard_alert_svg"/>
 
-        <TextView
-            android:id="@+id/text_task_time"
-            style="@style/BothWrap"
-            fontPath="fonts/OpenSans-Bold.ttf"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/margin_10"
-            android:textColor="@color/cadet_blue"
-            android:textSize="11.5sp"/>
 
         <TextView
             android:id="@+id/text_task_title"
             style="@style/BothWrap"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/margin_10"
-            android:layout_marginStart="@dimen/margin_10"
-            android:layout_toEndOf="@id/task_iv"
-            android:layout_toStartOf="@id/text_task_time"
-            android:text="@{notificationsResponse.positionText}"
+            android:text="Comming Soon"
             android:textColor="@color/ebony_clay"
-            android:textSize="13.4sp"/>
+            android:textSize="25.4sp"/>
 
     </RelativeLayout>
 </layout>
