@@ -43,8 +43,8 @@
                         android:id="@+id/edittext_model_number"
                         style="@style/Register_TextInputEditText"
                         android:maxLength="@integer/character_limit_100"
-                        android:tag="0"
                         android:maxLines="1"
+                        android:tag="0"
                         android:text="@={warrantyRegistration.modelNumber}"
                         />
                 </com.incon.connect.custom.view.CustomTextInputLayout>
@@ -93,9 +93,8 @@
                 <!-- serial no -->
                 <com.incon.connect.custom.view.CustomTextInputLayout
                     android:id="@+id/input_layout_serial_no"
-                    style="@style/Add_new_model_TextInputLayout"
+                    style="@style/Register_TextInputLayout"
                     android:layout_below="@id/input_layout_model_number"
-                    android:layout_toLeftOf="@+id/im_barcode_serial_no"
                     android:hint="@string/add_new__serial_no"
                     android:visibility="gone"
                     app:errorEnabled="true"
@@ -104,7 +103,8 @@
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/edittext_serial_no"
-                        style="@style/Add_new_model_TextInputEditText"
+                        style="@style/Register_TextInputEditText"
+                        android:drawableEnd="@drawable/ic_barcode"
                         android:focusable="true"
                         android:imeOptions="actionNext"
                         android:inputType="textCapWords"
@@ -115,20 +115,12 @@
                         />
 
                 </com.incon.connect.custom.view.CustomTextInputLayout>
-                <!--barcode-->
-                <android.support.v7.widget.AppCompatImageView
-                    android:id="@+id/im_barcode_serial_no"
-                    style="@style/Warrenty_barcode"
-                    android:layout_below="@id/input_layout_model_number"
-                    app:srcCompat="@drawable/ic_barcode"
-                    />
 
                 <!-- batch no -->
                 <com.incon.connect.custom.view.CustomTextInputLayout
                     android:id="@+id/input_layout_batch_no"
-                    style="@style/Add_new_model_TextInputLayout"
+                    style="@style/Register_TextInputLayout"
                     android:layout_below="@id/input_layout_serial_no"
-                    android:layout_toLeftOf="@+id/im_barcode_batch"
                     android:hint="@string/add_new__batch_no"
                     android:visibility="gone"
                     app:errorEnabled="true"
@@ -137,7 +129,8 @@
 
                     <android.support.design.widget.TextInputEditText
                         android:id="@+id/edittext_batch_no"
-                        style="@style/Add_new_model_TextInputEditText"
+                        style="@style/Register_TextInputEditText"
+                        android:drawableEnd="@drawable/ic_barcode"
                         android:focusable="true"
                         android:imeOptions="actionNext"
                         android:inputType="textCapWords"
@@ -147,15 +140,6 @@
                         android:text="@={warrantyRegistration.batchNumber}"
                         />
                 </com.incon.connect.custom.view.CustomTextInputLayout>
-
-
-                <!--barcode-->
-                <android.support.v7.widget.AppCompatImageView
-                    android:id="@+id/im_barcode_batch"
-                    style="@style/Warrenty_barcode"
-                    android:layout_below="@id/input_layout_serial_no"
-                    app:srcCompat="@drawable/ic_barcode"
-                    />
 
                 <!-- price -->
                 <com.incon.connect.custom.view.CustomTextInputLayout

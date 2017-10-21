@@ -10,11 +10,13 @@ import android.text.TextUtils;
 import android.text.method.KeyListener;
 import android.util.Pair;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
+import android.widget.EditText;
 
 import com.incon.connect.AppUtils;
 import com.incon.connect.R;
@@ -113,11 +115,47 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
             initializeModelNumberAdapter(new ArrayList<ModelSearchResponse>());
         }
         initializeModelNumberAdapter(new ArrayList<ModelSearchResponse>());
-        binding.imBarcodeSerialNo.setOnClickListener(this);
-        binding.imBarcodeBatch.setOnClickListener(this);
         loadValidationErrors();
         setFocusForViews();
+        setDrawableClickEvents();
     }
+
+    private void setDrawableClickEvents() {
+        binding.edittextBatchNo.setOnTouchListener(onTouchListener);
+        binding.edittextSerialNo.setOnTouchListener(onTouchListener);
+    }
+
+    View.OnTouchListener onTouchListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            final int drawableRight = 2;
+
+            EditText editText = (EditText) v;
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                if (event.getRawX() >= (editText.getRight() - editText.
+                        getCompoundDrawables()[drawableRight].getBounds().width())) {
+                    // your action here
+                    {
+                        switch (v.getId()) {
+                            case R.id.edittext_batch_no:
+                                onClick(binding.edittextBatchNo);
+                                break;
+                            case R.id.edittext_serial_no:
+                                onClick(binding.edittextSerialNo);
+                                break;
+                            default:
+                                //Do nothing
+                                break;
+                        }
+                    }
+
+                    return true;
+                }
+            }
+
+            return false;
+        }
+    };
 
     private void initializeModelNumberAdapter(List<ModelSearchResponse>
                                                       modelNumberList) {
@@ -155,8 +193,6 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
         binding.inputLayoutPrice.setVisibility(View.VISIBLE);
         binding.inputLayoutSerialNo.setVisibility(View.VISIBLE);
         binding.inputLayoutInvoicenumber.setVisibility(View.VISIBLE);
-        binding.imBarcodeSerialNo.setVisibility(View.VISIBLE);
-        binding.imBarcodeBatch.setVisibility(View.VISIBLE);
         binding.inputLayoutDescription.setVisibility(View.VISIBLE);
         binding.productStatus.setVisibility(View.VISIBLE);
     }
@@ -325,14 +361,14 @@ public class WarrantyRegistrationFragment extends BaseFragment implements
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.im_barcode_serial_no: {
+            case R.id.edittext_serial_no: {
                 Intent intent = new Intent(getActivity(), QrcodeBarcodeScanActivity.class);
                 intent.putExtra(IntentConstants.SCANNED_TITLE, getString(
                         R.string.title_warranty_serial_barcode));
                 startActivityForResult(intent, RequestCodes.SERIAL_NO_SCAN);
             }
             break;
-            case R.id.im_barcode_batch: {
+            case R.id.edittext_batch_no: {
                 Intent intent = new Intent(getActivity(), QrcodeBarcodeScanActivity.class);
                 intent.putExtra(IntentConstants.SCANNED_TITLE, getString(
                         R.string.title_warranty_batch_barcode));
